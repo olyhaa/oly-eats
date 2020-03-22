@@ -2,7 +2,6 @@ import React from "react";
 import Header from "./components/Header";
 import FeaturedRecipes from "./components/FeaturedRecipes";
 import SearchBox from "./components/SearchBox";
-import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
