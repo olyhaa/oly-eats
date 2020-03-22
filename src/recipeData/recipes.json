@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Yummy Chili",
+    "id": 123,
+    "description": "A warm food for a cold day"
+  },
+  {
+    "title": "The Best Sandwich Ever",
+    "id": 124,
+    "description": "What, you don't believe me?"
+  },
+  {
+    "title": "Carrot Soup",
+    "id": 125,
+    "description": "Easy. Simple. Delicious"
+  },
+  {
+    "title": "Pumpkin Pie",
+    "id": 126,
+    "description": "Every day is pie day"
+  },
+  {
+    "title": "Peanut Butter Cookies",
+    "id": 127,
+    "description": "You can never have too much peanut butter"
+  },
+  {
+    "title": "Strawberry Banana Power Smoothie",
+    "id": 128,
+    "description": "For when you want dessert for dinner"
+  },
+  {
+    "title": "Grilled Cheese Sandwich",
+    "id": 129,
+    "description": "When cold cheese just won't do"
+  },
+  {
+    "title": "Blueberry Muffins",
+    "id": 130,
+    "description": "Tastes best in the morning"
+  },
+  {
+    "title": "Breakfast Parfait",
+    "id": 131,
+    "description": "When you just want something fast"
+  }
+]

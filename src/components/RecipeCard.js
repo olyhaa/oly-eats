@@ -19,13 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-function RecipeCard({
-  title,
-  description,
-  image,
-  imageDescription,
-  buttonText
-}) {
+function RecipeCard({ title, description, image, buttonText }) {
   const classes = useStyles();
 
   return (
@@ -35,7 +29,7 @@ function RecipeCard({
           className={classes.media}
           component="img"
           image={image}
-          title={imageDescription}
+          title={title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -61,7 +55,6 @@ RecipeCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,
-  imageDescription: PropTypes.string,
   buttonText: PropTypes.string
 };
 

@@ -12,7 +12,6 @@ function FeaturedRecipes({ featuredRecipeList }) {
             title={recipe.title}
             description={recipe.description}
             image={recipe.image}
-            imageDescription={recipe.imageDescription}
             buttonText={recipe.button}
           />
         </Grid>
@@ -28,7 +27,6 @@ FeaturedRecipes.propTypes = {
       id: PropTypes.number.isRequired,
       description: PropTypes.string,
       image: PropTypes.string,
-      imageDescription: PropTypes.string,
       buttonText: PropTypes.string
     })
   ).isRequired
