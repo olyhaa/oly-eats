@@ -7,7 +7,12 @@ import RecipeData from "./recipeData/recipes";
 import "./App.css";
 
 function App() {
-  const featuredRecipeList = RecipeData.slice(0, 3);
+  // Shuffle array
+  const shuffledRecipes = RecipeData.sort(() => 0.5 - Math.random());
+
+  // Get sub-array of first n elements after shuffled
+  let featuredRecipeList = shuffledRecipes.slice(0, 3);
+
   return (
     <div className="main-page">
       <Header />
