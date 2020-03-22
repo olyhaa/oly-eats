@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
 
 function RecipeList({ recipeList }) {
   const classes = useStyles();
+  recipeList.sort((item1, item2) => {
+    return item1.title.localeCompare(item2.title);
+  });
 
   return (
     <List className={classes.root}>
