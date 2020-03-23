@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import FeaturedRecipes from "./components/FeaturedRecipes";
-import RecipeList from "./components/RecipeList";
+import SearchGroup from "./components/SearchGroup";
 import RecipeData from "./recipeData/recipes";
 import "./App.css";
 
@@ -21,7 +21,7 @@ function App() {
         </div>
       )}
       <div className="recipe-list-block">
-        <RecipeList recipeList={RecipeData} />
+        <SearchGroup recipeList={RecipeData} />
       </div>
     </div>
   );

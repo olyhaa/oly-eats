@@ -4,49 +4,37 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import RecipeListItem from "./RecipeListItem";
-import SearchBox from "./SearchBox";
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     backgroundColor: theme.palette.common.white
-  },
-  search: {
-    marginTop: "4rem",
-    marginBottom: "4rem"
   }
 }));
 
-function RecipeList({ recipeList }) {
+function RecipeList({ list }) {
   const classes = useStyles();
-  recipeList.sort((item1, item2) => {
-    return item1.title.localeCompare(item2.title);
-  });
 
-  return (
-    <>
-      <div className={classes.search}>
-        <SearchBox />
-      </div>
-      <List className={classes.root}>
-        {recipeList.map(recipe => (
-          <>
-            <ListItem alignItems="flex-start" divider button>
-              <RecipeListItem
-                id={recipeList.id}
-                title={recipe.title}
-                description={recipe.description}
-              />
-            </ListItem>
-          </>
-        ))}
-      </List>
-    </>
+  return list.length > 0 ? (
+    <List className={classes.root}>
+      {list.map(recipe => (
+        <ListItem key={recipe.id} alignItems="flex-start" divider button>
+          <RecipeListItem
+            key={recipe.id}
+            id={recipe.id}
+            title={recipe.title}
+            description={recipe.description}
+          />
+        </ListItem>
+      ))}
+    </List>
+  ) : (
+    <p>Nothing to see here</p>
   );
 }
 
 RecipeList.propTypes = {
-  recipeList: PropTypes.arrayOf(
+  list: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
@@ -59,7 +47,7 @@ RecipeList.propTypes = {
 };
 
 RecipeList.defaultProps = {
-  recipeList: []
+  list: []
 };
 
 export default RecipeList;

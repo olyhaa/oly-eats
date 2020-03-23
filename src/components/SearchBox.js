@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { fade, makeStyles } from "@material-ui/core/styles";
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function SearchBox() {
+function SearchBox({ filterValue, setNewFilterValue }) {
   const classes = useStyles();
   return (
     <div className={classes.search}>
@@ -63,7 +64,9 @@ function SearchBox() {
         <SearchIcon />
       </div>
       <InputBase
-        placeholder="Search…"
+        placeholder="Filter..."
+        type="search"
+        onChange={setNewFilterValue}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput
@@ -73,5 +76,15 @@ function SearchBox() {
     </div>
   );
 }
+
+SearchBox.propTypes = {
+  filterValue: PropTypes.string,
+  setNewFilterValue: PropTypes.func
+};
+
+SearchBox.defaultProps = {
+  filterValue: "",
+  setNewFilterValue: () => {}
+};
 
 export default SearchBox;
