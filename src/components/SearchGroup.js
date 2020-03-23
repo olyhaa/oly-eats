@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
 function SearchGroup({ recipeList }) {
   const classes = useStyles();
 
-  const [filterValue, setFilterValue] = useState("");
   const [filteredList, setFilteredList] = useState(
     recipeList.sort((item1, item2) => {
       return item1.title.localeCompare(item2.title);
@@ -23,7 +22,6 @@ function SearchGroup({ recipeList }) {
 
   const handleNewFilterValue = event => {
     const newFilterValue = event.target.value;
-    setFilterValue(newFilterValue);
     setFilteredList(
       recipeList.filter(recipe => {
         return recipe.title
@@ -36,10 +34,7 @@ function SearchGroup({ recipeList }) {
   return (
     <>
       <div className={classes.search}>
-        <SearchBox
-          text={filterValue}
-          setNewFilterValue={handleNewFilterValue}
-        />
+        <SearchBox setNewFilterValue={handleNewFilterValue} />
       </div>
       <RecipeList list={filteredList} />
     </>

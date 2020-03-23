@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function SearchBox({ filterValue, setNewFilterValue }) {
+function SearchBox({ setNewFilterValue }) {
   const classes = useStyles();
   return (
     <div className={classes.search}>
