@@ -4,11 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import RecipeListItem from "./RecipeListItem";
+import SearchBox from "./SearchBox";
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     backgroundColor: theme.palette.common.white
+  },
+  search: {
+    marginTop: "4rem",
+    marginBottom: "4rem"
   }
 }));
 
@@ -19,19 +24,24 @@ function RecipeList({ recipeList }) {
   });
 
   return (
-    <List className={classes.root}>
-      {recipeList.map(recipe => (
-        <>
-          <ListItem alignItems="flex-start" divider button>
-            <RecipeListItem
-              id={recipeList.id}
-              title={recipe.title}
-              description={recipe.description}
-            />
-          </ListItem>
-        </>
-      ))}
-    </List>
+    <>
+      <div className={classes.search}>
+        <SearchBox />
+      </div>
+      <List className={classes.root}>
+        {recipeList.map(recipe => (
+          <>
+            <ListItem alignItems="flex-start" divider button>
+              <RecipeListItem
+                id={recipeList.id}
+                title={recipe.title}
+                description={recipe.description}
+              />
+            </ListItem>
+          </>
+        ))}
+      </List>
+    </>
   );
 }
 
