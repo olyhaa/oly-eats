@@ -1,9 +1,9 @@
 import React from "react";
+import Header from "../components/Header";
 import { makeStyles } from "@material-ui/core/styles";
 import FeaturedRecipes from "../components/FeaturedRecipes";
 import SearchGroup from "../components/SearchGroup";
 import RecipeData from "../recipeData/recipes";
-import { createMuiTheme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   featuredBlock: {
@@ -23,14 +23,9 @@ function Home() {
   // Get sub-array of first n elements after shuffled
   let featuredRecipeList = shuffledRecipes.slice(0, 3);
 
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: "dark"
-    }
-  });
-
   return (
     <>
+      <Header title="OlyEats" />
       {featuredRecipeList && (
         <div className={classes.featuredBlock}>
           <FeaturedRecipes featuredRecipeList={featuredRecipeList} />

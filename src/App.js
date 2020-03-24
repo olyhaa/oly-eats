@@ -1,7 +1,6 @@
 import React from "react";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import Home from "./pages/Home";
-import Header from "./components/Header";
 import RecipeDetail from "./pages/RecipeDetail";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -15,10 +14,9 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Header />
       <Router>
         <Switch>
-          <Route path="/recipe">
+          <Route path="/recipe/:id">
             <RecipeDetail />
           </Route>
           <Route path="/">

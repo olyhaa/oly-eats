@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CarrotIcon from "../carrot.svg";
 import "./Header.css";
 import AppBar from "@material-ui/core/AppBar";
@@ -20,21 +21,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Header() {
+function Header({ title }) {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" className="header">
+    <AppBar position="static">
       <Toolbar>
         <IconButton edge="start" color="inherit" aria-label="open drawer">
           <img src={CarrotIcon} className="app-logo" alt="logo" />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          OlyEats
+          {title}
         </Typography>
       </Toolbar>
     </AppBar>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired
+};
 
 export default Header;
