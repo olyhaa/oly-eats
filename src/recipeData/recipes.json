@@ -1,8 +1,124 @@
 [
   {
-    "title": "Yummy Chili",
+    "title": "A Vegetarian Chili",
     "id": 123,
-    "description": "A warm food for a cold day"
+    "description": "Warm meal for a cold day.",
+    "ingredientSection": [
+      {
+        "label": "Ingredients",
+        "ingredients": [
+          {
+            "value": "1",
+            "units": "T",
+            "description": "olive oil"
+          },
+          {
+            "value": "1",
+            "units": "medium",
+            "description": "onion",
+            "notes": "1/4-inch diced"
+          },
+          {
+            "value": "2",
+            "units": "medium",
+            "description": "sweet potatoes",
+            "notes": "peeled and 1/2-inch diced (about 4 generous cups)"
+          },
+          {
+            "value": "2",
+            "units": "medium",
+            "description": "red bell peppers",
+            "notes": "3/4-inch diced"
+          },
+          {
+            "value": "1",
+            "units": "T",
+            "description": "chili powder"
+          },
+          {
+            "value": "1",
+            "units": "t",
+            "description": "chipotle chili powder"
+          },
+          {
+            "value": "1",
+            "units": "t",
+            "description": "ground cumin"
+          },
+          {
+            "value": "1 1/4",
+            "units": "t",
+            "description": "kosher salt"
+          },
+          {
+            "value": "2 1/2",
+            "units": "c",
+            "description": "vegetable broth"
+          },
+          {
+            "value": "8",
+            "units": "oz",
+            "description": "tomato sauce"
+          },
+          {
+            "value": "15",
+            "units": "oz",
+            "description": "black beans",
+            "notes": "rinsed and drained"
+          },
+          {
+            "value": "15",
+            "units": "oz",
+            "description": "dark or light red kidney beans",
+            "notes": "rinsed and drained"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "label": "Directions",
+        "steps": [
+          {
+            "id": "1",
+            "text": "To a 6-quart or large Instant Pot, add the olive oil. Turn to SAUTE and let the oil heat. Once the oil is hot, add the onion and cook until beginning to soften, about 3 minutes. Add the sweet potatoes, bell pepper, garlic, chili powder, chipotle chili powder, cumin, and kosher salt. Cook for 1 to 2 additional minutes, until the garlic is fragrant."
+          },
+          {
+            "id": "2",
+            "text": "Add half of the vegetable broth and stir, scraping up any stuck-on bits of food (this will prevent a burn warning). Stir in the remaining broth and the quinoa. Pour the tomato sauce on top (do not stir again)."
+          },
+          {
+            "id": "3",
+            "text": "Cover and seal the Instant Pot. Cook on manual (HIGH) pressure for 8 minutes. Immediately release the pressure. Carefully open the Instant Pot."
+          },
+          {
+            "id": "4",
+            "text": "Turn the Instant Pot to OFF. Stir in the black beans, kidney beans, and sugar. Place the lid back on top and let stand 10 minutes to thicken. Uncover. Taste and adjust seasoning as desired. Serve hot, with any and all the toppings!"
+          }
+        ]
+      }
+    ],
+    "source": {
+      "display": "Well Plated",
+      "url": "https://www.wellplated.com/instant-pot-vegetarian-chili/"
+    },
+    "servings": "6",
+    "timing": {
+      "prep": {
+        "value": "15",
+        "units": "min"
+      },
+      "total": {
+        "value": "1",
+        "units": "hour"
+      }
+    },
+    "tags": {
+      "meal": ["dinner"],
+      "equipment": ["instantPot"],
+      "category": ["soup"]
+    },
+    "photo": "https://i2.wp.com/wellplated.com/wp-content/uploads/2018/10/Best-Veggie-Chili-Instant-Pot-600x839.jpg"
   },
   {
     "title": "The Best Sandwich Ever",
@@ -43,5 +159,98 @@
     "title": "Breakfast Parfait",
     "id": 131,
     "description": "When you just want something fast"
+  },
+  {
+    "title": "Mango Chickpea Salad",
+    "id": 132,
+    "description": "If you’re looking for an easy, no-fuss, and healthy salad that’s ready in five minutes, this is one to put on your list.",
+    "ingredientSection": [
+      {
+        "label": "Ingredients",
+        "ingredients": [
+          {
+            "value": "15",
+            "units": "oz",
+            "description": "chickpeas",
+            "notes": "rinsed and drained"
+          },
+          {
+            "value": "1",
+            "description": "serrano chili pepper",
+            "notes": "diced very small"
+          },
+          {
+            "value": "1",
+            "units": "medium",
+            "description": "mango",
+            "notes": "peeled and diced very small"
+          },
+          {
+            "value": "1",
+            "units": "medium",
+            "description": "roma tomato",
+            "notes": "diced small"
+          },
+          {
+            "value": "3/4",
+            "units": "c",
+            "description": "corn",
+            "notes": "canned drained and rinsed, frozen, or fresh"
+          },
+          {
+            "value": "1/2",
+            "units": "c",
+            "description": "red onion",
+            "notes": "diced very small"
+          },
+          {
+            "value": "4",
+            "units": "c",
+            "description": "fresh cilantro",
+            "notes": "minced"
+          },
+          {
+            "value": "1/4",
+            "units": "c",
+            "description": "lime juice"
+          },
+          {
+            "value": "1",
+            "units": "t",
+            "description": "kosher salt"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "label": "Directions",
+        "steps": [
+          {
+            "id": "1",
+            "text": "To a large bowl, add all ingredients, stir to combine, taste, and check for heat and salt balance, and make any necessary adjustments; i.e. more serranos, lime juice, salt, etc. Serve immediately. Salad will keep airtight in the fridge for up to 3 days, noting that as time passes more liquid will be released from the mango and the vegetables."
+          }
+        ]
+      }
+    ],
+    "source": {
+      "display": "Averie Cooks",
+      "url": "https://www.averiecooks.com/mango-chickpea-salad/"
+    },
+    "servings": "4",
+    "timing": {
+      "prep": {
+        "value": "5",
+        "units": "min"
+      },
+      "total": {
+        "value": "5",
+        "units": "min"
+      }
+    },
+    "tags": {
+      "meal": ["lunch", "side"]
+    },
+    "photo": "https://www.averiecooks.com/wp-content/uploads/2019/05/mangochickpeasalad-3.jpg"
   }
 ]
