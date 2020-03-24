@@ -9,6 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DefaultRecipeImg from "../images/defaultRecipeCardImage.png";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -19,12 +20,12 @@ const useStyles = makeStyles({
   }
 });
 
-function RecipeCard({ title, description, image, buttonText }) {
+function RecipeCard({ id, title, description, image, buttonText }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea component={Link} to={"/recipe/" + id}>
         <CardMedia
           className={classes.media}
           component="img"
@@ -47,7 +48,12 @@ function RecipeCard({ title, description, image, buttonText }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="inherit">
+        <Button
+          size="small"
+          color="inherit"
+          component={Link}
+          to={"/recipe/" + id}
+        >
           {buttonText}
         </Button>
       </CardActions>
@@ -56,6 +62,7 @@ function RecipeCard({ title, description, image, buttonText }) {
 }
 
 RecipeCard.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,

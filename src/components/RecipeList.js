@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import RecipeListItem from "./RecipeListItem";
 import CarrotIcon from "../carrot.svg";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +34,8 @@ function RecipeList({ list }) {
           key={recipe.id}
           alignItems="flex-start"
           divider={array.length - 1 !== index}
-          button
+          component={Link}
+          to={"/recipe/" + recipe.id}
         >
           <RecipeListItem
             key={recipe.id}

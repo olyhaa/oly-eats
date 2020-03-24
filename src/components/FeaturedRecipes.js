@@ -9,6 +9,7 @@ function FeaturedRecipes({ featuredRecipeList }) {
       {featuredRecipeList.map(recipe => (
         <Grid key={recipe.id} item>
           <RecipeCard
+            id={recipe.id}
             title={recipe.title}
             description={recipe.description}
             image={recipe.image}
