@@ -34,6 +34,7 @@ function RecipeList({ list }) {
           key={recipe.id}
           alignItems="flex-start"
           divider={array.length - 1 !== index}
+          button
           component={Link}
           to={"/recipe/" + recipe.id}
         >
