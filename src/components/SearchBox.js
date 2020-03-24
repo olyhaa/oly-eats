@@ -40,7 +40,6 @@ function SearchBox({ setNewFilterValue }) {
       </div>
       <InputBase
         placeholder="Filter..."
-        type="search"
         onChange={setNewFilterValue}
         fullWidth
         classes={{
