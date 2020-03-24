@@ -8,7 +8,7 @@ import RecipeListItem from "./RecipeListItem";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.background.paper
   }
 }));
 

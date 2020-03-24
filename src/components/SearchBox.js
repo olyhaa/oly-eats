@@ -2,16 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.5),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 1)
-    }
+    backgroundColor: theme.palette.background.paper
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -27,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
+    color: theme.palette.text.primary,
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width")

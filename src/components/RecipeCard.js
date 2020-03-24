@@ -36,14 +36,18 @@ function RecipeCard({ title, description, image, buttonText }) {
             {title}
           </Typography>
           {description && (
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography
+              variant="body2"
+              color="textSecondary.dark"
+              component="p"
+            >
               {description}
             </Typography>
           )}
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="inherit">
           {buttonText}
         </Button>
       </CardActions>
