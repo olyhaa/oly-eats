@@ -6,8 +6,8 @@ import SearchBox from "./SearchBox";
 
 const useStyles = makeStyles(theme => ({
   search: {
-    marginTop: "4rem",
-    marginBottom: "4rem"
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5)
   }
 }));
 

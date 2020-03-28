@@ -7,10 +7,10 @@ import RecipeData from "../recipeData/recipes";
 
 const useStyles = makeStyles(theme => ({
   featuredBlock: {
-    margin: "4rem"
+    margin: theme.spacing(5)
   },
   listBlock: {
-    margin: "4rem"
+    margin: theme.spacing(5)
   }
 }));
 
