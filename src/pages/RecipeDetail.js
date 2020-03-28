@@ -4,11 +4,13 @@ import Header from "../components/Header";
 import { useParams } from "react-router-dom";
 import getRecipeObject from "../utils/RecipeParse";
 import CarrotIcon from "../carrot.svg";
+import Image from "../components/recipe/Image";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
   missingRecipe: {
     textAlign: "center",
-    margin: "4rem"
+    margin: theme.spacing(5)
   },
   carrot: {
     width: "200px"
@@ -16,6 +18,12 @@ const useStyles = makeStyles(theme => ({
   carrotText: {
     color: "#DD7017",
     fontSize: "2rem"
+  },
+  mainContent: {
+    margin: theme.spacing(5)
+  },
+  subtitle: {
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -39,6 +47,12 @@ function RecipeDetail() {
   return (
     <>
       <Header title={recipe.title} />
+      <div className={classes.mainContent}>
+        <Typography variant="subtitle1" className={classes.subtitle}>
+          {recipe.description}
+        </Typography>
+        {recipe.photo && <Image title={recipe.title} imageSrc={recipe.photo} />}
+      </div>
     </>
   );
 }

@@ -1,0 +1,35 @@
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import CardMedia from "@material-ui/core/CardMedia";
+import Card from "@material-ui/core/Card";
+
+const useStyles = makeStyles(theme => ({
+  photo: {
+    maxWidth: 345
+  },
+  media: {
+    maxheight: 400
+  }
+}));
+
+function Image({ title, imageSrc }) {
+  const classes = useStyles();
+  return (
+    <Card className={classes.photo}>
+      <CardMedia
+        className={classes.media}
+        component="img"
+        src={imageSrc}
+        title={title}
+      />
+    </Card>
+  );
+}
+
+Image.propTypes = {
+  title: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string.isRequired
+};
+
+export default Image;
