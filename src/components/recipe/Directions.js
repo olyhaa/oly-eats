@@ -38,4 +38,8 @@ Directions.propTypes = {
   )
 };
 
+Directions.defaultProps = {
+  directionsList: []
+};
+
 export default Directions;

@@ -40,4 +40,8 @@ Ingredients.propTypes = {
   )
 };
 
+Ingredients.defaultProps = {
+  ingredientList: []
+};
+
 export default Ingredients;
