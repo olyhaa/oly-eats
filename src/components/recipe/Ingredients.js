@@ -2,17 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import IngredientSection from "./IngredientSection";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    margin: theme.spacing(5)
-  }
+  root: {}
 }));
 
 function Ingredients({ ingredientList }) {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root}>
       {ingredientList.map(ingredientSection => {
         return (
           <IngredientSection
@@ -21,7 +20,7 @@ function Ingredients({ ingredientList }) {
           />
         );
       })}
-    </div>
+    </Paper>
   );
 }
 
