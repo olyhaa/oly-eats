@@ -6,6 +6,7 @@ import getRecipeObject from "../utils/RecipeParse";
 import CarrotIcon from "../carrot.svg";
 import Image from "../components/recipe/Image";
 import Typography from "@material-ui/core/Typography";
+import Ingredients from "../components/recipe/Ingredients";
 
 const useStyles = makeStyles(theme => ({
   missingRecipe: {
@@ -52,6 +53,7 @@ function RecipeDetail() {
           {recipe.description}
         </Typography>
         {recipe.photo && <Image title={recipe.title} imageSrc={recipe.photo} />}
+        <Ingredients ingredientList={recipe.ingredientSection} />
       </div>
     </>
   );
