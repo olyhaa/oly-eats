@@ -7,8 +7,14 @@ import CarrotIcon from "../carrot.svg";
 import Image from "../components/recipe/Image";
 import Typography from "@material-ui/core/Typography";
 import Ingredients from "../components/recipe/Ingredients";
+import Directions from "../components/recipe/Directions";
+import Overview from "../components/recipe/Overview";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
   missingRecipe: {
     textAlign: "center",
     margin: theme.spacing(5)
@@ -54,6 +60,17 @@ function RecipeDetail() {
         </Typography>
         {recipe.photo && <Image title={recipe.title} imageSrc={recipe.photo} />}
         <Ingredients ingredientList={recipe.ingredientSection} />
+
+        <div className={classes.root}>
+          <Grid container spacing={2}>
+            <Grid item xs={5}>
+              <Ingredients ingredientList={recipe.ingredientSection} />
+            </Grid>
+            <Grid item xs={7}>
+              <Directions directionsList={recipe.directionsSection} />
+            </Grid>
+          </Grid>
+        </div>
       </div>
     </>
   );
