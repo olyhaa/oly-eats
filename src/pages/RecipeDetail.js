@@ -55,11 +55,27 @@ function RecipeDetail() {
     <>
       <Header title={recipe.title} />
       <div className={classes.mainContent}>
-        <Typography variant="subtitle1" className={classes.subtitle}>
-          {recipe.description}
-        </Typography>
-        {recipe.photo && <Image title={recipe.title} imageSrc={recipe.photo} />}
-        <Ingredients ingredientList={recipe.ingredientSection} />
+        <div className={classes.root}>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              {recipe.photo && (
+                <Image title={recipe.title} imageSrc={recipe.photo} />
+              )}
+            </Grid>
+            <Grid item xs={6}>
+              {recipe.description && (
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                  {recipe.description}
+                </Typography>
+              )}
+              <Overview
+                prepTime={recipe.timing?.prep}
+                totalTime={recipe.timing?.total}
+                servings={recipe.servings}
+              />
+            </Grid>
+          </Grid>
+        </div>
 
         <div className={classes.root}>
           <Grid container spacing={2}>

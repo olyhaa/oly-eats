@@ -102,7 +102,7 @@
       "display": "Well Plated",
       "url": "https://www.wellplated.com/instant-pot-vegetarian-chili/"
     },
-    "servings": "6",
+    "servings": 6,
     "timing": {
       "prep": {
         "value": "15",
@@ -237,7 +237,7 @@
       "display": "Averie Cooks",
       "url": "https://www.averiecooks.com/mango-chickpea-salad/"
     },
-    "servings": "4",
+    "servings": 4,
     "timing": {
       "prep": {
         "value": "5",
