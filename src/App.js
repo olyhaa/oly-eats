@@ -4,11 +4,15 @@ import Home from "./pages/Home";
 import RecipeDetail from "./pages/RecipeDetail";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import orange from "@material-ui/core/colors/orange";
+import green from "@material-ui/core/colors/green";
 
 function App() {
   const darkTheme = createMuiTheme({
     palette: {
-      type: "dark"
+      type: "dark",
+      primary: green,
+      secondary: orange
     }
   });
 
