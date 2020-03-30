@@ -8,11 +8,10 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: theme.spacing(5)
+    padding: theme.spacing(5)
   },
   title: {
-    color: theme.palette.secondary,
-    margin: theme.spacing(5)
+    color: theme.palette.secondary
   }
 }));
 

@@ -6,7 +6,9 @@ import Card from "@material-ui/core/Card";
 
 const useStyles = makeStyles(theme => ({
   photo: {
-    maxWidth: 345
+    width: "100%",
+    height: "auto",
+    maxHeight: "410px"
   },
   media: {
     maxheight: 400
@@ -17,12 +19,7 @@ function Image({ title, imageSrc }) {
   const classes = useStyles();
   return (
     <Card className={classes.photo}>
-      <CardMedia
-        className={classes.media}
-        component="img"
-        src={imageSrc}
-        title={title}
-      />
+      <CardMedia component="img" src={imageSrc} title={title} />
     </Card>
   );
 }

@@ -5,7 +5,9 @@ import IngredientSection from "./IngredientSection";
 import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(theme => ({
-  root: {}
+  root: {
+    height: "100%"
+  }
 }));
 
 function Ingredients({ ingredientList }) {

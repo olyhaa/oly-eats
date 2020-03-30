@@ -8,14 +8,10 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: theme.spacing(5)
+    padding: theme.spacing(5)
   },
-  list: {
-    margin: theme.spacing(5)
-  },
-  title: {
-    margin: theme.spacing(5)
-  }
+  list: {},
+  title: {}
 }));
 
 function DirectionSection({ label, steps }) {
