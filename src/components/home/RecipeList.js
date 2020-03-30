@@ -1,26 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import RecipeListItem from "./RecipeListItem";
-import CarrotIcon from "../../carrot.svg";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import RecipeListItem from './RecipeListItem';
+import CarrotIcon from '../../carrot.svg';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     backgroundColor: theme.palette.background.paper
   },
   emptyList: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   carrot: {
-    width: "200px"
+    width: '200px'
   },
   carrotText: {
-    color: "#DD7017",
-    fontSize: "2rem"
+    color: '#DD7017',
+    fontSize: '2rem'
   }
 }));
 
@@ -36,7 +36,7 @@ function RecipeList({ list }) {
           divider={array.length - 1 !== index}
           button
           component={Link}
-          to={"/recipe/" + recipe.id}
+          to={'/recipe/' + recipe.id}
         >
           <RecipeListItem
             key={recipe.id}

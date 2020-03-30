@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import IngredientItem from "./IngredientItem";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import IngredientItem from './IngredientItem';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,7 +56,7 @@ IngredientSection.propTypes = {
 };
 
 IngredientSection.defaultProps = {
-  label: "Ingredients"
+  label: 'Ingredients'
 };
 
 export default IngredientSection;

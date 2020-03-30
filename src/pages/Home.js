@@ -1,9 +1,9 @@
-import React from "react";
-import Header from "../components/Header";
-import { makeStyles } from "@material-ui/core/styles";
-import FeaturedRecipes from "../components/home/FeaturedRecipes";
-import SearchGroup from "../components/home/SearchGroup";
-import RecipeData from "../recipeData/recipes";
+import React from 'react';
+import Header from '../components/Header';
+import { makeStyles } from '@material-ui/core/styles';
+import FeaturedRecipes from '../components/home/FeaturedRecipes';
+import SearchGroup from '../components/home/SearchGroup';
+import RecipeData from '../recipeData/recipes';
 
 const useStyles = makeStyles(theme => ({
   featuredBlock: {

@@ -1,29 +1,29 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import DefaultRecipeImg from "../../images/defaultRecipeCardImage.png";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import DefaultRecipeImg from '../../images/defaultRecipeCardImage.png';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
-    height: "100%"
+    height: '100%'
   },
   media: {
     height: 200
   },
   buttonBar: {
-    marginTop: "auto"
+    marginTop: 'auto'
   },
   actionArea: {
-    height: "100%"
+    height: '100%'
   }
 });
 
@@ -32,39 +32,21 @@ function RecipeCard({ id, title, description, image, buttonText }) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea
-        className={classes.actionArea}
-        component={Link}
-        to={"/recipe/" + id}
-      >
-        <CardMedia
-          className={classes.media}
-          component="img"
-          image={image}
-          title={title}
-        />
+      <CardActionArea className={classes.actionArea} component={Link} to={'/recipe/' + id}>
+        <CardMedia className={classes.media} component="img" image={image} title={title} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
           {description && (
-            <Typography
-              variant="body2"
-              color="textSecondary.dark"
-              component="p"
-            >
+            <Typography variant="body2" color="textSecondary.dark" component="p">
               {description}
             </Typography>
           )}
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttonBar}>
-        <Button
-          size="small"
-          color="primary"
-          component={Link}
-          to={"/recipe/" + id}
-        >
+        <Button size="small" color="primary" component={Link} to={'/recipe/' + id}>
           {buttonText}
         </Button>
       </CardActions>

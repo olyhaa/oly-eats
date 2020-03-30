@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import IngredientSection from "./IngredientSection";
-import Paper from "@material-ui/core/Paper";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import IngredientSection from './IngredientSection';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "100%"
+    height: '100%'
   }
 }));
 

@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import RecipeCard from "./RecipeCard";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import RecipeCard from './RecipeCard';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    height: "100%"
+    height: '100%'
   }
 }));
 

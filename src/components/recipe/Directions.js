@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import DirectionSection from "./DirectionSection";
-import { Paper } from "@material-ui/core";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import DirectionSection from './DirectionSection';
+import { Paper } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "100%"
+    height: '100%'
   }
 }));
 
@@ -15,12 +15,7 @@ function Directions({ directionsList }) {
   return (
     <Paper className={classes.root}>
       {directionsList.map(directionSection => {
-        return (
-          <DirectionSection
-            label={directionSection.label}
-            steps={directionSection.steps}
-          />
-        );
+        return <DirectionSection label={directionSection.label} steps={directionSection.steps} />;
       })}
     </Paper>
   );

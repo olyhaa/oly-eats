@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import DirectionStep from "./DirectionStep";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import DirectionStep from './DirectionStep';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,7 +45,7 @@ DirectionSection.propTypes = {
 };
 
 DirectionSection.defaultProps = {
-  label: "Directions"
+  label: 'Directions'
 };
 
 export default DirectionSection;

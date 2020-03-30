@@ -1,7 +1,8 @@
-import RecipeData from "../recipeData/recipes";
+import RecipeData from '../recipeData/recipes';
 
 const getRecipeObject = id => {
   const recipes = RecipeData.filter(recipe => {
+    // eslint-disable-next-line eqeqeq
     return recipe.id == id;
   });
 
