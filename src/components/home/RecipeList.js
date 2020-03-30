@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import RecipeListItem from "./RecipeListItem";
-import CarrotIcon from "../carrot.svg";
+import CarrotIcon from "../../carrot.svg";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
