@@ -9,19 +9,31 @@ import {
   SOURCE_CARD
 } from "../../utils/IconTypes";
 import IconCard from "./IconCard";
+import Typography from "@material-ui/core/Typography";
+import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
+  card: {
+    height: "100%"
+  },
   root: {
-    card: {
-      height: "100%"
-    }
+    padding: theme.spacing(2)
   }
 }));
 
-function Overview({ prepTime, totalTime, servings, source }) {
+function Overview({ description, prepTime, totalTime, servings, source }) {
   const classes = useStyles();
   return (
     <Grid container spacing={2} alignItems="stretch" className={classes.card}>
+      {description && (
+        <Grid item xs={12}>
+          <Paper className={classes.root}>
+            <Typography variant="subtitle2" component="p">
+              {description}
+            </Typography>
+          </Paper>
+        </Grid>
+      )}
       {prepTime && (
         <Grid item xs>
           <IconCard

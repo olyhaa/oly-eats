@@ -68,12 +68,11 @@ function RecipeDetail() {
             className={classes.grid}
           >
             <Grid className={classes.photoGrid} item xs={6}>
-              {recipe.photo && (
-                <Image title={recipe.title} imageSrc={recipe.photo} />
-              )}
+              <Image title={recipe.title} imageSrc={recipe.photo} />
             </Grid>
             <Grid className={classes.photoGrid} item xs={6}>
               <Overview
+                description={recipe.description}
                 prepTime={recipe.timing?.prep}
                 totalTime={recipe.timing?.total}
                 servings={recipe.servings}
