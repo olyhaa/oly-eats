@@ -16,3 +16,8 @@ code {
 .fa {
   display: inline-table;
 }
+.MuiCard-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

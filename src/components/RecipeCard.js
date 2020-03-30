@@ -18,6 +18,9 @@ const useStyles = makeStyles({
   },
   media: {
     height: 200
+  },
+  buttonBar: {
+    marginTop: "auto"
   }
 });
 
@@ -48,7 +51,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           )}
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className={classes.buttonBar}>
         <Button
           size="small"
           color="inherit"
