@@ -43,6 +43,7 @@ function RecipeList({ list }) {
             id={recipe.id}
             title={recipe.title}
             description={recipe.description}
+            image={recipe.photo}
           />
         </ListItem>
       ))}

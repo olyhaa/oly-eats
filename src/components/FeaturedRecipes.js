@@ -22,7 +22,7 @@ function FeaturedRecipes({ featuredRecipeList }) {
             id={recipe.id}
             title={recipe.title}
             description={recipe.description}
-            image={recipe.image}
+            image={recipe.photo}
             buttonText={recipe.button}
           />
         </Grid>
