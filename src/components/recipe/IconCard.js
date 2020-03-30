@@ -57,7 +57,7 @@ function IconCard({ title, display, value, type }) {
 
 IconCard.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   display: PropTypes.string
 };
 

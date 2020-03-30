@@ -39,7 +39,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
             {title}
           </Typography>
           {description && (
-            <Typography variant="body2" color="textSecondary.dark" component="p">
+            <Typography variant="body2" color="textSecondary" component="p">
               {description}
             </Typography>
           )}

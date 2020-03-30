@@ -31,6 +31,7 @@ function IngredientSection({ label, ingredients }) {
         {ingredients.map((ingredientItem, index) => {
           return (
             <IngredientItem
+              key={index}
               index={index}
               value={ingredientItem.value}
               units={ingredientItem.units}

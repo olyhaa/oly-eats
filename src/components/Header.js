@@ -28,7 +28,7 @@ function Header({ title }) {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <IconButton edge="start" color="inherit" linkButton={true} component={Link} to="/signal">
+        <IconButton edge="start" color="inherit" component={Link} to="/signal">
           <img src={CarrotIcon} className="app-logo" alt="logo" />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>

@@ -4,7 +4,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import { IngredientItemPropType } from '../../types/IngredientsPropTypes';
 
 function IngredientItem({ index, value, units, description, notes }) {
   const [checked, setChecked] = React.useState([0]);
@@ -40,7 +39,10 @@ function IngredientItem({ index, value, units, description, notes }) {
 
 IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,
-  ...IngredientItemPropType
+  value: PropTypes.number.isRequired,
+  units: PropTypes.string,
+  description: PropTypes.string.isRequired,
+  notes: PropTypes.string
 };
 
 IngredientItem.defaultProps = {

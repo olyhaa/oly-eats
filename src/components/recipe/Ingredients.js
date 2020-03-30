@@ -15,9 +15,10 @@ function Ingredients({ ingredientList }) {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      {ingredientList.map(ingredientSection => {
+      {ingredientList.map((ingredientSection, index) => {
         return (
           <IngredientSection
+            key={index}
             label={ingredientSection.label}
             ingredients={ingredientSection.ingredients}
           />

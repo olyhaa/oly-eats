@@ -15,8 +15,14 @@ function Directions({ directionsList }) {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      {directionsList.map(directionSection => {
-        return <DirectionSection label={directionSection.label} steps={directionSection.steps} />;
+      {directionsList.map((directionSection, index) => {
+        return (
+          <DirectionSection
+            key={index}
+            label={directionSection.label}
+            steps={directionSection.steps}
+          />
+        );
       })}
     </Paper>
   );
