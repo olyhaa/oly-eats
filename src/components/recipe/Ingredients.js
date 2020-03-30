@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import IngredientSection from './IngredientSection';
 import Paper from '@material-ui/core/Paper';
+import { IngredientItemPropType } from '../../types/IngredientsPropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,14 +31,7 @@ Ingredients.propTypes = {
   ingredientList: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      ingredients: PropTypes.arrayOf(
-        PropTypes.shape({
-          value: PropTypes.number.isRequired,
-          units: PropTypes.string,
-          description: PropTypes.string.isRequired,
-          notes: PropTypes.string
-        })
-      ).isRequired
+      ingredients: PropTypes.arrayOf(IngredientItemPropType).isRequired
     }).isRequired
   )
 };

@@ -5,6 +5,7 @@ import List from '@material-ui/core/List';
 import IngredientItem from './IngredientItem';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { IngredientItemPropType } from '../../types/IngredientsPropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,14 +46,7 @@ function IngredientSection({ label, ingredients }) {
 
 IngredientSection.propTypes = {
   label: PropTypes.string,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      units: PropTypes.string,
-      description: PropTypes.string.isRequired,
-      notes: PropTypes.string
-    })
-  ).isRequired
+  ingredients: PropTypes.arrayOf(IngredientItemPropType).isRequired
 };
 
 IngredientSection.defaultProps = {

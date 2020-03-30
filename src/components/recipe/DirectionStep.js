@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { DirectionStepPropType } from '../../types/DirectionsPropTypes';
 
 function DirectionStep({ id, text }) {
   return (
@@ -12,8 +12,7 @@ function DirectionStep({ id, text }) {
 }
 
 DirectionStep.propTypes = {
-  id: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired
+  ...DirectionStepPropType
 };
 
 export default DirectionStep;

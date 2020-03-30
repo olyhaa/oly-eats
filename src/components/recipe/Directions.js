@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import DirectionSection from './DirectionSection';
 import { Paper } from '@material-ui/core';
+import { DirectionStepPropType } from '../../types/DirectionsPropTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,12 +26,7 @@ Directions.propTypes = {
   directionsList: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      steps: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired
-        })
-      ).isRequired
+      steps: PropTypes.arrayOf(DirectionStepPropType).isRequired
     }).isRequired
   )
 };
