@@ -21,6 +21,9 @@ const useStyles = makeStyles({
   },
   buttonBar: {
     marginTop: "auto"
+  },
+  actionArea: {
+    height: "100%"
   }
 });
 
@@ -29,7 +32,11 @@ function RecipeCard({ id, title, description, image, buttonText }) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea component={Link} to={"/recipe/" + id}>
+      <CardActionArea
+        className={classes.actionArea}
+        component={Link}
+        to={"/recipe/" + id}
+      >
         <CardMedia
           className={classes.media}
           component="img"
@@ -54,7 +61,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
       <CardActions className={classes.buttonBar}>
         <Button
           size="small"
-          color="inherit"
+          color="primary"
           component={Link}
           to={"/recipe/" + id}
         >

@@ -36,7 +36,7 @@ function SearchBox({ setNewFilterValue }) {
   return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
-        <SearchIcon />
+        <SearchIcon color="primary" />
       </div>
       <InputBase
         placeholder="Filter..."
