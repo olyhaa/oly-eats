@@ -7,6 +7,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,9 +26,15 @@ function Header({ title }) {
   const classes = useStyles();
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="open drawer">
+        <IconButton
+          edge="start"
+          color="inherit"
+          linkButton={true}
+          component={Link}
+          to="/signal"
+        >
           <img src={CarrotIcon} className="app-logo" alt="logo" />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
