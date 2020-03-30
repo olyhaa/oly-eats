@@ -2,13 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
-import { PREP_CARD, TOTAL_CARD, SERVING_CARD } from "../../utils/IconTypes";
+import Link from "@material-ui/core/Link";
+import {
+  PREP_CARD,
+  TOTAL_CARD,
+  SERVING_CARD,
+  SOURCE_CARD
+} from "../../utils/IconTypes";
 import Icon from "@material-ui/core/Icon";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+    height: "100%"
+  },
   group: {
     padding: theme.spacing(5),
     textAlign: "center"
@@ -19,7 +27,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function IconCard({ title, value, type }) {
+function IconCard({ title, display, value, type }) {
   const classes = useStyles();
 
   const getIcon = type => {
@@ -30,6 +38,8 @@ function IconCard({ title, value, type }) {
         return "clock";
       case SERVING_CARD:
         return "bread-slice";
+      case SOURCE_CARD:
+        return "mortar-pestle";
     }
   };
 
@@ -43,7 +53,9 @@ function IconCard({ title, value, type }) {
 
         <Typography variant="subtitle1">{title}</Typography>
 
-        <Typography variant="subtitle1">{value}</Typography>
+        <Typography variant="subtitle1">
+          {type === SOURCE_CARD ? <Link href={value}>{display}</Link> : value}
+        </Typography>
       </Box>
     </Paper>
   );
@@ -51,7 +63,8 @@ function IconCard({ title, value, type }) {
 
 IconCard.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  display: PropTypes.string
 };
 
 export default IconCard;
