@@ -1,9 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
 import RecipeData from '../recipeData/recipes';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
   featuredBlock: {
@@ -11,6 +14,14 @@ const useStyles = makeStyles(theme => ({
   },
   listBlock: {
     margin: theme.spacing(5)
+  },
+  fab: {
+    margin: 0,
+    top: 'auto',
+    right: theme.spacing(2),
+    bottom: theme.spacing(2),
+    left: 'auto',
+    position: 'fixed'
   }
 }));
 
@@ -34,6 +45,9 @@ function Home() {
       <div className={classes.listBlock}>
         <SearchGroup recipeList={RecipeData} />
       </div>
+      <Fab color="primary" className={classes.fab} component={Link} to="/addRecipe">
+        <AddIcon />
+      </Fab>
     </>
   );
 }
