@@ -1,7 +1,7 @@
 module.exports = {
-  printWidth: 100,
+  printWidth: 80,
   tabWidth: 2,
   bracketSpacing: true,
   singleQuote: true,
-  endOfLine: "auto"
+  endOfLine: 'auto'
 };
