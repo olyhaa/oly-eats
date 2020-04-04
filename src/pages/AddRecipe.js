@@ -7,7 +7,7 @@ import AddRecipeForm from '../components/add/AddRecipeForm';
 function AddRecipe() {
   return (
     <>
-      <Header title="Add New Recipe" />
+      <Header title="New Recipe" />
       <Provider store={store}>
         <AddRecipeForm />
       </Provider>

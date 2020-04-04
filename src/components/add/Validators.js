@@ -31,7 +31,9 @@ export const validateAll = values => {
     FIELDS.TITLE,
     FIELDS.DESCRIPTION,
     FIELDS.SOURCE_DISPLAY,
-    FIELDS.SERVINGS
+    FIELDS.SERVINGS,
+    FIELDS.INGREDIENTS_LIST,
+    FIELDS.DIRECTIONS_LIST
   ];
   requiredFields.forEach(field => {
     if (!values[field]) {

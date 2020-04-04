@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -25,14 +24,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AddRecipeForm = ({ pristine, reset, submitting }) => {
+const AddRecipeForm = ({ pristine, handleSubmit, submitting }) => {
   const classes = useStyles();
   return (
-    <form onSubmit={saveRecipe}>
+    <form onSubmit={handleSubmit}>
       <Paper className={classes.root}>
-        <Typography color="primary" variant="h2" component="h2">
-          Basic Info
-        </Typography>
         <Field
           className={classes.formItem}
           name={FIELDS.TITLE}
@@ -63,6 +59,20 @@ const AddRecipeForm = ({ pristine, reset, submitting }) => {
           component={renderTextField}
           label="Source URL"
         />
+        <Field
+          className={classes.formItem}
+          name={FIELDS.INGREDIENTS_LIST}
+          component={renderTextBoxField}
+          label="Ingredients"
+          helperText="Add each ingredient to a new line"
+        />
+        <Field
+          className={classes.formItem}
+          name={FIELDS.DIRECTIONS_LIST}
+          component={renderTextBoxField}
+          label="Directions"
+          helperText="Add each step to a new line"
+        />
       </Paper>
       <Fab
         type="submit"
@@ -80,5 +90,6 @@ const AddRecipeForm = ({ pristine, reset, submitting }) => {
 
 export default reduxForm({
   form: 'AddRecipeForm', // a unique identifier for this form
-  validateAll
+  validate: validateAll,
+  onSubmit: saveRecipe
 })(AddRecipeForm);

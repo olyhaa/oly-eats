@@ -33,7 +33,7 @@ function IngredientSection({ label, ingredients }) {
             <IngredientItem
               key={index}
               index={index}
-              value={ingredientItem.value}
+              amount={ingredientItem.amount}
               units={ingredientItem.units}
               description={ingredientItem.description}
               notes={ingredientItem.notes}

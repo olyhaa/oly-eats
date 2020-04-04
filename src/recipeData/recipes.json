@@ -8,66 +8,66 @@
         "label": "Ingredients",
         "ingredients": [
           {
-            "value": 1,
+            "amount": 1,
             "units": "T",
             "description": "olive oil"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "medium",
             "description": "onion",
             "notes": "1/4-inch diced"
           },
           {
-            "value": 2,
+            "amount": 2,
             "units": "medium",
             "description": "sweet potatoes",
             "notes": "peeled and 1/2-inch diced (about 4 generous cups)"
           },
           {
-            "value": 2,
+            "amount": 2,
             "units": "medium",
             "description": "red bell peppers",
             "notes": "3/4-inch diced"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "T",
             "description": "chili powder"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "t",
             "description": "chipotle chili powder"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "t",
             "description": "ground cumin"
           },
           {
-            "value": 1.25,
+            "amount": 1.25,
             "units": "t",
             "description": "kosher salt"
           },
           {
-            "value": 2.5,
+            "amount": 2.5,
             "units": "c",
             "description": "vegetable broth"
           },
           {
-            "value": 8,
+            "amount": 8,
             "units": "oz",
             "description": "tomato sauce"
           },
           {
-            "value": 15,
+            "amount": 15,
             "units": "oz",
             "description": "black beans",
             "notes": "rinsed and drained"
           },
           {
-            "value": 15,
+            "amount": 15,
             "units": "oz",
             "description": "dark or light red kidney beans",
             "notes": "rinsed and drained"
@@ -105,11 +105,11 @@
     "servings": 6,
     "timing": {
       "prep": {
-        "value": 15,
+        "amount": 15,
         "units": "min"
       },
       "total": {
-        "value": 1,
+        "amount": 1,
         "units": "hour"
       }
     },
@@ -169,53 +169,53 @@
         "label": "Ingredients",
         "ingredients": [
           {
-            "value": 15,
+            "amount": 15,
             "units": "oz",
             "description": "chickpeas",
             "notes": "rinsed and drained"
           },
           {
-            "value": 1,
+            "amount": 1,
             "description": "serrano chili pepper",
             "notes": "diced very small"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "medium",
             "description": "mango",
             "notes": "peeled and diced very small"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "medium",
             "description": "roma tomato",
             "notes": "diced small"
           },
           {
-            "value": 0.75,
+            "amount": 0.75,
             "units": "c",
             "description": "corn",
             "notes": "canned drained and rinsed, frozen, or fresh"
           },
           {
-            "value": 0.5,
+            "amount": 0.5,
             "units": "c",
             "description": "red onion",
             "notes": "diced very small"
           },
           {
-            "value": 4,
+            "amount": 4,
             "units": "c",
             "description": "fresh cilantro",
             "notes": "minced"
           },
           {
-            "value": 0.25,
+            "amount": 0.25,
             "units": "c",
             "description": "lime juice"
           },
           {
-            "value": 1,
+            "amount": 1,
             "units": "t",
             "description": "kosher salt"
           }
@@ -240,11 +240,11 @@
     "servings": 4,
     "timing": {
       "prep": {
-        "value": 5,
+        "amount": 5,
         "units": "min"
       },
       "total": {
-        "value": 5,
+        "amount": 5,
         "units": "min"
       }
     },

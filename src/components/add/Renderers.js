@@ -18,8 +18,8 @@ export const renderTextBoxField = ({
     error={touched && error}
     fullWidth
     multiline
-    rows={3}
-    rowsMax={3}
+    rows={4}
+    rowsMax={20}
     margin="normal"
     variant="outlined"
     {...input}
