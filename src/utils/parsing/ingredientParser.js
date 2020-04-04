@@ -5,71 +5,21 @@
  * Reference http://stackoverflow.com/questions/12413705/parsing-natural-language-ingredient-quantities-for-recipes
  */
 import {
-  unitsOfMeasure,
   noiseWords,
-  regexToWords,
   fluidicWords,
-  regexOptional
+  regexOptional,
 } from './ingredientComponents';
-import Pluralize from 'pluralize';
+import {
+  isUnitOfMeasure,
+  unitNormalizer,
+  getRangedAmount,
+} from './ingredientComponentsHelper';
 
-const isNumeric = num => {
-  return !isNaN(parseFloat(num)) && isFinite(num);
-};
-
-const isFraction = num => {
-  return num.match(/^(\d+\W\d+\/\d+|\d+\/\d+)$/);
-};
-
-const isNumber = str => {
-  return str.match(/^(\d+\W\d+\/\d+|\d+\/\d+|\d+\.\d+|\d+)/);
-};
-
-const properCase = str => {
-  if (!str) {
-    return str;
-  }
-  return str.replace(/\w\S*/g, txt => {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};
-
-const checkForMatch = (len, section, within, offset) => {
-  if (within.length - offset < len) {
+export const isNumber = (str) => {
+  if (typeof str !== 'string') {
     return false;
   }
-  const seg = within
-    .slice(offset, offset + len)
-    .join(' ')
-    .toLowerCase();
-  if (seg === section) {
-    return offset;
-  }
-  return checkForMatch(len, section, within, offset + 1);
-};
-
-let expandedUnits = [];
-const unitsKeys = Object.keys(unitsOfMeasure);
-const unitsTable = {};
-unitsKeys.forEach(function(key) {
-  expandedUnits = expandedUnits.concat(unitsOfMeasure[key]);
-  unitsOfMeasure[key].forEach(function(alt) {
-    unitsTable[alt] = key;
-  });
-});
-
-const isUnitOfMeasure = value => {
-  const val = Pluralize.singular(value);
-  if (unitsOfMeasure[val.toLowerCase()] || expandedUnits.indexOf(val) > -1) {
-    return true;
-  }
-  return false;
-};
-
-const unitExpander = unit => {
-  let val = Pluralize.singular(unit);
-  val = properCase(unitsTable[val.toLowerCase()] || unitsTable[val] || val);
-  return val;
+  return str.match(/^(\d+\W\d+\/\d+|\d+\/\d+|\d+\.\d+|\d+)/);
 };
 
 /*
@@ -84,43 +34,38 @@ const getNumber = from => {
   return '';
 };
 */
-
-const getAmount = from => {
-  let s = from.join(' ');
-  const start = isNumber(s);
+export const getAmount = (wordsList) => {
+  let ingredientText = wordsList.join(' ');
+  const start = isNumber(ingredientText);
   if (start) {
-    s = s.substr(start[0].length);
-    const tmp = s.match(regexToWords);
-    if (tmp) {
-      if (!tmp[2]) {
-        s = s.substr(tmp[0].length);
-      }
-      if (tmp[2] && isNumeric(tmp[2])) {
-        s = s.substr(tmp[0].length - tmp[2].length).replace(/^ */, '');
-      }
-      const end = isNumber(s);
-      if (end) {
-        return {
-          match: {
-            min: start[1],
-            max: end[1]
-          },
-          rest: s
-            .substr(end[0].length)
-            .trim()
-            .split(' ')
-        };
-      }
+    ingredientText = ingredientText.substr(start[0].length);
+    const rangedMatch = getRangedAmount(ingredientText, start);
+    if (rangedMatch) {
+      return rangedMatch;
     }
     return {
       match: start[1],
-      rest: s.trim().split(' ')
+      rest: ingredientText.trim().split(' '),
     };
   }
   return false;
 };
 
-const findMatch = args => {
+export const checkForMatch = (len, section, within, offset) => {
+  if (within.length - offset < len) {
+    return false;
+  }
+  const seg = within
+    .slice(offset, offset + len)
+    .join(' ')
+    .toLowerCase();
+  if (seg === section) {
+    return offset;
+  }
+  return checkForMatch(len, section, within, offset + 1);
+};
+
+export const findMatch = (args) => {
   const matchList = args.lookFor,
     matchIdx = checkForMatch(
       matchList.length,
@@ -134,23 +79,23 @@ const findMatch = args => {
   return matchIdx;
 };
 
-const getALittle = from => {
+export const getALittle = (from) => {
   const idx = findMatch({
     lookFor: ['a', 'little'],
-    within: from
+    within: from,
   });
   return idx === false ? false : true;
 };
 
-const getByWeight = from => {
+export const getByWeight = (from) => {
   const idx = findMatch({
     lookFor: ['by', 'weight'],
-    within: from
+    within: from,
   });
   return idx === false ? false : true;
 };
 
-const getFluidic = from => {
+export const getFluidic = (from) => {
   const val = from[0].toLowerCase().replace(/\./g, '');
   if (fluidicWords.indexOf(val) > -1) {
     from.shift();
@@ -159,17 +104,17 @@ const getFluidic = from => {
   return false;
 };
 
-const getUnit = from => {
+export const getUnit = (from) => {
   if (getALittle(from)) {
     return 'a little';
   }
   if (isUnitOfMeasure(from[0] || '')) {
-    return unitExpander(from.shift());
+    return unitNormalizer(from.shift());
   }
   return false;
 };
 
-const getOptional = from => {
+export const getOptional = (from) => {
   let res = false;
   from.filter((val, idx) => {
     if (regexOptional.test(val)) {
@@ -180,41 +125,47 @@ const getOptional = from => {
   return res;
 };
 
-const getToTaste = from => {
+export const getToTaste = (from) => {
   const idx = findMatch({
     lookFor: ['to', 'taste'],
-    within: from
+    within: from,
   });
   return idx === false ? false : true;
 };
 
-const removeNoise = from => {
-  let res = false;
-  from.filter((val, idx) => {
-    if (noiseWords.indexOf(val.toLowerCase()) > -1) {
-      res = true;
-      from.splice(idx, 1);
-    }
-  });
-  return res;
+export const removeCommas = (from) => {
+  return from.replace(/,\s*$/, '');
 };
 
-const getPrep = from => {
-  let start = false;
-  let end;
+export const removeNoise = (from) => {
+  return from
+    .filter((val, idx) => {
+      if (noiseWords.indexOf(val.toLowerCase()) < 0) {
+        return val;
+      }
+    })
+    .map((val) => {
+      return removeCommas(val);
+    });
+};
+
+export const getPrep = (from) => {
+  // TODO parse commas as prep
+  let startIndex = false;
+  let endIndex;
   let inPrep = false;
-  let prep = from.forEach(function(item, idx) {
-    if (!inPrep && start === false && item[0] === '(') {
+  let prep = from.forEach((item, idx) => {
+    if (!inPrep && startIndex === false && item[0] === '(') {
       inPrep = true;
-      start = idx;
+      startIndex = idx;
     }
     if (inPrep && item.substr(-1) === ')') {
       inPrep = false;
-      end = idx;
+      endIndex = idx;
     }
   });
-  if (start !== false) {
-    prep = from.splice(start, end + 1).join(' ');
+  if (startIndex !== false) {
+    prep = from.splice(startIndex, endIndex + 1).join(' ');
     return prep.substr(-1) === ')'
       ? prep.substring(1, prep.length - 1)
       : prep.substr(1);
@@ -222,40 +173,47 @@ const getPrep = from => {
   return false;
 };
 
-export const parseIngredient = source => {
-  let parts = source.split(/[ \t]/);
+export const parseIngredient = (source) => {
   const ingredient = {};
+
+  // split into words
+  let words = source.split(/[ \t]/);
+  // split by comma
+  let sections = source.split(',');
+
   let val;
   let tmpAmount;
 
-  if (parts[0] === 'a') {
+  // if starts with "a", have implicit amount of 1
+  if (words[0] === 'a') {
     tmpAmount = 1;
-    parts.shift();
+    words.shift();
   }
-  if (!tmpAmount && (val = getAmount(parts))) {
+  if (!tmpAmount && (val = getAmount(words))) {
     ingredient.amount = val.match;
-    parts = val.rest;
+    words = val.rest;
   }
-  if (getFluidic(parts)) {
+  if (getFluidic(words)) {
     ingredient.fluidic = true;
   }
-  if ((val = getUnit(parts))) {
+  if ((val = getUnit(words))) {
     ingredient.unit = val;
   }
-  if (getByWeight(parts)) {
+  if (getByWeight(words)) {
     ingredient.byWeight = true;
   }
-  if (getOptional(parts)) {
+  if (getOptional(words)) {
     ingredient.optional = true;
   }
-  if (getToTaste(parts)) {
+  if (getToTaste(words)) {
     ingredient.toTaste = true;
   }
-  if ((val = getPrep(parts))) {
+  if ((val = getPrep(words))) {
     ingredient.prep = val;
   }
-  removeNoise(parts);
-  ingredient.name = parts.join(' ');
+  words = removeNoise(words);
+  ingredient.name = words.join(' ');
+
   if (tmpAmount) {
     if (ingredient.unit !== 'Little') {
       ingredient.amount = tmpAmount + '';
