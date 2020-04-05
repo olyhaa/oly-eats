@@ -18,6 +18,7 @@ import {
   getCommaText,
   getPrep,
   removeBeginningEndNoise,
+  removeNoise,
 } from '../ingredientComponentsHelper';
 
 describe('isNumeric', () => {
@@ -918,6 +919,58 @@ describe('getPrep', () => {
       const expected = testCases[name];
       it(`Should parse ${name}`, () => {
         expect(getPrep(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('removeNoise', () => {
+  describe('remove commas', () => {
+    const testCases = {
+      'apples, and more': 'apples and more',
+      'apple, ': 'apple',
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(removeNoise(name.split(' '))).toEqual(expected.split(' '));
+      });
+    });
+  });
+
+  describe('remove noise words', () => {
+    const testCases = {
+      'a banana': 'banana',
+      'banana a': 'banana',
+      'an apple, ': 'apple',
+      'apple an, ': 'apple',
+      'apple of': 'apple',
+      'of apple': 'apple',
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(removeNoise(name.split(' '))).toEqual(expected.split(' '));
+      });
+    });
+  });
+
+  describe('complex', () => {
+    const testCases = {
+      'a banana of size': 'banana size',
+      'of banana a': 'banana',
+      'of an apple, ': 'apple',
+      'of apple an, ': 'apple',
+      'an apple of': 'apple',
+      'of an apple': 'apple',
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(removeNoise(name.split(' '))).toEqual(expected.split(' '));
       });
     });
   });

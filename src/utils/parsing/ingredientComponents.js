@@ -29,7 +29,7 @@ export const numbersRegex = /^([0-9]+[ ./0-9]*)/i;
 export const parenRegex = /\(([^\)]*?)\)/i;
 export const rangeWordsRegex = /([0-9]+[ ./0-9]*) *(to|-) *([0-9][ ./0-9]*)/i;
 
-export const noiseWords = ['a', 'of'];
+export const noiseWords = ['a', 'an', 'of'];
 
 let flattenedList = [];
 const unitsKeys = Object.keys(unitsOfMeasure);

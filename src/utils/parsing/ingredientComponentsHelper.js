@@ -6,6 +6,7 @@ import {
   numbersRegex,
   rangeWordsRegex,
   parenRegex,
+  noiseWords,
 } from './ingredientComponents';
 
 export const isNumeric = (num) => {
@@ -238,4 +239,20 @@ export const getPrep = (words) => {
     return { match: [matchPrep], rest: wordsList };
   }
   return { rest: wordsList };
+};
+
+export const removeNoise = (words) => {
+  return (
+    words
+      // remove ending commas
+      .map((word) => {
+        return word.replace(/,\s*$/, '');
+      })
+      // remove noise words
+      .filter((word) => {
+        if (noiseWords.indexOf(word.toLowerCase()) < 0) {
+          return word;
+        }
+      })
+  );
 };

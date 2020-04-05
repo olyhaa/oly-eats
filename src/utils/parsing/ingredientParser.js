@@ -4,28 +4,16 @@
 // @ts-nocheck
 /*
  * SCHEMA
- * <amount> <unit> [of] (<prep>) <ingredient> optional|(optional) (<prep>)
+ * <amount> <unit> [of] (<prep>) <ingredient> optional|(optional) (<prep>), prep
  *
  * Reference http://stackoverflow.com/questions/12413705/parsing-natural-language-ingredient-quantities-for-recipes
  */
-import { noiseWords } from './ingredientComponents';
-import { getAmount, getUnit, getPrep } from './ingredientComponentsHelper';
-
-export const removeCommas = (from) => {
-  return from.replace(/,\s*$/, '');
-};
-
-export const removeNoise = (from) => {
-  return from
-    .filter((val) => {
-      if (noiseWords.indexOf(val.toLowerCase()) < 0) {
-        return val;
-      }
-    })
-    .map((val) => {
-      return removeCommas(val);
-    });
-};
+import {
+  getAmount,
+  getUnit,
+  getPrep,
+  removeNoise,
+} from './ingredientComponentsHelper';
 
 export const parseIngredient = (source) => {
   const ingredient = {};
@@ -81,14 +69,12 @@ export const parseIngredient = (source) => {
     words = prep.rest;
   }
 
-  // clearn up remaining text for ingredient name
+  // clean up remaining text for ingredient name
   words = removeNoise(words);
   ingredient.name = words.join(' ');
 
-  if (tmpAmount) {
-    if (ingredient.unit !== 'Little') {
-      ingredient.amount = `${tmpAmount}`;
-    }
+  if (tmpAmount && ingredient.unit !== 'Little') {
+    ingredient.amount = `${tmpAmount}`;
   }
   return ingredient;
 };
