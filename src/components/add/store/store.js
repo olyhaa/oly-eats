@@ -5,10 +5,8 @@ const reducer = combineReducers({
   // ...your other reducers here
   // you have to pass formReducer under 'form' key,
   // for custom keys look up the docs for 'getFormState'
-  form: formReducer
+  form: formReducer,
 });
 
-const store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(
-  reducer
-);
+const store = createStore(reducer);
 export default store;

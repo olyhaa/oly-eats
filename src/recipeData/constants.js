@@ -14,15 +14,15 @@ const UNITS_EXACT = [
   TABLESPOON_SHORT,
   CUP_SHORT,
   OUNCE_SHORT,
-  POUND_SHORT
+  POUND_SHORT,
 ];
 
 const UNITS_MATCH = [TEASPOON, TABLESPOON, CUP, OUNCE, POUND];
 
-export const isUnit = value => {
+export const isUnit = (value) => {
   let matches;
   // check if it's shorthand (must match exactly)
-  matches = UNITS_EXACT.filter(unit => {
+  matches = UNITS_EXACT.filter((unit) => {
     return unit === value;
   });
   if (matches.length > 0) {
@@ -30,7 +30,7 @@ export const isUnit = value => {
   }
 
   // check if it's longhand
-  matches = UNITS_MATCH.filter(unit => {
+  matches = UNITS_MATCH.filter((unit) => {
     return value.toUpperCase().includes(unit.toUpperCase());
   });
   if (matches.length > 0) {

@@ -1,3 +1,7 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
+/* eslint-disable no-cond-assign */
+// @ts-nocheck
 /*
  * SCHEMA
  * <amount> <unit> [of] (<prep>) <ingredient> optional|(optional) (<prep>)
@@ -66,13 +70,13 @@ export const checkForMatch = (len, section, within, offset) => {
 };
 
 export const findMatch = (args) => {
-  const matchList = args.lookFor,
-    matchIdx = checkForMatch(
-      matchList.length,
-      matchList.join(' '),
-      args.within,
-      0
-    );
+  const matchList = args.lookFor;
+  const matchIdx = checkForMatch(
+    matchList.length,
+    matchList.join(' '),
+    args.within,
+    0
+  );
   if (matchIdx !== false) {
     args.within.splice(matchIdx, matchList.length);
   }
@@ -84,7 +88,7 @@ export const getALittle = (from) => {
     lookFor: ['a', 'little'],
     within: from,
   });
-  return idx === false ? false : true;
+  return idx;
 };
 
 export const getByWeight = (from) => {
@@ -92,7 +96,7 @@ export const getByWeight = (from) => {
     lookFor: ['by', 'weight'],
     within: from,
   });
-  return idx === false ? false : true;
+  return idx;
 };
 
 export const getFluidic = (from) => {
@@ -130,7 +134,7 @@ export const getToTaste = (from) => {
     lookFor: ['to', 'taste'],
     within: from,
   });
-  return idx === false ? false : true;
+  return idx;
 };
 
 export const removeCommas = (from) => {
@@ -139,7 +143,7 @@ export const removeCommas = (from) => {
 
 export const removeNoise = (from) => {
   return from
-    .filter((val, idx) => {
+    .filter((val) => {
       if (noiseWords.indexOf(val.toLowerCase()) < 0) {
         return val;
       }
@@ -178,8 +182,6 @@ export const parseIngredient = (source) => {
 
   // split into words
   let words = source.split(/[ \t]/);
-  // split by comma
-  let sections = source.split(',');
 
   let val;
   let tmpAmount;
@@ -216,7 +218,7 @@ export const parseIngredient = (source) => {
 
   if (tmpAmount) {
     if (ingredient.unit !== 'Little') {
-      ingredient.amount = tmpAmount + '';
+      ingredient.amount = `${tmpAmount}`;
     }
   }
   return ingredient;

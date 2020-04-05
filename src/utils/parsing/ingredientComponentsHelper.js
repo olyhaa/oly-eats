@@ -1,13 +1,13 @@
+import Pluralize from 'pluralize';
 import {
   unitsOfMeasure,
   flattenedUnits,
   unitsMap,
   rangeWordsRegex,
 } from './ingredientComponents';
-import Pluralize from 'pluralize';
 
 export const isNumeric = (num) => {
-  return !isNaN(parseFloat(num)) && isFinite(num);
+  return !Number.isNaN(parseFloat(num)) && Number.isFinite(num);
 };
 
 export const isFraction = (str) => {
@@ -62,8 +62,9 @@ export const unitNormalizer = (unit) => {
   return val;
 };
 
-export const getRangedAmount = (ingredientText, start) => {
-  const rangeText = ingredientText.match(rangeWordsRegex);
+export const getRangedAmount = (fullText, start) => {
+  const rangeText = fullText.match(rangeWordsRegex);
+  let ingredientText = fullText;
   if (rangeText) {
     if (!rangeText[2]) {
       ingredientText = ingredientText.substr(rangeText[0].length);

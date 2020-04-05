@@ -105,11 +105,11 @@
     "servings": 6,
     "timing": {
       "prep": {
-        "amount": 15,
+        "value": 15,
         "units": "min"
       },
       "total": {
-        "amount": 1,
+        "value": 1,
         "units": "hour"
       }
     },
@@ -240,11 +240,11 @@
     "servings": 4,
     "timing": {
       "prep": {
-        "amount": 5,
+        "value": 5,
         "units": "min"
       },
       "total": {
-        "amount": 5,
+        "value": 5,
         "units": "min"
       }
     },

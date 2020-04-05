@@ -1,7 +1,7 @@
 import { FIELDS } from './constants';
 
-const validatePhotoUrl = photoUrl => {
-  var pattern = new RegExp(
+const validatePhotoUrl = (photoUrl) => {
+  const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -13,8 +13,8 @@ const validatePhotoUrl = photoUrl => {
   return photoUrl.length !== 0 && !pattern.test(photoUrl);
 };
 
-const validateUrl = urlString => {
-  var pattern = new RegExp(
+const validateUrl = (urlString) => {
+  const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -25,7 +25,7 @@ const validateUrl = urlString => {
   return urlString.length !== 0 && !pattern.test(urlString);
 };
 
-export const validateAll = values => {
+export const validateAll = (values) => {
   const errors = {};
   const requiredFields = [
     FIELDS.TITLE,
@@ -33,9 +33,9 @@ export const validateAll = values => {
     FIELDS.SOURCE_DISPLAY,
     FIELDS.SERVINGS,
     FIELDS.INGREDIENTS_LIST,
-    FIELDS.DIRECTIONS_LIST
+    FIELDS.DIRECTIONS_LIST,
   ];
-  requiredFields.forEach(field => {
+  requiredFields.forEach((field) => {
     if (!values[field]) {
       errors[field] = 'Required';
     }

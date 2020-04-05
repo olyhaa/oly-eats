@@ -1,45 +1,37 @@
 import { FIELDS } from './constants';
-import { isUnit } from '../../recipeData/constants';
 import { parseIngredient } from '../../utils/parsing/ingredientParser';
 
-const isNumber = value => {
-  if (value != Number(value)) {
-    return false;
-  }
-  return true;
-};
-
-const transformDirections = directions => {
+const transformDirections = (directions) => {
   // break on new lines
   const list = directions.split('\n');
 
   // clean up extra spaces
   const directionsList = list
-    .map(item => {
+    .map((item) => {
       return item.trim();
     })
     // remove empty items
-    .filter(item => {
+    .filter((item) => {
       return item.length > 0;
     });
 
   return directionsList;
 };
 
-const transformIngredients = ingredients => {
+const transformIngredients = (ingredients) => {
   // break on new lines
   const list = ingredients.split('\n');
 
   // clean up extra spaces
   const ingredientsList = list
-    .map(item => {
+    .map((item) => {
       return item.trim();
     })
     // remove empty items
-    .filter(item => {
+    .filter((item) => {
       return item.length > 0;
     })
-    .map(ingredientStr => {
+    .map((ingredientStr) => {
       const newItem = parseIngredient(ingredientStr);
       /*
       // "notes" is everything after the comma
@@ -74,26 +66,27 @@ const transformIngredients = ingredients => {
   return ingredientsList;
 };
 
-export const saveRecipe = values => {
-  let recipe = {};
+export const saveRecipe = (values) => {
+  const recipe = {};
   recipe.title = values[FIELDS.TITLE];
   recipe.description = values[FIELDS.DESCRIPTION];
   recipe.source = {
     display: values[FIELDS.SOURCE_DISPLAY],
-    url: values[FIELDS.SOURCE_URL]
+    url: values[FIELDS.SOURCE_URL],
   };
   recipe.photo = values[FIELDS.PHOTO_URL];
   recipe.servings = values[FIELDS.SERVINGS];
 
   recipe.ingredientSection = [];
   recipe.ingredientSection.push({
-    ingredients: transformIngredients(values[FIELDS.INGREDIENTS_LIST])
+    ingredients: transformIngredients(values[FIELDS.INGREDIENTS_LIST]),
   });
 
   recipe.directionsSection = [];
   recipe.directionsSection.push({
-    steps: transformDirections(values[FIELDS.DIRECTIONS_LIST])
+    steps: transformDirections(values[FIELDS.DIRECTIONS_LIST]),
   });
 
-  window.alert('RECIPE OBJECT = ' + JSON.stringify(recipe));
+  // eslint-disable-next-line no-alert
+  window.alert(`RECIPE OBJECT = ${JSON.stringify(recipe)}`);
 };
