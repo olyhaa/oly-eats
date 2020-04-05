@@ -11,28 +11,24 @@
 import { noiseWords, regexOptional } from './ingredientComponents';
 import { getAmount, getUnit, findMatch } from './ingredientComponentsHelper';
 
-export const getByWeight = (from) => {
+export const getByWeight = (words) => {
   return findMatch({
     lookFor: ['by', 'weight'],
-    within: from,
+    within: words,
   });
 };
 
-export const getOptional = (from) => {
-  let res = false;
-  from.filter((val, idx) => {
-    if (regexOptional.test(val)) {
-      res = true;
-      from.splice(idx, 1);
-    }
+export const getOptional = (words) => {
+  return findMatch({
+    lookFor: ['optional'],
+    within: words,
   });
-  return res;
 };
 
-export const getToTaste = (from) => {
+export const getToTaste = (words) => {
   return findMatch({
     lookFor: ['to', 'taste'],
-    within: from,
+    within: words,
   });
 };
 
@@ -105,6 +101,7 @@ export const parseIngredient = (source) => {
     words = unit.rest;
   }
 
+  // check for modifiers
   const byWeight = getByWeight(words);
   if (byWeight) {
     ingredient.byWeight = byWeight.match.length > 0;
@@ -123,9 +120,12 @@ export const parseIngredient = (source) => {
     words = toTaste.rest;
   }
 
+  // get any prep modifiers
   if ((val = getPrep(words))) {
     ingredient.prep = val;
   }
+
+  // clearn up remaining text for ingredient name
   words = removeNoise(words);
   ingredient.name = words.join(' ');
 

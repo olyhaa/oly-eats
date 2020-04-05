@@ -125,9 +125,12 @@ export const checkForMatch = (itemsToFind, searchList, startIndex) => {
 export const findMatch = (wordsToFind, wordsList) => {
   const matchIdx = checkForMatch(wordsToFind, wordsList, 0);
   if (matchIdx >= 0) {
+    const newWords = wordsList
+      .slice(0, matchIdx)
+      .concat(wordsList.slice(matchIdx + wordsToFind.length));
     return {
       match: wordsToFind,
-      rest: wordsList.slice(matchIdx + wordsToFind.length),
+      rest: newWords,
     };
   }
   return { rest: wordsList };
@@ -139,4 +142,16 @@ export const getUnit = (words) => {
     return { match: unitNormalizer(words[0]), rest: words.slice(1) };
   }
   return { rest: words };
+};
+
+export const getByWeight = (words) => {
+  return findMatch(['by', 'weight'], words);
+};
+
+export const getOptional = (words) => {
+  return findMatch(['optional'], words);
+};
+
+export const getToTaste = (words) => {
+  return findMatch(['to', 'taste'], words);
 };

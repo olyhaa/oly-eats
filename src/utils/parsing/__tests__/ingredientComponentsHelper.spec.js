@@ -11,6 +11,9 @@ import {
   checkForMatch,
   findMatch,
   getUnit,
+  getByWeight,
+  getOptional,
+  getToTaste,
 } from '../ingredientComponentsHelper';
 
 describe('isNumeric', () => {
@@ -629,6 +632,10 @@ describe('findMatch', () => {
       match: testList,
       rest: [],
     });
+    expect(findMatch(['second', 'third'], testList)).toEqual({
+      match: ['second', 'third'],
+      rest: ['first', 'fourth'],
+    });
   });
 });
 
@@ -680,6 +687,89 @@ describe('getUnit', () => {
     expect(getUnit(['apple'])).toEqual({ rest: ['apple'] });
     expect(getUnit('apples, chopped'.split(' '))).toEqual({
       rest: ['apples,', 'chopped'],
+    });
+  });
+});
+
+describe('getByWeight', () => {
+  describe('not by weight', () => {
+    const testCases = ['by apples weighted', 'apples', 'apples, chopped'];
+    testCases.forEach((name) => {
+      const expected = { rest: name.split(' ') };
+      it(`Should parse ${name}`, () => {
+        expect(getByWeight(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+
+  describe('is by weight', () => {
+    const testCases = {
+      'apples, by weight': { match: ['by', 'weight'], rest: ['apples,'] },
+      'by weight water': { match: ['by', 'weight'], rest: ['water'] },
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(getByWeight(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('getOptional', () => {
+  describe('not optional', () => {
+    const testCases = ['opt apples', 'apples', 'apples, chopped'];
+    testCases.forEach((name) => {
+      const expected = { rest: name.split(' ') };
+      it(`Should parse ${name}`, () => {
+        expect(getOptional(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+
+  describe('is optional', () => {
+    const testCases = {
+      'apples, optional': { match: ['optional'], rest: ['apples,'] },
+      'optional water': { match: ['optional'], rest: ['water'] },
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(getOptional(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('getToTaste', () => {
+  describe('not to taste', () => {
+    const testCases = [
+      'to salt taste',
+      'apples',
+      'apples, chopped',
+      'taste to salt',
+    ];
+    testCases.forEach((name) => {
+      const expected = { rest: name.split(' ') };
+      it(`Should parse ${name}`, () => {
+        expect(getToTaste(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+
+  describe('is to taste', () => {
+    const testCases = {
+      'apples, to taste': { match: ['to', 'taste'], rest: ['apples,'] },
+      'to taste salt': { match: ['to', 'taste'], rest: ['salt'] },
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(getToTaste(name.split(' '))).toEqual(expected);
+      });
     });
   });
 });
