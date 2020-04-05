@@ -99,15 +99,6 @@ export const getByWeight = (from) => {
   return idx;
 };
 
-export const getFluidic = (from) => {
-  const val = from[0].toLowerCase().replace(/\./g, '');
-  if (fluidicWords.indexOf(val) > -1) {
-    from.shift();
-    return true;
-  }
-  return false;
-};
-
 export const getUnit = (from) => {
   if (getALittle(from)) {
     return 'a little';
@@ -194,9 +185,6 @@ export const parseIngredient = (source) => {
   if (!tmpAmount && (val = getAmount(words))) {
     ingredient.amount = val.match;
     words = val.rest;
-  }
-  if (getFluidic(words)) {
-    ingredient.fluidic = true;
   }
   if ((val = getUnit(words))) {
     ingredient.unit = val;
