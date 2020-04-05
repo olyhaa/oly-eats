@@ -1,59 +1,8 @@
 import { parseIngredient } from '../ingredientParser';
 
-const checkMatch = (source, expect) => {
-  const sKeys = Object.keys(source);
-  const eKeys = Object.keys(expect);
-  let err;
-  const checkError = function (v, e) {
-    if (!v) {
-      err = e;
-    }
-  };
-
-  if (sKeys.length !== eKeys.length) {
-    eKeys.forEach(function (key) {
-      if (sKeys.indexOf(key) === -1) {
-        err = 'Expected key ' + JSON.stringify(key) + ' not found';
-      }
-    });
-    sKeys.forEach(function (key) {
-      if (eKeys.indexOf(key) === -1) {
-        err = 'Unexpected key ' + JSON.stringify(key) + ' found';
-      }
-    });
-  }
-  if (!err) {
-    eKeys.forEach(function (key) {
-      if (!err) {
-        checkError(
-          sKeys.indexOf(key) > -1,
-          'Invalid expected ' + JSON.stringify(key) + ' key not found'
-        );
-        if (
-          typeof expect[key] === 'object' &&
-          typeof source[key] === 'object'
-        ) {
-          checkMatch(source[key], expect[key]);
-        } else {
-          checkError(
-            source[key] === expect[key],
-            'Invalid expected ' +
-              JSON.stringify(expect[key]) +
-              ' but got ' +
-              JSON.stringify(source[key]) +
-              ' for ' +
-              key
-          );
-        }
-      }
-    });
-  }
-  return err || true;
-};
-
 describe('Ingredient Parser', () => {
   describe('The Basics', () => {
-    var testCases = {
+    const testCases = {
       '1 Cup Flour': {
         amount: '1',
         unit: 'Cup',
@@ -305,14 +254,8 @@ describe('Ingredient Parser', () => {
     };
     Object.keys(testCases).forEach((name) => {
       const expected = testCases[name];
-      it('Should parse ' + name, (done) => {
-        const res = parseIngredient(name);
-        const err = checkMatch(res, expected);
-        if (typeof err === 'string') {
-          console.log(res);
-          expect(err).toBe(false);
-        }
-        done();
+      it(`Should parse ${name}`, () => {
+        expect(parseIngredient(name)).toEqual(expected);
       });
     });
   });
