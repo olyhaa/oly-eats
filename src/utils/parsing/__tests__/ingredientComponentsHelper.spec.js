@@ -10,154 +10,154 @@ import {
 
 describe('isNumeric', () => {
   it('numeric number', () => {
-    expect(isNumeric(1)).toBe(true);
-    expect(isNumeric(0)).toBe(true);
-    expect(isNumeric(10)).toBe(true);
+    expect(isNumeric(1)).toBeTruthy();
+    expect(isNumeric(0)).toBeTruthy();
+    expect(isNumeric(10)).toBeTruthy();
   });
 
   it('numeric string', () => {
-    expect(isNumeric('1')).toBe(true);
-    expect(isNumeric('0')).toBe(true);
-    expect(isNumeric('10')).toBe(true);
+    expect(isNumeric('1')).toBeTruthy();
+    expect(isNumeric('0')).toBeTruthy();
+    expect(isNumeric('10')).toBeTruthy();
   });
 
   it('decimal number', () => {
-    expect(isNumeric(1.5)).toBe(true);
-    expect(isNumeric(0.75)).toBe(true);
-    expect(isNumeric(0.25)).toBe(true);
-    expect(isNumeric(1.0)).toBe(true);
+    expect(isNumeric(1.5)).toBeTruthy();
+    expect(isNumeric(0.75)).toBeTruthy();
+    expect(isNumeric(0.25)).toBeTruthy();
+    expect(isNumeric(1.0)).toBeTruthy();
   });
 
   it('decimal string', () => {
-    expect(isNumeric('1.5')).toBe(true);
-    expect(isNumeric('0.75')).toBe(true);
-    expect(isNumeric('0.25')).toBe(true);
-    expect(isNumeric('1.0')).toBe(true);
+    expect(isNumeric('1.5')).toBeTruthy();
+    expect(isNumeric('0.75')).toBeTruthy();
+    expect(isNumeric('0.25')).toBeTruthy();
+    expect(isNumeric('1.0')).toBeTruthy();
   });
 
   it('fractional string', () => {
-    expect(isNumeric('1/2')).toBe(false);
-    expect(isNumeric('3/4')).toBe(false);
-    expect(isNumeric('1 1/2')).toBe(false);
+    expect(isNumeric('1/2')).toBeFalsy();
+    expect(isNumeric('3/4')).toBeFalsy();
+    expect(isNumeric('1 1/2')).toBeFalsy();
   });
 
   it('string with numbers', () => {
-    expect(isNumeric('abc1/2')).toBe(false);
-    expect(isNumeric('4pop')).toBe(false);
-    expect(isNumeric('see4me')).toBe(false);
+    expect(isNumeric('abc1/2')).toBeFalsy();
+    expect(isNumeric('4pop')).toBeFalsy();
+    expect(isNumeric('see4me')).toBeFalsy();
   });
 
   it('string', () => {
-    expect(isNumeric('abc')).toBe(false);
+    expect(isNumeric('abc')).toBeFalsy();
   });
 
   it('empty', () => {
-    expect(isNumeric('')).toBe(false);
-    expect(isNumeric()).toBe(false);
-    expect(isNumeric(undefined)).toBe(false);
-    expect(isNumeric(null)).toBe(false);
+    expect(isNumeric('')).toBeFalsy();
+    expect(isNumeric()).toBeFalsy();
+    expect(isNumeric(undefined)).toBeFalsy();
+    expect(isNumeric(null)).toBeFalsy();
   });
 });
 
 describe('isFraction', () => {
   it('numeric number', () => {
-    expect(isFraction(1)).toBe(false);
-    expect(isFraction(0)).toBe(false);
-    expect(isFraction(10)).toBe(false);
+    expect(isFraction(1)).toBeFalsy();
+    expect(isFraction(0)).toBeFalsy();
+    expect(isFraction(10)).toBeFalsy();
   });
 
   it('numeric string', () => {
-    expect(isFraction('1')).toBe(false);
-    expect(isFraction('0')).toBe(false);
-    expect(isFraction('10')).toBe(false);
+    expect(isFraction('1')).toBeFalsy();
+    expect(isFraction('0')).toBeFalsy();
+    expect(isFraction('10')).toBeFalsy();
   });
 
   it('decimal number', () => {
-    expect(isFraction(1.5)).toBe(false);
-    expect(isFraction(0.75)).toBe(false);
-    expect(isFraction(0.25)).toBe(false);
-    expect(isFraction(1.0)).toBe(false);
+    expect(isFraction(1.5)).toBeFalsy();
+    expect(isFraction(0.75)).toBeFalsy();
+    expect(isFraction(0.25)).toBeFalsy();
+    expect(isFraction(1.0)).toBeFalsy();
   });
 
   it('decimal string', () => {
-    expect(isFraction('1.5')).toBe(false);
-    expect(isFraction('0.75')).toBe(false);
-    expect(isFraction('0.25')).toBe(false);
-    expect(isFraction('1.0')).toBe(false);
+    expect(isFraction('1.5')).toBeFalsy();
+    expect(isFraction('0.75')).toBeFalsy();
+    expect(isFraction('0.25')).toBeFalsy();
+    expect(isFraction('1.0')).toBeFalsy();
   });
 
   it('fractional string', () => {
-    expect(isFraction('1/2')).toBe(true);
-    expect(isFraction('3/4')).toBe(true);
-    expect(isFraction('1 1/2')).toBe(true);
+    expect(isFraction('1/2')).toBeTruthy();
+    expect(isFraction('3/4')).toBeTruthy();
+    expect(isFraction('1 1/2')).toBeTruthy();
   });
 
   it('string with numbers', () => {
-    expect(isFraction('abc1/2')).toBe(false);
-    expect(isFraction('4pop')).toBe(false);
-    expect(isFraction('see4me')).toBe(false);
+    expect(isFraction('abc1/2')).toBeFalsy();
+    expect(isFraction('4pop')).toBeFalsy();
+    expect(isFraction('see4me')).toBeFalsy();
   });
 
   it('string', () => {
-    expect(isFraction('abc')).toBe(false);
+    expect(isFraction('abc')).toBeFalsy();
   });
 
   it('empty', () => {
-    expect(isFraction('')).toBe(false);
-    expect(isFraction()).toBe(false);
-    expect(isFraction(undefined)).toBe(false);
-    expect(isFraction(null)).toBe(false);
+    expect(isFraction('')).toBeFalsy();
+    expect(isFraction()).toBeFalsy();
+    expect(isFraction(undefined)).toBeFalsy();
+    expect(isFraction(null)).toBeFalsy();
   });
 });
 
 describe('isNumber', () => {
   it('numeric number', () => {
-    expect(isNumber(1)).toBe(true);
-    expect(isNumber(0)).toBe(true);
-    expect(isNumber(10)).toBe(true);
+    expect(isNumber(1)).toBeTruthy();
+    expect(isNumber(0)).toBeTruthy();
+    expect(isNumber(10)).toBeTruthy();
   });
 
   it('numeric string', () => {
-    expect(isNumber('1')).toBe(true);
-    expect(isNumber('0')).toBe(true);
-    expect(isNumber('10')).toBe(true);
+    expect(isNumber('1')).toBeTruthy();
+    expect(isNumber('0')).toBeTruthy();
+    expect(isNumber('10')).toBeTruthy();
   });
 
   it('decimal number', () => {
-    expect(isNumber(1.5)).toBe(true);
-    expect(isNumber(0.75)).toBe(true);
-    expect(isNumber(0.25)).toBe(true);
-    expect(isNumber(1.0)).toBe(true);
+    expect(isNumber(1.5)).toBeTruthy();
+    expect(isNumber(0.75)).toBeTruthy();
+    expect(isNumber(0.25)).toBeTruthy();
+    expect(isNumber(1.0)).toBeTruthy();
   });
 
   it('decimal string', () => {
-    expect(isNumber('1.5')).toBe(true);
-    expect(isNumber('0.75')).toBe(true);
-    expect(isNumber('0.25')).toBe(true);
-    expect(isNumber('1.0')).toBe(true);
+    expect(isNumber('1.5')).toBeTruthy();
+    expect(isNumber('0.75')).toBeTruthy();
+    expect(isNumber('0.25')).toBeTruthy();
+    expect(isNumber('1.0')).toBeTruthy();
   });
 
   it('fractional string', () => {
-    expect(isNumber('1/2')).toBe(true);
-    expect(isNumber('3/4')).toBe(true);
-    expect(isNumber('1 1/2')).toBe(true);
+    expect(isNumber('1/2')).toBeTruthy();
+    expect(isNumber('3/4')).toBeTruthy();
+    expect(isNumber('1 1/2')).toBeTruthy();
   });
 
   it('string with numbers', () => {
-    expect(isNumber('abc1/2')).toBe(false);
-    expect(isNumber('4pop')).toBe(false);
-    expect(isNumber('see4me')).toBe(false);
+    expect(isNumber('abc1/2')).toBeFalsy();
+    expect(isNumber('4pop')).toBeFalsy();
+    expect(isNumber('see4me')).toBeFalsy();
   });
 
   it('string', () => {
-    expect(isNumber('abc')).toBe(false);
+    expect(isNumber('abc')).toBeFalsy();
   });
 
   it('empty', () => {
-    expect(isNumber('')).toBe(false);
-    expect(isNumber()).toBe(false);
-    expect(isNumber(undefined)).toBe(false);
-    expect(isNumber(null)).toBe(false);
+    expect(isNumber('')).toBeFalsy();
+    expect(isNumber()).toBeFalsy();
+    expect(isNumber(undefined)).toBeFalsy();
+    expect(isNumber(null)).toBeFalsy();
   });
 });
 
@@ -178,49 +178,53 @@ describe('properCase', () => {
 
   it('non-string', () => {
     expect(properCase('')).toBe('');
-    expect(properCase(undefined)).toBe(undefined);
+    expect(properCase(undefined)).toBeUndefined();
     expect(properCase(null)).toBe(null);
     expect(properCase(1)).toBe(1);
   });
 });
 
-describe.skip('checkForMatch');
+describe.skip('checkForMatch', () => {
+  it('needs to be implemented', () => {
+    expect(true).toBeTruthy();
+  });
+});
 
 describe('isUnitOfMeasure', () => {
   it('singulars', () => {
-    expect(isUnitOfMeasure('tablespoon')).toBe(true);
-    expect(isUnitOfMeasure('T')).toBe(true);
-    expect(isUnitOfMeasure('Tbs')).toBe(true);
-    expect(isUnitOfMeasure('tbs')).toBe(true);
-    expect(isUnitOfMeasure('Tbsp')).toBe(true);
-    expect(isUnitOfMeasure('tbsp')).toBe(true);
-    expect(isUnitOfMeasure('teaspoon')).toBe(true);
-    expect(isUnitOfMeasure('can')).toBe(true);
-    expect(isUnitOfMeasure('"')).toBe(true);
-    expect(isUnitOfMeasure('quart')).toBe(true);
-    expect(isUnitOfMeasure('ounce')).toBe(true);
-    expect(isUnitOfMeasure('c')).toBe(true);
-    expect(isUnitOfMeasure('Cup')).toBe(true);
-    expect(isUnitOfMeasure('cup')).toBe(true);
+    expect(isUnitOfMeasure('tablespoon')).toBeTruthy();
+    expect(isUnitOfMeasure('T')).toBeTruthy();
+    expect(isUnitOfMeasure('Tbs')).toBeTruthy();
+    expect(isUnitOfMeasure('tbs')).toBeTruthy();
+    expect(isUnitOfMeasure('Tbsp')).toBeTruthy();
+    expect(isUnitOfMeasure('tbsp')).toBeTruthy();
+    expect(isUnitOfMeasure('teaspoon')).toBeTruthy();
+    expect(isUnitOfMeasure('can')).toBeTruthy();
+    expect(isUnitOfMeasure('"')).toBeTruthy();
+    expect(isUnitOfMeasure('quart')).toBeTruthy();
+    expect(isUnitOfMeasure('ounce')).toBeTruthy();
+    expect(isUnitOfMeasure('c')).toBeTruthy();
+    expect(isUnitOfMeasure('Cup')).toBeTruthy();
+    expect(isUnitOfMeasure('cup')).toBeTruthy();
   });
 
   it('plurals', () => {
-    expect(isUnitOfMeasure('tablespoons')).toBe(true);
-    expect(isUnitOfMeasure('teaspoons')).toBe(true);
-    expect(isUnitOfMeasure('ounces')).toBe(true);
-    expect(isUnitOfMeasure('Cups')).toBe(true);
-    expect(isUnitOfMeasure('cups')).toBe(true);
-    expect(isUnitOfMeasure('pounds')).toBe(true);
-    expect(isUnitOfMeasure('Lbs')).toBe(true);
-    expect(isUnitOfMeasure('lbs')).toBe(true);
-    expect(isUnitOfMeasure('pinches')).toBe(true);
+    expect(isUnitOfMeasure('tablespoons')).toBeTruthy();
+    expect(isUnitOfMeasure('teaspoons')).toBeTruthy();
+    expect(isUnitOfMeasure('ounces')).toBeTruthy();
+    expect(isUnitOfMeasure('Cups')).toBeTruthy();
+    expect(isUnitOfMeasure('cups')).toBeTruthy();
+    expect(isUnitOfMeasure('pounds')).toBeTruthy();
+    expect(isUnitOfMeasure('Lbs')).toBeTruthy();
+    expect(isUnitOfMeasure('lbs')).toBeTruthy();
+    expect(isUnitOfMeasure('pinches')).toBeTruthy();
   });
 
   it('non-units', () => {
-    expect(isUnitOfMeasure('')).toBe(false);
-    expect(isUnitOfMeasure('apple')).toBe(false);
-    expect(isUnitOfMeasure(null)).toBe(false);
-    expect(isUnitOfMeasure(undefined)).toBe(false);
+    expect(isUnitOfMeasure('')).toBeFalsy();
+    expect(isUnitOfMeasure('apple')).toBeFalsy();
+    expect(isUnitOfMeasure(null)).toBeFalsy();
+    expect(isUnitOfMeasure(undefined)).toBeFalsy();
   });
 });
 
@@ -271,51 +275,103 @@ describe('unitNormalizer', () => {
   });
 });
 
-describe.only('getRangedAmount', () => {
+describe('getRangedAmount', () => {
   it('no ranges', () => {
-    expect(getRangedAmount('1 c salt')).toBe(undefined);
-    expect(getRangedAmount('1 c salt, optional')).toBe(undefined);
-    expect(getRangedAmount('1 c salt, to taste')).toBe(undefined);
-    expect(getRangedAmount('1/2 c four, divided')).toBe(undefined);
+    expect(getRangedAmount('1 c salt')).toBeUndefined();
+    expect(getRangedAmount('1 c salt, optional')).toBeUndefined();
+    expect(getRangedAmount('1 c salt, to taste')).toBeUndefined();
+    expect(getRangedAmount('1/2 c four, divided')).toBeUndefined();
   });
 
-  it.only('X to Y ranges', () => {
-    expect(getRangedAmount('1 to 2 c salt')).equal({
+  it('X to Y ranges', () => {
+    expect(getRangedAmount('1 to 2 c salt')).toEqual({
       match: { min: '1', max: '2' },
       rest: ['c', 'salt'],
     });
-    expect(getRangedAmount('1/2 to 3/4 c salt, optional')).equals({
+    expect(getRangedAmount('1/2 to 3/4 c salt, optional')).toEqual({
       match: { min: '1/2', max: '3/4' },
       rest: ['c', 'salt,', 'optional'],
     });
-    expect(getRangedAmount('1 to 1 1/2 c salt, to taste')).equals({
+    expect(getRangedAmount('1 to 1 1/2 c salt, to taste')).toEqual({
       match: { min: '1', max: '1 1/2' },
-      rest: ['c', 'salt,', 'to taste'],
+      rest: ['c', 'salt,', 'to', 'taste'],
     });
-    expect(getRangedAmount('1 1/3 to 1 1/2 c four, divided')).equals({
+    expect(getRangedAmount('1 to 1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1 1/3 to 1 1/2 c flour, divided')).toEqual({
       match: { min: '1 1/3', max: '1 1/2' },
       rest: ['c', 'flour,', 'divided'],
     });
   });
 
   it('XtoY ranges', () => {
-    expect(getRangedAmount('1to2 c salt')).toBe(undefined);
-    expect(getRangedAmount('1/2to3/4 c salt, optional')).toBe(undefined);
-    expect(getRangedAmount('1to1 1/2 c salt, to taste')).toBe(undefined);
-    expect(getRangedAmount('1 1/3to1 1/2 c four, divided')).toBe(undefined);
+    expect(getRangedAmount('1to2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getRangedAmount('1/2to3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getRangedAmount('1to1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1to1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1 1/3to1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
   });
 
   it('X - Y ranges', () => {
-    expect(getRangedAmount('1 - 2 c salt')).toBe(undefined);
-    expect(getRangedAmount('1/2 - 3/4 c salt, optional')).toBe(undefined);
-    expect(getRangedAmount('1 - 1 1/2 c salt, to taste')).toBe(undefined);
-    expect(getRangedAmount('1 1/3 - 1 1/2 c four, divided')).toBe(undefined);
+    expect(getRangedAmount('1 - 2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getRangedAmount('1/2 - 3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getRangedAmount('1 - 1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1 - 1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1 1/3 - 1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
   });
 
   it('X-Y ranges', () => {
-    expect(getRangedAmount('1-2 c salt')).toBe(undefined);
-    expect(getRangedAmount('1/2-3/4 c salt, optional')).toBe(undefined);
-    expect(getRangedAmount('1-1 1/2 c salt, to taste')).toBe(undefined);
-    expect(getRangedAmount('1 1/3-1 1/2 c four, divided')).toBe(undefined);
+    expect(getRangedAmount('1-2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getRangedAmount('1/2-3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getRangedAmount('1-1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1-1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getRangedAmount('1 1/3-1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
   });
 });

@@ -7,7 +7,8 @@ import {
 } from './ingredientComponents';
 
 export const isNumeric = (num) => {
-  return !Number.isNaN(parseFloat(num)) && Number.isFinite(num);
+  // eslint-disable-next-line no-restricted-globals
+  return !isNaN(parseFloat(num)) && isFinite(num);
 };
 
 export const isFraction = (str) => {
@@ -62,28 +63,19 @@ export const unitNormalizer = (unit) => {
   return val;
 };
 
-export const getRangedAmount = (fullText, start) => {
+export const getRangedAmount = (fullText) => {
   const rangeText = fullText.match(rangeWordsRegex);
-  let ingredientText = fullText;
   if (rangeText) {
-    if (!rangeText[2]) {
-      ingredientText = ingredientText.substr(rangeText[0].length);
-    }
-    if (rangeText[2] && isNumeric(rangeText[2])) {
-      ingredientText = ingredientText
-        .substr(rangeText[0].length - rangeText[2].length)
-        .replace(/^ */, '');
-    }
-    const end = isNumber(ingredientText);
-    if (end) {
-      return {
-        match: {
-          min: start[1],
-          max: end[1],
-        },
-        rest: ingredientText.substr(end[0].length).trim().split(' '),
-      };
-    }
+    const rangeMatch = rangeText[0];
+    const firstNumber = rangeText[1];
+    const secondNumber = rangeText[3];
+    return {
+      match: {
+        min: firstNumber.trim(),
+        max: secondNumber.trim(),
+      },
+      rest: fullText.substr(rangeMatch.length).trim().split(' '),
+    };
   }
   return undefined;
 };

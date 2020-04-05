@@ -27,7 +27,7 @@ export const unitsOfMeasure = {
 
 export const fluidicWords = ['fluid', 'fl'];
 
-export const rangeWordsRegex = / *(to([ 0-9]+)|- *)/i;
+export const rangeWordsRegex = /([0-9]+[ ./0-9]*) *(to|-) *([0-9][ ./0-9]*)/i;
 
 export const noiseWords = ['a', 'of'];
 
