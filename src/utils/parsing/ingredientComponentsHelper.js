@@ -64,7 +64,8 @@ export const unitNormalizer = (unit) => {
   return val;
 };
 
-export const getNumber = (fullText) => {
+export const getNumber = (words) => {
+  const fullText = words.join(' ');
   const numbersText = fullText.match(numbersRegex);
   if (numbersText) {
     const numberMatch = numbersText[0];
@@ -73,10 +74,11 @@ export const getNumber = (fullText) => {
       rest: fullText.substr(numberMatch.length).trim().split(' '),
     };
   }
-  return undefined;
+  return { rest: words };
 };
 
-export const getRangedAmount = (fullText) => {
+export const getRangedAmount = (words) => {
+  const fullText = words.join(' ');
   const rangeText = fullText.match(rangeWordsRegex);
   if (rangeText) {
     const rangeMatch = rangeText[0];
@@ -90,13 +92,51 @@ export const getRangedAmount = (fullText) => {
       rest: fullText.substr(rangeMatch.length).trim().split(' '),
     };
   }
-  return undefined;
+  return { rest: words };
 };
 
-export const getAmount = (ingredientText) => {
-  const rangedAmount = getRangedAmount(ingredientText);
-  if (rangedAmount) {
+export const getAmount = (words) => {
+  const rangedAmount = getRangedAmount(words);
+  if (rangedAmount.match) {
     return rangedAmount;
   }
-  return getNumber(ingredientText);
+  return getNumber(words);
+};
+
+export const checkForMatch = (itemsToFind, searchList, startIndex) => {
+  if (!itemsToFind) {
+    return -1;
+  }
+  const numItems = itemsToFind.length;
+  const combinedItems = itemsToFind.join(' ').toLowerCase();
+  if (searchList.length - startIndex < numItems) {
+    return -1;
+  }
+  const seg = searchList
+    .slice(startIndex, startIndex + numItems)
+    .join(' ')
+    .toLowerCase();
+  if (seg === combinedItems) {
+    return startIndex;
+  }
+  return checkForMatch(itemsToFind, searchList, startIndex + 1);
+};
+
+export const findMatch = (wordsToFind, wordsList) => {
+  const matchIdx = checkForMatch(wordsToFind, wordsList, 0);
+  if (matchIdx >= 0) {
+    return {
+      match: wordsToFind,
+      rest: wordsList.slice(matchIdx + wordsToFind.length),
+    };
+  }
+  return { rest: wordsList };
+};
+
+export const getUnit = (words) => {
+  const isUnit = isUnitOfMeasure(words[0]);
+  if (isUnit) {
+    return { match: unitNormalizer(words[0]), rest: words.slice(1) };
+  }
+  return { rest: words };
 };

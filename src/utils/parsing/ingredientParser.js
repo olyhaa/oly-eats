@@ -9,84 +9,13 @@
  * Reference http://stackoverflow.com/questions/12413705/parsing-natural-language-ingredient-quantities-for-recipes
  */
 import { noiseWords, regexOptional } from './ingredientComponents';
-import {
-  isUnitOfMeasure,
-  unitNormalizer,
-  getAmount,
-} from './ingredientComponentsHelper';
-
-export const isNumber = (str) => {
-  if (typeof str !== 'string') {
-    return false;
-  }
-  return str.match(/^(\d+\W\d+\/\d+|\d+\/\d+|\d+\.\d+|\d+)/);
-};
-
-/*
-const getNumber = from => {
-  const part = from.shift();
-  if (part) {
-    if (isNumeric(part) || isFraction(part)) {
-      return (part + ' ' + getNumber(from)).trim();
-    }
-    from.unshift(part);
-  }
-  return '';
-};
-*/
-
-export const checkForMatch = (len, section, within, offset) => {
-  if (within.length - offset < len) {
-    return false;
-  }
-  const seg = within
-    .slice(offset, offset + len)
-    .join(' ')
-    .toLowerCase();
-  if (seg === section) {
-    return offset;
-  }
-  return checkForMatch(len, section, within, offset + 1);
-};
-
-export const findMatch = (args) => {
-  const matchList = args.lookFor;
-  const matchIdx = checkForMatch(
-    matchList.length,
-    matchList.join(' '),
-    args.within,
-    0
-  );
-  if (matchIdx !== false) {
-    args.within.splice(matchIdx, matchList.length);
-  }
-  return matchIdx;
-};
-
-export const getALittle = (from) => {
-  const idx = findMatch({
-    lookFor: ['a', 'little'],
-    within: from,
-  });
-  return idx;
-};
+import { getAmount, getUnit, findMatch } from './ingredientComponentsHelper';
 
 export const getByWeight = (from) => {
-  const idx = findMatch({
+  return findMatch({
     lookFor: ['by', 'weight'],
     within: from,
   });
-  return idx;
-};
-
-export const getUnit = (from) => {
-  if (getALittle(from)) {
-    return 'a little';
-  }
-  if (isUnitOfMeasure(from[0] || '')) {
-    return unitNormalizer(from.shift());
-  }
-  return false;
 };
 
 export const getOptional = (from) => {
@@ -101,11 +30,10 @@ export const getOptional = (from) => {
 };
 
 export const getToTaste = (from) => {
-  const idx = findMatch({
+  return findMatch({
     lookFor: ['to', 'taste'],
     within: from,
   });
-  return idx;
 };
 
 export const removeCommas = (from) => {
@@ -164,23 +92,37 @@ export const parseIngredient = (source) => {
   }
 
   // get any numbers that are at the beginning of the string
-  const amount = getAmount(words.join(' '));
+  const amount = getAmount(words);
   if (!tmpAmount && amount) {
     ingredient.amount = amount.match;
     words = amount.rest;
   }
-  if ((val = getUnit(words))) {
-    ingredient.unit = val;
+
+  // next, get the units
+  const unit = getUnit(words);
+  if (unit) {
+    ingredient.unit = unit.match;
+    words = unit.rest;
   }
-  if (getByWeight(words)) {
-    ingredient.byWeight = true;
+
+  const byWeight = getByWeight(words);
+  if (byWeight) {
+    ingredient.byWeight = byWeight.match.length > 0;
+    words = byWeight.rest;
   }
-  if (getOptional(words)) {
-    ingredient.optional = true;
+
+  const optional = getOptional(words);
+  if (optional) {
+    ingredient.optional = optional.match.length > 0;
+    words = optional.rest;
   }
+
+  const toTaste = getToTaste(words);
   if (getToTaste(words)) {
-    ingredient.toTaste = true;
+    ingredient.toTaste = toTaste.match.length > 0;
+    words = toTaste.rest;
   }
+
   if ((val = getPrep(words))) {
     ingredient.prep = val;
   }

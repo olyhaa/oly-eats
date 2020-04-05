@@ -86,6 +86,12 @@ describe('Ingredient Parser', () => {
         name: 'salt',
         toTaste: true,
       },
+      'a little salt': {
+        unit: 'Little',
+        name: 'salt',
+        toTaste: true,
+        amount: '1',
+      },
       'a bit of salt to taste': {
         unit: 'Little',
         name: 'salt',
