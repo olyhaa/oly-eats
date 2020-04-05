@@ -14,6 +14,10 @@ import {
   getByWeight,
   getOptional,
   getToTaste,
+  getParenText,
+  getCommaText,
+  getPrep,
+  removeBeginningEndNoise,
 } from '../ingredientComponentsHelper';
 
 describe('isNumeric', () => {
@@ -769,6 +773,151 @@ describe('getToTaste', () => {
       const expected = testCases[name];
       it(`Should parse ${name}`, () => {
         expect(getToTaste(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('getParenText', () => {
+  describe('no match', () => {
+    const testCases = [
+      'medium apples',
+      'medium apples ( with style',
+      'medium apples ) with style',
+    ];
+
+    testCases.forEach((name) => {
+      const expected = { rest: name.split(' ') };
+      it(`Should parse ${name}`, () => {
+        expect(getParenText(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+
+  describe('has match', () => {
+    const testCases = {
+      'apples (chopped)': { match: ['chopped'], rest: ['apples'] },
+      'apples (chopped large)': { match: ['chopped large'], rest: ['apples'] },
+      'apples ()': { match: [''], rest: ['apples'] },
+      'apples (chopped) large': {
+        match: ['chopped'],
+        rest: ['apples', 'large'],
+      },
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(getParenText(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('getCommaText', () => {
+  describe("doesn't have comma", () => {
+    const testCases = ['apples', 'apples chopped'];
+    testCases.forEach((name) => {
+      const expected = { rest: name.split(' ') };
+      it(`Should parse ${name}`, () => {
+        expect(getCommaText(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+
+  describe('has comma', () => {
+    const testCases = {
+      'apples, chopped': { match: ['chopped'], rest: ['apples'] },
+      'apples, peeled, and chopped': {
+        match: ['peeled, and chopped'],
+        rest: ['apples'],
+      },
+      'apples,': { match: [''], rest: ['apples'] },
+      ', apples': { match: ['apples'], rest: [''] },
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(getCommaText(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('removeBeginningEndNoise', () => {
+  describe('no noise', () => {
+    const testCases = ['trimmed and washed', 'trimmed', 'diced, washed'];
+
+    testCases.forEach((name) => {
+      it(`Should parse ${name}`, () => {
+        expect(removeBeginningEndNoise(name)).toEqual(name);
+      });
+    });
+  });
+
+  describe('has noise', () => {
+    const testCases = {
+      'and trimmed and washed': 'trimmed and washed',
+      'trimmed and': 'trimmed',
+      'And diced, washed': 'diced, washed',
+      'washed and ': 'washed',
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(removeBeginningEndNoise(name)).toEqual(expected);
+      });
+    });
+  });
+});
+
+describe('getPrep', () => {
+  describe("doesn't have prep", () => {
+    const testCases = [
+      'apples',
+      'apples chopped',
+      'medium apples ( with style',
+      'medium apples ) with style',
+    ];
+    testCases.forEach((name) => {
+      const expected = { rest: name.split(' ') };
+      it(`Should parse ${name}`, () => {
+        expect(getPrep(name.split(' '))).toEqual(expected);
+      });
+    });
+  });
+
+  describe('has prep', () => {
+    const testCases = {
+      'apples, chopped': { match: ['chopped'], rest: ['apples'] },
+      'apples, peeled, and chopped': {
+        match: ['peeled, and chopped'],
+        rest: ['apples'],
+      },
+      'apples,': { rest: ['apples'] },
+      ', apples': { match: ['apples'], rest: [''] },
+      'apples (chopped)': { match: ['chopped'], rest: ['apples'] },
+      'apples (chopped) large': {
+        match: ['chopped'],
+        rest: ['apples', 'large'],
+      },
+      'apples (chopped), and peeled': {
+        match: ['chopped, peeled'],
+        rest: ['apples'],
+      },
+      'apples, peeled (and chopped)': {
+        match: ['chopped, peeled'],
+        rest: ['apples'],
+      },
+      'apples ()': { rest: ['apples'] },
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(getPrep(name.split(' '))).toEqual(expected);
       });
     });
   });

@@ -8,29 +8,8 @@
  *
  * Reference http://stackoverflow.com/questions/12413705/parsing-natural-language-ingredient-quantities-for-recipes
  */
-import { noiseWords, regexOptional } from './ingredientComponents';
-import { getAmount, getUnit, findMatch } from './ingredientComponentsHelper';
-
-export const getByWeight = (words) => {
-  return findMatch({
-    lookFor: ['by', 'weight'],
-    within: words,
-  });
-};
-
-export const getOptional = (words) => {
-  return findMatch({
-    lookFor: ['optional'],
-    within: words,
-  });
-};
-
-export const getToTaste = (words) => {
-  return findMatch({
-    lookFor: ['to', 'taste'],
-    within: words,
-  });
-};
+import { noiseWords } from './ingredientComponents';
+import { getAmount, getUnit, getPrep } from './ingredientComponentsHelper';
 
 export const removeCommas = (from) => {
   return from.replace(/,\s*$/, '');
@@ -48,37 +27,12 @@ export const removeNoise = (from) => {
     });
 };
 
-export const getPrep = (from) => {
-  // TODO parse commas as prep
-  let startIndex = false;
-  let endIndex;
-  let inPrep = false;
-  let prep = from.forEach((item, idx) => {
-    if (!inPrep && startIndex === false && item[0] === '(') {
-      inPrep = true;
-      startIndex = idx;
-    }
-    if (inPrep && item.substr(-1) === ')') {
-      inPrep = false;
-      endIndex = idx;
-    }
-  });
-  if (startIndex !== false) {
-    prep = from.splice(startIndex, endIndex + 1).join(' ');
-    return prep.substr(-1) === ')'
-      ? prep.substring(1, prep.length - 1)
-      : prep.substr(1);
-  }
-  return false;
-};
-
 export const parseIngredient = (source) => {
   const ingredient = {};
 
   // split into words
   let words = source.split(/[ \t]/);
 
-  let val;
   let tmpAmount;
 
   // if starts with "a", have implicit amount of 1
@@ -115,14 +69,16 @@ export const parseIngredient = (source) => {
   }
 
   const toTaste = getToTaste(words);
-  if (getToTaste(words)) {
+  if (toTaste) {
     ingredient.toTaste = toTaste.match.length > 0;
     words = toTaste.rest;
   }
 
   // get any prep modifiers
-  if ((val = getPrep(words))) {
-    ingredient.prep = val;
+  const prep = getPrep(words);
+  if (prep) {
+    ingredient.prep = prep.match;
+    words = prep.rest;
   }
 
   // clearn up remaining text for ingredient name

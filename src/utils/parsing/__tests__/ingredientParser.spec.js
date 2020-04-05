@@ -258,11 +258,5 @@ describe('Ingredient Parser', () => {
         prep: 'rinsed and drained',
       },
     };
-    Object.keys(testCases).forEach((name) => {
-      const expected = testCases[name];
-      it(`Should parse ${name}`, () => {
-        expect(parseIngredient(name)).toEqual(expected);
-      });
-    });
   });
 });

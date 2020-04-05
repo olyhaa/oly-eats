@@ -5,6 +5,7 @@ import {
   unitsMap,
   numbersRegex,
   rangeWordsRegex,
+  parenRegex,
 } from './ingredientComponents';
 
 export const isNumeric = (num) => {
@@ -154,4 +155,87 @@ export const getOptional = (words) => {
 
 export const getToTaste = (words) => {
   return findMatch(['to', 'taste'], words);
+};
+
+export const removeBeginningEndNoise = (str) => {
+  let trimmedString = str.trim();
+  // removes "and" from beginning or end of string
+  if (trimmedString.toLowerCase().startsWith('and')) {
+    trimmedString = trimmedString.substr('and'.length);
+  }
+  if (trimmedString.toLowerCase().endsWith('and')) {
+    trimmedString = trimmedString.substr(
+      0,
+      trimmedString.length - 'and'.length
+    );
+  }
+  return trimmedString.trim();
+};
+
+export const getParenText = (words) => {
+  const fullText = words.join(' ');
+  const parenText = fullText.match(parenRegex);
+
+  if (parenText) {
+    const fullMatch = parenText[0];
+    const parenMatch = removeBeginningEndNoise(parenText[1]);
+    const matchIndex = fullText.indexOf(fullMatch);
+    const newWords = fullText
+      .substr(0, matchIndex)
+      .trim()
+      .concat(fullText.substr(matchIndex + fullMatch.length));
+    return {
+      match: [parenMatch.trim()],
+      rest: newWords.trim().split(' '),
+    };
+  }
+  return { rest: words };
+};
+
+export const getCommaText = (words) => {
+  const fullText = words.join(' ');
+  const commaIndex = fullText.indexOf(',');
+  if (commaIndex >= 0) {
+    const commaText = removeBeginningEndNoise(fullText.substr(commaIndex + 1));
+    const otherText = fullText.substr(0, commaIndex);
+    return {
+      match: [commaText.trim()],
+      rest: otherText.trim().split(' '),
+    };
+  }
+  return { rest: words };
+};
+
+export const getPrep = (words) => {
+  let matchPrep = '';
+  let wordsList = words;
+
+  // anything inside parenthesis should be considered prep
+  const parens = getParenText(wordsList);
+  if (parens.match) {
+    if (parens.match[0].length > 0) {
+      if (matchPrep.length > 0) {
+        matchPrep += ', ';
+      }
+      matchPrep += parens.match[0];
+    }
+    wordsList = parens.rest;
+  }
+
+  // anything after the first comma should be considered prep
+  const commas = getCommaText(wordsList);
+  if (commas.match) {
+    if (commas.match[0].length > 0) {
+      if (matchPrep.length > 0) {
+        matchPrep += ', ';
+      }
+      matchPrep += commas.match[0];
+    }
+    wordsList = commas.rest;
+  }
+
+  if (matchPrep) {
+    return { match: [matchPrep], rest: wordsList };
+  }
+  return { rest: wordsList };
 };
