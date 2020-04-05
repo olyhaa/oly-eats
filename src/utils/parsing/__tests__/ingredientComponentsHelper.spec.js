@@ -6,6 +6,8 @@ import {
   isUnitOfMeasure,
   unitNormalizer,
   getRangedAmount,
+  getNumber,
+  getAmount,
 } from '../ingredientComponentsHelper';
 
 describe('isNumeric', () => {
@@ -275,6 +277,40 @@ describe('unitNormalizer', () => {
   });
 });
 
+describe('getNumber', () => {
+  it('no numbers', () => {
+    expect(getRangedAmount('c salt')).toBeUndefined();
+    expect(getRangedAmount('c salt #2')).toBeUndefined();
+  });
+
+  it('single numbers', () => {
+    expect(getNumber('1 c salt')).toEqual({
+      match: '1',
+      rest: ['c', 'salt'],
+    });
+    expect(getNumber('1 c salt, optional')).toEqual({
+      match: '1',
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getNumber('1 c salt, to taste')).toEqual({
+      match: '1',
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getNumber('1/2 c flour, divided')).toEqual({
+      match: '1/2',
+      rest: ['c', 'flour,', 'divided'],
+    });
+    expect(getNumber('1.5 c flour, divided')).toEqual({
+      match: '1.5',
+      rest: ['c', 'flour,', 'divided'],
+    });
+    expect(getNumber('1c flour, divided')).toEqual({
+      match: '1',
+      rest: ['c', 'flour,', 'divided'],
+    });
+  });
+});
+
 describe('getRangedAmount', () => {
   it('no ranges', () => {
     expect(getRangedAmount('1 c salt')).toBeUndefined();
@@ -370,6 +406,132 @@ describe('getRangedAmount', () => {
       rest: ['c', 'salt,', 'to', 'taste'],
     });
     expect(getRangedAmount('1 1/3-1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
+  });
+});
+
+describe('getAmount', () => {
+  it('no numbers', () => {
+    expect(getAmount('c salt')).toBeUndefined();
+    expect(getAmount('c salt #2')).toBeUndefined();
+  });
+
+  it('single numbers', () => {
+    expect(getAmount('1 c salt')).toEqual({
+      match: '1',
+      rest: ['c', 'salt'],
+    });
+    expect(getAmount('1 c salt, optional')).toEqual({
+      match: '1',
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getAmount('1 c salt, to taste')).toEqual({
+      match: '1',
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1/2 c flour, divided')).toEqual({
+      match: '1/2',
+      rest: ['c', 'flour,', 'divided'],
+    });
+    expect(getAmount('1.5 c flour, divided')).toEqual({
+      match: '1.5',
+      rest: ['c', 'flour,', 'divided'],
+    });
+    expect(getAmount('1c flour, divided')).toEqual({
+      match: '1',
+      rest: ['c', 'flour,', 'divided'],
+    });
+  });
+
+  it('X to Y ranges', () => {
+    expect(getAmount('1 to 2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getAmount('1/2 to 3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getAmount('1 to 1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1 to 1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1 1/3 to 1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
+  });
+
+  it('XtoY ranges', () => {
+    expect(getAmount('1to2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getRangedAmount('1/2to3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getAmount('1to1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1to1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1 1/3to1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
+  });
+
+  it('X - Y ranges', () => {
+    expect(getAmount('1 - 2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getAmount('1/2 - 3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getAmount('1 - 1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1 - 1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1 1/3 - 1 1/2 c flour, divided')).toEqual({
+      match: { min: '1 1/3', max: '1 1/2' },
+      rest: ['c', 'flour,', 'divided'],
+    });
+  });
+
+  it('X-Y ranges', () => {
+    expect(getAmount('1-2 c salt')).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
+    expect(getAmount('1/2-3/4 c salt, optional')).toEqual({
+      match: { min: '1/2', max: '3/4' },
+      rest: ['c', 'salt,', 'optional'],
+    });
+    expect(getAmount('1-1 1/2 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1 1/2' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1-1.5 c salt, to taste')).toEqual({
+      match: { min: '1', max: '1.5' },
+      rest: ['c', 'salt,', 'to', 'taste'],
+    });
+    expect(getAmount('1 1/3-1 1/2 c flour, divided')).toEqual({
       match: { min: '1 1/3', max: '1 1/2' },
       rest: ['c', 'flour,', 'divided'],
     });

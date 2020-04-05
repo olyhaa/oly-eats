@@ -3,6 +3,7 @@ import {
   unitsOfMeasure,
   flattenedUnits,
   unitsMap,
+  numbersRegex,
   rangeWordsRegex,
 } from './ingredientComponents';
 
@@ -63,6 +64,18 @@ export const unitNormalizer = (unit) => {
   return val;
 };
 
+export const getNumber = (fullText) => {
+  const numbersText = fullText.match(numbersRegex);
+  if (numbersText) {
+    const numberMatch = numbersText[0];
+    return {
+      match: numberMatch.trim(),
+      rest: fullText.substr(numberMatch.length).trim().split(' '),
+    };
+  }
+  return undefined;
+};
+
 export const getRangedAmount = (fullText) => {
   const rangeText = fullText.match(rangeWordsRegex);
   if (rangeText) {
@@ -78,4 +91,12 @@ export const getRangedAmount = (fullText) => {
     };
   }
   return undefined;
+};
+
+export const getAmount = (ingredientText) => {
+  const rangedAmount = getRangedAmount(ingredientText);
+  if (rangedAmount) {
+    return rangedAmount;
+  }
+  return getNumber(ingredientText);
 };

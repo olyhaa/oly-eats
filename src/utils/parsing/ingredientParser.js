@@ -8,15 +8,11 @@
  *
  * Reference http://stackoverflow.com/questions/12413705/parsing-natural-language-ingredient-quantities-for-recipes
  */
-import {
-  noiseWords,
-  fluidicWords,
-  regexOptional,
-} from './ingredientComponents';
+import { noiseWords, regexOptional } from './ingredientComponents';
 import {
   isUnitOfMeasure,
   unitNormalizer,
-  getRangedAmount,
+  getAmount,
 } from './ingredientComponentsHelper';
 
 export const isNumber = (str) => {
@@ -38,22 +34,6 @@ const getNumber = from => {
   return '';
 };
 */
-export const getAmount = (wordsList) => {
-  let ingredientText = wordsList.join(' ');
-  const start = isNumber(ingredientText);
-  if (start) {
-    ingredientText = ingredientText.substr(start[0].length);
-    const rangedMatch = getRangedAmount(ingredientText, start);
-    if (rangedMatch) {
-      return rangedMatch;
-    }
-    return {
-      match: start[1],
-      rest: ingredientText.trim().split(' '),
-    };
-  }
-  return false;
-};
 
 export const checkForMatch = (len, section, within, offset) => {
   if (within.length - offset < len) {
@@ -182,9 +162,12 @@ export const parseIngredient = (source) => {
     tmpAmount = 1;
     words.shift();
   }
-  if (!tmpAmount && (val = getAmount(words))) {
-    ingredient.amount = val.match;
-    words = val.rest;
+
+  // get any numbers that are at the beginning of the string
+  const amount = getAmount(words.join(' '));
+  if (!tmpAmount && amount) {
+    ingredient.amount = amount.match;
+    words = amount.rest;
   }
   if ((val = getUnit(words))) {
     ingredient.unit = val;
