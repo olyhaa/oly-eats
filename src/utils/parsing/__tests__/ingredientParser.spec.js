@@ -258,6 +258,63 @@ describe('Ingredient Parser', () => {
         name: 'chickpeas',
         prep: 'rinsed and drained',
       },
+      // Nathan's fun stuff
+      '1 (chopped) apple': {
+        amount: '1',
+        name: 'apple',
+        prep: 'chopped',
+      },
+      '1 (chopped) apple, diced small': {
+        amount: '1',
+        name: 'apple',
+        prep: 'chopped, diced small',
+      },
+      '1 (chopped) apple, granny smith': {
+        amount: '1',
+        name: 'apple',
+        prep: 'chopped, granny smith',
+      },
+      '11 single apples': {
+        amount: '11',
+        name: 'single apples',
+      },
+      '11 a apple': {
+        amount: '11',
+        name: 'apple',
+      },
+      '2 to 1 apples': {
+        amount: {
+          min: '2',
+          max: '1',
+        },
+        name: 'apples',
+      },
+      'Freshly ground black pepper': {
+        name: 'Freshly ground black pepper',
+      },
+      '12 ounces carrots(about 4 to 5 medium), peeled and shredded on the large holes of a box grater': {
+        amount: '12',
+        unit: 'Ounce',
+        name: 'carrots',
+        prep:
+          'about 4 to 5 medium, peeled and shredded on the large holes of a box grater',
+      },
+      '1 to 2 tablespoons freshly squeezed lemon juice': {
+        amount: {
+          min: '1',
+          max: '2',
+        },
+        name: 'freshly squeezed lemon juice',
+        unit: 'Tablespoon',
+      },
+      '1 to 2 11 oz cans of tomatoes': {
+        amount: {
+          min: '1',
+          max: '2 11',
+        },
+        name: 'cans tomatoes',
+        unit: 'Ounce',
+      },
     };
 
     Object.keys(testCases).forEach((name) => {
