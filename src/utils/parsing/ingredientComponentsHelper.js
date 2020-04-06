@@ -253,6 +253,7 @@ export const removeNoise = (words) => {
         if (noiseWords.indexOf(word.toLowerCase()) < 0) {
           return word;
         }
+        return false;
       })
   );
 };
