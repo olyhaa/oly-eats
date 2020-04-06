@@ -741,10 +741,6 @@ describe('getOptional', () => {
       'apples, optional': { match: ['optional'], rest: ['apples,'] },
       'apples (optional)': { match: ['optional'], rest: ['apples'] },
       'optional water': { match: ['optional'], rest: ['water'] },
-      'optional water optional': {
-        match: ['optional', 'optional'],
-        rest: ['water'],
-      },
     };
 
     Object.keys(testCases).forEach((name) => {
