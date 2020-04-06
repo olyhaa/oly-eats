@@ -2,6 +2,7 @@ import { saveAs } from 'file-saver';
 import uuid from 'uuid/v4';
 import { FIELDS } from './constants';
 import { parseIngredient } from '../../utils/parsing/ingredientParser';
+import { convertUnicodeFractions } from '../../utils/parsing/general';
 
 const transformDirections = (directions) => {
   // break on new lines
@@ -17,7 +18,7 @@ const transformDirections = (directions) => {
       return item.length > 0;
     })
     .map((item, index) => {
-      return { id: index, text: item.trim() };
+      return { id: index, text: convertUnicodeFractions(item).trim() };
     });
 
   return directionsList;
@@ -30,7 +31,7 @@ const transformIngredients = (ingredients) => {
   // clean up extra spaces
   const ingredientsList = list
     .map((item) => {
-      return item.trim();
+      return convertUnicodeFractions(item).trim();
     })
     // remove empty items
     .filter((item) => {
