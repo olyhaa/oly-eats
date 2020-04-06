@@ -13,7 +13,9 @@ const useStyles = makeStyles(() => ({
     maxHeight: '410px',
   },
   media: {
-    maxheight: 400,
+    height: 400,
+    objectFit: 'cover',
+    backgroundPosition: 'center',
   },
 }));
 
@@ -21,7 +23,12 @@ function Image({ title, imageSrc }) {
   const classes = useStyles();
   return (
     <Card className={classes.photo}>
-      <CardMedia component="img" src={imageSrc} title={title} />
+      <CardMedia
+        className={classes.media}
+        component="img"
+        src={imageSrc}
+        title={title}
+      />
     </Card>
   );
 }
