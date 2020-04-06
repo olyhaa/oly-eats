@@ -12,6 +12,9 @@ import {
   getAmount,
   getUnit,
   getPrep,
+  getByWeight,
+  getOptional,
+  getToTaste,
   removeNoise,
 } from './ingredientComponentsHelper';
 
@@ -24,50 +27,50 @@ export const parseIngredient = (source) => {
   let tmpAmount;
 
   // if starts with "a", have implicit amount of 1
-  if (words[0] === 'a') {
+  if (words[0].toLowerCase() === 'a' || words[0].toLowerCase() === 'an') {
     tmpAmount = 1;
     words.shift();
   }
 
   // get any numbers that are at the beginning of the string
   const amount = getAmount(words);
-  if (!tmpAmount && amount) {
+  if (!tmpAmount && amount.match) {
     ingredient.amount = amount.match;
-    words = amount.rest;
   }
+  words = amount.rest;
 
   // next, get the units
   const unit = getUnit(words);
-  if (unit) {
+  if (unit.match) {
     ingredient.unit = unit.match;
-    words = unit.rest;
   }
+  words = unit.rest;
 
   // check for modifiers
   const byWeight = getByWeight(words);
-  if (byWeight) {
+  if (byWeight.match) {
     ingredient.byWeight = byWeight.match.length > 0;
-    words = byWeight.rest;
   }
+  words = byWeight.rest;
 
   const optional = getOptional(words);
-  if (optional) {
+  if (optional.match) {
     ingredient.optional = optional.match.length > 0;
-    words = optional.rest;
   }
+  words = optional.rest;
 
   const toTaste = getToTaste(words);
-  if (toTaste) {
+  if (toTaste.match) {
     ingredient.toTaste = toTaste.match.length > 0;
-    words = toTaste.rest;
   }
+  words = toTaste.rest;
 
   // get any prep modifiers
   const prep = getPrep(words);
-  if (prep) {
-    ingredient.prep = prep.match;
-    words = prep.rest;
+  if (prep.match) {
+    ingredient.prep = prep.match.join(' ');
   }
+  words = prep.rest;
 
   // clean up remaining text for ingredient name
   words = removeNoise(words);

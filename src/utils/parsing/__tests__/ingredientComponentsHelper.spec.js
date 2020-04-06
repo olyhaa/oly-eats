@@ -580,6 +580,9 @@ describe('checkForMatch', () => {
     expect(
       checkForMatch(['FIRST', 'second'], ['First', 'Second', 'third'], 0)
     ).toEqual(0);
+    expect(checkForMatch(['first'], ['(first)', 'second', 'third'], 0)).toEqual(
+      0
+    );
     expect(
       checkForMatch(['second', 'third'], ['first', 'second', 'third'], 0)
     ).toEqual(1);
@@ -736,7 +739,12 @@ describe('getOptional', () => {
   describe('is optional', () => {
     const testCases = {
       'apples, optional': { match: ['optional'], rest: ['apples,'] },
+      'apples (optional)': { match: ['optional'], rest: ['apples'] },
       'optional water': { match: ['optional'], rest: ['water'] },
+      'optional water optional': {
+        match: ['optional', 'optional'],
+        rest: ['water'],
+      },
     };
 
     Object.keys(testCases).forEach((name) => {

@@ -70,7 +70,7 @@ describe('Ingredient Parser', () => {
         toTaste: true,
         name: 'salt',
       },
-      'optional salt optional to taste': {
+      'salt, optional to taste': {
         optional: true,
         name: 'salt',
         toTaste: true,
@@ -89,8 +89,6 @@ describe('Ingredient Parser', () => {
       'a little salt': {
         unit: 'Little',
         name: 'salt',
-        toTaste: true,
-        amount: '1',
       },
       'a bit of salt to taste': {
         unit: 'Little',
@@ -229,12 +227,15 @@ describe('Ingredient Parser', () => {
         name: 'white wine',
       },
       'medium chopped apple': {
-        amount: '1',
         name: 'medium chopped apple',
       },
       'a medium chopped apple': {
         amount: '1',
         name: 'medium chopped apple',
+      },
+      'an apple': {
+        amount: '1',
+        name: 'apple',
       },
       '2 packages chips': {
         amount: '2',
@@ -258,5 +259,12 @@ describe('Ingredient Parser', () => {
         prep: 'rinsed and drained',
       },
     };
+
+    Object.keys(testCases).forEach((name) => {
+      const expected = testCases[name];
+      it(`Should parse ${name}`, () => {
+        expect(parseIngredient(name)).toEqual(expected);
+      });
+    });
   });
 });

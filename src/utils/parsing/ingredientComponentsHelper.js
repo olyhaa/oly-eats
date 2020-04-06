@@ -114,11 +114,11 @@ export const checkForMatch = (itemsToFind, searchList, startIndex) => {
   if (searchList.length - startIndex < numItems) {
     return -1;
   }
-  const seg = searchList
+  const possibleMatch = searchList
     .slice(startIndex, startIndex + numItems)
     .join(' ')
     .toLowerCase();
-  if (seg === combinedItems) {
+  if (possibleMatch.indexOf(combinedItems) >= 0) {
     return startIndex;
   }
   return checkForMatch(itemsToFind, searchList, startIndex + 1);
