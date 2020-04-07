@@ -1,4 +1,4 @@
-import { parseIngredient } from '../ingredientParser';
+import { parseIngredient, buildIngredientString } from '../ingredientParser';
 
 describe('Ingredient Parser', () => {
   describe('The Basics', () => {
@@ -323,5 +323,52 @@ describe('Ingredient Parser', () => {
         expect(parseIngredient(name)).toEqual(expected);
       });
     });
+  });
+});
+
+describe('buildIngredientString', () => {
+  it('all params', () => {
+    expect(
+      buildIngredientString({
+        amount: '1',
+        unit: 'Tablespoon',
+        name: 'flour',
+        prep: 'bleached',
+        optional: true,
+        toTaste: true,
+      })
+    ).toEqual('1 Tablespoon flour, bleached, optional, to taste');
+  });
+
+  it('ranged amounts', () => {
+    expect(
+      buildIngredientString({
+        amount: {
+          min: '1',
+          max: '2',
+        },
+        name: 'freshly squeezed lemon juice',
+        unit: 'Tablespoon',
+      })
+    ).toEqual('1 - 2 Tablespoon freshly squeezed lemon juice');
+  });
+
+  it('bool params', () => {
+    expect(
+      buildIngredientString({
+        amount: '2',
+        unit: 'Teaspoon',
+        name: 'toasted sesame oil',
+        prep: 'divided',
+        optional: true,
+      })
+    ).toEqual('2 Teaspoon toasted sesame oil, divided, optional');
+
+    expect(
+      buildIngredientString({
+        name: 'salt and pepper',
+        toTaste: true,
+      })
+    ).toEqual('salt and pepper, to taste');
   });
 });

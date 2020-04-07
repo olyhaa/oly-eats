@@ -257,3 +257,17 @@ export const removeNoise = (words) => {
       })
   );
 };
+
+export const addStrWithSpace = (first, second, addComma) => {
+  let newStr = first ? first.trim() : '';
+  if (second) {
+    if (newStr.length > 0) {
+      if (addComma) {
+        newStr += ',';
+      }
+      newStr += ' ';
+    }
+    newStr += second.trim();
+  }
+  return newStr;
+};

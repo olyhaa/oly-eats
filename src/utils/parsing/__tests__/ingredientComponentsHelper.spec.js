@@ -19,6 +19,7 @@ import {
   getPrep,
   removeBeginningEndNoise,
   removeNoise,
+  addStrWithSpace,
 } from '../ingredientComponentsHelper';
 
 describe('isNumeric', () => {
@@ -977,5 +978,37 @@ describe('removeNoise', () => {
         expect(removeNoise(name.split(' '))).toEqual(expected.split(' '));
       });
     });
+  });
+});
+
+describe('addStrWithSpace', () => {
+  it('two strings, no commas', () => {
+    expect(addStrWithSpace('first', 'second')).toEqual('first second');
+    expect(addStrWithSpace(' first ', 'second')).toEqual('first second');
+    expect(addStrWithSpace('first', ' second ')).toEqual('first second');
+    expect(addStrWithSpace('   first ', '  second ')).toEqual('first second');
+  });
+
+  it('two strings, with commas', () => {
+    expect(addStrWithSpace('first', 'second', true)).toEqual('first, second');
+    expect(addStrWithSpace(' first ', 'second', true)).toEqual('first, second');
+    expect(addStrWithSpace('first', ' second ', true)).toEqual('first, second');
+    expect(addStrWithSpace('   first ', '  second ', true)).toEqual(
+      'first, second'
+    );
+  });
+
+  it('empty first string', () => {
+    expect(addStrWithSpace('', 'second')).toEqual('second');
+    expect(addStrWithSpace(undefined, 'second')).toEqual('second');
+    expect(addStrWithSpace('', ' second ', true)).toEqual('second');
+    expect(addStrWithSpace(undefined, '  second ', true)).toEqual('second');
+  });
+
+  it('empty second string', () => {
+    expect(addStrWithSpace('first', '')).toEqual('first');
+    expect(addStrWithSpace('first', undefined)).toEqual('first');
+    expect(addStrWithSpace('first', '', true)).toEqual('first');
+    expect(addStrWithSpace('first', undefined, true)).toEqual('first');
   });
 });

@@ -8,69 +8,69 @@
         "label": "Ingredients",
         "ingredients": [
           {
-            "amount": 1,
-            "units": "T",
-            "description": "olive oil"
+            "amount": "1",
+            "unit": "T",
+            "name": "olive oil"
           },
           {
-            "amount": 1,
-            "units": "medium",
-            "description": "onion",
-            "notes": "1/4-inch diced"
+            "amount": "1",
+            "unit": "medium",
+            "name": "onion",
+            "prep": "1/4-inch diced"
           },
           {
-            "amount": 2,
-            "units": "medium",
-            "description": "sweet potatoes",
-            "notes": "peeled and 1/2-inch diced (about 4 generous cups)"
+            "amount": "2",
+            "unit": "medium",
+            "name": "sweet potatoes",
+            "prep": "peeled and 1/2-inch diced, about 4 generous cups"
           },
           {
-            "amount": 2,
-            "units": "medium",
-            "description": "red bell peppers",
-            "notes": "3/4-inch diced"
+            "amount": "2",
+            "unit": "medium",
+            "name": "red bell peppers",
+            "prep": "3/4-inch diced"
           },
           {
-            "amount": 1,
-            "units": "T",
-            "description": "chili powder"
+            "amount": "1",
+            "unit": "T",
+            "name": "chili powder"
           },
           {
-            "amount": 1,
-            "units": "t",
-            "description": "chipotle chili powder"
+            "amount": "1",
+            "unit": "t",
+            "name": "chipotle chili powder"
           },
           {
-            "amount": 1,
-            "units": "t",
-            "description": "ground cumin"
+            "amount": "1",
+            "unit": "t",
+            "name": "ground cumin"
           },
           {
-            "amount": 1.25,
-            "units": "t",
-            "description": "kosher salt"
+            "amount": "1 1/4",
+            "unit": "t",
+            "name": "kosher salt"
           },
           {
-            "amount": 2.5,
-            "units": "c",
-            "description": "vegetable broth"
+            "amount": "2 1/2",
+            "unit": "c",
+            "name": "vegetable broth"
           },
           {
-            "amount": 8,
-            "units": "oz",
-            "description": "tomato sauce"
+            "amount": "8",
+            "unit": "oz",
+            "name": "tomato sauce"
           },
           {
-            "amount": 15,
-            "units": "oz",
-            "description": "black beans",
-            "notes": "rinsed and drained"
+            "amount": "15",
+            "unit": "oz",
+            "name": "black beans",
+            "prep": "rinsed and drained"
           },
           {
-            "amount": 15,
-            "units": "oz",
-            "description": "dark or light red kidney beans",
-            "notes": "rinsed and drained"
+            "amount": "15",
+            "unit": "oz",
+            "name": "dark or light red kidney beans",
+            "prep": "rinsed and drained"
           }
         ]
       }
@@ -169,55 +169,55 @@
         "label": "Ingredients",
         "ingredients": [
           {
-            "amount": 15,
-            "units": "oz",
-            "description": "chickpeas",
-            "notes": "rinsed and drained"
+            "amount": "15",
+            "unit": "oz",
+            "name": "chickpeas",
+            "prep": "rinsed and drained"
           },
           {
-            "amount": 1,
-            "description": "serrano chili pepper",
-            "notes": "diced very small"
+            "amount": "1",
+            "name": "serrano chili pepper",
+            "prep": "diced very small"
           },
           {
-            "amount": 1,
-            "units": "medium",
-            "description": "mango",
-            "notes": "peeled and diced very small"
+            "amount": "1",
+            "unit": "medium",
+            "name": "mango",
+            "prep": "peeled and diced very small"
           },
           {
-            "amount": 1,
-            "units": "medium",
-            "description": "roma tomato",
-            "notes": "diced small"
+            "amount": "1",
+            "unit": "medium",
+            "name": "roma tomato",
+            "prep": "diced small"
           },
           {
-            "amount": 0.75,
-            "units": "c",
-            "description": "corn",
-            "notes": "canned drained and rinsed, frozen, or fresh"
+            "amount": "3/4",
+            "unit": "c",
+            "name": "corn",
+            "prep": "canned drained and rinsed, frozen, or fresh"
           },
           {
-            "amount": 0.5,
-            "units": "c",
-            "description": "red onion",
-            "notes": "diced very small"
+            "amount": "1/2",
+            "unit": "c",
+            "name": "red onion",
+            "prep": "diced very small"
           },
           {
-            "amount": 4,
-            "units": "c",
-            "description": "fresh cilantro",
-            "notes": "minced"
+            "amount": "4",
+            "unit": "c",
+            "name": "fresh cilantro",
+            "prep": "minced"
           },
           {
-            "amount": 0.25,
-            "units": "c",
-            "description": "lime juice"
+            "amount": "1/4",
+            "unit": "c",
+            "name": "lime juice"
           },
           {
-            "amount": 1,
-            "units": "t",
-            "description": "kosher salt"
+            "amount": "1",
+            "unit": "t",
+            "name": "kosher salt"
           }
         ]
       }
@@ -252,5 +252,74 @@
       "meal": ["lunch", "side"]
     },
     "photo": "https://www.averiecooks.com/wp-content/uploads/2019/05/mangochickpeasalad-3.jpg"
+  },
+  {
+    "id": "81b16a58-11ed-48bf-ae40-918d88caa78b",
+    "title": "Amish White Bread",
+    "description": "bread! 'nuf said!",
+    "source": {
+      "display": "Kick Ass Baker",
+      "url": "https://kickassbaker.com/classic-easy-homemade-amish-white-bread/"
+    },
+    "photo": "https://i0.wp.com/kickassbaker.com/wp-content/uploads/2019/07/homemade-bread-recipe.jpg?w=720&ssl=1",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          {
+            "amount": "2",
+            "unit": "Cup",
+            "prep": "110 degrees F",
+            "name": "warm water"
+          },
+          { "amount": "1/3", "unit": "Cup", "name": "granulated sugar" },
+          {
+            "amount": "1 1/2",
+            "unit": "Tablespoon",
+            "name": "active dry yeast"
+          },
+          { "amount": "1 1/2", "unit": "Teaspoon", "name": "kosher salt" },
+          { "amount": "1/4", "unit": "Cup", "name": "vegetable oil" },
+          { "amount": "6", "unit": "Cup", "name": "King Arthur Bread Flour" }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "id": 0,
+            "text": "In the bowl of a stand mixer, dissolve the sugar in the warm water, stirring with a whisk to ensure the sugar is fully dissolved. Sprinkle the yeast on top of sugar water and give a quick stir. Leave the yeast to proof in the sugar water until bubbly foam forms on top, approximately 5-10 minutes"
+          },
+          {
+            "id": 1,
+            "text": "Turn the mixer on low and with the paddle attachment, mix in the salt and oil. While the mixer is running on low, add flour one cup at a time just until incorporated. Do not overmix"
+          },
+          {
+            "id": 2,
+            "text": "Turn dough out onto clean work surface dusted with flour and knead for 2-3 minutes until smooth. Brush a large clean bowl with vegetable oil, place dough in bowl and turn to coat lightly in oil on all sides. Cover with a damp cloth and allow to rise  in a warm spot (see 2nd note below for creating a good proofing environment for your dough) until doubled in size, approximately 1 hour"
+          },
+          {
+            "id": 3,
+            "text": "With a silicone brush, oil two 9×5 inch loaf pans with vegetable oil. Set aside"
+          },
+          {
+            "id": 4,
+            "text": "Once dough has doubled in size, remove damp cloth and punch dough down to remove air bubbles. Turn out onto a clean work surface very lightly dusted with flour and knead again for a few minutes"
+          },
+          {
+            "id": 5,
+            "text": "With a bench scraper or very sharp knife, divide in half (does not have to be exact). Working with one half at a time, flatten slightly into an oval shape. Fold top third of the dough down to the middle of the dough (like you’re folding a letter) and with the palm of your hand, gently press the seam down to close. Turn the dough 180 degrees so the folded portion is now closest to you and fold top third down to the middle of the dough, pressing the seam gently with your palm to close. Fold dough in half by taking the top half and folding it over the bottom half and use your palm to press seam together (for video on how to do this, click here). Place each loaf into its own oiled loaf pan. Cover both loaf pans with damp cloth and place in warm spot to rise for 30-60 minutes, or until dough has risen 1 inch above pans"
+          },
+          {
+            "id": 6,
+            "text": "Bake at 350 degrees F for 30 minutes. Allow to cool in pans for about an hour then remove and allow to fully cool on cooling rack"
+          },
+          {
+            "id": 7,
+            "text": "Slice, slather with whipped butter, and enjoy!"
+          }
+        ]
+      }
+    ]
   }
 ]

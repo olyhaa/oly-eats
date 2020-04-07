@@ -28,5 +28,6 @@ module.exports = {
     'object-curly-newline': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-props-no-spreading': 'off',
+    'react/no-array-index-key': 'off',
   },
 };

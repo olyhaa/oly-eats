@@ -33,12 +33,14 @@ function IngredientSection({ label, ingredients }) {
         {ingredients.map((ingredientItem, index) => {
           return (
             <IngredientItem
-              key={ingredientItem.description}
               index={index}
+              key={index}
               amount={ingredientItem.amount}
-              units={ingredientItem.units}
-              description={ingredientItem.description}
-              notes={ingredientItem.notes}
+              unit={ingredientItem.unit}
+              name={ingredientItem.name}
+              prep={ingredientItem.prep}
+              optional={ingredientItem.optional}
+              toTaste={ingredientItem.toTaste}
             />
           );
         })}

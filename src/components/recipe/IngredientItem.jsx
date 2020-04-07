@@ -4,8 +4,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import { buildIngredientString } from '../../utils/parsing/ingredientParser';
 
-function IngredientItem({ index, amount, units, description, notes }) {
+function IngredientItem({
+  index,
+  amount,
+  unit,
+  name,
+  prep,
+  optional,
+  toTaste,
+}) {
   const [checked, setChecked] = React.useState([0]);
 
   const handleToggle = (value) => () => {
@@ -20,6 +29,15 @@ function IngredientItem({ index, amount, units, description, notes }) {
 
     setChecked(newChecked);
   };
+
+  const ingredientString = buildIngredientString({
+    amount,
+    unit,
+    name,
+    prep,
+    optional,
+    toTaste,
+  });
 
   return (
     <ListItem
@@ -38,25 +56,29 @@ function IngredientItem({ index, amount, units, description, notes }) {
           inputProps={{ 'aria-labelledby': `item-${index}` }}
         />
       </ListItemIcon>
-      <ListItemText
-        id={`item-${index}`}
-        primary={`${amount} ${units} ${description} ${notes}`}
-      />
+      <ListItemText id={`item-${index}`} primary={ingredientString} />
     </ListItem>
   );
 }
 
 IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,
-  amount: PropTypes.number.isRequired,
-  units: PropTypes.string,
-  description: PropTypes.string.isRequired,
-  notes: PropTypes.string,
+  amount: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({ min: PropTypes.string, max: PropTypes.string }),
+  ]).isRequired,
+  unit: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  prep: PropTypes.string,
+  optional: PropTypes.bool,
+  toTaste: PropTypes.bool,
 };
 
 IngredientItem.defaultProps = {
-  units: '',
-  notes: '',
+  unit: undefined,
+  prep: undefined,
+  optional: false,
+  toTaste: false,
 };
 
 export default IngredientItem;

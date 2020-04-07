@@ -16,6 +16,7 @@ import {
   getOptional,
   getToTaste,
   removeNoise,
+  addStrWithSpace,
 } from './ingredientComponentsHelper';
 
 export const parseIngredient = (source) => {
@@ -80,4 +81,38 @@ export const parseIngredient = (source) => {
     ingredient.amount = `${tmpAmount}`;
   }
   return ingredient;
+};
+
+export const buildIngredientString = ({
+  amount = undefined,
+  unit = undefined,
+  name,
+  prep = undefined,
+  optional = undefined,
+  toTaste = undefined,
+}) => {
+  let ingredientStr = '';
+  if (amount?.min && amount?.max) {
+    ingredientStr = addStrWithSpace(
+      ingredientStr,
+      `${amount.min} - ${amount.max}`
+    );
+  }
+  if (typeof amount === 'string') {
+    ingredientStr = addStrWithSpace(ingredientStr, amount);
+  }
+  ingredientStr = addStrWithSpace(ingredientStr, unit);
+  ingredientStr = addStrWithSpace(ingredientStr, name);
+  ingredientStr = addStrWithSpace(ingredientStr, prep, true);
+  ingredientStr = addStrWithSpace(
+    ingredientStr,
+    optional ? 'optional' : '',
+    true
+  );
+  ingredientStr = addStrWithSpace(
+    ingredientStr,
+    toTaste ? 'to taste' : '',
+    true
+  );
+  return ingredientStr;
 };
