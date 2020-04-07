@@ -10,10 +10,10 @@ const useStyles = makeStyles(() => ({
   photo: {
     width: '100%',
     height: 'auto',
-    maxHeight: '410px',
+    maxHeight: '550px',
   },
   media: {
-    height: 400,
+    maxHeight: '550px',
     objectFit: 'cover',
     backgroundPosition: 'center',
   },
