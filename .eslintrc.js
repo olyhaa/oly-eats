@@ -29,11 +29,5 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-props-no-spreading': 'off',
     'react/no-array-index-key': 'off',
-    'import/no-unresolved': [
-      'error',
-      {
-        ignore: ['.svg'],
-      },
-    ],
   },
 };
