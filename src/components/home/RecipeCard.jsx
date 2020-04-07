@@ -70,7 +70,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
 }
 
 RecipeCard.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   image: PropTypes.string,

@@ -45,7 +45,7 @@ SearchGroup.propTypes = {
   recipeList: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       description: PropTypes.string,
       image: PropTypes.string,
       imageDescription: PropTypes.string,

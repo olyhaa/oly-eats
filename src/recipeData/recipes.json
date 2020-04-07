@@ -1,7 +1,7 @@
 [
   {
     "title": "A Vegetarian Chili",
-    "id": 123,
+    "id": "123",
     "description": "Warm meal for a cold day.",
     "ingredientSection": [
       {
@@ -80,7 +80,7 @@
         "label": "Directions",
         "steps": [
           {
-            "id": 1,
+            "id": "1",
             "text": "To a 6-quart or large Instant Pot, add the olive oil. Turn to SAUTE and let the oil heat. Once the oil is hot, add the onion and cook until beginning to soften, about 3 minutes. Add the sweet potatoes, bell pepper, garlic, chili powder, chipotle chili powder, cumin, and kosher salt. Cook for 1 to 2 additional minutes, until the garlic is fragrant."
           },
           {
@@ -122,47 +122,47 @@
   },
   {
     "title": "The Best Sandwich Ever",
-    "id": 124,
+    "id": "124",
     "description": "What, you don't believe me?"
   },
   {
     "title": "Carrot Soup",
-    "id": 125,
+    "id": "125",
     "description": "Easy. Simple. Delicious"
   },
   {
     "title": "Pumpkin Pie",
-    "id": 126,
+    "id": "126",
     "description": "Every day is pie day"
   },
   {
     "title": "Peanut Butter Cookies",
-    "id": 127,
+    "id": "127",
     "description": "You can never have too much peanut butter"
   },
   {
     "title": "Strawberry Banana Power Smoothie",
-    "id": 128,
+    "id": "128",
     "description": "For when you want dessert for dinner"
   },
   {
     "title": "Grilled Cheese Sandwich",
-    "id": 129,
+    "id": "129",
     "description": "When cold cheese just won't do"
   },
   {
     "title": "Blueberry Muffins",
-    "id": 130,
+    "id": "130",
     "description": "Tastes best in the morning"
   },
   {
     "title": "Breakfast Parfait",
-    "id": 131,
+    "id": "131",
     "description": "When you just want something fast"
   },
   {
     "title": "Mango Chickpea Salad",
-    "id": 132,
+    "id": "132",
     "description": "If you’re looking for an easy, no-fuss, and healthy salad that’s ready in five minutes, this is one to put on your list.",
     "ingredientSection": [
       {
