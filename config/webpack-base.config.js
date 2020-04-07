@@ -64,10 +64,15 @@ const loaders = [
   },
   { test: /\.css$/, exclude: /src\/static/, use: styleLoaders() },
   {
-    // SVG File Loader (for css/background urls)
     test: /\.svg$/,
-    include: /src(\/|\\)images/,
-    loader: 'url-loader',
+    use: [
+      {
+        loader: 'svg-url-loader',
+        options: {
+          limit: 10000,
+        },
+      },
+    ],
   },
   {
     // Raw text loader

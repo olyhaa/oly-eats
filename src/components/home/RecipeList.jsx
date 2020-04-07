@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import RecipeListItem from './RecipeListItem';
-// import CarrotIcon from '../../carrot.svg';
+import CarrotIcon from '../../images/carrot.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +49,7 @@ function RecipeList({ list }) {
     </List>
   ) : (
     <div className={classes.emptyList}>
-      {/*    <img src={CarrotIcon} className={classes.carrot} alt="" /> */}
+      <img src={CarrotIcon} className={classes.carrot} alt="" />
       <p className={classes.carrotText}>Nothing but carrots here!</p>
     </div>
   );

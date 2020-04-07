@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-// import CarrotIcon from 'static/images/carrot.svg';
+import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ function Header({ title }) {
     <AppBar position="sticky">
       <Toolbar>
         <IconButton edge="start" color="inherit" component={Link} to="/home">
-          {/*      <img src={CarrotIcon} className="app-logo" alt="logo" /> */}
+          <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
           {title}

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import getRecipeObject from '../utils/RecipeParse';
-// import CarrotIcon from '../carrot.svg';
+import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
@@ -49,7 +49,7 @@ function RecipeDetail() {
       <>
         <Header title="No Recipe Found" />
         <div className={classes.missingRecipe}>
-          {/*  <img src={CarrotIcon} className={classes.carrot} alt="" /> */}
+          <img src={CarrotIcon} className={classes.carrot} alt="" />
           <p className={classes.carrotText}>Nothing but carrots here!</p>
         </div>
       </>
