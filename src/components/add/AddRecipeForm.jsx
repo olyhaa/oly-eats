@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddRecipeForm({ pristine, handleSubmit, invalid, submitting }) {
+function AddRecipeForm({ pristine, handleSubmit, submitting }) {
   const classes = useStyles();
   return (
     <form onSubmit={handleSubmit}>
@@ -181,7 +181,6 @@ function AddRecipeForm({ pristine, handleSubmit, invalid, submitting }) {
 
 AddRecipeForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
 };
