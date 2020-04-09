@@ -1,6 +1,6 @@
-import { FIELDS } from './constants';
+import { FIELDS, requiredFields } from './constants';
 
-const validatePhotoUrl = (photoUrl) => {
+const isValidPhotoUrl = (photoUrl) => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
@@ -10,41 +10,51 @@ const validatePhotoUrl = (photoUrl) => {
     'i'
   ); // fragment locator
 
-  return photoUrl.length !== 0 && !pattern.test(photoUrl);
+  return !photoUrl || photoUrl.length === 0 || pattern.test(photoUrl);
 };
 
-const validateUrl = (urlString) => {
+const isValidUrl = (urlString) => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      'i'
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*', // port and path
+    'i'
   ); // fragment locator
 
-  return urlString.length !== 0 && !pattern.test(urlString);
+  return !urlString || urlString.length === 0 || pattern.test(urlString);
+};
+
+const isValidNumber = (number) => {
+  return number ? Math.sign(number) >= 0 : true;
 };
 
 export const validateAll = (values) => {
   const errors = {};
-  const requiredFields = [
-    FIELDS.TITLE,
-    FIELDS.DESCRIPTION,
-    FIELDS.SOURCE_DISPLAY,
-    FIELDS.SERVINGS,
-    FIELDS.INGREDIENTS_LIST,
-    FIELDS.DIRECTIONS_LIST,
-  ];
   requiredFields.forEach((field) => {
     if (!values[field]) {
       errors[field] = 'Required';
     }
   });
-  if (values[FIELDS.PHOTO] && validatePhotoUrl(values[FIELDS.PHOTO])) {
+  if (isValidPhotoUrl(values[FIELDS.PHOTO])) {
     errors[FIELDS.PHOTO] = 'Invalid photo URL';
   }
-  if (values[FIELDS.SOURCE_URL] && validateUrl(values[FIELDS.SOURCE_URL])) {
+  if (isValidUrl(values[FIELDS.SOURCE_URL])) {
     errors[FIELDS.SOURCE_URL] = 'Invalid photo URL';
+  }
+
+  // TIMINGS
+  if (!isValidNumber(values[FIELDS.TIMING_PREP_VALUE_HOURS])) {
+    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+  }
+  if (!isValidNumber(values[FIELDS.TIMING_PREP_VALUE_MINUTES])) {
+    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+  }
+  if (!isValidNumber(values[FIELDS.TIMING_TOTAL_VALUE_HOURS])) {
+    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+  }
+  if (!isValidNumber(values[FIELDS.TIMING_TOTAL_VALUE_MINUTES])) {
+    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
   }
   return errors;
 };

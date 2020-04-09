@@ -16,10 +16,16 @@ const SOURCE_DISPLAY = 'sourceDisplay';
 const SOURCE_URL = 'sourceURL';
 
 // TIMING
-const TIMING_PREP_VALUE = 'timingPrepValue';
-const TIMING_PREP_UNITS = 'timingPrepUnits';
-const TIMING_TOTAL_VALUE = 'timingTotalValue';
-const TIMING_TOTAL_UNITS = 'timingTotalUnits';
+const TIMING_PREP_VALUE_HOURS = 'timingPrepValueHours';
+const TIMING_PREP_VALUE_MINS = 'timingPrepValueMins';
+const TIMING_TOTAL_VALUE_HOURS = 'timingTotalValueHours';
+const TIMING_TOTAL_VALUE_MINS = 'timingTotalValueMins';
+
+// OPTIONAL FIELDS
+const MEAL_TYPE = 'mealType';
+const CUISINE = 'cuisine';
+const EQUIPMENT = 'equipment';
+const CATEGORY = 'category';
 
 export const FIELDS = {
   TITLE,
@@ -28,12 +34,34 @@ export const FIELDS = {
   SOURCE_DISPLAY,
   SOURCE_URL,
   SERVINGS,
-  TIMING_PREP_VALUE,
-  TIMING_PREP_UNITS,
-  TIMING_TOTAL_VALUE,
-  TIMING_TOTAL_UNITS,
+  TIMING_PREP_VALUE_HOURS,
+  TIMING_PREP_VALUE_MINS,
+  TIMING_TOTAL_VALUE_HOURS,
+  TIMING_TOTAL_VALUE_MINS,
   INGREDIENTS_LABEL,
   INGREDIENTS_LIST,
   DIRECTIONS_LABEL,
   DIRECTIONS_LIST,
+  MEAL_TYPE,
+  CUISINE,
+  EQUIPMENT,
+  CATEGORY,
+};
+
+export const requiredFields = [
+  FIELDS.TITLE,
+  FIELDS.DESCRIPTION,
+  FIELDS.SOURCE_DISPLAY,
+  FIELDS.SERVINGS,
+  FIELDS.INGREDIENTS_LIST,
+  FIELDS.DIRECTIONS_LIST,
+];
+
+export const isRequired = (field) => {
+  return requiredFields.includes(field);
+};
+
+export const TIMING_UNITS = {
+  MINUTES: 'minutes',
+  HOURS: 'hours',
 };

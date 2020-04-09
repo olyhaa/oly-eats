@@ -104,14 +104,18 @@
     },
     "servings": 6,
     "timing": {
-      "prep": {
-        "value": 15,
-        "units": "min"
-      },
-      "total": {
-        "value": 1,
-        "units": "hour"
-      }
+      "prep": [
+        {
+          "value": 15,
+          "units": "min"
+        }
+      ],
+      "total": [
+        {
+          "value": 1,
+          "units": "hour"
+        }
+      ]
     },
     "tags": {
       "meal": ["dinner"],
@@ -239,14 +243,18 @@
     },
     "servings": 4,
     "timing": {
-      "prep": {
-        "value": 5,
-        "units": "min"
-      },
-      "total": {
-        "value": 5,
-        "units": "min"
-      }
+      "prep": [
+        {
+          "value": 5,
+          "units": "min"
+        }
+      ],
+      "total": [
+        {
+          "value": 5,
+          "units": "min"
+        }
+      ]
     },
     "tags": {
       "meal": ["lunch", "side"]

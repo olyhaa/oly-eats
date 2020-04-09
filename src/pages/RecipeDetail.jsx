@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import getRecipeObject from '../utils/RecipeParse';
+import getRecipeObject from '../utils/FetchData';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
 import Ingredients from '../components/recipe/Ingredients';

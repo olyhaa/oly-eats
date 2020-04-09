@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver';
 import uuid from 'uuid/v4';
-import { FIELDS } from './constants';
+import { FIELDS, TIMING_UNITS } from './constants';
 import { parseIngredient } from '../../utils/parsing/ingredientParser';
 import { convertUnicodeFractions } from '../../utils/parsing/general';
 
@@ -45,6 +45,17 @@ const transformIngredients = (ingredients) => {
   return ingredientsList;
 };
 
+const transformTiming = (minutes, hours) => {
+  const timing = [];
+  if (minutes > 0) {
+    timing.push({ value: minutes, units: TIMING_UNITS.MINUTES });
+  }
+  if (hours > 0) {
+    timing.push({ value: minutes, units: TIMING_UNITS.MINUTES });
+  }
+  return timing;
+};
+
 export const saveRecipe = (values) => {
   const recipe = {};
   recipe.id = uuid();
@@ -66,6 +77,17 @@ export const saveRecipe = (values) => {
   recipe.directionsSection.push({
     steps: transformDirections(values[FIELDS.DIRECTIONS_LIST]),
   });
+
+  recipe.timing = {
+    prep: transformTiming(
+      values[FIELDS.TIMING_PREP_VALUE_MINS],
+      values[FIELDS.TIMING_PREP_VALUE_HOURS]
+    ),
+    total: transformTiming(
+      values[FIELDS.TIMING_TOTAL_VALUE_MINS],
+      values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
+    ),
+  };
 
   const blob = new Blob([JSON.stringify(recipe)], { type: 'application/json' });
   saveAs(blob, 'recipe.json');

@@ -1,23 +1,23 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Checkbox from '@material-ui/core/Checkbox';
-import Select from '@material-ui/core/Select';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+
+const onlyNums = (value) => {
+  value.replace(/[^\d]/g, '');
+};
 
 export const renderTextBoxField = ({
   input,
   label,
   meta: { touched, error },
+  required,
   ...custom
 }) => (
   <TextField
     label={label}
     error={touched && error}
     fullWidth
+    required={required}
     multiline
     rows={4}
     rowsMax={20}
@@ -32,12 +32,14 @@ export const renderTextField = ({
   input,
   label,
   meta: { touched, error },
+  required,
   ...custom
 }) => (
   <TextField
     label={label}
     error={touched && error}
     fullWidth
+    required={required}
     variant="outlined"
     margin="normal"
     {...input}
@@ -45,42 +47,23 @@ export const renderTextField = ({
   />
 );
 
-export const renderCheckbox = ({ input, label }) => (
-  <FormControlLabel
-    control={<Checkbox checked={!!input.value} onChange={input.onChange} />}
-    label={label}
-  />
-);
-
-export const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioGroup
-    {...input}
-    {...rest}
-    value={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-);
-
-export const renderSelectField = ({
+export const renderNumberField = ({
   input,
   label,
-  value,
   meta: { touched, error },
-  children,
+  required,
   ...custom
 }) => (
-  <FormControl>
-    <InputLabel id="demo-simple-select-label">{label}</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      error={touched && error}
-      {...input}
-      value={value}
-      onChange={(event, index, value) => input.onChange(value)}
-      {...custom}
-    >
-      {children}
-    </Select>
-  </FormControl>
+  <TextField
+    label={label}
+    error={touched && error}
+    fullWidth
+    required={required}
+    type="number"
+    variant="outlined"
+    margin="normal"
+    normalize={onlyNums}
+    {...input}
+    {...custom}
+  />
 );
