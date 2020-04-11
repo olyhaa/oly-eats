@@ -1,7 +1,7 @@
 module.exports = {
   parser: 'babel-eslint',
   extends: ['airbnb', 'plugin:prettier/recommended'],
-  plugins: ['react', 'jsx-a11y', 'react-hooks'],
+  plugins: ['react', 'jsx-a11y', 'react-hooks', 'import'],
   env: { browser: true, es6: true },
   globals: {
     __DEV__: false,
