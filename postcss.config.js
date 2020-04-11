@@ -19,7 +19,6 @@ module.exports = () => {
       'postcss-apply': {},
       'postcss-nesting': {},
       'postcss-color-mod-function': {},
-      'postcss-focus-visible': {},
       'postcss-focus-within': {},
       'postcss-reporter': {},
       'postcss-custom-media': {},
