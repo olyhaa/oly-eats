@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    textTransform: 'capitalize',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',

@@ -10,6 +10,7 @@ import DefaultRecipeImg from '../../images/defaultRecipeCardImage.png';
 const useStyles = makeStyles((theme) => ({
   primary: {
     color: theme.palette.text.primary,
+    textTransform: 'capitalize',
   },
   secondary: {
     color: theme.palette.text.secondary,

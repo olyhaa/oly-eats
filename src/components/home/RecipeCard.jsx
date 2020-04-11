@@ -20,6 +20,9 @@ const useStyles = makeStyles({
   media: {
     height: 200,
   },
+  title: {
+    textTransform: 'capitalize',
+  },
   buttonBar: {
     marginTop: 'auto',
   },
@@ -45,7 +48,12 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           title={title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography
+            className={classes.title}
+            gutterBottom
+            variant="h5"
+            component="h2"
+          >
             {title}
           </Typography>
           {description && (
