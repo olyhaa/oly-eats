@@ -1,83 +1,74 @@
 [
   {
-    "title": "A Vegetarian Chili",
-    "id": "123",
-    "description": "Warm meal for a cold day.",
+    "id": "f5356d75-8a96-447f-8e71-2ddbc93087b8",
+    "title": "Vegetarian Chili",
+    "description": "While this time of year can seem gray, cold, and dark, this Vegetarian Chili is the exact opposite!",
+    "source": {
+      "display": "Well Plated",
+      "url": "https://www.wellplated.com/instant-pot-vegetarian-chili/"
+    },
+    "photo": "https://i2.wp.com/wellplated.com/wp-content/uploads/2018/10/Instant-Pot-Vegetarian-Chili-Canned-Beans-600x747.jpg",
+    "servings": "6",
     "ingredientSection": [
       {
-        "label": "Ingredients",
         "ingredients": [
+          { "amount": "1", "unit": "tablespoon", "name": "olive oil" },
           {
             "amount": "1",
-            "unit": "T",
-            "name": "olive oil"
-          },
-          {
-            "amount": "1",
-            "unit": "medium",
-            "name": "onion",
-            "prep": "1/4-inch diced"
+            "prep": "1/4-inch diced",
+            "name": "medium yellow onion"
           },
           {
             "amount": "2",
-            "unit": "medium",
-            "name": "sweet potatoes",
-            "prep": "peeled and 1/2-inch diced, about 4 generous cups"
+            "prep": "about 4 generous cups, peeled and 1/2-inch diced",
+            "name": "medium sweet potatoes"
           },
           {
             "amount": "2",
-            "unit": "medium",
-            "name": "red bell peppers",
-            "prep": "3/4-inch diced"
+            "prep": "3/4-inch diced",
+            "name": "medium red bell peppers"
           },
           {
-            "amount": "1",
-            "unit": "T",
-            "name": "chili powder"
+            "amount": "4",
+            "unit": "clove",
+            "prep": "minced",
+            "name": "garlic"
           },
+          { "amount": "1", "unit": "tablespoon", "name": "chili powder" },
           {
             "amount": "1",
-            "unit": "t",
+            "unit": "teaspoon",
             "name": "chipotle chili powder"
           },
-          {
-            "amount": "1",
-            "unit": "t",
-            "name": "ground cumin"
-          },
-          {
-            "amount": "1 1/4",
-            "unit": "t",
-            "name": "kosher salt"
-          },
+          { "amount": "1", "unit": "teaspoon", "name": "ground cumin" },
+          { "amount": "1 1/4", "unit": "teaspoon", "name": "kosher salt" },
           {
             "amount": "2 1/2",
-            "unit": "c",
-            "name": "vegetable broth"
+            "unit": "cup",
+            "name": "low-sodium vegetable broth"
           },
           {
-            "amount": "8",
-            "unit": "oz",
-            "name": "tomato sauce"
+            "amount": "1",
+            "prep": "8-ounce",
+            "name": "can low-sodium or no-salt-added tomato sauce"
+          },
+          { "amount": "1/2", "unit": "cup", "name": "uncooked quinoa" },
+          {
+            "amount": "1",
+            "prep": "15-ounce, rinsed and drained",
+            "name": "can low-sodium black beans"
           },
           {
-            "amount": "15",
-            "unit": "oz",
-            "name": "black beans",
-            "prep": "rinsed and drained"
+            "amount": "1",
+            "prep": "15-ounce, rinsed and drained",
+            "name": "can low-sodium dark or light red kidney beans"
           },
-          {
-            "amount": "15",
-            "unit": "oz",
-            "name": "dark or light red kidney beans",
-            "prep": "rinsed and drained"
-          }
+          { "amount": "1/2", "unit": "teaspoon", "name": "granulated sugar" }
         ]
       }
     ],
     "directionsSection": [
       {
-        "label": "Directions",
         "steps": [
           {
             "text": "To a 6-quart or large Instant Pot, add the olive oil. Turn to SAUTE and let the oil heat. Once the oil is hot, add the onion and cook until beginning to soften, about 3 minutes. Add the sweet potatoes, bell pepper, garlic, chili powder, chipotle chili powder, cumin, and kosher salt. Cook for 1 to 2 additional minutes, until the garlic is fragrant."
@@ -94,129 +85,659 @@
         ]
       }
     ],
-    "source": {
-      "display": "Well Plated",
-      "url": "https://www.wellplated.com/instant-pot-vegetarian-chili/"
+    "timing": {
+      "prep": [{ "value": "15", "units": "minutes" }],
+      "total": [{ "value": "1", "units": "hours" }]
     },
+    "tags": {
+      "meal": ["dinner"],
+      "equipment": ["pressure cooker"],
+      "category": ["soup"],
+      "cuisine": ["american"]
+    }
+  },
+  {
+    "id": "47ae29d7-4471-4af4-a139-ce51bc154a81",
+    "title": "Massa (Portuguese Sweet Bread)",
+    "description": "No where else can make a sweet bread loaf like my hometown of Fall River, MA. It is a traditional recipe that is known to be brought over from the immigrants of São Miguel. This bread is most popular at Easter, but enjoyed year round. I like to have mine for breakfast with a little butter added on it. But, it is also served for dessert.",
+    "source": {
+      "display": "Just a Pinch",
+      "url": "https://www.justapinch.com/recipes/bread/sweet-bread/portuguese-sweet-bread-massa-sovada.html"
+    },
+    "photo": "https://lh3.googleusercontent.com/SpnD7wKgr1-UZ5wmbdR_ge72VYQiPxrQf7IcuQJdQ7fi7CFN7Y5pZ2qac_BfHk-zeOIsXjN8RDy-xdrCMRC8KwXix3jKdwrpfcZL-EI=w600-l68",
+    "servings": "8",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          { "amount": "1 3/4", "unit": "teaspoon", "name": "dry active yeast" },
+          { "amount": "2", "unit": "tablespoon", "name": "lukewarm water" },
+          { "amount": "1/2", "unit": "cup", "name": "milk" },
+          { "amount": "1/2", "unit": "cup", "name": "sugar" },
+          { "amount": "1", "name": "butter" },
+          { "amount": "1", "unit": "tablespoon", "name": "shortening" },
+          { "amount": "3/16", "unit": "teaspoon", "name": "salt" },
+          { "amount": "2 1/2", "unit": "cup", "name": "flour" },
+          { "amount": "2", "name": "eggs" }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          { "text": "Dissolve yeast in water and let rise to double in size." },
+          {
+            "text": "Mix together flour and salt in a large mixing bowl. In a small saucepan, melt butter and shortening in milk over medium heat and cool to lukewarm. Beat eggs and sugar together."
+          },
+          {
+            "text": "Mix all ingredients together and knead until dough lifts neatly from bowl. Let rise, usually six to eight hours."
+          },
+          {
+            "text": "Punch down, deflating the dough. Form individual breads and put in buttered and floured pans (most any shape or size will do). The dough should fill only half the pan. Let rise again until dough doubles in size, filling the pan (about 2 hours)."
+          },
+          { "text": "Brush top of dough with beaten egg." },
+          {
+            "text": "Bake at 325 degrees for 30 to 40 minutes (adjust longer cook time for larger loaves). The bread should be golden brown."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "9", "units": "hours" }],
+      "total": [{ "value": "13", "units": "hours" }]
+    },
+    "tags": {
+      "meal": ["side", "breakfast"],
+      "equipment": [],
+      "category": ["bread", "bakery"],
+      "cuisine": ["portuguese"]
+    }
+  },
+  {
+    "id": "e7f5c0dc-0072-4792-b47f-86a4a1bb5ba0",
+    "title": "Salmon Spring Rolls",
+    "description": "This Salmon Spring Rolls Recipe is a delightful dish made with leftover salmon and fresh veggies, for a perfect weeknight dinner!",
+    "source": {
+      "display": "Reluctant Entertainer",
+      "url": "https://reluctantentertainer.com/salmon-spring-rolls-recipe/"
+    },
+    "photo": "https://i2.wp.com/reluctantentertainer.com/wp-content/uploads/2016/08/SA1-600x900.jpg",
+    "servings": "10",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          { "amount": "2", "unit": "cup", "name": "leftover cooked salmon" },
+          { "amount": "4", "name": "shredded carrots" },
+          { "amount": "1", "prep": "julienned", "name": "cucumber" },
+          { "amount": "1", "name": "head romaine" },
+          { "amount": "1/3", "unit": "package", "name": "rice noodles" },
+          { "amount": "10", "name": "rice paper sheets" },
+          { "amount": "1", "prep": "chopped", "name": "bunch cilantro" },
+          {
+            "amount": "2",
+            "unit": "tablespoon",
+            "prep": "to add to carrot and cucumber",
+            "name": "rice vinegar"
+          },
+          { "amount": "2", "unit": "tablespoon", "name": "sugar" }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "Place 2 cups of leftover salmon in a bowl, and break into large chunks."
+          },
+          { "text": "Cut and wash full leaves of romaine; remove the leaves." },
+          { "text": "Peel cucumber and slice into strips lengthwise." },
+          { "text": "Shred the carrots." },
+          { "text": "Combine 2 Tbsp. rice vinegar with 2 Tbsp. sugar." },
+          {
+            "text": "Divide sweetened rice vinegar, adding half to cucumber and half to shredded carrot; set aside."
+          },
+          {
+            "text": "Cook the rice noodles in boiling salted water for 3-4 minutes; drain. Immediately rinse with cold water and drain again."
+          },
+          {
+            "text": "Fill a flat dish with warm water and place rice sheet in water for 15-30 seconds. Lay on dry towel to remove excess water."
+          },
+          {
+            "text": "On flat plate or cutting board, place wet rice paper flat (this part is tricky). Without over-stuffing (to avoid ripping the rice sheet), place romaine leaf, salmon, cucumber, rice noodle, cilantro, and carrots side by side on sheet. Carefully roll ingredients into the paper, making sure to tuck in the sides."
+          },
+          { "text": "Serve with peanut or sweet chile sauce." }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "30", "units": "minutes" }],
+      "total": [{ "value": "45", "units": "minutes" }]
+    },
+    "tags": { "meal": ["dinner"], "cuisine": ["asian", "thai"] }
+  },
+  {
+    "id": "896ca7f6-2466-4c4f-bd8e-1be84c2a9bc8",
+    "title": "Thai Sesame Edamame",
+    "description": "Enjoy a favorite bar snack at home in a matter of minutes. Salty and satisfying, edamame is a nutrient-dense, between-meals bite you can feel good about. Look for whole edamame pods in the freezer section of your grocery store.",
+    "source": {
+      "display": "My Recipes",
+      "url": "https://www.myrecipes.com/recipe/thai-sesame-edamame"
+    },
+    "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fcdn-image.myrecipes.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fthai-sesame-edamame-ck.jpg%3Fitok%3DyUh69JcL",
     "servings": "6",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          { "amount": "3", "unit": "tablespoon", "name": "water" },
+          { "amount": "4", "unit": "cup", "name": "edamame pods" },
+          { "amount": "2", "unit": "tablespoon", "name": "light brown sugar" },
+          { "amount": "1", "unit": "tablespoon", "name": "dark sesame oil" },
+          { "amount": "1", "unit": "tablespoon", "name": "rice vinegar" },
+          { "amount": "1/2", "unit": "teaspoon", "name": "kosher salt" },
+          {
+            "amount": "1/2",
+            "unit": "teaspoon",
+            "name": "freshly ground black pepper"
+          },
+          { "amount": "1", "unit": "teaspoon", "name": "toasted sesame seeds" }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "Bring 3 tablespoons water to a boil in a large skillet over medium-high heat. Add edamame; cover and cook 2 minutes. Add brown sugar, oil, vinegar, salt, and pepper to pan. Cook, uncovered, 2 to 3 minutes or until liquid evaporates and pods are coated. Place edamame mixture in a bowl; sprinkle with sesame seeds."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "5", "units": "minutes" }],
+      "total": [{ "value": "15", "units": "minutes" }]
+    },
+    "tags": { "meal": ["side"], "cuisine": ["japanese"] }
+  },
+  {
+    "id": "9b9dc5b1-ad7a-489b-8fbb-f3adb06e91ed",
+    "title": "Steamed Barbecue Pork Buns",
+    "description": "Pockets of deliciousnes!",
+    "source": {
+      "display": "Food Wishes",
+      "url": "https://foodwishes.blogspot.com/2018/07/steamed-barbecue-pork-buns-char-siu-bao.html"
+    },
+    "photo": "https://1.bp.blogspot.com/-g5d9VqITfuw/WzxWi28rtRI/AAAAAAAATOk/O33KBC25du4esScYy364q5Idi6lgDx-pgCLcBGAs/s320/IMG_5279.JPG",
+    "servings": "12",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          { "amount": "3/4", "unit": "cup", "name": "warm water" },
+          { "amount": "1 1/2", "unit": "teaspoon", "name": "dry active yeast" },
+          { "amount": "2", "unit": "teaspoon", "name": "vegetable oil" },
+          { "amount": "1 1/2", "unit": "teaspoon", "name": "white sugar" },
+          { "amount": "2", "unit": "cup", "name": "all-purpose flour" },
+          { "amount": "3", "unit": "teaspoon", "name": "baking powder" },
+          { "amount": "1", "unit": "teaspoon", "name": "fine table salt" },
+          {
+            "amount": "2",
+            "unit": "cup",
+            "prep": "or other barbecued pork product",
+            "name": "chopped Chinese-style barbecue pork"
+          },
+          {
+            "amount": "1/4",
+            "unit": "cup",
+            "name": "finely sliced green onions"
+          },
+          { "amount": "2", "unit": "teaspoon", "name": "sesame oil" },
+          {
+            "amount": "1/4",
+            "unit": "cup",
+            "prep": "or as needed",
+            "name": "hoisin sauce"
+          },
+          { "toTaste": true, "prep": "soy sauce", "name": "salt and cayenne" },
+          {
+            "amount": "2",
+            "unit": "teaspoon",
+            "optional": true,
+            "name": "white sugar"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "Begin by making the dough. Sprinkle the dry active yeast over a bowl of warm water. Let sit for about 10 minutes for the yeast to bloom. Add the remaining dough ingredients. Mix until it forms a shaggy dough. Turn out onto a lightly floured surface and knead until smooth, about 10 minutes. Place in a lightly oiled bowl and cover, until doubled, about 2 hours."
+          },
+          {
+            "text": "To make the filling, mix all ingredients together. Filling should be slightly saucy, but hold together well."
+          },
+          {
+            "text": "Divide dough into 12 portions and roll out into disks about 4 inches wide. Place a spoonful of filling in the center and pinch up sides to form the bun. Put on parchment paper square and place in steamer and let rise until puffy, about 30-45 minutes."
+          },
+          {
+            "text": "Steam over boiling water for 10 minutes. Turn off heat and leave covered for 15 minutes."
+          }
+        ]
+      }
+    ],
     "timing": {
       "prep": [
-        {
-          "value": "15",
-          "units": "min"
-        }
+        { "value": "30", "units": "minutes" },
+        { "value": "2", "units": "hours" }
       ],
       "total": [
-        {
-          "value": "1",
-          "units": "hour"
-        }
+        { "value": "30", "units": "minutes" },
+        { "value": "3", "units": "hours" }
       ]
     },
     "tags": {
       "meal": ["dinner"],
-      "equipment": ["instantPot"],
-      "category": ["soup"]
+      "equipment": ["steamer"],
+      "cuisine": ["chinese"]
+    }
+  },
+  {
+    "id": "6d9e185b-a782-406b-ae7d-e2e69e857061",
+    "title": "Fish Tacos",
+    "description": "Love fish tacos? Well, these are the end-all be-all. Read on to see what makes these tacos so special.",
+    "source": {
+      "display": "Delish",
+      "url": "https://www.delish.com/cooking/recipe-ideas/recipes/a53296/easy-fish-taco-recipe/"
     },
-    "photo": "https://i2.wp.com/wellplated.com/wp-content/uploads/2018/10/Best-Veggie-Chili-Instant-Pot-600x839.jpg"
-  },
-  {
-    "title": "The Best Sandwich Ever",
-    "id": "124",
-    "description": "What, you don't believe me?"
-  },
-  {
-    "title": "Carrot Soup",
-    "id": "125",
-    "description": "Easy. Simple. Delicious"
-  },
-  {
-    "title": "Pumpkin Pie",
-    "id": "126",
-    "description": "Every day is pie day"
-  },
-  {
-    "title": "Peanut Butter Cookies",
-    "id": "127",
-    "description": "You can never have too much peanut butter"
-  },
-  {
-    "title": "Strawberry Banana Power Smoothie",
-    "id": "128",
-    "description": "For when you want dessert for dinner"
-  },
-  {
-    "title": "Grilled Cheese Sandwich",
-    "id": "129",
-    "description": "When cold cheese just won't do"
-  },
-  {
-    "title": "Blueberry Muffins",
-    "id": "130",
-    "description": "Tastes best in the morning"
-  },
-  {
-    "title": "Breakfast Parfait",
-    "id": "131",
-    "description": "When you just want something fast"
-  },
-  {
-    "title": "Mango Chickpea Salad",
-    "id": "132",
-    "description": "If you’re looking for an easy, no-fuss, and healthy salad that’s ready in five minutes, this is one to put on your list.",
+    "photo": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190307-fish-tacos-112-1553283299.jpg",
+    "servings": "4",
     "ingredientSection": [
       {
-        "label": "Ingredients",
+        "ingredients": [
+          {
+            "amount": "3",
+            "unit": "tablespoon",
+            "name": "extra-virgin olive oil"
+          },
+          { "name": "Juice 1 lime" },
+          { "amount": "2", "unit": "teaspoon", "name": "chili powder" },
+          { "amount": "1", "unit": "teaspoon", "name": "paprika" },
+          { "amount": "1/2", "unit": "teaspoon", "name": "ground cumin" },
+          { "amount": "1/2", "unit": "teaspoon", "name": "cayenne pepper" },
+          {
+            "amount": "1 1/2",
+            "unit": "pound",
+            "prep": "or other flaky white fish",
+            "name": "cod"
+          },
+          { "amount": "1/2", "unit": "tablespoon", "name": "vegetable oil" },
+          { "name": "Kosher salt" },
+          { "name": "Freshly ground black pepper" },
+          { "amount": "8", "name": "corn tortillas" },
+          { "amount": "1", "prep": "diced", "name": "avocado" },
+          { "prep": "for serving", "name": "Lime wedges" },
+          { "prep": "for serving", "name": "Sour cream" },
+          { "amount": "1/4", "name": "c. mayonnaise" },
+          { "amount": "1", "name": "lime", "prep": "juiced" },
+          {
+            "amount": "2",
+            "unit": "tablespoon",
+            "name": "freshly chopped cilantro"
+          },
+          { "amount": "1", "unit": "tablespoon", "name": "honey" },
+          { "amount": "2", "unit": "cup", "name": "shredded purple cabbage" },
+          { "amount": "1", "unit": "cup", "name": "corn kernels" },
+          { "amount": "1", "prep": "minced", "name": "jalapeño" }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "In a medium shallow bowl, whisk together olive oil, lime juice, paprika, chili powder, cumin, and cayenne."
+          },
+          {
+            "text": "Add cod, tossing until evenly coated. Let marinate 15 minutes."
+          },
+          {
+            "text": "Meanwhile, make slaw: In a large bowl, whisk together mayonnaise, lime juice, cilantro, and honey. Stir in cabbage, corn, and jalapeño. Season with salt and pepper."
+          },
+          {
+            "text": "In a large nonstick skillet over medium-high heat, heat vegetable oil. Remove cod from marinade and season both sides of each filet with salt and pepper. Add fish flesh side-down. Cook until opaque and cooked through, 3 to 5 minutes per side. Let rest 5 minutes before flaking with a fork."
+          },
+          {
+            "text": "Assemble tacos: Serve fish over grilled tortillas with corn slaw and avocado. Squeeze lime juice on top and garnish with sour cream."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "20", "units": "minutes" }],
+      "total": [{ "value": "35", "units": "minutes" }]
+    },
+    "tags": { "meal": ["dinner"], "cuisine": ["mexican"] }
+  },
+  {
+    "id": "0b0854ad-057d-41b2-87eb-3ed31bf49e6f",
+    "title": "General Tso’s Chicken",
+    "description": "This air-fryer riff on the Chinese takeout classic saves the day with nearly half the saturated fat of restaurant versions and loads less clean-up than deep frying at home. ",
+    "source": {
+      "display": "Cooking Light",
+      "url": "https://www.cookinglight.com/recipes/air-fried-general-tso-chicken"
+    },
+    "photo": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimg1.cookinglight.timeinc.net%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2F1528394829%2FGenTsoChickenAirFry.jpg",
+    "servings": "4",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          { "amount": "1", "unit": "large", "name": "egg" },
+          {
+            "amount": "1",
+            "unit": "pound",
+            "prep": "patted dry and cut into 1 to 1 1/4-inch chunks",
+            "name": "boneless skinless chicken thighs"
+          },
+          {
+            "amount": "1/3",
+            "unit": "cup",
+            "prep": "divided",
+            "name": "plus 2 tsp. cornstarch"
+          },
+          { "amount": "1/4", "unit": "teaspoon", "name": "kosher salt" },
+          {
+            "amount": "1/4",
+            "unit": "teaspoon",
+            "name": "ground white pepper"
+          },
+          {
+            "amount": "7",
+            "unit": "tablespoon",
+            "name": "lower-sodium chicken broth"
+          },
+          {
+            "amount": "2",
+            "unit": "tablespoon",
+            "name": "lower-sodium soy sauce"
+          },
+          { "amount": "2", "unit": "tablespoon", "name": "ketchup" },
+          { "amount": "2", "unit": "teaspoon", "name": "sugar" },
+          {
+            "amount": "2",
+            "unit": "teaspoon",
+            "name": "unseasoned rice vinegar"
+          },
+          { "amount": "1 1/2", "unit": "tablespoon", "name": "canola oil" },
+          {
+            "amount": { "min": "3", "max": "4" },
+            "prep": "chopped and seeds discarded",
+            "name": "chiles de árbol"
+          },
+          {
+            "amount": "1",
+            "unit": "tablespoon",
+            "name": "finely chopped fresh ginger"
+          },
+          {
+            "amount": "1",
+            "unit": "tablespoon",
+            "name": "finely chopped garlic"
+          },
+          {
+            "amount": "2",
+            "unit": "tablespoon",
+            "prep": "divided",
+            "name": "thinly sliced green onion"
+          },
+          { "amount": "1", "unit": "teaspoon", "name": "toasted sesame oil" },
+          {
+            "amount": "1/2",
+            "unit": "teaspoon",
+            "name": "toasted sesame seeds"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "Beat egg in a large bowl, add chicken, and coat well. In another bowl, combine 1/3 cup cornstarch with salt and pepper. Transfer chicken with a fork to cornstarch mixture, and stir with a spatula to coat every piece."
+          },
+          {
+            "text": "Transfer chicken to air-fryer oven racks (or fryer basket, in batches), leaving a little space between pieces. Preheat air-fryer at 400°F for 3 minutes. Add the battered chicken; cook for 12 to 16 minutes, giving things a shake midway. Let dry 3 to 5 minutes. If chicken is still damp on one side, cook for 1 to 2 minutes more."
+          },
+          {
+            "text": "Whisk together remaining 2 teaspoons cornstarch with broth, soy sauce, ketchup, sugar, and rice vinegar. Heat canola oil and chiles in a large skillet over medium heat. When gently sizzling, add the ginger and garlic; cook until fragrant, about 30 seconds."
+          },
+          {
+            "text": "Re-whisk cornstarch mixture; stir into mixture in skillet. Increase heat to medium-high. When sauce begins to bubble, add chicken. Stir to coat; cook until sauce thickens and nicely clings to chicken, about 1 1/2 minutes. Turn off heat; stir in 1 tablespoon green onion and sesame oil. Transfer to a serving plate, and top with sesame seeds and remaining 1 tablespoon green onion."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "20", "units": "minutes" }],
+      "total": [{ "value": "35", "units": "minutes" }]
+    },
+    "tags": {
+      "meal": ["dinner"],
+      "equipment": ["air fryer"],
+      "category": [],
+      "cuisine": ["chinese"]
+    }
+  },
+  {
+    "id": "b792249e-3428-4a6b-ac79-650c15dc7f4e",
+    "title": "savory scones with chives and feta",
+    "description": "100% whole wheat savory scones that are delicious and have amazing texture? It’s not too good to be true. All you need is a bit of flour knowledge!",
+    "source": {
+      "display": "Naturally Ella",
+      "url": "https://naturallyella.com/savory-scones-feta/"
+    },
+    "photo": "https://32lxcujgg9-flywheel.netdna-ssl.com/wp-content/uploads/2018/10/chive-savory-scones.jpg",
+    "servings": "6",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          {
+            "amount": "2 1/4",
+            "unit": "cup",
+            "name": "whole wheat pastry flour or unbleached all-purpose flour"
+          },
+          { "amount": "3", "unit": "tablespoon", "name": "cane sugar" },
+          { "amount": "1", "unit": "tablespoon", "name": "baking powder" },
+          {
+            "amount": "1 1/2",
+            "unit": "teaspoon",
+            "name": "teaspoon sea salt"
+          },
+          {
+            "amount": "10",
+            "unit": "tablespoon",
+            "prep": "cubed",
+            "name": "cold butter"
+          },
+          { "amount": "3", "unit": "tablespoon", "name": "minced chives" },
+          { "amount": "1/2", "unit": "cup", "name": "crumbled feta" },
+          { "amount": "1", "unit": "large", "name": "egg" },
+          {
+            "amount": "1/2",
+            "unit": "cup",
+            "prep": "45 ml, plus more for brushing",
+            "name": "heavy cream"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "Preheat the oven to 425 ̊F. Cover a baking sheet with parchment paper."
+          },
+          {
+            "text": "Place the flour, baking powder, sugar, and salt in a medium bowl. Add the cold, cubed butter and using your hands, rub the butter into the flour. The end result should be a flour mixture that looks crumbly with pea-sized pieces of flour-coated butter."
+          },
+          {
+            "text": "To the butter-flour mixture, add the minced chives and crumbled feta. Stir briefly to combine."
+          },
+          {
+            "text": "In a separate bowl, whisk together the egg, and heavy cream. Pour into the dry ingredients and stir until just combined, adding a splash bit more cream if the dough feels dry."
+          },
+          {
+            "text": "Turn out the dough onto a floured surface and gather into a semi-tight rectangle. Fold like a letter and flatten out again, using a rolling pin, into 1 1/2” or so thick rectangle. Continue twice more then flatten once more."
+          },
+          {
+            "text": "Using a knife or bench scoop, cut into 8 squares or triangles."
+          },
+          {
+            "text": "Place the scones 1 to 2 inches (2.5 to 5 cm) apart on the baking sheet. Brush with heavy cream. Bake the scones until firm to the touch and golden, 18 to 20 minutes. Remove from the oven and transfer to a rack to cool."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "10", "units": "minutes" }],
+      "total": [{ "value": "30", "units": "minutes" }]
+    },
+    "tags": { "meal": ["breakfast"], "category": ["bread"] }
+  },
+  {
+    "id": "1282e824-3e0d-417e-8b2d-d0cba7e68d07",
+    "title": "Honey-Dijon Glazed Carrots",
+    "description": "Put your slow cooker to work during the holidays and make these Honey-Dijon Glazed Carrots! This is a blissfully hands-off side dish when you're busy doing other things in the kitchen.",
+    "source": {
+      "display": "Simply Recipes",
+      "url": "https://www.simplyrecipes.com/recipes/slow_cooker_honey_dijon_glazed_carrots/"
+    },
+    "photo": "https://www.simplyrecipes.com/wp-content/uploads/2018/10/Slow-Cooker-Honey-Dijon-Carrots-LEAD-HORIZONTAL.jpg",
+    "servings": "6",
+    "ingredientSection": [
+      {
+        "ingredients": [
+          {
+            "amount": "3",
+            "unit": "pound",
+            "prep": "peeled and cut 1/2-inch thick on a bias",
+            "name": "carrots"
+          },
+          { "amount": "1 1/4", "unit": "cup", "name": "water" },
+          {
+            "amount": "2",
+            "unit": "teaspoon",
+            "prep": "divided",
+            "name": "kosher salt"
+          },
+          {
+            "amount": "2",
+            "unit": "tablespoon",
+            "prep": "melted",
+            "name": "unsalted butter"
+          },
+          { "amount": "1/4", "unit": "cup", "name": "honey" },
+          { "amount": "1/4", "unit": "cup", "name": "Dijon mustard" },
+          { "amount": "1", "unit": "tablespoon", "name": "chopped fresh sage" },
+          { "amount": "1/4", "unit": "teaspoon", "name": "black pepper" }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "Slow cook the carrots: Place the carrots into your slow cooker. Add the water and 1 teaspoon of kosher salt. Cover and cook the carrots on low for 4 to 6 hours, or until tender when pierced with a fork."
+          },
+          {
+            "text": "Drain the water from the carrots and return them to the slow cooker."
+          },
+          {
+            "text": "Add the glaze: In a separate bowl, whisk together the remaining salt, butter, honey, Dijon mustard, sage, and black pepper until they are blended well."
+          },
+          {
+            "text": "Pour the honey-Dijon mustard glaze over the carrots. Toss the carrots in the glaze to coat evenly. Season with more salt and pepper to taste."
+          },
+          {
+            "text": "Serve: Reduce the slow cooker’s temperature to warm. The carrots are now ready to serve, or you can cover them and hold on warm anywhere from 1 to 2 hours."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [{ "value": "10", "units": "minutes" }],
+      "total": [{ "value": "6", "units": "hours" }]
+    },
+    "tags": { "meal": ["side"], "equipment": ["slow cooker"], "category": [] }
+  },
+  {
+    "id": "217a7034-c901-4721-a185-f90dc0f3a46b",
+    "title": "Mango Chickpea Salad",
+    "description": "Mango Chickpea Salad – An EASY salad that’s ready in 5 minutes, HEALTHY, and full of Mexican-inspired flavors!! Great as a meatless lunch, dinner side dish, or for picnics and potlucks!!",
+    "source": {
+      "display": "Averie Cooks",
+      "url": "https://www.averiecooks.com/mango-chickpea-salad/"
+    },
+    "photo": "https://www.averiecooks.com/wp-content/uploads/2019/05/mangochickpeasalad-5.jpg",
+    "servings": "4",
+    "ingredientSection": [
+      {
         "ingredients": [
           {
             "amount": "15",
-            "unit": "oz",
-            "name": "chickpeas",
-            "prep": "rinsed and drained"
+            "unit": "ounce",
+            "prep": "drained and rinsed",
+            "name": "chickpeas"
           },
           {
             "amount": "1",
-            "name": "serrano chili pepper",
-            "prep": "diced very small"
+            "prep": "seeds removed; start with 1/2 of one if you do not want much heat, diced very small, diced very small",
+            "name": "serrano chile peppers"
           },
           {
             "amount": "1",
-            "unit": "medium",
-            "name": "mango",
-            "prep": "peeled and diced very small"
+            "prep": "peeled and diced small",
+            "name": "medium mango"
           },
           {
             "amount": "1",
-            "unit": "medium",
-            "name": "roma tomato",
-            "prep": "diced small"
+            "prep": "diced small",
+            "name": "medium roma tomato"
           },
           {
             "amount": "3/4",
-            "unit": "c",
-            "name": "corn",
-            "prep": "canned drained and rinsed, frozen, or fresh"
+            "unit": "cup",
+            "prep": "canned drained and rinsed, frozen, or fresh",
+            "name": "corn"
+          },
+          {
+            "amount": "3/4",
+            "unit": "cup",
+            "prep": "peeled and diced small",
+            "name": "cucumber"
           },
           {
             "amount": "1/2",
-            "unit": "c",
-            "name": "red onion",
-            "prep": "diced very small"
+            "unit": "cup",
+            "optional": true,
+            "prep": "diced very small;",
+            "name": "red onion"
           },
           {
-            "amount": "4",
-            "unit": "c",
-            "name": "fresh cilantro",
-            "prep": "minced"
+            "amount": { "min": "1/4", "max": "1/3" },
+            "unit": "cup",
+            "prep": "minced",
+            "name": "fresh cilantro"
           },
           {
             "amount": "1/4",
-            "unit": "c",
-            "name": "lime juice"
+            "unit": "cup",
+            "toTaste": true,
+            "prep": "or",
+            "name": "fresh lime juice"
           },
           {
-            "amount": "1",
-            "unit": "t",
+            "amount": { "min": "1", "max": "3" },
+            "unit": "teaspoon",
+            "toTaste": true,
+            "prep": "or",
             "name": "kosher salt"
           }
         ]
@@ -224,7 +745,6 @@
     ],
     "directionsSection": [
       {
-        "label": "Directions",
         "steps": [
           {
             "text": "To a large bowl, add all ingredients, stir to combine, taste, and check for heat and salt balance, and make any necessary adjustments; i.e. more serranos, lime juice, salt, etc. Serve immediately. Salad will keep airtight in the fridge for up to 3 days, noting that as time passes more liquid will be released from the mango and the vegetables."
@@ -232,57 +752,40 @@
         ]
       }
     ],
-    "source": {
-      "display": "Averie Cooks",
-      "url": "https://www.averiecooks.com/mango-chickpea-salad/"
-    },
-    "servings": "4",
     "timing": {
-      "prep": [
-        {
-          "value": "5",
-          "units": "min"
-        }
-      ],
-      "total": [
-        {
-          "value": "5",
-          "units": "min"
-        }
-      ]
+      "prep": [{ "value": "5", "units": "minutes" }],
+      "total": [{ "value": "5", "units": "minutes" }]
     },
-    "tags": {
-      "meal": ["lunch", "side"]
-    },
-    "photo": "https://www.averiecooks.com/wp-content/uploads/2019/05/mangochickpeasalad-3.jpg"
+    "tags": { "meal": ["dinner"], "category": [], "cuisine": [] }
   },
   {
-    "id": "81b16a58-11ed-48bf-ae40-918d88caa78b",
+    "id": "9b470c27-1ef3-4ecc-a1dd-8eb86f997425",
     "title": "Amish White Bread",
-    "description": "bread! 'nuf said!",
+    "description": "Go ahead, dive in! The water’s warm over here in the deep end of the Amish white bread-making pool. You’ll never look back down that grocery store bread aisle again.",
     "source": {
       "display": "Kick Ass Baker",
       "url": "https://kickassbaker.com/classic-easy-homemade-amish-white-bread/"
     },
-    "photo": "https://i0.wp.com/kickassbaker.com/wp-content/uploads/2019/07/homemade-bread-recipe.jpg?w=720&ssl=1",
+    "photo": "https://i0.wp.com/kickassbaker.com/wp-content/uploads/2019/07/homemade-bread-recipe.jpg",
+    "servings": "24",
     "ingredientSection": [
       {
         "ingredients": [
           {
             "amount": "2",
-            "unit": "Cup",
+            "unit": "cup",
             "prep": "110 degrees F",
             "name": "warm water"
           },
-          { "amount": "1/3", "unit": "Cup", "name": "granulated sugar" },
+          { "amount": "1/3", "unit": "cup", "name": "granulated sugar" },
           {
             "amount": "1 1/2",
-            "unit": "Tablespoon",
+            "unit": "tablespoon",
             "name": "active dry yeast"
           },
-          { "amount": "1 1/2", "unit": "Teaspoon", "name": "kosher salt" },
-          { "amount": "1/4", "unit": "Cup", "name": "vegetable oil" },
-          { "amount": "6", "unit": "Cup", "name": "King Arthur Bread Flour" }
+          { "amount": "1 1/2", "unit": "teaspoon", "name": "kosher salt" },
+          { "amount": "1/4", "unit": "cup", "name": "vegetable oil" },
+          { "amount": "6", "unit": "cup", "name": "King Arthur Bread Flour" }
         ]
       }
     ],
@@ -310,11 +813,34 @@
           {
             "text": "Bake at 350 degrees F for 30 minutes. Allow to cool in pans for about an hour then remove and allow to fully cool on cooling rack"
           },
-          {
-            "text": "Slice, slather with whipped butter, and enjoy!"
-          }
+          { "text": "Slice, slather with whipped butter, and enjoy!" }
         ]
       }
-    ]
+    ],
+    "timing": {
+      "prep": [{ "value": "15", "units": "minutes" }],
+      "total": [{ "value": "3", "units": "hours" }]
+    },
+    "tags": { "meal": [], "category": ["bread"] }
+  },
+  {
+    "id": "bb7ae87a-2aa9-4d85-9d19-1fb275f89262",
+    "title": "Test",
+    "description": "This is a description of a test",
+    "source": { "display": "Test place" },
+    "photo": "https://media3.giphy.com/media/3dkPTFZFa1oV0dwT7r/source.gif",
+    "servings": "5",
+    "ingredientSection": [{ "ingredients": [{ "name": "Nothing" }] }],
+    "directionsSection": [{ "steps": [{ "text": "Also nothing" }] }],
+    "timing": {
+      "prep": [{ "value": "0.1", "units": "minutes" }],
+      "total": [{ "value": "1", "units": "minutes" }]
+    },
+    "tags": {
+      "meal": ["dinner", "dessert", "breakfast", "side"],
+      "equipment": ["slow cooker", "steamer"],
+      "category": ["bread"],
+      "cuisine": ["american", "asian", "chinese", "japanese"]
+    }
   }
 ]
