@@ -15,7 +15,7 @@ function IngredientItem({
   optional,
   toTaste,
 }) {
-  const [checked, setChecked] = React.useState([0]);
+  const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
