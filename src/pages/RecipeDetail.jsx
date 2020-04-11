@@ -47,7 +47,7 @@ function RecipeDetail() {
   if (!recipe) {
     return (
       <>
-        <Header title="No Recipe Found" />
+        <Header title="OlyEats: No Recipe Found" />
         <div className={classes.missingRecipe}>
           <img src={CarrotIcon} className={classes.carrot} alt="" />
           <p className={classes.carrotText}>Nothing but carrots here!</p>
@@ -58,7 +58,7 @@ function RecipeDetail() {
 
   return (
     <>
-      <Header title={recipe.title} />
+      <Header title={`OlyEats: ${recipe.title}`} />
       <div className={classes.mainContent}>
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
