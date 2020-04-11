@@ -30,7 +30,7 @@ function Overview({ description, prepTime, totalTime, servings, source }) {
       {description && (
         <Grid item xs={12}>
           <Paper className={classes.root}>
-            <Typography variant="subtitle2" component="p">
+            <Typography variant="subtitle1" component="p">
               {description}
             </Typography>
           </Paper>
