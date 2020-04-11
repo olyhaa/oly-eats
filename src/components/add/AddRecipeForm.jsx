@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, Fields } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -19,8 +19,8 @@ import {
 import { FIELDS, isRequired } from './constants';
 import { validateAll } from './Validators';
 import { saveRecipe } from './saveRecipe';
-import OutlinedDiv from './OutlinedDiv';
 import MultipleSelectField from './MultipleSelectField';
+import TimingInputComponent from './TimingInputComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,38 +100,26 @@ function AddRecipeForm({ pristine, handleSubmit, submitting }) {
           required={isRequired(FIELDS.SERVINGS)}
           label="Servings"
         />
-        <OutlinedDiv label="Prep Time" required>
-          <Field
-            className={classes.formItem}
-            name={FIELDS.TIMING_PREP_VALUE_HOURS}
-            component={renderNumberField}
-            required={isRequired(FIELDS.TIMING_PREP_VALUE_HOURS)}
-            label="Hours"
-          />
-          <Field
-            className={classes.formItem}
-            name={FIELDS.TIMING_PREP_VALUE_MINS}
-            component={renderNumberField}
-            required={isRequired(FIELDS.TIMING_PREP_VALUE_MINS)}
-            label="Minutes"
-          />
-        </OutlinedDiv>
-        <OutlinedDiv label="Total Time" required>
-          <Field
-            className={classes.formItem}
-            name={FIELDS.TIMING_TOTAL_VALUE_HOURS}
-            component={renderNumberField}
-            required={isRequired(FIELDS.TIMING_TOTAL_VALUE_HOURS)}
-            label="Hours"
-          />
-          <Field
-            className={classes.formItem}
-            name={FIELDS.TIMING_TOTAL_VALUE_MINS}
-            component={renderNumberField}
-            required={isRequired(FIELDS.TIMING_TOTAL_VALUE_MINS)}
-            label="Minutes"
-          />
-        </OutlinedDiv>
+        <Fields
+          className={classes.formItem}
+          names={[
+            FIELDS.TIMING_PREP_VALUE_HOURS,
+            FIELDS.TIMING_PREP_VALUE_MINS,
+          ]}
+          component={TimingInputComponent}
+          required={isRequired(FIELDS.TIMING_PREP)}
+          label="Prep Time"
+        />
+        <Fields
+          className={classes.formItem}
+          names={[
+            FIELDS.TIMING_TOTAL_VALUE_HOURS,
+            FIELDS.TIMING_TOTAL_VALUE_MINS,
+          ]}
+          required={isRequired(FIELDS.TIMING_TOTAL)}
+          component={TimingInputComponent}
+          label="Total Time"
+        />
         <Field
           className={classes.formItem}
           name={FIELDS.MEAL_TYPE}

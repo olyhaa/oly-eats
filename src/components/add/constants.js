@@ -65,3 +65,13 @@ export const TIMING_UNITS = {
   MINUTES: 'minutes',
   HOURS: 'hours',
 };
+
+export const isField = (field) => {
+  const fieldKeys = Object.keys(FIELDS);
+  for (let i = 0; i < fieldKeys.length; i++) {
+    if (FIELDS[fieldKeys[i]] === field) {
+      return true;
+    }
+  }
+  return false;
+};

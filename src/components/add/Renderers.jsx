@@ -11,6 +11,7 @@ export const renderTextBoxField = ({
   label,
   meta: { touched, error },
   required,
+  helperText,
   ...custom
 }) => (
   <TextField
@@ -18,6 +19,7 @@ export const renderTextBoxField = ({
     error={touched && error}
     fullWidth
     required={required}
+    helperText={touched && error ? error : helperText}
     multiline
     rows={4}
     rowsMax={20}
@@ -33,6 +35,7 @@ export const renderTextField = ({
   label,
   meta: { touched, error },
   required,
+  helperText,
   ...custom
 }) => (
   <TextField
@@ -40,6 +43,7 @@ export const renderTextField = ({
     error={touched && error}
     fullWidth
     required={required}
+    helperText={touched && error ? error : helperText}
     variant="outlined"
     margin="normal"
     {...input}
@@ -52,6 +56,7 @@ export const renderNumberField = ({
   label,
   meta: { touched, error },
   required,
+  helperText,
   ...custom
 }) => (
   <TextField
@@ -62,6 +67,7 @@ export const renderNumberField = ({
     type="number"
     variant="outlined"
     margin="normal"
+    helperText={touched && error ? error : helperText}
     normalize={onlyNums}
     {...input}
     {...custom}

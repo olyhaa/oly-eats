@@ -45,13 +45,19 @@ const transformIngredients = (ingredients) => {
   return ingredientsList;
 };
 
-const transformTiming = (minutes, hours) => {
+export const transformTiming = (minutes = '0', hours = '0') => {
   const timing = [];
-  if (minutes > 0) {
-    timing.push({ value: minutes, units: TIMING_UNITS.MINUTES });
+  let mins = Number(minutes);
+  let hrs = Number(hours);
+  while (mins >= 60) {
+    mins -= 60;
+    hrs += 1;
   }
-  if (hours > 0) {
-    timing.push({ value: minutes, units: TIMING_UNITS.MINUTES });
+  if (mins > 0) {
+    timing.push({ value: mins.toString(), units: TIMING_UNITS.MINUTES });
+  }
+  if (hrs > 0) {
+    timing.push({ value: hrs.toString(), units: TIMING_UNITS.HOURS });
   }
   return timing;
 };
@@ -88,6 +94,12 @@ export const saveRecipe = (values) => {
       values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
     ),
   };
+
+  recipe.tags = {};
+  recipe.tags.meal = values[FIELDS.MEAL_TYPE];
+  recipe.tags.equipment = values[FIELDS.EQUIPMENT];
+  recipe.tags.category = values[FIELDS.CATEGORY];
+  recipe.tags.cuisine = values[FIELDS.CUISINE];
 
   const blob = new Blob([JSON.stringify(recipe)], { type: 'application/json' });
   saveAs(blob, 'recipe.json');

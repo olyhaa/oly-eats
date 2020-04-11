@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
 const InputComponent = ({ ...other }) => <div {...other} />;
 
-const OutlinedDiv = ({ children, label, required }) => {
+const OutlinedDiv = ({ children, label, required, error }) => {
   const classes = useStyles();
   return (
     <TextField
@@ -22,6 +22,8 @@ const OutlinedDiv = ({ children, label, required }) => {
       multiline
       fullWidth
       required={required}
+      error={error}
+      helperText={error || ''}
       InputLabelProps={{ shrink: true }}
       InputProps={{
         inputComponent: InputComponent,
@@ -36,10 +38,12 @@ OutlinedDiv.propTypes = {
   children: PropTypes.node.isRequired,
   label: PropTypes.string.isRequired,
   required: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 OutlinedDiv.defaultProps = {
   required: false,
+  error: undefined,
 };
 
 export default OutlinedDiv;

@@ -1,6 +1,7 @@
 import { FIELDS, requiredFields } from './constants';
+import { transformTiming } from './saveRecipe';
 
-const isValidPhotoUrl = (photoUrl) => {
+export const isValidPhotoUrl = (photoUrl) => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
@@ -29,6 +30,10 @@ const isValidNumber = (number) => {
   return number ? Math.sign(number) >= 0 : true;
 };
 
+export const isValidTime = (minutes, hours) => {
+  return transformTiming(minutes, hours).length > 0;
+};
+
 export const validateAll = (values) => {
   const errors = {};
   requiredFields.forEach((field) => {
@@ -36,25 +41,26 @@ export const validateAll = (values) => {
       errors[field] = 'Required';
     }
   });
-  if (isValidPhotoUrl(values[FIELDS.PHOTO])) {
-    errors[FIELDS.PHOTO] = 'Invalid photo URL';
+  if (!isValidPhotoUrl(values[FIELDS.PHOTO_URL])) {
+    errors[FIELDS.PHOTO_URL] = 'Invalid photo URL';
   }
-  if (isValidUrl(values[FIELDS.SOURCE_URL])) {
-    errors[FIELDS.SOURCE_URL] = 'Invalid photo URL';
+  if (!isValidUrl(values[FIELDS.SOURCE_URL])) {
+    errors[FIELDS.SOURCE_URL] = 'Invalid URL';
   }
 
   // TIMINGS
   if (!isValidNumber(values[FIELDS.TIMING_PREP_VALUE_HOURS])) {
-    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Hours must be a positive number';
   }
-  if (!isValidNumber(values[FIELDS.TIMING_PREP_VALUE_MINUTES])) {
-    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+  if (!isValidNumber(values[FIELDS.TIMING_PREP_VALUE_MINS])) {
+    errors[FIELDS.TIMING_PREP_VALUE_MINS] = 'Minutes must be a positive number';
   }
   if (!isValidNumber(values[FIELDS.TIMING_TOTAL_VALUE_HOURS])) {
-    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+    errors[FIELDS.TIMING_TOTAL_VALUE_HOURS] = 'Hours must be a positive number';
   }
-  if (!isValidNumber(values[FIELDS.TIMING_TOTAL_VALUE_MINUTES])) {
-    errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Value must be a positive number';
+  if (!isValidNumber(values[FIELDS.TIMING_TOTAL_VALUE_MINS])) {
+    errors[FIELDS.TIMING_TOTAL_VALUE_MINS] =
+      'Minutes must be a positive number';
   }
   return errors;
 };
