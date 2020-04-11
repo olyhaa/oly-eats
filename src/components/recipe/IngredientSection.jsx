@@ -11,7 +11,7 @@ import IngredientItem from './IngredientItem';
 // @ts-ignore
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(2),
   },
   title: {
     color: theme.palette.secondary,
@@ -29,7 +29,7 @@ function IngredientSection({ label, ingredients }) {
           </Typography>
         </Box>
       )}
-      <List className={classes.root}>
+      <List>
         {ingredients.map((ingredientItem, index) => {
           return (
             <IngredientItem

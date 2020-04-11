@@ -9,7 +9,7 @@ import { DirectionStepPropType } from '../../types/DirectionsPropTypes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(2),
   },
   list: {},
   title: {},
