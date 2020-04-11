@@ -34,6 +34,12 @@ export const isValidTime = (minutes, hours) => {
   return transformTiming(minutes, hours).length > 0;
 };
 
+const isTimeWithinRange = (prepHours, prepMins, totalHours, totalMins) => {
+  const prep = Number(prepMins) + 60 * Number(prepHours);
+  const total = Number(totalMins) + 60 * Number(totalHours);
+  return total >= prep;
+};
+
 export const validateAll = (values) => {
   const errors = {};
   requiredFields.forEach((field) => {
@@ -62,5 +68,17 @@ export const validateAll = (values) => {
     errors[FIELDS.TIMING_TOTAL_VALUE_MINS] =
       'Minutes must be a positive number';
   }
+  if (
+    !isTimeWithinRange(
+      values[FIELDS.TIMING_PREP_VALUE_HOURS],
+      values[FIELDS.TIMING_PREP_VALUE_MINS],
+      values[FIELDS.TIMING_TOTAL_VALUE_HOURS],
+      values[FIELDS.TIMING_TOTAL_VALUE_MINS]
+    )
+  ) {
+    errors[FIELDS.TIMING_TOTAL_VALUE_HOURS] =
+      'Total time must be greater than Prep Time';
+  }
+
   return errors;
 };
