@@ -24,6 +24,7 @@ export const unitsOfMeasure = {
   large: ['lg', 'LG', 'Lg'],
   package: ['pkg', 'Pkg', 'PKG'],
   pound: ['lb', 'Lb', 'LB'],
+  gram: ['g'],
 };
 
 export const numbersRegex = /^([0-9]+[ ./0-9]*)/i;
