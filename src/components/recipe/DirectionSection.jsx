@@ -27,8 +27,8 @@ function DirectionSection({ label, steps }) {
         </Box>
       )}
       <List className={classes.list}>
-        {steps.map((step) => {
-          return <DirectionStep id={step.id} key={step.id} text={step.text} />;
+        {steps.map((step, index) => {
+          return <DirectionStep id={index} key={index} text={step.text} />;
         })}
       </List>
     </Box>

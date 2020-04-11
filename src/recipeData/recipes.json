@@ -80,19 +80,15 @@
         "label": "Directions",
         "steps": [
           {
-            "id": "1",
             "text": "To a 6-quart or large Instant Pot, add the olive oil. Turn to SAUTE and let the oil heat. Once the oil is hot, add the onion and cook until beginning to soften, about 3 minutes. Add the sweet potatoes, bell pepper, garlic, chili powder, chipotle chili powder, cumin, and kosher salt. Cook for 1 to 2 additional minutes, until the garlic is fragrant."
           },
           {
-            "id": 2,
             "text": "Add half of the vegetable broth and stir, scraping up any stuck-on bits of food (this will prevent a burn warning). Stir in the remaining broth and the quinoa. Pour the tomato sauce on top (do not stir again)."
           },
           {
-            "id": 3,
             "text": "Cover and seal the Instant Pot. Cook on manual (HIGH) pressure for 8 minutes. Immediately release the pressure. Carefully open the Instant Pot."
           },
           {
-            "id": 4,
             "text": "Turn the Instant Pot to OFF. Stir in the black beans, kidney beans, and sugar. Place the lid back on top and let stand 10 minutes to thicken. Uncover. Taste and adjust seasoning as desired. Serve hot, with any and all the toppings!"
           }
         ]
@@ -102,17 +98,17 @@
       "display": "Well Plated",
       "url": "https://www.wellplated.com/instant-pot-vegetarian-chili/"
     },
-    "servings": 6,
+    "servings": "6",
     "timing": {
       "prep": [
         {
-          "value": 15,
+          "value": "15",
           "units": "min"
         }
       ],
       "total": [
         {
-          "value": 1,
+          "value": "1",
           "units": "hour"
         }
       ]
@@ -231,7 +227,6 @@
         "label": "Directions",
         "steps": [
           {
-            "id": 1,
             "text": "To a large bowl, add all ingredients, stir to combine, taste, and check for heat and salt balance, and make any necessary adjustments; i.e. more serranos, lime juice, salt, etc. Serve immediately. Salad will keep airtight in the fridge for up to 3 days, noting that as time passes more liquid will be released from the mango and the vegetables."
           }
         ]
@@ -241,17 +236,17 @@
       "display": "Averie Cooks",
       "url": "https://www.averiecooks.com/mango-chickpea-salad/"
     },
-    "servings": 4,
+    "servings": "4",
     "timing": {
       "prep": [
         {
-          "value": 5,
+          "value": "5",
           "units": "min"
         }
       ],
       "total": [
         {
-          "value": 5,
+          "value": "5",
           "units": "min"
         }
       ]
@@ -295,35 +290,27 @@
       {
         "steps": [
           {
-            "id": 0,
             "text": "In the bowl of a stand mixer, dissolve the sugar in the warm water, stirring with a whisk to ensure the sugar is fully dissolved. Sprinkle the yeast on top of sugar water and give a quick stir. Leave the yeast to proof in the sugar water until bubbly foam forms on top, approximately 5-10 minutes"
           },
           {
-            "id": 1,
             "text": "Turn the mixer on low and with the paddle attachment, mix in the salt and oil. While the mixer is running on low, add flour one cup at a time just until incorporated. Do not overmix"
           },
           {
-            "id": 2,
             "text": "Turn dough out onto clean work surface dusted with flour and knead for 2-3 minutes until smooth. Brush a large clean bowl with vegetable oil, place dough in bowl and turn to coat lightly in oil on all sides. Cover with a damp cloth and allow to rise  in a warm spot (see 2nd note below for creating a good proofing environment for your dough) until doubled in size, approximately 1 hour"
           },
           {
-            "id": 3,
             "text": "With a silicone brush, oil two 9×5 inch loaf pans with vegetable oil. Set aside"
           },
           {
-            "id": 4,
             "text": "Once dough has doubled in size, remove damp cloth and punch dough down to remove air bubbles. Turn out onto a clean work surface very lightly dusted with flour and knead again for a few minutes"
           },
           {
-            "id": 5,
             "text": "With a bench scraper or very sharp knife, divide in half (does not have to be exact). Working with one half at a time, flatten slightly into an oval shape. Fold top third of the dough down to the middle of the dough (like you’re folding a letter) and with the palm of your hand, gently press the seam down to close. Turn the dough 180 degrees so the folded portion is now closest to you and fold top third down to the middle of the dough, pressing the seam gently with your palm to close. Fold dough in half by taking the top half and folding it over the bottom half and use your palm to press seam together (for video on how to do this, click here). Place each loaf into its own oiled loaf pan. Cover both loaf pans with damp cloth and place in warm spot to rise for 30-60 minutes, or until dough has risen 1 inch above pans"
           },
           {
-            "id": 6,
             "text": "Bake at 350 degrees F for 30 minutes. Allow to cool in pans for about an hour then remove and allow to fully cool on cooling rack"
           },
           {
-            "id": 7,
             "text": "Slice, slather with whipped butter, and enjoy!"
           }
         ]

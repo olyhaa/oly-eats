@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { getDisplayTime } from 'utils/parsing/ingredientParser';
 import {
   PREP_CARD,
   TOTAL_CARD,
@@ -20,8 +21,12 @@ const useStyles = makeStyles((theme) => ({
 
 function Overview({ description, prepTime, totalTime, servings, source }) {
   const classes = useStyles();
+
+  const prepTimeDisplay = getDisplayTime(prepTime);
+  const totalTimeDisplay = getDisplayTime(totalTime);
+
   return (
-    <Grid container spacing={2} alignItems="stretch" className={classes.card}>
+    <Grid container spacing={2} alignItems="stretch">
       {description && (
         <Grid item xs={12}>
           <Paper className={classes.root}>
@@ -31,21 +36,21 @@ function Overview({ description, prepTime, totalTime, servings, source }) {
           </Paper>
         </Grid>
       )}
-      {prepTime && (
+      {prepTimeDisplay && (
         <Grid item xs>
           <IconCard
             type={PREP_CARD}
             title="Prep Time"
-            value={`${prepTime.value} ${prepTime.units}`}
+            value={prepTimeDisplay}
           />
         </Grid>
       )}
-      {totalTime && (
+      {totalTimeDisplay && (
         <Grid item xs>
           <IconCard
             type={TOTAL_CARD}
             title="Total Time"
-            value={`${totalTime.value} ${totalTime.units}`}
+            value={totalTimeDisplay}
           />
         </Grid>
       )}
@@ -69,15 +74,19 @@ function Overview({ description, prepTime, totalTime, servings, source }) {
 }
 
 Overview.propTypes = {
-  prepTime: PropTypes.shape({
-    value: PropTypes.number,
-    units: PropTypes.string,
-  }).isRequired,
-  totalTime: PropTypes.shape({
-    value: PropTypes.number,
-    units: PropTypes.string,
-  }).isRequired,
-  servings: PropTypes.number.isRequired,
+  prepTime: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      units: PropTypes.string,
+    })
+  ).isRequired,
+  totalTime: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      units: PropTypes.string,
+    })
+  ).isRequired,
+  servings: PropTypes.string.isRequired,
   source: PropTypes.shape({
     display: PropTypes.string,
     url: PropTypes.string,

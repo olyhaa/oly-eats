@@ -17,8 +17,8 @@ const transformDirections = (directions) => {
     .filter((item) => {
       return item.length > 0;
     })
-    .map((item, index) => {
-      return { id: index, text: convertUnicodeFractions(item).trim() };
+    .map((item) => {
+      return { text: convertUnicodeFractions(item).trim() };
     });
 
   return directionsList;
