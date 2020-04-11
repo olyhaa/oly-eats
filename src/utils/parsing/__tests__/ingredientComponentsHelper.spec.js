@@ -319,6 +319,10 @@ describe('getRangedAmount', () => {
       match: { min: '1', max: '2' },
       rest: ['c', 'salt'],
     });
+    expect(getRangedAmount('1 or 2 c salt'.split(' '))).toEqual({
+      match: { min: '1', max: '2' },
+      rest: ['c', 'salt'],
+    });
     expect(getRangedAmount('1/2 to 3/4 c salt, optional'.split(' '))).toEqual({
       match: { min: '1/2', max: '3/4' },
       rest: ['c', 'salt,', 'optional'],

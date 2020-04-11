@@ -307,6 +307,14 @@ describe('Ingredient Parser', () => {
         name: 'freshly squeezed lemon juice',
         unit: 'tablespoon',
       },
+      '1 or 2 tablespoons freshly squeezed lemon juice': {
+        amount: {
+          min: '1',
+          max: '2',
+        },
+        name: 'freshly squeezed lemon juice',
+        unit: 'tablespoon',
+      },
       '1 to 2 11 oz cans of tomatoes': {
         amount: {
           min: '1',
