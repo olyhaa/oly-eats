@@ -15,6 +15,7 @@ import {
   renderTextBoxField,
   renderTextField,
   renderNumberField,
+  onlyNums,
 } from './Renderers';
 import { FIELDS, isRequired } from './constants';
 import { validateAll } from './Validators';
@@ -97,6 +98,7 @@ function AddRecipeForm({ pristine, handleSubmit, submitting }) {
           className={classes.formItem}
           name={FIELDS.SERVINGS}
           component={renderNumberField}
+          normalize={onlyNums}
           required={isRequired(FIELDS.SERVINGS)}
           label="Servings"
         />

@@ -2,8 +2,9 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
-const onlyNums = (value) => {
-  value.replace(/[^\d]/g, '');
+export const onlyNums = (value, previousValue) => {
+  const pattern = new RegExp(/^[0-9]*$/);
+  return pattern.test(value) ? Math.min(Number(value), 100) : previousValue;
 };
 
 export const renderTextBoxField = ({
@@ -64,11 +65,9 @@ export const renderNumberField = ({
     error={touched && error}
     fullWidth
     required={required}
-    type="number"
     variant="outlined"
     margin="normal"
     helperText={touched && error ? error : helperText}
-    normalize={onlyNums}
     {...input}
     {...custom}
   />

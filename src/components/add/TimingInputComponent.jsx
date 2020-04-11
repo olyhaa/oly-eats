@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { renderNumberField } from './Renderers';
+import { renderNumberField, onlyNums } from './Renderers';
 import { isField } from './constants';
 import OutlinedDiv from './OutlinedDiv';
 import { isValidTime } from './Validators';
@@ -43,6 +43,7 @@ const TimingInputComponent = ({ label, required, ...nameProps }) => {
             key={field}
             name={field}
             fillWidth={false}
+            normalize={onlyNums}
             component={renderNumberField}
             label={index === 0 ? 'Hours' : 'Minutes'}
           />
