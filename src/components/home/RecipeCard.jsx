@@ -23,6 +23,13 @@ const useStyles = makeStyles({
   title: {
     textTransform: 'capitalize',
   },
+  description: {
+    maxHeight: 100,
+    overflow: 'hidden',
+    '&:hover': {
+      maxHeight: 'none',
+    },
+  },
   buttonBar: {
     marginTop: 'auto',
   },
@@ -57,7 +64,12 @@ function RecipeCard({ id, title, description, image, buttonText }) {
             {title}
           </Typography>
           {description && (
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography
+              className={classes.description}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
               {description}
             </Typography>
           )}
