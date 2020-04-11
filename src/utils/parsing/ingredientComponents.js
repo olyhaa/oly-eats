@@ -35,6 +35,7 @@ let flattenedList = [];
 const unitsKeys = Object.keys(unitsOfMeasure);
 const unitsTable = {};
 unitsKeys.forEach((key) => {
+  unitsTable[key] = key;
   flattenedList = flattenedList.concat(unitsOfMeasure[key]);
   unitsOfMeasure[key].forEach((alt) => {
     unitsTable[alt] = key;

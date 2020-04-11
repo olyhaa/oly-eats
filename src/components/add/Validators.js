@@ -34,7 +34,12 @@ export const isValidTime = (minutes, hours) => {
   return transformTiming(minutes, hours).length > 0;
 };
 
-const isTimeWithinRange = (prepHours, prepMins, totalHours, totalMins) => {
+const isTimeWithinRange = (
+  prepHours = 0,
+  prepMins = 0,
+  totalHours = 0,
+  totalMins = 0
+) => {
   const prep = Number(prepMins) + 60 * Number(prepHours);
   const total = Number(totalMins) + 60 * Number(totalHours);
   return total >= prep;

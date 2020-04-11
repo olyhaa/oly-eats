@@ -2,7 +2,6 @@ import {
   isNumeric,
   isFraction,
   isNumber,
-  properCase,
   isUnitOfMeasure,
   unitNormalizer,
   getRangedAmount,
@@ -175,29 +174,6 @@ describe('isNumber', () => {
   });
 });
 
-describe('properCase', () => {
-  it('single word', () => {
-    expect(properCase('HELLO')).toBe('Hello');
-    expect(properCase('hello')).toBe('Hello');
-    expect(properCase('HeLlO')).toBe('Hello');
-  });
-
-  it('multiple words', () => {
-    expect(properCase('HELLO, WORLD')).toBe('Hello, World');
-    expect(properCase('hello, world')).toBe('Hello, World');
-    expect(properCase('hello, WORLD')).toBe('Hello, World');
-    expect(properCase('HelLo, worlD')).toBe('Hello, World');
-    expect(properCase('Hello, World')).toBe('Hello, World');
-  });
-
-  it('non-string', () => {
-    expect(properCase('')).toBe('');
-    expect(properCase(undefined)).toBeUndefined();
-    expect(properCase(null)).toBe(null);
-    expect(properCase(1)).toBe(1);
-  });
-});
-
 describe('isUnitOfMeasure', () => {
   it('singulars', () => {
     expect(isUnitOfMeasure('tablespoon')).toBeTruthy();
@@ -237,49 +213,51 @@ describe('isUnitOfMeasure', () => {
 });
 
 describe('unitNormalizer', () => {
-  it('already normalized', () => {
-    expect(unitNormalizer('Tablespoon')).toBe('Tablespoon');
-    expect(unitNormalizer('Cup')).toBe('Cup');
-    expect(unitNormalizer('Can')).toBe('Can');
-    expect(unitNormalizer('Pound')).toBe('Pound');
-    expect(unitNormalizer('Ounce')).toBe('Ounce');
+  it('capitalized', () => {
+    expect(unitNormalizer('Tablespoon')).toBe('tablespoon');
+    expect(unitNormalizer('Cup')).toBe('cup');
+    expect(unitNormalizer('Can')).toBe('can');
+    expect(unitNormalizer('Pound')).toBe('pound');
+    expect(unitNormalizer('Ounce')).toBe('ounce');
+    expect(unitNormalizer('OunCe')).toBe('ounce');
+    expect(unitNormalizer('OUNCE')).toBe('ounce');
   });
 
   it('top-level unit', () => {
-    expect(unitNormalizer('tablespoon')).toBe('Tablespoon');
-    expect(unitNormalizer('teaspoon')).toBe('Teaspoon');
-    expect(unitNormalizer('quart')).toBe('Quart');
-    expect(unitNormalizer('ounce')).toBe('Ounce');
-    expect(unitNormalizer('whole')).toBe('Whole');
-    expect(unitNormalizer('bottle')).toBe('Bottle');
-    expect(unitNormalizer('pound')).toBe('Pound');
+    expect(unitNormalizer('tablespoon')).toBe('tablespoon');
+    expect(unitNormalizer('teaspoon')).toBe('teaspoon');
+    expect(unitNormalizer('quart')).toBe('quart');
+    expect(unitNormalizer('ounce')).toBe('ounce');
+    expect(unitNormalizer('whole')).toBe('whole');
+    expect(unitNormalizer('bottle')).toBe('bottle');
+    expect(unitNormalizer('pound')).toBe('pound');
   });
 
   it('expanded unit', () => {
-    expect(unitNormalizer('T')).toBe('Tablespoon');
-    expect(unitNormalizer('Tbs')).toBe('Tablespoon');
-    expect(unitNormalizer('tbs')).toBe('Tablespoon');
-    expect(unitNormalizer('t')).toBe('Teaspoon');
-    expect(unitNormalizer('tsp')).toBe('Teaspoon');
-    expect(unitNormalizer('c')).toBe('Cup');
-    expect(unitNormalizer('oz')).toBe('Ounce');
-    expect(unitNormalizer('"')).toBe('Inch');
-    expect(unitNormalizer('pkg')).toBe('Package');
+    expect(unitNormalizer('T')).toBe('tablespoon');
+    expect(unitNormalizer('Tbs')).toBe('tablespoon');
+    expect(unitNormalizer('tbs')).toBe('tablespoon');
+    expect(unitNormalizer('t')).toBe('teaspoon');
+    expect(unitNormalizer('tsp')).toBe('teaspoon');
+    expect(unitNormalizer('c')).toBe('cup');
+    expect(unitNormalizer('oz')).toBe('ounce');
+    expect(unitNormalizer('"')).toBe('inch');
+    expect(unitNormalizer('pkg')).toBe('package');
   });
 
   it('plural top-level unit', () => {
-    expect(unitNormalizer('tablespoons')).toBe('Tablespoon');
-    expect(unitNormalizer('teaspoons')).toBe('Teaspoon');
-    expect(unitNormalizer('quarts')).toBe('Quart');
-    expect(unitNormalizer('ounces')).toBe('Ounce');
-    expect(unitNormalizer('bottles')).toBe('Bottle');
-    expect(unitNormalizer('pounds')).toBe('Pound');
+    expect(unitNormalizer('tablespoons')).toBe('tablespoon');
+    expect(unitNormalizer('teaspoons')).toBe('teaspoon');
+    expect(unitNormalizer('quarts')).toBe('quart');
+    expect(unitNormalizer('ounces')).toBe('ounce');
+    expect(unitNormalizer('bottles')).toBe('bottle');
+    expect(unitNormalizer('pounds')).toBe('pound');
   });
 
   it('plural expanded unit', () => {
-    expect(unitNormalizer('Tbsps')).toBe('Tablespoon');
-    expect(unitNormalizer('tsps')).toBe('Teaspoon');
-    expect(unitNormalizer('pkgs')).toBe('Package');
+    expect(unitNormalizer('Tbsps')).toBe('tablespoon');
+    expect(unitNormalizer('tsps')).toBe('teaspoon');
+    expect(unitNormalizer('pkgs')).toBe('package');
   });
 });
 
@@ -651,18 +629,18 @@ describe('findMatch', () => {
 describe('getUnit', () => {
   describe('singulars', () => {
     const testCases = {
-      'tablespoon honey': { match: 'Tablespoon', rest: ['honey'] },
-      'T honey': { match: 'Tablespoon', rest: ['honey'] },
-      'Tbs honey': { match: 'Tablespoon', rest: ['honey'] },
-      'tbs honey': { match: 'Tablespoon', rest: ['honey'] },
-      'Tbsp honey': { match: 'Tablespoon', rest: ['honey'] },
-      'teaspoon honey': { match: 'Teaspoon', rest: ['honey'] },
-      'can evaporated milk': { match: 'Can', rest: ['evaporated', 'milk'] },
-      'quart honey': { match: 'Quart', rest: ['honey'] },
-      'ounce honey': { match: 'Ounce', rest: ['honey'] },
-      'c honey': { match: 'Cup', rest: ['honey'] },
-      'Cup honey': { match: 'Cup', rest: ['honey'] },
-      'cup honey': { match: 'Cup', rest: ['honey'] },
+      'tablespoon honey': { match: 'tablespoon', rest: ['honey'] },
+      'T honey': { match: 'tablespoon', rest: ['honey'] },
+      'Tbs honey': { match: 'tablespoon', rest: ['honey'] },
+      'tbs honey': { match: 'tablespoon', rest: ['honey'] },
+      'Tbsp honey': { match: 'tablespoon', rest: ['honey'] },
+      'teaspoon honey': { match: 'teaspoon', rest: ['honey'] },
+      'can evaporated milk': { match: 'can', rest: ['evaporated', 'milk'] },
+      'quart honey': { match: 'quart', rest: ['honey'] },
+      'ounce honey': { match: 'ounce', rest: ['honey'] },
+      'c honey': { match: 'cup', rest: ['honey'] },
+      'Cup honey': { match: 'cup', rest: ['honey'] },
+      'cup honey': { match: 'cup', rest: ['honey'] },
     };
 
     Object.keys(testCases).forEach((name) => {
@@ -675,13 +653,13 @@ describe('getUnit', () => {
 
   describe('plurals', () => {
     const testCases = {
-      'tablespoons honey': { match: 'Tablespoon', rest: ['honey'] },
-      'teaspoons honey': { match: 'Teaspoon', rest: ['honey'] },
-      'cans evaporated milk': { match: 'Can', rest: ['evaporated', 'milk'] },
-      'ounces honey': { match: 'Ounce', rest: ['honey'] },
-      'Cups honey': { match: 'Cup', rest: ['honey'] },
-      'lbs honey': { match: 'Pound', rest: ['honey'] },
-      'pinches salt': { match: 'Pinch', rest: ['salt'] },
+      'tablespoons honey': { match: 'tablespoon', rest: ['honey'] },
+      'teaspoons honey': { match: 'teaspoon', rest: ['honey'] },
+      'cans evaporated milk': { match: 'can', rest: ['evaporated', 'milk'] },
+      'ounces honey': { match: 'ounce', rest: ['honey'] },
+      'Cups honey': { match: 'cup', rest: ['honey'] },
+      'lbs honey': { match: 'pound', rest: ['honey'] },
+      'pinches salt': { match: 'pinch', rest: ['salt'] },
     };
 
     Object.keys(testCases).forEach((name) => {
@@ -916,6 +894,10 @@ describe('getPrep', () => {
       'apples, peeled (and chopped)': {
         match: ['chopped, peeled'],
         rest: ['apples'],
+      },
+      'medium yellow onion — 1/4-inch diced': {
+        match: ['1/4-inch diced'],
+        rest: ['medium', 'yellow', 'onion'],
       },
       'apples ()': { rest: ['apples'] },
     };

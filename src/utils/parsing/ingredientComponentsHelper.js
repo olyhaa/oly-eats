@@ -29,15 +29,6 @@ export const isNumber = (str) => {
   return isNumeric(str) || isFraction(str);
 };
 
-export const properCase = (str) => {
-  if (!str || typeof str !== 'string') {
-    return str;
-  }
-  return str.replace(/\w\S*/g, (txt) => {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-};
-
 export const isUnitOfMeasure = (value) => {
   if (!value || typeof value !== 'string') {
     return false;
@@ -206,6 +197,22 @@ export const getCommaText = (words) => {
   return { rest: words };
 };
 
+export const getEmDashText = (words) => {
+  const fullText = words.join(' ');
+  const emdashIndex = fullText.indexOf('—');
+  if (emdashIndex >= 0) {
+    const emdashText = removeBeginningEndNoise(
+      fullText.substr(emdashIndex + 1)
+    );
+    const otherText = fullText.substr(0, emdashIndex);
+    return {
+      match: [emdashText.trim()],
+      rest: otherText.trim().split(' '),
+    };
+  }
+  return { rest: words };
+};
+
 export const getPrep = (words) => {
   let matchPrep = '';
   let wordsList = words;
@@ -234,8 +241,23 @@ export const getPrep = (words) => {
     wordsList = commas.rest;
   }
 
+  // anything after the first em-dash should be considered prep
+  const emdash = getEmDashText(wordsList);
+  if (emdash.match) {
+    if (emdash.match[0].length > 0) {
+      if (matchPrep.length > 0) {
+        matchPrep += ', ';
+      }
+      matchPrep += emdash.match[0];
+    }
+    wordsList = emdash.rest;
+  }
+
   if (matchPrep) {
-    return { match: [matchPrep], rest: wordsList };
+    return {
+      match: [matchPrep],
+      rest: wordsList,
+    };
   }
   return { rest: wordsList };
 };
