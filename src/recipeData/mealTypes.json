@@ -2,5 +2,6 @@
   { "id": "1", "value": "breakfast" },
   { "id": "2", "value": "dinner" },
   { "id": "3", "value": "snack" },
-  { "id": "5", "value": "dessert" }
+  { "id": "5", "value": "dessert" },
+  { "id": "6", "value": "side" }
 ]
