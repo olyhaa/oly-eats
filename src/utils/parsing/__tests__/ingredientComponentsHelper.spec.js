@@ -19,6 +19,7 @@ import {
   removeBeginningEndNoise,
   removeNoise,
   addStrWithSpace,
+  trimWord,
 } from '../ingredientComponentsHelper';
 
 describe('isNumeric', () => {
@@ -630,6 +631,23 @@ describe('findMatch', () => {
   });
 });
 
+describe('trimWord', () => {
+  it('no trim needed', () => {
+    expect(trimWord('item')).toEqual('item');
+  });
+
+  it('should remove periods and spaces', () => {
+    expect(trimWord('.item')).toEqual('item');
+    expect(trimWord('...item')).toEqual('item');
+    expect(trimWord(' item')).toEqual('item');
+    expect(trimWord('   item')).toEqual('item');
+    expect(trimWord('item.')).toEqual('item');
+    expect(trimWord('item....')).toEqual('item');
+    expect(trimWord('item....  ')).toEqual('item');
+    expect(trimWord('..item...')).toEqual('item');
+  });
+});
+
 describe('getUnit', () => {
   describe('singulars', () => {
     const testCases = {
@@ -647,6 +665,8 @@ describe('getUnit', () => {
       'cup honey': { match: 'cup', rest: ['honey'] },
       'clove garlic': { match: 'clove', rest: ['garlic'] },
       'tsp cloves': { match: 'teaspoon', rest: ['cloves'] },
+      'tsp. cloves': { match: 'teaspoon', rest: ['cloves'] },
+      'Tbsp. cloves': { match: 'tablespoon', rest: ['cloves'] },
     };
 
     Object.keys(testCases).forEach((name) => {

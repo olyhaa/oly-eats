@@ -29,11 +29,19 @@ export const isNumber = (str) => {
   return isNumeric(str) || isFraction(str);
 };
 
+export const trimWord = (word) => {
+  let trimmedWord = word.trim();
+  trimmedWord = trimmedWord.replace(/\.+$/, '');
+  trimmedWord = trimmedWord.replace(/^\.+/, '');
+  return trimmedWord;
+};
+
 export const isUnitOfMeasure = (value) => {
   if (!value || typeof value !== 'string') {
     return false;
   }
-  const val = Pluralize.singular(value);
+  const trimmedVal = trimWord(value);
+  const val = Pluralize.singular(trimmedVal);
   if (
     unitsOfMeasure[val.toLowerCase()] ||
     unitsOfMeasure[value.toLowerCase()] ||
@@ -46,7 +54,8 @@ export const isUnitOfMeasure = (value) => {
 };
 
 export const unitNormalizer = (unit) => {
-  let val = Pluralize.singular(unit);
+  const trimmedVal = trimWord(unit);
+  let val = Pluralize.singular(trimmedVal);
   val =
     unitsMap[unit] ||
     unitsMap[val] ||
