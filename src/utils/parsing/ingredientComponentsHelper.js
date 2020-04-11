@@ -56,13 +56,12 @@ export const isUnitOfMeasure = (value) => {
 
 export const unitNormalizer = (unit) => {
   let val = Pluralize.singular(unit);
-  val = properCase(
+  val =
     unitsMap[unit] ||
-      unitsMap[val] ||
-      unitsMap[unit.toLowerCase()] ||
-      unitsMap[val.toLowerCase()] ||
-      val
-  );
+    unitsMap[val] ||
+    unitsMap[unit.toLowerCase()] ||
+    unitsMap[val.toLowerCase()] ||
+    val;
   return val;
 };
 
