@@ -641,6 +641,8 @@ describe('getUnit', () => {
       'c honey': { match: 'cup', rest: ['honey'] },
       'Cup honey': { match: 'cup', rest: ['honey'] },
       'cup honey': { match: 'cup', rest: ['honey'] },
+      'clove garlic': { match: 'clove', rest: ['garlic'] },
+      'tsp cloves': { match: 'teaspoon', rest: ['cloves'] },
     };
 
     Object.keys(testCases).forEach((name) => {
@@ -660,6 +662,7 @@ describe('getUnit', () => {
       'Cups honey': { match: 'cup', rest: ['honey'] },
       'lbs honey': { match: 'pound', rest: ['honey'] },
       'pinches salt': { match: 'pinch', rest: ['salt'] },
+      'cloves garlic': { match: 'clove', rest: ['garlic'] },
     };
 
     Object.keys(testCases).forEach((name) => {

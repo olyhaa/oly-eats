@@ -5,64 +5,64 @@ describe('Ingredient Parser', () => {
     const testCases = {
       '1 Cup Flour': {
         amount: '1',
-        unit: 'Cup',
+        unit: 'cup',
         name: 'Flour',
       },
       '1 c Flour': {
         amount: '1',
-        unit: 'Cup',
+        unit: 'cup',
         name: 'Flour',
       },
       '1 cups Flour': {
         amount: '1',
-        unit: 'Cup',
+        unit: 'cup',
         name: 'Flour',
       },
       '1/4 Cup flour': {
         amount: '1/4',
-        unit: 'Cup',
+        unit: 'cup',
         name: 'flour',
       },
       '1/4 cups flour': {
         amount: '1/4',
-        unit: 'Cup',
+        unit: 'cup',
         name: 'flour',
       },
       '1 large egg': {
         amount: '1',
-        unit: 'Large',
+        unit: 'large',
         name: 'egg',
       },
       '1 tsp flour': {
         amount: '1',
-        unit: 'Teaspoon',
+        unit: 'teaspoon',
         name: 'flour',
       },
       '1 t flour': {
         amount: '1',
-        unit: 'Teaspoon',
+        unit: 'teaspoon',
         name: 'flour',
       },
       '1 T flour': {
         amount: '1',
-        unit: 'Tablespoon',
+        unit: 'tablespoon',
         name: 'flour',
       },
       '1 pinch salt (optional)': {
         amount: '1',
-        unit: 'Pinch',
+        unit: 'pinch',
         name: 'salt',
         optional: true,
       },
       '1 pinch salt optional': {
         amount: '1',
-        unit: 'Pinch',
+        unit: 'pinch',
         name: 'salt',
         optional: true,
       },
       '1 pinch salt, optional': {
         amount: '1',
-        unit: 'Pinch',
+        unit: 'pinch',
         name: 'salt',
         optional: true,
       },
@@ -76,46 +76,46 @@ describe('Ingredient Parser', () => {
         toTaste: true,
       },
       'a pinch of salt to taste': {
-        unit: 'Pinch',
+        unit: 'pinch',
         name: 'salt',
         toTaste: true,
         amount: '1',
       },
       'a little salt to taste': {
-        unit: 'Little',
+        unit: 'little',
         name: 'salt',
         toTaste: true,
       },
       'a little salt': {
-        unit: 'Little',
+        unit: 'little',
         name: 'salt',
       },
       'a bit of salt to taste': {
-        unit: 'Little',
+        unit: 'little',
         name: 'salt',
         toTaste: true,
       },
       '1 lb carrots (diced)': {
         amount: '1',
-        unit: 'Pound',
+        unit: 'pound',
         prep: 'diced',
         name: 'carrots',
       },
       '1 lb (diced) carrots': {
         amount: '1',
-        unit: 'Pound',
+        unit: 'pound',
         prep: 'diced',
         name: 'carrots',
       },
       '1 lb carrots (diced small)': {
         amount: '1',
-        unit: 'Pound',
+        unit: 'pound',
         prep: 'diced small',
         name: 'carrots',
       },
       '1 lb (diced small) carrots': {
         amount: '1',
-        unit: 'Pound',
+        unit: 'pound',
         prep: 'diced small',
         name: 'carrots',
       },
@@ -124,7 +124,7 @@ describe('Ingredient Parser', () => {
           min: '1',
           max: '2',
         },
-        unit: 'Cup',
+        unit: 'cup',
         name: 'salt',
       },
       '1to2 Cups salt': {
@@ -132,7 +132,7 @@ describe('Ingredient Parser', () => {
           min: '1',
           max: '2',
         },
-        unit: 'Cup',
+        unit: 'cup',
         name: 'salt',
       },
       '1-2 Cups salt': {
@@ -140,7 +140,7 @@ describe('Ingredient Parser', () => {
           min: '1',
           max: '2',
         },
-        unit: 'Cup',
+        unit: 'cup',
         name: 'salt',
       },
       '1 - 2 Cups salt': {
@@ -148,24 +148,24 @@ describe('Ingredient Parser', () => {
           min: '1',
           max: '2',
         },
-        unit: 'Cup',
+        unit: 'cup',
         name: 'salt',
       },
       '1 oz of flour by weight': {
         amount: '1',
-        unit: 'Ounce',
+        unit: 'ounce',
         byWeight: true,
         name: 'flour',
       },
       '1oz by weight of flour': {
         amount: '1',
-        unit: 'Ounce',
+        unit: 'ounce',
         byWeight: true,
         name: 'flour',
       },
       '1oz flour by weight': {
         amount: '1',
-        unit: 'Ounce',
+        unit: 'ounce',
         byWeight: true,
         name: 'flour',
       },
@@ -174,7 +174,7 @@ describe('Ingredient Parser', () => {
           min: '1',
           max: '2',
         },
-        unit: 'Ounce',
+        unit: 'ounce',
         byWeight: true,
         name: 'flour',
       },
@@ -184,18 +184,18 @@ describe('Ingredient Parser', () => {
       },
       '1 bottle ketchup': {
         amount: '1',
-        unit: 'Bottle',
+        unit: 'bottle',
         name: 'ketchup',
       },
       '2 teaspoons toasted sesame oil, divided': {
         amount: '2',
-        unit: 'Teaspoon',
+        unit: 'teaspoon',
         name: 'toasted sesame oil',
         prep: 'divided',
       },
       '2 tsp toasted sesame oil': {
         amount: '2',
-        unit: 'Teaspoon',
+        unit: 'teaspoon',
         name: 'toasted sesame oil',
       },
       '1/2 banana': {
@@ -213,17 +213,17 @@ describe('Ingredient Parser', () => {
       },
       '20 oz white wine': {
         amount: '20',
-        unit: 'Ounce',
+        unit: 'ounce',
         name: 'white wine',
       },
       '20 ml white wine': {
         amount: '20',
-        unit: 'Milliliter',
+        unit: 'milliliter',
         name: 'white wine',
       },
       '20 mL white wine': {
         amount: '20',
-        unit: 'Milliliter',
+        unit: 'milliliter',
         name: 'white wine',
       },
       'medium chopped apple': {
@@ -239,12 +239,12 @@ describe('Ingredient Parser', () => {
       },
       '2 packages chips': {
         amount: '2',
-        unit: 'Package',
+        unit: 'package',
         name: 'chips',
       },
       '3" ginger': {
         amount: '3',
-        unit: 'Inch',
+        unit: 'inch',
         name: 'ginger',
       },
       '1 medium roma tomato, diced small': {
@@ -254,7 +254,7 @@ describe('Ingredient Parser', () => {
       },
       '15 oz chickpeas, rinsed and drained': {
         amount: '15',
-        unit: 'Ounce',
+        unit: 'ounce',
         name: 'chickpeas',
         prep: 'rinsed and drained',
       },
@@ -294,7 +294,7 @@ describe('Ingredient Parser', () => {
       },
       '12 ounces carrots(about 4 to 5 medium), peeled and shredded on the large holes of a box grater': {
         amount: '12',
-        unit: 'Ounce',
+        unit: 'ounce',
         name: 'carrots',
         prep:
           'about 4 to 5 medium, peeled and shredded on the large holes of a box grater',
@@ -305,7 +305,7 @@ describe('Ingredient Parser', () => {
           max: '2',
         },
         name: 'freshly squeezed lemon juice',
-        unit: 'Tablespoon',
+        unit: 'tablespoon',
       },
       '1 to 2 11 oz cans of tomatoes': {
         amount: {
@@ -313,7 +313,22 @@ describe('Ingredient Parser', () => {
           max: '2 11',
         },
         name: 'cans tomatoes',
-        unit: 'Ounce',
+        unit: 'ounce',
+      },
+      '1 clove garlic': {
+        amount: '1',
+        name: 'garlic',
+        unit: 'clove',
+      },
+      '4 cloves garlic': {
+        amount: '4',
+        name: 'garlic',
+        unit: 'clove',
+      },
+      '1/4 tsp cloves': {
+        amount: '1/4',
+        name: 'cloves',
+        unit: 'teaspoon',
       },
     };
 

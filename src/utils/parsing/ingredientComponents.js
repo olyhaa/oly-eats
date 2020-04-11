@@ -8,6 +8,7 @@ export const unitsOfMeasure = {
   quart: ['QT', 'Qt', 'qt'],
   pinch: [],
   little: ['bit'],
+  clove: [],
   dash: [],
   gallon: ['Gal', 'GAL', 'gal'],
   ounce: ['oz', 'Oz', 'OZ'],

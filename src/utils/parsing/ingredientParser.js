@@ -77,7 +77,7 @@ export const parseIngredient = (source) => {
   words = removeNoise(words);
   ingredient.name = words.join(' ');
 
-  if (tmpAmount && ingredient.unit !== 'Little') {
+  if (tmpAmount && ingredient.unit !== 'little') {
     ingredient.amount = `${tmpAmount}`;
   }
   return ingredient;
