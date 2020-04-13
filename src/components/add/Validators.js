@@ -1,19 +1,6 @@
 import { FIELDS, requiredFields } from './constants';
 import { transformTiming } from './saveRecipe';
 
-export const isValidPhotoUrl = (photoUrl) => {
-  const pattern = new RegExp(
-    '^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '.(jpeg|jpg|gif|png)$', // must be picture
-    'i'
-  ); // fragment locator
-
-  return !photoUrl || photoUrl.length === 0 || pattern.test(photoUrl);
-};
-
 const isValidUrl = (urlString) => {
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
