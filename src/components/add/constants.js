@@ -4,10 +4,12 @@ const PHOTO_URL = 'photo';
 const SERVINGS = 'servings';
 
 // INGREDIENTS
+const INGREDIENTS = 'ingredients';
 const INGREDIENTS_LABEL = 'ingredientsLabel';
 const INGREDIENTS_LIST = 'ingredientsList';
 
 // DIRECTIONS
+const DIRECTIONS = 'directions';
 const DIRECTIONS_LABEL = 'directionsLabel';
 const DIRECTIONS_LIST = 'directionsList';
 
@@ -38,8 +40,10 @@ export const FIELDS = {
   TIMING_PREP_VALUE_MINS,
   TIMING_TOTAL_VALUE_HOURS,
   TIMING_TOTAL_VALUE_MINS,
+  INGREDIENTS,
   INGREDIENTS_LABEL,
   INGREDIENTS_LIST,
+  DIRECTIONS,
   DIRECTIONS_LABEL,
   DIRECTIONS_LIST,
   MEAL_TYPE,

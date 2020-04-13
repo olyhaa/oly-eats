@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm, Fields } from 'redux-form';
+import { Field, FieldArray, reduxForm, Fields } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -16,6 +16,8 @@ import {
   renderTextField,
   renderNumberField,
   onlyNums,
+  renderIngredients,
+  renderDirections,
 } from './Renderers';
 import { FIELDS, isRequired } from './constants';
 import { validateAll, asyncValidateAll } from './Validators';
@@ -78,22 +80,8 @@ function AddRecipeForm({ pristine, handleSubmit, submitting }) {
           required={isRequired(FIELDS.SOURCE_URL)}
           label="Source URL"
         />
-        <Field
-          className={classes.formItem}
-          name={FIELDS.INGREDIENTS_LIST}
-          component={renderTextBoxField}
-          required={isRequired(FIELDS.INGREDIENTS_LIST)}
-          label="Ingredients"
-          helperText="Add each ingredient to a new line"
-        />
-        <Field
-          className={classes.formItem}
-          name={FIELDS.DIRECTIONS_LIST}
-          component={renderTextBoxField}
-          required={isRequired(FIELDS.DIRECTIONS_LIST)}
-          label="Directions"
-          helperText="Add each step to a new line"
-        />
+        <FieldArray name={FIELDS.INGREDIENTS} component={renderIngredients} />
+        <FieldArray name={FIELDS.DIRECTIONS} component={renderDirections} />
         <Field
           className={classes.formItem}
           name={FIELDS.SERVINGS}

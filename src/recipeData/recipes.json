@@ -842,5 +842,186 @@
       "category": ["bread"],
       "cuisine": ["american", "asian", "chinese", "japanese"]
     }
+  },
+  {
+    "id": "7ff3671d-eeb8-4173-a757-85cfec2278e2",
+    "title": "Caramel Apple Cheesecake",
+    "description": "If you’re looking for a show stopping dessert, this is it! A Caramel Apple Cheesecake is the best cheesecake recipe for fall, filled with caramel and apples and a Nilla Wafer Crust!",
+    "source": {
+      "display": "Crazy for Crust",
+      "url": "https://www.crazyforcrust.com/caramel-apple-cheesecake/"
+    },
+    "photo": "https://www.crazyforcrust.com/wp-content/uploads/2016/10/Caramel-Apple-Cheesecake-5-of-6-640x959.jpg",
+    "servings": 12,
+    "ingredientSection": [
+      {
+        "label": "Crust",
+        "ingredients": [
+          {
+            "amount": "2",
+            "unit": "cup",
+            "prep": "about 1/2-3/4 of an 11 ounce box",
+            "name": "Vanilla Wafer Crumbs"
+          },
+          {
+            "amount": "1/2",
+            "unit": "cup",
+            "prep": "melted",
+            "name": "salted butter"
+          },
+          {
+            "amount": "1/4",
+            "unit": "cup",
+            "prep": "loosely packed",
+            "name": "light brown sugar"
+          }
+        ]
+      },
+      {
+        "label": "Cheesecake",
+        "ingredients": [
+          {
+            "amount": "24",
+            "unit": "ounce",
+            "prep": "room temperature",
+            "name": "cream cheese"
+          },
+          {
+            "amount": "1",
+            "unit": "cup",
+            "name": "packed light brown sugar"
+          },
+          {
+            "amount": "3",
+            "unit": "tablespoon",
+            "name": "all-purpose flour"
+          },
+          {
+            "amount": "1",
+            "unit": "teaspoon",
+            "name": "ground cinnamon"
+          },
+          {
+            "amount": "1/2",
+            "unit": "cup",
+            "prep": "room temperature",
+            "name": "sour cream"
+          },
+          {
+            "amount": "1/2",
+            "unit": "cup",
+            "name": "applesauce"
+          },
+          {
+            "amount": "1/4",
+            "unit": "cup",
+            "prep": "homemade or ice cream topping",
+            "name": "caramel sauce"
+          },
+          {
+            "amount": "4",
+            "unit": "large",
+            "prep": "room temperature",
+            "name": "eggs"
+          }
+        ]
+      },
+      {
+        "label": "Topping",
+        "ingredients": [
+          {
+            "amount": "2 1/2",
+            "unit": "cup",
+            "prep": "about 2-3 apples, any variety",
+            "name": "chopped apples"
+          },
+          {
+            "amount": "2",
+            "unit": "teaspoon",
+            "name": "lemon juice"
+          },
+          {
+            "amount": "1",
+            "unit": "teaspoon",
+            "name": "ground cinnamon"
+          },
+          {
+            "amount": "3",
+            "unit": "tablespoon",
+            "prep": "loosely packed",
+            "name": "light brown sugar"
+          },
+          {
+            "amount": "1",
+            "unit": "tablespoon",
+            "name": "salted butter"
+          },
+          {
+            "name": "Additional caramel sauce"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "label": "Make the Crust",
+        "steps": [
+          {
+            "text": "Preheat oven to 325°F. Grease the sides and bottom of a 9-inch springform pan with nonstick cooking spray. (You can also line the bottom of the pan with parchment paper, if you wish.) Wrap the bottom of the pan in two sheets of heavy duty aluminum foil so that when you bake your cheesecake in a water bath it won't leak."
+          },
+          {
+            "text": "Combine the cookie crumbs, butter, and brown sugar in a medium sized bowl and stir with a fork to combine. Press into the bottom and up the sides of the pan. Bake for 10 minutes, then set aside to cool while you prepare the cheesecake."
+          }
+        ]
+      },
+      {
+        "label": "Make the Cheesecake",
+        "steps": [
+          {
+            "text": "Lower oven temperature to 300°F."
+          },
+          {
+            "text": "Beat cream cheese, brown sugar, flour, and cinnamon on low speed using a hand or a stand mixer until smooth. It's important that all your ingredients are room temperature to avoid lumps. Make sure to use low speed while beating to avoid adding excess air, which will cause the cheesecake to crack."
+          },
+          {
+            "text": "Scrape down the sides of the bowl and mix in the sour cream, applesauce, and caramel sauce until well combined. Add the eggs one at a time, mixing slowly to combine. Scrape down the sides of the bowl as needed to make sure everything is mixed. Pour the cheesecake filling into the crust."
+          },
+          {
+            "text": "Place the cheesecake pan in a larger roasting pan. Place the pan in the oven and then fill the pan with enough warm water to go about halfway up the side of the springform pan. The water should not go above the top of the foil. Bake the cheesecake for 1 hour and 25 minutes."
+          },
+          {
+            "text": "Turn off the oven and leave the cheesecake in the oven with the door closed for 30 minutes. Do not open the door! After 30 minutes, crack the oven door and leave the cheesecake in the oven for another 20 minutes. Take the cheesecake out of the oven and let it sit at room temperature for 15 minutes, then remove the pan from the water bath and remove the foil. Wrap it with plastic wrap and refrigerate until it's completely cool and firm, 6-7 hours or overnight. Don't remove the springform pan from the cheesecake until it's done chilling and you're ready to assemble."
+          }
+        ]
+      },
+      {
+        "label": "Make the Topping and Assemble",
+        "steps": [
+          {
+            "text": "Place apples, brown sugar, lemon juice, cinnamon, and butter in a large saucepan. Cook over medium heat until the apples are tender, about 10-15 minutes."
+          },
+          {
+            "text": "Frost the top of the cheesecake with additional caramel sauce, then spoon the apples over the top. Drizzle additional caramel down the sides of the cheesecake if desired. Refrigerate cheesecake until ready to serve. It's best eaten within 2-3 days but should last 4-5 days."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [
+        {
+          "value": "30",
+          "units": "minutes"
+        }
+      ],
+      "total": [
+        {
+          "value": "4",
+          "units": "hours"
+        }
+      ]
+    },
+    "tags": {
+      "meal": ["dessert"]
+    }
   }
 ]

@@ -75,14 +75,24 @@ export const saveRecipe = (values) => {
   recipe.servings = values[FIELDS.SERVINGS];
 
   recipe.ingredientSection = [];
-  recipe.ingredientSection.push({
-    ingredients: transformIngredients(values[FIELDS.INGREDIENTS_LIST]),
-  });
+  for (let i = 0; i < values[FIELDS.INGREDIENTS].length; i++) {
+    recipe.ingredientSection.push({
+      label: values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LABEL],
+      ingredients: transformIngredients(
+        values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LIST]
+      ),
+    });
+  }
 
   recipe.directionsSection = [];
-  recipe.directionsSection.push({
-    steps: transformDirections(values[FIELDS.DIRECTIONS_LIST]),
-  });
+  for (let i = 0; i < values[FIELDS.DIRECTIONS].length; i++) {
+    recipe.directionsSection.push({
+      label: values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LABEL],
+      steps: transformDirections(
+        values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LIST]
+      ),
+    });
+  }
 
   recipe.timing = {
     prep: transformTiming(
