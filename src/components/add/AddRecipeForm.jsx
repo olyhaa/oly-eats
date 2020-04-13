@@ -18,7 +18,7 @@ import {
   onlyNums,
 } from './Renderers';
 import { FIELDS, isRequired } from './constants';
-import { validateAll } from './Validators';
+import { validateAll, asyncValidateAll } from './Validators';
 import { saveRecipe } from './saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
@@ -178,5 +178,7 @@ AddRecipeForm.propTypes = {
 export default reduxForm({
   form: 'AddRecipeForm', // a unique identifier for this form
   validate: validateAll,
+  asyncValidate: asyncValidateAll,
   onSubmit: saveRecipe,
+  asyncBlurFields: [FIELDS.PHOTO_URL],
 })(AddRecipeForm);

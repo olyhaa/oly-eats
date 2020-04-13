@@ -52,9 +52,7 @@ export const validateAll = (values) => {
       errors[field] = 'Required';
     }
   });
-  if (!isValidPhotoUrl(values[FIELDS.PHOTO_URL])) {
-    errors[FIELDS.PHOTO_URL] = 'Invalid photo URL';
-  }
+
   if (!isValidUrl(values[FIELDS.SOURCE_URL])) {
     errors[FIELDS.SOURCE_URL] = 'Invalid URL';
   }
@@ -86,4 +84,18 @@ export const validateAll = (values) => {
   }
 
   return errors;
+};
+
+export const asyncValidateAll = (values) => {
+  if (values[FIELDS.PHOTO_URL]) {
+    return fetch(values[FIELDS.PHOTO_URL]).then((response) => {
+      if (response.headers.get('content-type').startsWith('image')) {
+        return Promise.resolve({});
+      }
+      const error = {};
+      error[FIELDS.PHOTO_URL] = 'URL must be a photo';
+      return Promise.reject(error);
+    });
+  }
+  return Promise.resolve({});
 };
