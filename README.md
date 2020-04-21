@@ -6,6 +6,7 @@ React-based recipe app to store recipes and plan meals.
 
 In the project directory, you can run:
 
+### `npm install`
 ### `npm run start`
 
 Runs the app in the development mode.<br />
