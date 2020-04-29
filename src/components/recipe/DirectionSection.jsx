@@ -21,7 +21,7 @@ function DirectionSection({ label, steps }) {
     <Box component="div" className={classes.root}>
       {label && (
         <Box component="span" className={classes.title}>
-          <Typography color="secondary" variant="h3" component="h3">
+          <Typography color="secondary" variant="h4" component="h2">
             {label}
           </Typography>
         </Box>
