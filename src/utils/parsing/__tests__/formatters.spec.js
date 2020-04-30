@@ -1,5 +1,5 @@
 import { TIMING_UNITS } from '../../../components/add/constants';
-import { convertUnicodeFractions, getDisplayTime } from '../general';
+import { convertUnicodeFractions, getDisplayTime } from '../formatters';
 
 describe('convertUnicodeFractions', () => {
   describe('No unicode fractions', () => {

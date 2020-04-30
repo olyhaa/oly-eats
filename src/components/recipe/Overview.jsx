@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { getDisplayTime, getDisplayDate } from 'utils/parsing/general';
+import { getDisplayTime, getDisplayDate } from 'utils/parsing/formatters';
 import {
   PREP_CARD,
   TOTAL_CARD,
