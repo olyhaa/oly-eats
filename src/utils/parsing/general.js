@@ -40,3 +40,8 @@ export const getDisplayTime = (timeArray) => {
   }
   return undefined;
 };
+
+export const getDisplayDate = (unixTime) => {
+  const date = new Date(unixTime);
+  return date.toLocaleDateString();
+};

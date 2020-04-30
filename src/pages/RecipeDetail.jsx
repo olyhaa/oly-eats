@@ -72,6 +72,8 @@ function RecipeDetail() {
                 totalTime={recipe.timing?.total}
                 servings={recipe.servings}
                 source={recipe.source}
+                dateAdded={recipe.dateAdded}
+                lastUpdated={recipe.lastUpdated}
               />
             </Grid>
           </Grid>

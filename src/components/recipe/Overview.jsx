@@ -4,12 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Paper } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { getDisplayTime } from 'utils/parsing/ingredientParser';
+import { getDisplayTime, getDisplayDate } from 'utils/parsing/general';
 import {
   PREP_CARD,
   TOTAL_CARD,
   SERVING_CARD,
   SOURCE_CARD,
+  DATE_ADDED_CARD,
+  DATE_UPDATED_CARD,
 } from '../../utils/IconTypes';
 import IconCard from './IconCard';
 
@@ -19,11 +21,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Overview({ description, prepTime, totalTime, servings, source }) {
+function Overview({
+  description,
+  prepTime,
+  totalTime,
+  servings,
+  source,
+  dateAdded,
+  lastUpdated,
+}) {
   const classes = useStyles();
 
   const prepTimeDisplay = getDisplayTime(prepTime);
   const totalTimeDisplay = getDisplayTime(totalTime);
+  const dateAddedDisplay = getDisplayDate(dateAdded);
+  const lastUpdatedDisplay = getDisplayDate(lastUpdated);
 
   return (
     <Grid container spacing={2} alignItems="stretch">
@@ -59,6 +71,24 @@ function Overview({ description, prepTime, totalTime, servings, source }) {
           <IconCard type={SERVING_CARD} title="Serves" value={servings} />
         </Grid>
       )}
+      {dateAdded && (
+        <Grid item xs>
+          <IconCard
+            type={DATE_ADDED_CARD}
+            title="Date Added"
+            value={dateAddedDisplay}
+          />
+        </Grid>
+      )}
+      {lastUpdated && (
+        <Grid item xs>
+          <IconCard
+            type={DATE_UPDATED_CARD}
+            title="Last Updated"
+            value={lastUpdatedDisplay}
+          />
+        </Grid>
+      )}
       {source && (
         <Grid item xs>
           <IconCard
@@ -92,11 +122,15 @@ Overview.propTypes = {
     url: PropTypes.string,
   }),
   description: PropTypes.string,
+  dateAdded: PropTypes.number,
+  lastUpdated: PropTypes.number,
 };
 
 Overview.defaultProps = {
   source: undefined,
   description: 'A great new recipe to try!',
+  dateAdded: undefined,
+  lastUpdated: undefined,
 };
 
 export default Overview;

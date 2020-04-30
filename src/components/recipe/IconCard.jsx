@@ -11,6 +11,8 @@ import {
   TOTAL_CARD,
   SERVING_CARD,
   SOURCE_CARD,
+  DATE_ADDED_CARD,
+  DATE_UPDATED_CARD,
 } from '../../utils/IconTypes';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +42,10 @@ function IconCard({ title, display, value, type }) {
         return 'bread-slice';
       case SOURCE_CARD:
         return 'mortar-pestle';
+      case DATE_ADDED_CARD:
+        return 'calendar-plus';
+      case DATE_UPDATED_CARD:
+        return 'calendar-check';
       default:
         return 'cheese';
     }
@@ -67,7 +73,14 @@ IconCard.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   display: PropTypes.string,
-  type: PropTypes.oneOf([PREP_CARD, TOTAL_CARD, SERVING_CARD, SOURCE_CARD]),
+  type: PropTypes.oneOf([
+    PREP_CARD,
+    TOTAL_CARD,
+    SERVING_CARD,
+    SOURCE_CARD,
+    DATE_ADDED_CARD,
+    DATE_UPDATED_CARD,
+  ]),
 };
 
 IconCard.defaultProps = {
