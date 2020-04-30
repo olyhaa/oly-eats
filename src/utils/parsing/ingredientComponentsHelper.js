@@ -7,7 +7,7 @@ import {
   rangeWordsRegex,
   parenRegex,
   noiseWords,
-} from './constants';
+} from './ingredientConstants';
 
 export const isNumeric = (num) => {
   // eslint-disable-next-line no-restricted-globals
