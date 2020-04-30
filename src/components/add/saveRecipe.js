@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import uuid from 'uuid/v4';
 import { FIELDS, TIMING_UNITS } from './formConstants';
 import { parseIngredient } from '../../utils/parsing/ingredientParser';
-import { convertUnicodeFractions } from '../../utils/parsing/formatters';
+import { convertUnicodeFractions } from '../../utils/formatters';
 
 const transformDirections = (directions) => {
   // break on new lines

@@ -20,7 +20,7 @@ import {
   removeNoise,
   trimWord,
 } from '../ingredientComponentsHelper';
-import { addStrWithSpace } from '../formatters';
+import { addStrWithSpace } from '../../formatters';
 
 describe('isNumeric', () => {
   it('numeric number', () => {
