@@ -111,6 +111,8 @@ export const saveRecipe = (values) => {
   recipe.tags.category = values[FIELDS.CATEGORY];
   recipe.tags.cuisine = values[FIELDS.CUISINE];
 
+  recipe.dateAdded = Date.now();
+
   const blob = new Blob([JSON.stringify(recipe)], { type: 'application/json' });
   saveAs(blob, 'recipe.json');
 };

@@ -2,6 +2,8 @@ const TITLE = 'title';
 const DESCRIPTION = 'description';
 const PHOTO_URL = 'photo';
 const SERVINGS = 'servings';
+const DATE_ADDED = 'dateAdded';
+const LAST_UPDATED = 'lastUpdated';
 
 // INGREDIENTS
 const INGREDIENTS = 'ingredients';
@@ -50,6 +52,8 @@ export const FIELDS = {
   CUISINE,
   EQUIPMENT,
   CATEGORY,
+  DATE_ADDED,
+  LAST_UPDATED,
 };
 
 export const requiredFields = [
