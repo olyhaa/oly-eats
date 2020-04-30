@@ -1,12 +1,7 @@
 .app-logo {
   height: 3rem;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .app-logo {
-    animation: app-logo-spin infinite 20s linear;
-  }
+  animation: app-logo-spin infinite 20s linear;
 }
 
 @keyframes app-logo-spin {
