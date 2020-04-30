@@ -33,6 +33,20 @@ export const convertUnicodeFractions = (inputStr) => {
   return convertedString;
 };
 
+export const addStrWithSpace = (first, second, addComma) => {
+  let newStr = first ? first.trim() : '';
+  if (second) {
+    if (newStr.length > 0) {
+      if (addComma) {
+        newStr += ',';
+      }
+      newStr += ' ';
+    }
+    newStr += second.trim();
+  }
+  return newStr;
+};
+
 export const getDisplayTime = (timeArray) => {
   const unitsOrder = [TIMING_UNITS.HOUR, TIMING_UNITS.MINUTE];
   timeArray.sort((a, b) => {

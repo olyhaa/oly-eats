@@ -18,9 +18,9 @@ import {
   getPrep,
   removeBeginningEndNoise,
   removeNoise,
-  addStrWithSpace,
   trimWord,
 } from '../ingredientComponentsHelper';
+import { addStrWithSpace } from '../formatters';
 
 describe('isNumeric', () => {
   it('numeric number', () => {

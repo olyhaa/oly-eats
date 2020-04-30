@@ -16,8 +16,8 @@ import {
   getOptional,
   getToTaste,
   removeNoise,
-  addStrWithSpace,
 } from './ingredientComponentsHelper';
+import { addStrWithSpace } from './formatters';
 
 export const parseIngredient = (source) => {
   const ingredient = {};
