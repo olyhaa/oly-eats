@@ -19,7 +19,7 @@ import {
   renderIngredients,
   renderDirections,
 } from './Renderers';
-import { FIELDS, isRequired } from './constants';
+import { FIELDS, isRequired } from './formConstants';
 import { validateAll, asyncValidateAll } from './Validators';
 import { saveRecipe } from './saveRecipe';
 import MultipleSelectField from './MultipleSelectField';

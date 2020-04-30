@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver';
 import uuid from 'uuid/v4';
-import { FIELDS, TIMING_UNITS } from './constants';
+import { FIELDS, TIMING_UNITS } from './formConstants';
 import { parseIngredient } from '../../utils/parsing/ingredientParser';
 import { convertUnicodeFractions } from '../../utils/parsing/formatters';
 

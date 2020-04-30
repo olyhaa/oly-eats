@@ -1,4 +1,4 @@
-import { FIELDS, requiredFields } from './constants';
+import { FIELDS, requiredFields } from './formConstants';
 import { transformTiming } from './saveRecipe';
 
 const isValidUrl = (urlString) => {

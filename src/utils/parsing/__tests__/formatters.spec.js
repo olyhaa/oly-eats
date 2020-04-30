@@ -1,4 +1,4 @@
-import { TIMING_UNITS } from '../../../components/add/constants';
+import { TIMING_UNITS } from '../../../components/add/formConstants';
 import { convertUnicodeFractions, getDisplayTime } from '../formatters';
 
 describe('convertUnicodeFractions', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { renderNumberField, onlyNums } from './Renderers';
-import { isField } from './constants';
+import { isField } from './formConstants';
 import OutlinedDiv from './OutlinedDiv';
 import { isValidTime } from './Validators';
 

@@ -1,5 +1,5 @@
 import { transformTiming } from '../saveRecipe';
-import { TIMING_UNITS } from '../constants';
+import { TIMING_UNITS } from '../formConstants';
 
 describe('transformTiming', () => {
   it('Only Minutes', () => {
