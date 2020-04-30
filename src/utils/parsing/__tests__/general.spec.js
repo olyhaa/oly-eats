@@ -1,4 +1,5 @@
-import { convertUnicodeFractions } from '../general';
+import { TIMING_UNITS } from '../../../components/add/constants';
+import { convertUnicodeFractions, getDisplayTime } from '../general';
 
 describe('convertUnicodeFractions', () => {
   describe('No unicode fractions', () => {
@@ -28,6 +29,86 @@ describe('convertUnicodeFractions', () => {
     Object.keys(testCases).forEach((name) => {
       it(`Should convert ${name}`, () => {
         expect(convertUnicodeFractions(name)).toEqual(testCases[name]);
+      });
+    });
+  });
+});
+
+describe('getDisplayTime', () => {
+  describe('Single item', () => {
+    const testCases = {
+      '35 minutes': [
+        {
+          value: '35',
+          units: TIMING_UNITS.MINUTE,
+        },
+      ],
+      '1 minute': [
+        {
+          value: '1',
+          units: TIMING_UNITS.MINUTE,
+        },
+      ],
+      '1 hour': [
+        {
+          value: '1',
+          units: TIMING_UNITS.HOUR,
+        },
+      ],
+      '2 hours': [
+        {
+          value: '2',
+          units: TIMING_UNITS.HOUR,
+        },
+      ],
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const timeArray = testCases[name];
+      it(`Should convert ${name}`, () => {
+        expect(getDisplayTime(timeArray)).toEqual(name);
+      });
+    });
+  });
+
+  describe('Multiple items', () => {
+    const testCases = {
+      '1 hour 35 minutes': [
+        {
+          value: '35',
+          units: TIMING_UNITS.MINUTE,
+        },
+        {
+          value: '1',
+          units: TIMING_UNITS.HOUR,
+        },
+      ],
+      '2 hours 35 minutes': [
+        {
+          value: '2',
+          units: TIMING_UNITS.HOUR,
+        },
+        {
+          value: '35',
+          units: TIMING_UNITS.MINUTE,
+        },
+      ],
+      '1 hour 1 minute': [
+        {
+          value: '1',
+          units: TIMING_UNITS.MINUTE,
+        },
+        {
+          value: '1',
+          units: TIMING_UNITS.HOUR,
+        },
+      ],
+    };
+
+    Object.keys(testCases).forEach((name) => {
+      const timeArray = testCases[name];
+      it(`Should convert ${name}`, () => {
+        expect(getDisplayTime(timeArray)).toEqual(name);
       });
     });
   });

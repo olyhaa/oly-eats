@@ -1,3 +1,6 @@
+import Pluralize from 'pluralize';
+import { TIMING_UNITS } from '../../components/add/constants';
+
 const fractionMap = {
   '½': '1/2',
   '⅓': '1/3',
@@ -31,10 +34,16 @@ export const convertUnicodeFractions = (inputStr) => {
 };
 
 export const getDisplayTime = (timeArray) => {
+  const unitsOrder = [TIMING_UNITS.HOUR, TIMING_UNITS.MINUTE];
+  timeArray.sort((a, b) => {
+    return unitsOrder.indexOf(a.units) - unitsOrder.indexOf(b.units);
+  });
   let displayStr = '';
+
   if (timeArray && timeArray.length > 0) {
     timeArray.forEach((item) => {
-      displayStr += `${item.value} ${item.units} `;
+      const unit = item.value > 1 ? Pluralize.plural(item.units) : item.units;
+      displayStr += `${item.value} ${unit} `;
     });
     return displayStr.trim();
   }
