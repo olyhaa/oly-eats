@@ -1023,5 +1023,149 @@
     "tags": {
       "meal": ["dessert"]
     }
+  },
+  {
+    "id": "74715f6c-3ad6-423c-867b-519810401922",
+    "title": "Sweet Potato Galette",
+    "description": "There’s something wonderfully comforting about a galette. It’s perfectly imperfect. I’ve found over the years that while I’ll occasionally make a sweet version, I veer towards these savory galettes the most. This sweet potato galette takes a bit of work but the end result is a delightful dinner.",
+    "source": {
+      "display": "Naturally Ella",
+      "url": "https://naturallyella.com/sweet-potato-galette/"
+    },
+    "photo": "https://32lxcujgg9-flywheel.netdna-ssl.com/wp-content/uploads/2019/12/sweet_potato-galette-1.jpg",
+    "servings": 6,
+    "ingredientSection": [
+      {
+        "label": "Crust",
+        "ingredients": [
+          {
+            "amount": "3/4",
+            "unit": "cup",
+            "name": "all-purpose flour"
+          },
+          {
+            "amount": "3/4",
+            "unit": "cup",
+            "name": "whole wheat flour"
+          },
+          {
+            "amount": "1/4",
+            "unit": "teaspoon",
+            "name": "salt"
+          },
+          {
+            "amount": "10",
+            "unit": "tablespoon",
+            "name": "cold butter"
+          },
+          {
+            "amount": "1/4",
+            "name": "–1/2 cup ice water"
+          }
+        ]
+      },
+      {
+        "label": "Sweet Potatoes",
+        "ingredients": [
+          {
+            "amount": "2",
+            "name": "medium sweet potatoes"
+          },
+          {
+            "amount": "1",
+            "unit": "tablespoon",
+            "name": "olive oil"
+          },
+          {
+            "amount": "1/2",
+            "unit": "teaspoon",
+            "name": "salt"
+          }
+        ]
+      },
+      {
+        "label": "Herbs",
+        "ingredients": [
+          {
+            "amount": "1/2",
+            "unit": "cup",
+            "name": "fresh flat-leaf parsley"
+          },
+          {
+            "amount": "1/4",
+            "unit": "cup",
+            "name": "toasted walnuts"
+          },
+          {
+            "unit": "pinch",
+            "name": "salt"
+          }
+        ]
+      },
+      {
+        "label": "Chili Oil",
+        "ingredients": [
+          {
+            "amount": "1/4",
+            "unit": "cup",
+            "name": "olive oil"
+          },
+          {
+            "amount": "1",
+            "unit": "teaspoon",
+            "name": "crushed red pepper"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "To start, prep the crust: Place the flours and salt in a bowl and stir to combine. Grate the butter into the bowl and toss with your hands, rubbing the butter into the flour for about 30 seconds. Add enough of the cold water to bring the dough together in a shaggy ball that is not too firm and not too sticky. Shape into a disk and wrap in plastic or beeswax paper. Refrigerator for 20 minutes."
+          },
+          {
+            "text": "While the dough is chilling, scrub the sweet potatoes well and pat dry. Using a mandoline, slice the sweet potatoes into 1/8” thick slices. Place in a bowl and toss with olive oil and salt."
+          },
+          {
+            "text": "Heat your oven to 400˚F. Remove the dough and transfer it to a lightly floured surface. Roll into about a 14” circle and transfer to a sheet tray covered with parchment. Starting from the center, begin to layer the sweet potatoes around, leaving about a 2” space on the edges. Continue layering until you’ve used all the sweet potatoes."
+          },
+          {
+            "text": "Begin to fold and pleat the edges of the crust over the sweet potatoes. Brush with olive oil or melted butter if desired then transfer to the oven. Bake for about 45 minutes until the crust is golden and the sweet potatoes are soft."
+          },
+          {
+            "text": "While the galette is baking, chop the parsley and walnuts together until both are finely minced. Transfer to a bowl and toss in a bit of salt. In a small skillet, add the olive oil and heat until hot. Place the crushed red pepper in a heat-safe bowl and pour the oil over. Let sit until the galette is done."
+          },
+          {
+            "text": "Before serving, drizzle with the chili oil and sprinkle the parsley mixture generously."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [
+        {
+          "value": "35",
+          "units": "minutes"
+        }
+      ],
+      "total": [
+        {
+          "value": "20",
+          "units": "minutes"
+        },
+        {
+          "value": "1",
+          "units": "hours"
+        }
+      ]
+    },
+    "tags": {
+      "meal": ["breakfast", "side", "dinner"],
+      "equipment": [],
+      "category": [],
+      "cuisine": []
+    },
+    "dateAdded": 1588280695499
   }
 ]
