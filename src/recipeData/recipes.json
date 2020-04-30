@@ -86,8 +86,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "15", "units": "minutes" }],
-      "total": [{ "value": "1", "units": "hours" }]
+      "prep": [{ "value": "15", "units": "minute" }],
+      "total": [{ "value": "1", "units": "hour" }]
     },
     "tags": {
       "meal": ["dinner"],
@@ -142,8 +142,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "9", "units": "hours" }],
-      "total": [{ "value": "13", "units": "hours" }]
+      "prep": [{ "value": "9", "units": "hour" }],
+      "total": [{ "value": "13", "units": "hour" }]
     },
     "tags": {
       "meal": ["side", "breakfast"],
@@ -209,8 +209,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "30", "units": "minutes" }],
-      "total": [{ "value": "45", "units": "minutes" }]
+      "prep": [{ "value": "30", "units": "minute" }],
+      "total": [{ "value": "45", "units": "minute" }]
     },
     "tags": { "meal": ["dinner"], "cuisine": ["asian", "thai"] }
   },
@@ -252,8 +252,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "5", "units": "minutes" }],
-      "total": [{ "value": "15", "units": "minutes" }]
+      "prep": [{ "value": "5", "units": "minute" }],
+      "total": [{ "value": "15", "units": "minute" }]
     },
     "tags": { "meal": ["side"], "cuisine": ["japanese"] }
   },
@@ -325,12 +325,12 @@
     ],
     "timing": {
       "prep": [
-        { "value": "30", "units": "minutes" },
-        { "value": "2", "units": "hours" }
+        { "value": "30", "units": "minute" },
+        { "value": "2", "units": "hour" }
       ],
       "total": [
-        { "value": "30", "units": "minutes" },
-        { "value": "3", "units": "hours" }
+        { "value": "30", "units": "minute" },
+        { "value": "3", "units": "hour" }
       ]
     },
     "tags": {
@@ -411,8 +411,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "20", "units": "minutes" }],
-      "total": [{ "value": "35", "units": "minutes" }]
+      "prep": [{ "value": "20", "units": "minute" }],
+      "total": [{ "value": "35", "units": "minute" }]
     },
     "tags": { "meal": ["dinner"], "cuisine": ["mexican"] }
   },
@@ -515,8 +515,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "20", "units": "minutes" }],
-      "total": [{ "value": "35", "units": "minutes" }]
+      "prep": [{ "value": "20", "units": "minute" }],
+      "total": [{ "value": "35", "units": "minute" }]
     },
     "tags": {
       "meal": ["dinner"],
@@ -596,8 +596,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "10", "units": "minutes" }],
-      "total": [{ "value": "30", "units": "minutes" }]
+      "prep": [{ "value": "10", "units": "minute" }],
+      "total": [{ "value": "30", "units": "minute" }]
     },
     "tags": { "meal": ["breakfast"], "category": ["bread"] }
   },
@@ -662,8 +662,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "10", "units": "minutes" }],
-      "total": [{ "value": "6", "units": "hours" }]
+      "prep": [{ "value": "10", "units": "minute" }],
+      "total": [{ "value": "6", "units": "hour" }]
     },
     "tags": { "meal": ["side"], "equipment": ["slow cooker"], "category": [] }
   },
@@ -753,8 +753,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "5", "units": "minutes" }],
-      "total": [{ "value": "5", "units": "minutes" }]
+      "prep": [{ "value": "5", "units": "minute" }],
+      "total": [{ "value": "5", "units": "minute" }]
     },
     "tags": { "meal": ["dinner"], "category": [], "cuisine": [] }
   },
@@ -818,8 +818,8 @@
       }
     ],
     "timing": {
-      "prep": [{ "value": "15", "units": "minutes" }],
-      "total": [{ "value": "3", "units": "hours" }]
+      "prep": [{ "value": "15", "units": "minute" }],
+      "total": [{ "value": "3", "units": "hour" }]
     },
     "tags": { "meal": [], "category": ["bread"] }
   },
@@ -833,8 +833,8 @@
     "ingredientSection": [{ "ingredients": [{ "name": "Nothing" }] }],
     "directionsSection": [{ "steps": [{ "text": "Also nothing" }] }],
     "timing": {
-      "prep": [{ "value": "0.1", "units": "minutes" }],
-      "total": [{ "value": "1", "units": "minutes" }]
+      "prep": [{ "value": "0.1", "units": "minute" }],
+      "total": [{ "value": "1", "units": "minute" }]
     },
     "tags": {
       "meal": ["dinner", "dessert", "breakfast", "side"],
@@ -1010,13 +1010,13 @@
       "prep": [
         {
           "value": "30",
-          "units": "minutes"
+          "units": "minute"
         }
       ],
       "total": [
         {
           "value": "4",
-          "units": "hours"
+          "units": "hour"
         }
       ]
     },
@@ -1146,17 +1146,17 @@
       "prep": [
         {
           "value": "35",
-          "units": "minutes"
+          "units": "minute"
         }
       ],
       "total": [
         {
           "value": "20",
-          "units": "minutes"
+          "units": "minute"
         },
         {
           "value": "1",
-          "units": "hours"
+          "units": "hour"
         }
       ]
     },

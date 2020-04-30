@@ -7,29 +7,29 @@ describe('transformTiming', () => {
     expect(transformTiming('10', undefined)).toEqual([
       {
         value: '10',
-        units: TIMING_UNITS.MINUTES,
+        units: TIMING_UNITS.MINUTE,
       },
     ]);
     expect(transformTiming('60', undefined)).toEqual([
       {
         value: '1',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
     expect(transformTiming('90', undefined)).toEqual([
       {
         value: '30',
-        units: TIMING_UNITS.MINUTES,
+        units: TIMING_UNITS.MINUTE,
       },
       {
         value: '1',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
     expect(transformTiming('10', '0')).toEqual([
       {
         value: '10',
-        units: TIMING_UNITS.MINUTES,
+        units: TIMING_UNITS.MINUTE,
       },
     ]);
   });
@@ -39,25 +39,25 @@ describe('transformTiming', () => {
     expect(transformTiming(undefined, '10')).toEqual([
       {
         value: '10',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
     expect(transformTiming(undefined, '60')).toEqual([
       {
         value: '60',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
     expect(transformTiming(undefined, '90')).toEqual([
       {
         value: '90',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
     expect(transformTiming('0', '90')).toEqual([
       {
         value: '90',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
   });
@@ -67,21 +67,21 @@ describe('transformTiming', () => {
     expect(transformTiming('20', '1')).toEqual([
       {
         value: '20',
-        units: TIMING_UNITS.MINUTES,
+        units: TIMING_UNITS.MINUTE,
       },
       {
         value: '1',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
     expect(transformTiming('70', '1')).toEqual([
       {
         value: '10',
-        units: TIMING_UNITS.MINUTES,
+        units: TIMING_UNITS.MINUTE,
       },
       {
         value: '2',
-        units: TIMING_UNITS.HOURS,
+        units: TIMING_UNITS.HOUR,
       },
     ]);
   });

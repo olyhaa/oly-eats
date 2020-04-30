@@ -54,10 +54,10 @@ export const transformTiming = (minutes = '0', hours = '0') => {
     hrs += 1;
   }
   if (mins > 0) {
-    timing.push({ value: mins.toString(), units: TIMING_UNITS.MINUTES });
+    timing.push({ value: mins.toString(), units: TIMING_UNITS.MINUTE });
   }
   if (hrs > 0) {
-    timing.push({ value: hrs.toString(), units: TIMING_UNITS.HOURS });
+    timing.push({ value: hrs.toString(), units: TIMING_UNITS.HOUR });
   }
   return timing;
 };

@@ -70,8 +70,8 @@ export const isRequired = (field) => {
 };
 
 export const TIMING_UNITS = {
-  MINUTES: 'minutes',
-  HOURS: 'hours',
+  MINUTE: 'minute',
+  HOUR: 'hour',
 };
 
 export const isField = (field) => {
