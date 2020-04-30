@@ -112,16 +112,18 @@ export const renderIngredients = ({ fields, meta: { error } }) => (
         />
       </>
     ))}
-    <Fab
-      type="button"
-      variant="extended"
-      color="secondary"
-      size="medium"
-      onClick={() => fields.push({})}
-    >
-      <AddIcon />
-      Add Ingredient Section
-    </Fab>
+    <Grid container justify="center">
+      <Fab
+        type="button"
+        variant="extended"
+        color="secondary"
+        size="medium"
+        onClick={() => fields.push({})}
+      >
+        <AddIcon />
+        Add New Ingredient Section
+      </Fab>
+    </Grid>
   </>
 );
 
@@ -159,15 +161,17 @@ export const renderDirections = ({ fields, meta: { error } }) => (
         />
       </>
     ))}
-    <Fab
-      type="button"
-      variant="extended"
-      color="secondary"
-      size="medium"
-      onClick={() => fields.push({})}
-    >
-      <AddIcon />
-      Add Direction Section
-    </Fab>
+    <Grid container justify="center">
+      <Fab
+        type="button"
+        variant="extended"
+        color="secondary"
+        size="medium"
+        onClick={() => fields.push({})}
+      >
+        <AddIcon />
+        Add New Direction Section
+      </Fab>
+    </Grid>
   </div>
 );
