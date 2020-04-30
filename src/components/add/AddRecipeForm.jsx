@@ -28,6 +28,7 @@ import TimingInputComponent from './TimingInputComponent';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(5),
+    maxWidth: theme.spacing(125),
   },
   formItem: {},
   submitButton: {
