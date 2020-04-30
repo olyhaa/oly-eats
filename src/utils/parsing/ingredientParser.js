@@ -116,14 +116,3 @@ export const buildIngredientString = ({
   );
   return ingredientStr;
 };
-
-export const getDisplayTime = (timeArray) => {
-  let displayStr = '';
-  if (timeArray && timeArray.length > 0) {
-    timeArray.forEach((item) => {
-      displayStr += `${item.value} ${item.units} `;
-    });
-    return displayStr.trim();
-  }
-  return undefined;
-};
