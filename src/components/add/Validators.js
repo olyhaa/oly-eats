@@ -73,16 +73,45 @@ export const validateAll = (values) => {
   return errors;
 };
 
-export const asyncValidateAll = (values) => {
+export const validatePhotoUrl = async (url) => {
+  return new Promise((resolve, reject) => {
+    const timeout = 5000;
+    let timer;
+    const img = new Image();
+    img.onerror = () => {
+      clearTimeout(timer);
+      reject(new Error('Error'));
+    };
+    img.onabort = () => {
+      clearTimeout(timer);
+      reject(new Error('Aborted'));
+    };
+    img.onload = () => {
+      clearTimeout(timer);
+      resolve('Success');
+    };
+    timer = setTimeout(() => {
+      // reset .src to invalid URL so it stops previous
+      // loading, but doens't trigger new load
+      img.src = '//!!!!/noexist.jpg';
+      reject(new Error('Timeout'));
+    }, timeout);
+    img.src = url;
+  });
+};
+
+export const asyncValidateAll = async (values) => {
   if (values[FIELDS.PHOTO_URL]) {
-    return fetch(values[FIELDS.PHOTO_URL]).then((response) => {
-      if (response.headers.get('content-type').startsWith('image')) {
+    return validatePhotoUrl(values[FIELDS.PHOTO_URL]).then(
+      () => {
         return Promise.resolve({});
+      },
+      () => {
+        const error = {};
+        error[FIELDS.PHOTO_URL] = 'URL must be a photo';
+        throw error;
       }
-      const error = {};
-      error[FIELDS.PHOTO_URL] = 'URL must be a photo';
-      return Promise.reject(error);
-    });
+    );
   }
   return Promise.resolve({});
 };
