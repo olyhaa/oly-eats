@@ -4,6 +4,7 @@ import { Field, FieldArray, reduxForm, Fields } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   getMealTypeList,
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddRecipeForm({ pristine, handleSubmit, submitting }) {
+function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
   const classes = useStyles();
   return (
     <form onSubmit={handleSubmit}>
@@ -146,13 +147,22 @@ function AddRecipeForm({ pristine, handleSubmit, submitting }) {
       </Paper>
       <Fab
         type="submit"
-        disabled={pristine || submitting}
+        disabled={!isEdit && (pristine || submitting)}
         variant="extended"
         color="primary"
         className={classes.submitButton}
       >
-        <AddIcon />
-        Add Recipe!
+        {isEdit ? (
+          <>
+            <CheckIcon />
+            Update Recipe!
+          </>
+        ) : (
+          <>
+            <AddIcon />
+            Add Recipe!
+          </>
+        )}
       </Fab>
     </form>
   );
@@ -162,6 +172,11 @@ AddRecipeForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  isEdit: PropTypes.bool,
+};
+
+AddRecipeForm.defaultProps = {
+  isEdit: false,
 };
 
 export default reduxForm({

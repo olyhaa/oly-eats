@@ -47,7 +47,7 @@ const MultipleSelectField = ({
   ...custom
 }) => {
   const classes = useStyles();
-  const [selectedValues, setSelectedValues] = useState([]);
+  const [selectedValues, setSelectedValues] = useState(input.value || []);
   const id = label.split(' ').join('_').trim();
 
   childrenList.sort((item1, item2) => {

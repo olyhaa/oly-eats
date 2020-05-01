@@ -74,7 +74,7 @@ export const parseTiming = (minutes = '0', hours = '0') => {
 
 export const saveRecipe = (values) => {
   const recipe = {};
-  recipe[RECIPE.ID] = uuid();
+  recipe[RECIPE.ID] = values[RECIPE.ID] || uuid();
   recipe[RECIPE.TITLE] = values[FIELDS.TITLE];
   recipe[RECIPE.DESCRIPTION] = values[FIELDS.DESCRIPTION];
   recipe[RECIPE.SOURCE] = {};
@@ -121,7 +121,12 @@ export const saveRecipe = (values) => {
   recipe[RECIPE.TAGS][RECIPE.TAGS_CATEGORY] = values[FIELDS.CATEGORY];
   recipe[RECIPE.TAGS][RECIPE.TAGS_CUISINE] = values[FIELDS.CUISINE];
 
-  recipe[RECIPE.DATE_ADDED] = Date.now();
+  if (values[RECIPE.DATE_ADDED]) {
+    recipe[RECIPE.DATE_ADDED] = values[RECIPE.DATE_ADDED];
+    recipe[RECIPE.DATE_UPDATED] = Date.now();
+  } else {
+    recipe[RECIPE.DATE_ADDED] = Date.now();
+  }
 
   const blob = new Blob([JSON.stringify(recipe)], { type: 'application/json' });
   saveAs(blob, 'recipe.json');

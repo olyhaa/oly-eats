@@ -1,8 +1,10 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
 import { RECIPE } from 'utils/recipeConstants';
+import EditIcon from '@material-ui/icons/Edit';
 import getRecipeObject from '../utils/FetchData';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
@@ -37,6 +39,14 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: 'auto',
     alignSelf: 'flex-end',
+  },
+  fab: {
+    margin: 0,
+    top: 'auto',
+    right: theme.spacing(2),
+    bottom: theme.spacing(2),
+    left: 'auto',
+    position: 'fixed',
   },
 }));
 
@@ -94,6 +104,14 @@ function RecipeDetail() {
           </Grid>
         </div>
       </div>
+      <Fab
+        color="primary"
+        className={classes.fab}
+        component={Link}
+        to={`/editRecipe/${id}`}
+      >
+        <EditIcon />
+      </Fab>
     </>
   );
 }

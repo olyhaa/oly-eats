@@ -7,6 +7,7 @@ import green from '@material-ui/core/colors/green';
 import Home from './pages/Home';
 import AddRecipe from './pages/AddRecipe';
 import RecipeDetail from './pages/RecipeDetail';
+import EditRecipe from './pages/EditRecipe';
 
 function App() {
   const darkTheme = createMuiTheme({
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/addRecipe">
             <AddRecipe />
+          </Route>
+          <Route path="/editRecipe/:id">
+            <EditRecipe />
           </Route>
           <Route path="/">
             <Home />

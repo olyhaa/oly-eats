@@ -1,3 +1,4 @@
+const ID = 'id';
 const TITLE = 'title';
 const DESCRIPTION = 'description';
 const PHOTO_URL = 'photo';
@@ -32,6 +33,7 @@ const EQUIPMENT = 'equipment';
 const CATEGORY = 'category';
 
 export const FIELDS = {
+  ID,
   TITLE,
   DESCRIPTION,
   PHOTO_URL,
