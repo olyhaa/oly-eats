@@ -1167,5 +1167,127 @@
       "cuisine": []
     },
     "dateAdded": 1588280695499
+  },
+  {
+    "id": "bc728811-dec8-4277-ba78-bace6d13870b",
+    "title": "Banana Oat Pancakes",
+    "description": "These fluffy banana oat pancakes are a deliciously healthy, naturally sweetened breakfast for lazy mornings. The recipe is made with 100% oat flour instead of wheat flour, so it’s gluten free, as well as dairy free.",
+    "source": {
+      "display": "Cookie + kate",
+      "url": "https://cookieandkate.com/banana-oat-pancakes/"
+    },
+    "photo": "https://cookieandkate.com/images/2012/03/gluten-free-banana-oat-pancakes-recipe-1-550x824.jpg",
+    "servings": 4,
+    "ingredientSection": [
+      {
+        "ingredients": [
+          {
+            "amount": "1 1/4",
+            "unit": "cup",
+            "prep": "about 3 small bananas, mashed, or 9.5 ounces",
+            "name": "mashed bananas"
+          },
+          {
+            "amount": "2",
+            "unit": "tablespoon",
+            "prep": "melted",
+            "name": "coconut oil or butter"
+          },
+          {
+            "amount": "1",
+            "unit": "tablespoon",
+            "prep": "about 1 small lemon, juiced",
+            "name": "lemon juice"
+          },
+          {
+            "amount": "1",
+            "unit": "teaspoon",
+            "name": "honey or maple syrup"
+          },
+          {
+            "amount": "2",
+            "name": "eggs"
+          },
+          {
+            "amount": "1",
+            "unit": "cup",
+            "name": "oat flour"
+          },
+          {
+            "amount": "1/2",
+            "unit": "teaspoon",
+            "name": "baking soda"
+          },
+          {
+            "amount": "1/2",
+            "unit": "teaspoon",
+            "name": "salt"
+          },
+          {
+            "amount": "1/2",
+            "unit": "teaspoon",
+            "name": "ground cinnamon"
+          },
+          {
+            "amount": "1/4",
+            "unit": "teaspoon",
+            "name": "ground nutmeg"
+          }
+        ]
+      }
+    ],
+    "directionsSection": [
+      {
+        "steps": [
+          {
+            "text": "In a small mixing bowl, stir together the mashed bananas, coconut oil (or butter), lemon juice and honey (or maple syrup)."
+          },
+          {
+            "text": "Beat in the eggs. (If your coconut oil goes back to its solid state like mine did at this point, just warm the mixture for short 20 second bursts in the microwave, stirring between each, until it is melted again.)"
+          },
+          {
+            "text": "In a medium bowl, whisk together the oat flour, baking soda, salt and spices."
+          },
+          {
+            "text": "Form a well in the center of the dry ingredients and pour in the wet ingredients. With a big spoon, stir just until the dry ingredients are thoroughly moistened. Do not overmix!"
+          },
+          {
+            "text": "Let the batter sit for 10 minutes. You may want to thin out the batter a bit with a touch of milk or water."
+          },
+          {
+            "text": "Heat a heavy cast iron skillet/non-stick pan over medium-low heat, or heat an electric griddle to 350 degrees Fahrenheit. Lightly oil the surface with coconut oil, butter or cooking spray. (If you’re using a non-stick electric griddle, you might not need any oil at all.)"
+          },
+          {
+            "text": "Once the surface of the pan is hot enough that a drop of water sizzles on it, pour 1/4 cup of batter onto the pan. Let the pancake cook for about 3 minutes, until bubbles begin to form around the edges of the cake."
+          },
+          {
+            "text": "Once the underside of the pancake is lightly golden, flip it with a spatula and cook for another 90 seconds or so, until golden brown on both sides. You may need to adjust the heat up or down at this point."
+          },
+          {
+            "text": "Serve the pancakes immediately or keep warm in a 200 degree Fahrenheit oven."
+          }
+        ]
+      }
+    ],
+    "timing": {
+      "prep": [
+        {
+          "value": "15",
+          "units": "minute"
+        }
+      ],
+      "total": [
+        {
+          "value": "25",
+          "units": "minute"
+        }
+      ]
+    },
+    "tags": {
+      "meal": ["breakfast", "gluten-free"],
+      "category": [],
+      "cuisine": []
+    },
+    "dateAdded": 1588295306342
   }
 ]
