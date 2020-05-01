@@ -69,11 +69,6 @@ export const isRequired = (field) => {
   return requiredFields.includes(field);
 };
 
-export const TIMING_UNITS = {
-  MINUTE: 'minute',
-  HOUR: 'hour',
-};
-
 export const isField = (field) => {
   const fieldKeys = Object.keys(FIELDS);
   for (let i = 0; i < fieldKeys.length; i++) {

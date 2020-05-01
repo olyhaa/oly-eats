@@ -1,5 +1,5 @@
 import Pluralize from 'pluralize';
-import { TIMING_UNITS } from '../components/add/formConstants';
+import { TIMING_UNITS } from './recipeConstants';
 
 const fractionMap = {
   '½': '1/2',
