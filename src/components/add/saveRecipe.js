@@ -5,7 +5,7 @@ import { TIMING_UNITS } from '../../utils/recipeConstants';
 import { parseIngredient } from '../../utils/ingredientParsing/ingredientParser';
 import { convertUnicodeFractions } from '../../utils/formatters';
 
-const transformDirections = (directions) => {
+const parseDirectionsList = (directions) => {
   // break on new lines
   const list = directions.split('\n');
 
@@ -25,7 +25,7 @@ const transformDirections = (directions) => {
   return directionsList;
 };
 
-const transformIngredients = (ingredients) => {
+const parseIngredientList = (ingredients) => {
   // break on new lines
   const list = ingredients.split('\n');
 
@@ -46,7 +46,7 @@ const transformIngredients = (ingredients) => {
   return ingredientsList;
 };
 
-export const transformTiming = (minutes = '0', hours = '0') => {
+export const parseTiming = (minutes = '0', hours = '0') => {
   const timing = [];
   let mins = Number(minutes);
   let hrs = Number(hours);
@@ -79,7 +79,7 @@ export const saveRecipe = (values) => {
   for (let i = 0; i < values[FIELDS.INGREDIENTS].length; i++) {
     recipe.ingredientSection.push({
       label: values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LABEL],
-      ingredients: transformIngredients(
+      ingredients: parseIngredientList(
         values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LIST]
       ),
     });
@@ -89,18 +89,18 @@ export const saveRecipe = (values) => {
   for (let i = 0; i < values[FIELDS.DIRECTIONS].length; i++) {
     recipe.directionsSection.push({
       label: values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LABEL],
-      steps: transformDirections(
+      steps: parseDirectionsList(
         values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LIST]
       ),
     });
   }
 
   recipe.timing = {
-    prep: transformTiming(
+    prep: parseTiming(
       values[FIELDS.TIMING_PREP_VALUE_MINS],
       values[FIELDS.TIMING_PREP_VALUE_HOURS]
     ),
-    total: transformTiming(
+    total: parseTiming(
       values[FIELDS.TIMING_TOTAL_VALUE_MINS],
       values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
     ),

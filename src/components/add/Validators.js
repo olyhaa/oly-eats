@@ -1,5 +1,5 @@
 import { FIELDS, requiredFields } from './formConstants';
-import { transformTiming } from './saveRecipe';
+import { parseTiming } from './saveRecipe';
 
 const isValidUrl = (urlString) => {
   const pattern = new RegExp(
@@ -18,7 +18,7 @@ const isValidNumber = (number) => {
 };
 
 export const isValidTime = (minutes, hours) => {
-  return transformTiming(minutes, hours).length > 0;
+  return parseTiming(minutes, hours).length > 0;
 };
 
 const isTimeWithinRange = (
