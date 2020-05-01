@@ -6,7 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
-import { FIELDS, isRequired } from './formConstants';
+import { FIELDS, isRequired } from './constants/formConstants';
 
 export const onlyNums = (value, previousValue) => {
   const pattern = new RegExp(/^[0-9]*$/);

@@ -19,9 +19,9 @@ import {
   renderIngredients,
   renderDirections,
 } from './Renderers';
-import { FIELDS, isRequired } from './formConstants';
-import { validateAll, asyncValidateAll } from './Validators';
-import { saveRecipe } from './saveRecipe';
+import { FIELDS, isRequired } from './constants/formConstants';
+import { validateAll, asyncValidateAll } from './utils/Validators';
+import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
 

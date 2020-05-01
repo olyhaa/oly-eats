@@ -1,5 +1,5 @@
 import { parseTiming } from '../saveRecipe';
-import { TIMING_UNITS } from '../../../utils/recipeConstants';
+import { TIMING_UNITS } from '../../../../utils/recipeConstants';
 
 describe('transformTiming', () => {
   it('Only Minutes', () => {
