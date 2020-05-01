@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import DirectionStep from './DirectionStep';
-import { DirectionStepPropType } from '../../types/DirectionsPropTypes';
+import { DirectionStepPropType } from '../../propTypes/DirectionsPropTypes';
 
 const useStyles = makeStyles((theme) => ({
   root: {

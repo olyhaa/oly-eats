@@ -12,7 +12,7 @@ import Input from '@material-ui/core/Input';
 import {
   fieldInputPropType,
   fieldMetaPropType,
-} from '../../types/FormPropTypes';
+} from '../../propTypes/FormPropTypes';
 
 const useStyles = makeStyles(() => ({
   chips: {

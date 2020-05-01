@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { IngredientItemPropType } from '../../types/IngredientsPropTypes';
+import { IngredientItemPropType } from '../../propTypes/IngredientsPropTypes';
 import IngredientItem from './IngredientItem';
 
 // TODO
