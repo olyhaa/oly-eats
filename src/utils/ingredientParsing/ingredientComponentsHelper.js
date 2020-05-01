@@ -1,5 +1,5 @@
 import Pluralize from 'pluralize';
-import { RECIPE } from 'utils/recipeConstants';
+import { RECIPE } from '../recipeConstants';
 import {
   unitsOfMeasure,
   flattenedUnits,

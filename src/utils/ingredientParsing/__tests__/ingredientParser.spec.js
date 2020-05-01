@@ -151,33 +151,6 @@ describe('Ingredient Parser', () => {
         unit: 'cup',
         name: 'salt',
       },
-      '1 oz of flour by weight': {
-        amount: '1',
-        unit: 'ounce',
-        byWeight: true,
-        name: 'flour',
-      },
-      '1oz by weight of flour': {
-        amount: '1',
-        unit: 'ounce',
-        byWeight: true,
-        name: 'flour',
-      },
-      '1oz flour by weight': {
-        amount: '1',
-        unit: 'ounce',
-        byWeight: true,
-        name: 'flour',
-      },
-      '1-2oz of flour by weight': {
-        amount: {
-          min: '1',
-          max: '2',
-        },
-        unit: 'ounce',
-        byWeight: true,
-        name: 'flour',
-      },
       'salt and pepper to taste': {
         name: 'salt and pepper',
         toTaste: true,
