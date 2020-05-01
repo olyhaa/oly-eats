@@ -10,7 +10,6 @@ import {
   checkForMatch,
   findMatch,
   getUnit,
-  getByWeight,
   getOptional,
   getToTaste,
   getParenText,
@@ -701,32 +700,6 @@ describe('getUnit', () => {
     expect(getUnit(['apple'])).toEqual({ rest: ['apple'] });
     expect(getUnit('apples, chopped'.split(' '))).toEqual({
       rest: ['apples,', 'chopped'],
-    });
-  });
-});
-
-describe('getByWeight', () => {
-  describe('not by weight', () => {
-    const testCases = ['by apples weighted', 'apples', 'apples, chopped'];
-    testCases.forEach((name) => {
-      const expected = { rest: name.split(' ') };
-      it(`Should parse ${name}`, () => {
-        expect(getByWeight(name.split(' '))).toEqual(expected);
-      });
-    });
-  });
-
-  describe('is by weight', () => {
-    const testCases = {
-      'apples, by weight': { match: ['by', 'weight'], rest: ['apples,'] },
-      'by weight water': { match: ['by', 'weight'], rest: ['water'] },
-    };
-
-    Object.keys(testCases).forEach((name) => {
-      const expected = testCases[name];
-      it(`Should parse ${name}`, () => {
-        expect(getByWeight(name.split(' '))).toEqual(expected);
-      });
     });
   });
 });

@@ -145,10 +145,6 @@ export const getUnit = (words) => {
   return { rest: words };
 };
 
-export const getByWeight = (words) => {
-  return findMatch(['by', 'weight'], words);
-};
-
 export const getOptional = (words) => {
   return findMatch(['optional'], words);
 };

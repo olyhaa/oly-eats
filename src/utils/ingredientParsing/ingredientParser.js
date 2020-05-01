@@ -12,7 +12,6 @@ import {
   getAmount,
   getUnit,
   getPrep,
-  getByWeight,
   getOptional,
   getToTaste,
   removeNoise,
@@ -48,12 +47,6 @@ export const parseIngredient = (source) => {
   words = unit.rest;
 
   // check for modifiers
-  const byWeight = getByWeight(words);
-  if (byWeight.match) {
-    ingredient.byWeight = byWeight.match.length > 0;
-  }
-  words = byWeight.rest;
-
   const optional = getOptional(words);
   if (optional.match) {
     ingredient.optional = optional.match.length > 0;
