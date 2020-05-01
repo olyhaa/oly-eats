@@ -1,5 +1,5 @@
 import Pluralize from 'pluralize';
-import { TIMING_UNITS } from './recipeConstants';
+import { TIMING_UNITS, RECIPE } from './recipeConstants';
 
 const fractionMap = {
   '½': '1/2',
@@ -50,13 +50,19 @@ export const addStrWithSpace = (first, second, addComma) => {
 export const getDisplayTime = (timeArray) => {
   const unitsOrder = [TIMING_UNITS.HOUR, TIMING_UNITS.MINUTE];
   timeArray.sort((a, b) => {
-    return unitsOrder.indexOf(a.units) - unitsOrder.indexOf(b.units);
+    return (
+      unitsOrder.indexOf(a[RECIPE.TIMING_UNIT]) -
+      unitsOrder.indexOf(b[RECIPE.TIMING_UNIT])
+    );
   });
   let displayStr = '';
 
   if (timeArray && timeArray.length > 0) {
     timeArray.forEach((item) => {
-      const unit = item.value > 1 ? Pluralize.plural(item.units) : item.units;
+      const unit =
+        item[RECIPE.TIMING_VALUE] > 1
+          ? Pluralize.plural(item[RECIPE.TIMING_UNIT])
+          : item[RECIPE.TIMING_UNIT];
       displayStr += `${item.value} ${unit} `;
     });
     return displayStr.trim();

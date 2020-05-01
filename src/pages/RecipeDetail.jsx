@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { RECIPE } from 'utils/recipeConstants';
 import getRecipeObject from '../utils/FetchData';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
@@ -58,22 +59,25 @@ function RecipeDetail() {
 
   return (
     <>
-      <Header title={`OlyEats: ${recipe.title}`} />
+      <Header title={`OlyEats: ${recipe[RECIPE.TITLE]}`} />
       <div className={classes.mainContent}>
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
             <Grid className={classes.photoGrid} item xs={6}>
-              <Image title={recipe.title} imageSrc={recipe.photo} />
+              <Image
+                title={recipe[RECIPE.TITLE]}
+                imageSrc={recipe[RECIPE.PHOTO]}
+              />
             </Grid>
             <Grid className={classes.photoGrid} item xs={6}>
               <Overview
-                description={recipe.description}
-                prepTime={recipe.timing?.prep}
-                totalTime={recipe.timing?.total}
-                servings={recipe.servings}
-                source={recipe.source}
-                dateAdded={recipe.dateAdded}
-                lastUpdated={recipe.lastUpdated}
+                description={recipe[RECIPE.DESCRIPTION]}
+                prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
+                totalTime={recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL]}
+                servings={recipe[RECIPE.SERVINGS]}
+                source={recipe[RECIPE.SOURCE]}
+                dateAdded={recipe[RECIPE.DATE_ADDED]}
+                lastUpdated={recipe[RECIPE.DATE_UPDATED]}
               />
             </Grid>
           </Grid>
@@ -82,10 +86,10 @@ function RecipeDetail() {
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
             <Grid item xs={4}>
-              <Ingredients ingredientList={recipe.ingredientSection} />
+              <Ingredients ingredientList={recipe[RECIPE.INGREDIENT_SECTION]} />
             </Grid>
             <Grid item xs={8}>
-              <Directions directionsList={recipe.directionsSection} />
+              <Directions directionsList={recipe[RECIPE.DIRECTIONS_SECTION]} />
             </Grid>
           </Grid>
         </div>

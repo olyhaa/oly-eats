@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { RECIPE } from 'utils/recipeConstants';
 import DirectionStep from './DirectionStep';
 import { DirectionStepPropType } from '../../propTypes/DirectionsPropTypes';
 
@@ -28,7 +29,13 @@ function DirectionSection({ label, steps }) {
       )}
       <List className={classes.list}>
         {steps.map((step, index) => {
-          return <DirectionStep id={index} key={index} text={step.text} />;
+          return (
+            <DirectionStep
+              id={index}
+              key={index}
+              text={step[RECIPE.DIRECTIONS_SECTION_TEXT]}
+            />
+          );
         })}
       </List>
     </Box>

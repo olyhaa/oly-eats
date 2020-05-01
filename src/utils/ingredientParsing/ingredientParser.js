@@ -17,6 +17,7 @@ import {
   removeNoise,
 } from './ingredientComponentsHelper';
 import { addStrWithSpace } from '../formatters';
+import { RECIPE } from '../recipeConstants';
 
 export const parseIngredient = (source) => {
   const ingredient = {};
@@ -35,43 +36,43 @@ export const parseIngredient = (source) => {
   // get any numbers that are at the beginning of the string
   const amount = getAmount(words);
   if (!tmpAmount && amount.match) {
-    ingredient.amount = amount.match;
+    ingredient[RECIPE.INGREDIENTS_AMOUNT] = amount.match;
   }
   words = amount.rest;
 
   // next, get the units
   const unit = getUnit(words);
   if (unit.match) {
-    ingredient.unit = unit.match;
+    ingredient[RECIPE.INGREDIENTS_UNIT] = unit.match;
   }
   words = unit.rest;
 
   // check for modifiers
   const optional = getOptional(words);
   if (optional.match) {
-    ingredient.optional = optional.match.length > 0;
+    ingredient[RECIPE.INGREDIENTS_OPTIONAL] = optional.match.length > 0;
   }
   words = optional.rest;
 
   const toTaste = getToTaste(words);
   if (toTaste.match) {
-    ingredient.toTaste = toTaste.match.length > 0;
+    ingredient[RECIPE.INGREDIENTS_TO_TASTE] = toTaste.match.length > 0;
   }
   words = toTaste.rest;
 
   // get any prep modifiers
   const prep = getPrep(words);
   if (prep.match) {
-    ingredient.prep = prep.match.join(' ');
+    ingredient[RECIPE.INGREDIENTS_PREP] = prep.match.join(' ');
   }
   words = prep.rest;
 
   // clean up remaining text for ingredient name
   words = removeNoise(words);
-  ingredient.name = words.join(' ');
+  ingredient[RECIPE.INGREDIENTS_NAME] = words.join(' ');
 
   if (tmpAmount && ingredient.unit !== 'little') {
-    ingredient.amount = `${tmpAmount}`;
+    ingredient[RECIPE.INGREDIENTS_AMOUNT] = `${tmpAmount}`;
   }
   return ingredient;
 };
@@ -85,10 +86,15 @@ export const buildIngredientString = ({
   toTaste = undefined,
 }) => {
   let ingredientStr = '';
-  if (amount?.min && amount?.max) {
+  if (
+    amount?.[RECIPE.INGREDIENTS_AMOUNT_MIN] &&
+    amount?.[RECIPE.INGREDIENTS_AMOUNT_MAX]
+  ) {
     ingredientStr = addStrWithSpace(
       ingredientStr,
-      `${amount.min} - ${amount.max}`
+      `${amount[RECIPE.INGREDIENTS_AMOUNT_MIN]} - ${
+        amount[RECIPE.INGREDIENTS_AMOUNT_MAX]
+      }`
     );
   }
   if (typeof amount === 'string') {

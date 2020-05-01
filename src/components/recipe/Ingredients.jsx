@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { RECIPE } from 'utils/recipeConstants';
 import { IngredientListPropType } from '../../propTypes/IngredientsPropTypes';
 import IngredientSection from './IngredientSection';
 
@@ -18,9 +19,11 @@ function Ingredients({ ingredientList }) {
       {ingredientList.map((ingredientSection) => {
         return (
           <IngredientSection
-            key={ingredientSection.label}
-            label={ingredientSection.label}
-            ingredients={ingredientSection.ingredients}
+            key={ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]}
+            label={ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]}
+            ingredients={
+              ingredientSection[RECIPE.INGREDIENT_SECTION_INGREDIENTS]
+            }
           />
         );
       })}
@@ -30,10 +33,7 @@ function Ingredients({ ingredientList }) {
 
 Ingredients.propTypes = {
   ingredientList: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      ingredients: PropTypes.arrayOf(IngredientItemPropType).isRequired,
-    }).isRequired
+    PropTypes.shape(IngredientListPropType).isRequired
   ),
 };
 

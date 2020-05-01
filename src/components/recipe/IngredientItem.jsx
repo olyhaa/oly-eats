@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import { RangedAmountPropTypes } from 'propTypes/IngredientsPropTypes';
 import { buildIngredientString } from '../../utils/ingredientParsing/ingredientParser';
 
 function IngredientItem({
@@ -65,7 +66,7 @@ IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,
   amount: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.shape({ min: PropTypes.string, max: PropTypes.string }),
+    PropTypes.shape(RangedAmountPropTypes),
   ]).isRequired,
   unit: PropTypes.string,
   name: PropTypes.string.isRequired,

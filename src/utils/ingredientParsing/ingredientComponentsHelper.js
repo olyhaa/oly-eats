@@ -1,4 +1,5 @@
 import Pluralize from 'pluralize';
+import { RECIPE } from 'utils/recipeConstants';
 import {
   unitsOfMeasure,
   flattenedUnits,
@@ -85,11 +86,11 @@ export const getRangedAmount = (words) => {
     const rangeMatch = rangeText[0];
     const firstNumber = rangeText[1];
     const secondNumber = rangeText[3];
+    const match = {};
+    match[RECIPE.INGREDIENTS_AMOUNT_MIN] = firstNumber.trim();
+    match[RECIPE.INGREDIENTS_AMOUNT_MAX] = secondNumber.trim();
     return {
-      match: {
-        min: firstNumber.trim(),
-        max: secondNumber.trim(),
-      },
+      match,
       rest: fullText.substr(rangeMatch.length).trim().split(' '),
     };
   }

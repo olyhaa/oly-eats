@@ -1,14 +1,27 @@
 import PropTypes from 'prop-types';
+import { RECIPE } from 'utils/recipeConstants';
 
-export const IngredientItemPropType = PropTypes.shape({
-  amount: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape({ min: PropTypes.string, max: PropTypes.string }),
-  ]).isRequired,
-  unit: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  prep: PropTypes.string,
-  byWeight: PropTypes.bool,
-  optional: PropTypes.bool,
-  toTaste: PropTypes.bool,
-});
+export const RangedAmountPropTypes = {};
+RangedAmountPropTypes[RECIPE.INGREDIENTS_AMOUNT_MIN] = PropTypes.string;
+RangedAmountPropTypes[RECIPE.INGREDIENTS_AMOUNT_MAX] = PropTypes.string;
+
+const amountPropType = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.shape(RangedAmountPropTypes),
+]).isRequired;
+
+const ingredientItemPropType = {};
+ingredientItemPropType[RECIPE.INGREDIENT_AMOUNT] = amountPropType;
+ingredientItemPropType[RECIPE.INGREDIENTS_UNIT] = PropTypes.string;
+ingredientItemPropType[RECIPE.INGREDIENTS_NAME] = PropTypes.string.isRequired;
+ingredientItemPropType[RECIPE.INGREDIENTS_PREP] = PropTypes.string;
+ingredientItemPropType[RECIPE.INGREDIENTS_OPTIONAL] = PropTypes.bool;
+ingredientItemPropType[RECIPE.INGREDIENTS_TO_TASTE] = PropTypes.bool;
+
+export const IngredientItemPropType = PropTypes.shape(ingredientItemPropType);
+
+export const IngredientListPropType = {};
+IngredientListPropType[RECIPE.INGREDIENT_SECTION_LABEL] = PropTypes.string;
+IngredientListPropType[
+  RECIPE.INGREDIENT_SECTION_INGREDIENTS
+] = PropTypes.arrayOf(IngredientItemPropType).isRequired;

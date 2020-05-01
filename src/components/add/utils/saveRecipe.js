@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver';
 import uuid from 'uuid/v4';
 import { FIELDS } from '../constants/formConstants';
-import { TIMING_UNITS } from '../../../utils/recipeConstants';
+import { TIMING_UNITS, RECIPE } from '../../../utils/recipeConstants';
 import { parseIngredient } from '../../../utils/ingredientParsing/ingredientParser';
 import { convertUnicodeFractions } from '../../../utils/formatters';
 
@@ -19,7 +19,10 @@ const parseDirectionsList = (directions) => {
       return item.length > 0;
     })
     .map((item) => {
-      return { text: convertUnicodeFractions(item).trim() };
+      const normalizedText = convertUnicodeFractions(item).trim();
+      const step = {};
+      step[RECIPE.DIRECTIONS_SECTION_TEXT] = normalizedText;
+      return step;
     });
 
   return directionsList;
@@ -55,64 +58,70 @@ export const parseTiming = (minutes = '0', hours = '0') => {
     hrs += 1;
   }
   if (mins > 0) {
-    timing.push({ value: mins.toString(), units: TIMING_UNITS.MINUTE });
+    const time = {};
+    time[RECIPE.TIMING_VALUE] = mins.toString();
+    time[RECIPE.TIMING_UNIT] = TIMING_UNITS.MINUTE;
+    timing.push(time);
   }
   if (hrs > 0) {
-    timing.push({ value: hrs.toString(), units: TIMING_UNITS.HOUR });
+    const time = {};
+    time[RECIPE.TIMING_VALUE] = hrs.toString();
+    time[RECIPE.TIMING_UNIT] = TIMING_UNITS.HOUR;
+    timing.push(time);
   }
   return timing;
 };
 
 export const saveRecipe = (values) => {
   const recipe = {};
-  recipe.id = uuid();
-  recipe.title = values[FIELDS.TITLE];
-  recipe.description = values[FIELDS.DESCRIPTION];
-  recipe.source = {
-    display: values[FIELDS.SOURCE_DISPLAY],
-    url: values[FIELDS.SOURCE_URL],
-  };
-  recipe.photo = values[FIELDS.PHOTO_URL];
-  recipe.servings = values[FIELDS.SERVINGS];
+  recipe[RECIPE.ID] = uuid();
+  recipe[RECIPE.TITLE] = values[FIELDS.TITLE];
+  recipe[RECIPE.DESCRIPTION] = values[FIELDS.DESCRIPTION];
+  recipe[RECIPE.SOURCE] = {};
+  recipe[RECIPE.SOURCE][RECIPE.SOURCE_DISPLAY] = values[FIELDS.SOURCE_DISPLAY];
+  recipe[RECIPE.SOURCE][RECIPE.SOURCE_URL] = values[FIELDS.SOURCE_URL];
+  recipe[RECIPE.PHOTO] = values[FIELDS.PHOTO_URL];
+  recipe[RECIPE.SERVINGS] = values[FIELDS.SERVINGS];
 
-  recipe.ingredientSection = [];
+  recipe[RECIPE.INGREDIENT_SECTION] = [];
   for (let i = 0; i < values[FIELDS.INGREDIENTS].length; i++) {
-    recipe.ingredientSection.push({
-      label: values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LABEL],
-      ingredients: parseIngredientList(
-        values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LIST]
-      ),
-    });
+    const section = {};
+    section[RECIPE.INGREDIENT_SECTION_LABEL] =
+      values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LABEL];
+    section[RECIPE.INGREDIENT_SECTION_INGREDIENTS] = parseIngredientList(
+      values[FIELDS.INGREDIENTS][i][FIELDS.INGREDIENTS_LIST]
+    );
+    recipe[RECIPE.INGREDIENT_SECTION].push(section);
   }
 
-  recipe.directionsSection = [];
+  recipe[RECIPE.DIRECTIONS_SECTION] = [];
   for (let i = 0; i < values[FIELDS.DIRECTIONS].length; i++) {
-    recipe.directionsSection.push({
-      label: values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LABEL],
-      steps: parseDirectionsList(
-        values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LIST]
-      ),
-    });
+    const section = {};
+    section[RECIPE.DIRECTIONS_SECTION_LABEL] =
+      values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LABEL];
+    section[RECIPE.DIRECTIONS_SECTION_STEPS] = parseDirectionsList(
+      values[FIELDS.DIRECTIONS][i][FIELDS.DIRECTIONS_LIST]
+    );
+    recipe[RECIPE.DIRECTIONS_SECTION].push(section);
   }
 
-  recipe.timing = {
-    prep: parseTiming(
-      values[FIELDS.TIMING_PREP_VALUE_MINS],
-      values[FIELDS.TIMING_PREP_VALUE_HOURS]
-    ),
-    total: parseTiming(
-      values[FIELDS.TIMING_TOTAL_VALUE_MINS],
-      values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
-    ),
-  };
+  recipe[RECIPE.TIMING] = {};
+  recipe[RECIPE.TIMING][RECIPE.TIMING_PREP] = parseTiming(
+    values[FIELDS.TIMING_PREP_VALUE_MINS],
+    values[FIELDS.TIMING_PREP_VALUE_HOURS]
+  );
+  recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL] = parseTiming(
+    values[FIELDS.TIMING_TOTAL_VALUE_MINS],
+    values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
+  );
 
-  recipe.tags = {};
-  recipe.tags.meal = values[FIELDS.MEAL_TYPE];
-  recipe.tags.equipment = values[FIELDS.EQUIPMENT];
-  recipe.tags.category = values[FIELDS.CATEGORY];
-  recipe.tags.cuisine = values[FIELDS.CUISINE];
+  recipe[RECIPE.TAGS] = {};
+  recipe[RECIPE.TAGS][RECIPE.TAGS_MEAL] = values[FIELDS.MEAL_TYPE];
+  recipe[RECIPE.TAGS][RECIPE.TAGS_EQUIPMENT] = values[FIELDS.EQUIPMENT];
+  recipe[RECIPE.TAGS][RECIPE.TAGS_CATEGORY] = values[FIELDS.CATEGORY];
+  recipe[RECIPE.TAGS][RECIPE.TAGS_CUISINE] = values[FIELDS.CUISINE];
 
-  recipe.dateAdded = Date.now();
+  recipe[RECIPE.DATE_ADDED] = Date.now();
 
   const blob = new Blob([JSON.stringify(recipe)], { type: 'application/json' });
   saveAs(blob, 'recipe.json');

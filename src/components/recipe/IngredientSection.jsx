@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { RECIPE } from 'utils/recipeConstants';
 import { IngredientItemPropType } from '../../propTypes/IngredientsPropTypes';
 import IngredientItem from './IngredientItem';
 
@@ -35,12 +36,12 @@ function IngredientSection({ label, ingredients }) {
             <IngredientItem
               index={index}
               key={index}
-              amount={ingredientItem.amount}
-              unit={ingredientItem.unit}
-              name={ingredientItem.name}
-              prep={ingredientItem.prep}
-              optional={ingredientItem.optional}
-              toTaste={ingredientItem.toTaste}
+              amount={ingredientItem[RECIPE.INGREDIENTS_AMOUNT]}
+              unit={ingredientItem[RECIPE.INGREDIENTS_UNIT]}
+              name={ingredientItem[RECIPE.INGREDIENTS_NAME]}
+              prep={ingredientItem[RECIPE.INGREDIENTS_PREP]}
+              optional={ingredientItem[RECIPE.INGREDIENTS_OPTIONAL]}
+              toTaste={ingredientItem[RECIPE.INGREDIENTS_TO_TASTE]}
             />
           );
         })}

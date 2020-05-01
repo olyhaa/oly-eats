@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper } from '@material-ui/core';
+import { RECIPE } from 'utils/recipeConstants';
 import { DirectionStepPropType } from '../../propTypes/DirectionsPropTypes';
 import DirectionSection from './DirectionSection';
 
@@ -18,9 +19,9 @@ function Directions({ directionsList }) {
       {directionsList.map((directionSection) => {
         return (
           <DirectionSection
-            key={directionSection.label}
-            label={directionSection.label}
-            steps={directionSection.steps}
+            key={directionSection[RECIPE.DIRECTIONS_SECTION_LABEL]}
+            label={directionSection[RECIPE.DIRECTIONS_SECTION_LABEL]}
+            steps={directionSection[RECIPE.DIRECTIONS_SECTION_STEPS]}
           />
         );
       })}
