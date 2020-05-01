@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import uuid from 'uuid/v4';
 import { FIELDS } from './formConstants';
 import { TIMING_UNITS } from '../../utils/recipeConstants';
-import { parseIngredient } from '../../utils/parsing/ingredientParser';
+import { parseIngredient } from '../../utils/ingredientParsing/ingredientParser';
 import { convertUnicodeFractions } from '../../utils/formatters';
 
 const transformDirections = (directions) => {

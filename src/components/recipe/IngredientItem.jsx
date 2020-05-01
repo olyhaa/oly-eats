@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import { buildIngredientString } from '../../utils/parsing/ingredientParser';
+import { buildIngredientString } from '../../utils/ingredientParsing/ingredientParser';
 
 function IngredientItem({
   index,
