@@ -12,7 +12,7 @@ import {
   SOURCE_CARD,
   DATE_ADDED_CARD,
   DATE_UPDATED_CARD,
-} from '../../utils/IconTypes';
+} from './IconTypes';
 import IconCard from './IconCard';
 
 const useStyles = makeStyles((theme) => ({
