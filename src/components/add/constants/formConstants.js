@@ -63,8 +63,6 @@ export const requiredFields = [
   FIELDS.DESCRIPTION,
   FIELDS.SOURCE_DISPLAY,
   FIELDS.SERVINGS,
-  FIELDS.INGREDIENTS_LIST,
-  FIELDS.DIRECTIONS_LIST,
 ];
 
 export const isRequired = (field) => {

@@ -44,6 +44,44 @@ export const validateAll = (values) => {
     errors[FIELDS.SOURCE_URL] = 'Invalid URL';
   }
 
+  // INGREDIENTS
+  if (!values[FIELDS.INGREDIENTS] || !values[FIELDS.INGREDIENTS].length) {
+    errors[FIELDS.INGREDIENTS] = {
+      _error: 'At least one ingredient section is required',
+    };
+  } else {
+    const ingredientArrayErrors = [];
+    values[FIELDS.INGREDIENTS].forEach((section, sectionIndex) => {
+      const ingredientErrors = {};
+      if (!section || !section[FIELDS.INGREDIENTS_LIST]) {
+        ingredientErrors[FIELDS.INGREDIENTS_LIST] = 'Required';
+        ingredientArrayErrors[sectionIndex] = ingredientErrors;
+      }
+    });
+    if (ingredientArrayErrors) {
+      errors[FIELDS.INGREDIENTS] = ingredientArrayErrors;
+    }
+  }
+
+  // DIRECTIONS
+  if (!values[FIELDS.DIRECTIONS] || !values[FIELDS.DIRECTIONS].length) {
+    errors[FIELDS.DIRECTIONS] = {
+      _error: 'At least one direction section is required',
+    };
+  } else {
+    const directionArrayErrors = [];
+    values[FIELDS.DIRECTIONS].forEach((section, sectionIndex) => {
+      const directionErrors = {};
+      if (!section || !section[FIELDS.DIRECTIONS_LIST]) {
+        directionErrors[FIELDS.DIRECTIONS_LIST] = 'Required';
+        directionArrayErrors[sectionIndex] = directionErrors;
+      }
+    });
+    if (directionArrayErrors) {
+      errors[FIELDS.DIRECTIONS] = directionArrayErrors;
+    }
+  }
+
   // TIMINGS
   if (!isValidNumber(values[FIELDS.TIMING_PREP_VALUE_HOURS])) {
     errors[FIELDS.TIMING_PREP_VALUE_HOURS] = 'Hours must be a positive number';

@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import { FIELDS, isRequired } from './constants/formConstants';
 
 export const onlyNums = (value, previousValue) => {
@@ -79,7 +80,7 @@ export const renderNumberField = ({
   />
 );
 
-export const renderIngredients = ({ fields, meta: { error } }) => (
+export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
   <>
     {fields.map((section, index) => (
       <>
@@ -88,7 +89,6 @@ export const renderIngredients = ({ fields, meta: { error } }) => (
             <Field
               name={`${section}.${FIELDS.INGREDIENTS_LABEL}`}
               component={renderTextField}
-              required={isRequired(FIELDS.INGREDIENTS_LABEL)}
               label={`Ingredient Section #${index + 1}`}
             />
           </Grid>
@@ -106,13 +106,13 @@ export const renderIngredients = ({ fields, meta: { error } }) => (
         <Field
           name={`${section}.${FIELDS.INGREDIENTS_LIST}`}
           component={renderTextBoxField}
-          required={isRequired(FIELDS.INGREDIENTS_LIST)}
+          required
           label="Ingredients"
           helperText="Add each ingredient to a new line"
         />
       </>
     ))}
-    <Grid container justify="center">
+    <Grid container justify="center" direction="column">
       <Fab
         type="button"
         variant="extended"
@@ -123,11 +123,12 @@ export const renderIngredients = ({ fields, meta: { error } }) => (
         <AddIcon />
         Add New Ingredient Section
       </Fab>
+      <FormHelperText error={dirty && error}>{error}</FormHelperText>
     </Grid>
   </>
 );
 
-export const renderDirections = ({ fields, meta: { error } }) => (
+export const renderDirections = ({ fields, meta: { dirty, error } }) => (
   <div>
     {fields.map((section, index) => (
       <>
@@ -137,7 +138,6 @@ export const renderDirections = ({ fields, meta: { error } }) => (
               name={`${section}.${FIELDS.DIRECTIONS_LABEL}`}
               component={renderTextField}
               buttonAction={() => fields.remove(index)}
-              required={isRequired(FIELDS.DIRECTIONS_LABEL)}
               label={`Direction Section #${index + 1}`}
             />
           </Grid>
@@ -155,13 +155,13 @@ export const renderDirections = ({ fields, meta: { error } }) => (
         <Field
           name={`${section}.${FIELDS.DIRECTIONS_LIST}`}
           component={renderTextBoxField}
-          required={isRequired(FIELDS.DIRECTIONS_LIST)}
+          required
           label="Directions"
           helperText="Add each step to a new line"
         />
       </>
     ))}
-    <Grid container justify="center">
+    <Grid container justify="center" direction="column">
       <Fab
         type="button"
         variant="extended"
@@ -172,6 +172,7 @@ export const renderDirections = ({ fields, meta: { error } }) => (
         <AddIcon />
         Add New Direction Section
       </Fab>
+      <FormHelperText error={dirty && error}>{error}</FormHelperText>
     </Grid>
   </div>
 );
