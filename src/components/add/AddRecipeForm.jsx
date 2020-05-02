@@ -99,7 +99,7 @@ function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
             FIELDS.TIMING_PREP_VALUE_MINS,
           ]}
           component={TimingInputComponent}
-          required={isRequired(FIELDS.TIMING_PREP)}
+          required
           label="Prep Time"
         />
         <Fields
@@ -108,7 +108,7 @@ function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
             FIELDS.TIMING_TOTAL_VALUE_HOURS,
             FIELDS.TIMING_TOTAL_VALUE_MINS,
           ]}
-          required={isRequired(FIELDS.TIMING_TOTAL)}
+          required
           component={TimingInputComponent}
           label="Total Time"
         />
