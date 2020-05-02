@@ -2,9 +2,15 @@
 
 React-based recipe app to store recipes and plan meals.
 
-## Available Scripts
+## File Structure
 
-In the project directory, you can run:
+The repo is split into two folders:
+- `client` which contains the front-end React code
+- `server` which contains the back-end Apollo/GraphQL server
+
+## Client Scripts
+
+In the `client` directory, you can run:
 
 ### `npm install`
 ### `npm run start`
@@ -17,4 +23,4 @@ You will also see any lint errors in the console.
 
 ### `npm run test`
 
-Launches the jest test runner.
+Launches the jest test runner which runs all available unit tests.
