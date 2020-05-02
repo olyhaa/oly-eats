@@ -11,7 +11,7 @@ module.exports = () => {
         browsers: [
           'last 2 versions',
           'not dead',
-          'not <2%', // Added to allow edge to lag behind like it does anyways. https://rally1.rallydev.com/#/detail/defect/375874816892?fdp=true
+          'not <2%',
           'last 4 Edge versions',
         ],
         stage: 3,
