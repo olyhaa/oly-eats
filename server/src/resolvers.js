@@ -31,5 +31,9 @@ module.exports = {
       dataSources.recipeAPI.addTag({ type: EQUIPMENT, label }),
     addMealType: (_, { label }, { dataSources }) =>
       dataSources.recipeAPI.addTag({ type: MEAL_TYPE, label }),
+    deleteTag: (_, { id }, { dataSources }) =>
+      dataSources.recipeAPI.deleteTag({ id }),
+    updateTag: (_, { id, typeid, label }, { dataSources }) =>
+      dataSources.recipeAPI.updateTag({ id, typeid, label }),
   },
 };

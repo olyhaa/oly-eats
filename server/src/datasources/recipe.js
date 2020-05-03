@@ -64,6 +64,34 @@ class RecipeAPI extends DataSource {
     return this.tagReducer(response);
   }
 
+  async deleteTag({ id }) {
+    const response = await this.store.Tag.destroy({ where: { id: id } });
+    // TODO handle errors
+    return 'Success!';
+  }
+
+  async updateTag({ id, typeid, label }) {
+    const tag = await this.store.Tag.findByPk(id);
+    if (!tag) {
+      // TODO handle errors
+    }
+    if (typeid !== undefined) {
+      tag.typeid = typeid;
+    }
+    if (label !== undefined) {
+      tag.label = label;
+    }
+    let response = await this.store.Tag.update(
+      { label: tag.label, typeid: tag.typeid },
+      {
+        where: { id: id },
+      }
+    );
+    // TODO handle errors
+    response = await this.store.Tag.findByPk(id);
+    return this.tagReducer(response);
+  }
+
   tagTypeReducer(tagType) {
     if (!tagType) {
       return null;

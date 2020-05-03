@@ -19,6 +19,8 @@ const typeDefs = gql`
     addCuisine(label: String!): Tag
     addEquipment(label: String!): Tag
     addMealType(label: String!): Tag
+    deleteTag(id: String!): String
+    updateTag(id: String!, typeid: String, label: String): Tag
   }
 
   type TagType {
