@@ -1,4 +1,6 @@
 import SQL from 'sequelize';
+import TagModel from './models/Tag';
+import TagTypeModel from './models/TagType';
 
 export const createStore = () => {
   const Op = SQL.Op;
@@ -13,32 +15,19 @@ export const createStore = () => {
     logging: true,
   });
 
-  const TagType = db.define('tag_type', {
-    label: {
-      type: SQL.STRING,
-      allowNull: false,
-    },
-  });
-
-  const Tag = db.define('tag', {
-    typeid: {
-      type: SQL.STRING,
-      allowNull: false,
-      references: {
-        model: TagType,
-        key: 'id',
-      },
-    },
-    label: {
-      type: SQL.STRING,
-      allowNull: false,
-    },
-  });
+  const TagType = new TagTypeModel(db, SQL);
+  const Tag = new TagModel(db, SQL, TagType);
 
   // Sync all the models
-  db.sync().then(() => {
-    console.log('Database sync complete!');
-  });
+  db.sync()
+    .then(() => {
+      console.info('Database sync complete.');
+    })
+    .catch(() => {
+      console.error('ERROR - Unable to sync database.');
+    });
 
   return { db, Tag, TagType };
 };
+
+export default createStore;

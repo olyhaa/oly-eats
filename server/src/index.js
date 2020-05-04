@@ -14,6 +14,11 @@ const server = new ApolloServer({
   }),
 });
 
-server.listen().then(({ url }) => {
-  console.log(`🥕 Oly-Eats 🥕 server ready at ${url}`);
-});
+server
+  .listen()
+  .then(({ url }) => {
+    console.log(`🥕 Oly-Eats 🥕 server ready at ${url}`);
+  })
+  .catch(() => {
+    console.error('ERROR - Unable to start server');
+  });
