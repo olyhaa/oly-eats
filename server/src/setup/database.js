@@ -1,6 +1,6 @@
 import SQL from 'sequelize';
-import TagModel from './models/Tag';
-import TagTypeModel from './models/TagType';
+import TagModel from '../models/Tag';
+import TagTypeModel from '../models/TagType';
 
 export const createStore = () => {
   const Op = SQL.Op;

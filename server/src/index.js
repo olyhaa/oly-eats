@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server';
 import typeDefs from './schema';
-import { createStore } from './utils';
+import { createStore } from './setup/database';
 import resolvers from './resolvers';
 import TagsAPI from './datasources/tags';
 
