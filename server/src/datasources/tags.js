@@ -1,4 +1,4 @@
-const { DataSource } = require('apollo-datasource');
+import { DataSource } from 'apollo-datasource';
 
 class TagsAPI extends DataSource {
   constructor({ store }) {
@@ -111,4 +111,4 @@ class TagsAPI extends DataSource {
   }
 }
 
-module.exports = TagsAPI;
+export default TagsAPI;

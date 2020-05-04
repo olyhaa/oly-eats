@@ -1,6 +1,6 @@
-const SQL = require('sequelize');
+import SQL from 'sequelize';
 
-module.exports.createStore = () => {
+export const createStore = () => {
   const Op = SQL.Op;
   const operatorsAliases = {
     $in: Op.in,

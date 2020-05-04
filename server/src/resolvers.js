@@ -1,18 +1,18 @@
-const { CATEGORY, CUISINE, EQUIPMENT, MEAL_TYPE } = require('./constants');
+import TAGS from './constants';
 
-module.exports = {
+const Resolvers = {
   Query: {
     // METADATA QUERIES
     allTagTypes: (_, __, { dataSources }) =>
       dataSources.tagsAPI.getAllTagTypes(),
     allCategories: (_, __, { dataSources }) =>
-      dataSources.tagsAPI.getAllTags({ type: CATEGORY }),
+      dataSources.tagsAPI.getAllTags({ type: TAGS.CATEGORY }),
     allCuisines: (_, __, { dataSources }) =>
-      dataSources.tagsAPI.getAllTags({ type: CUISINE }),
+      dataSources.tagsAPI.getAllTags({ type: TAGS.CUISINE }),
     allEquipment: (_, __, { dataSources }) =>
-      dataSources.tagsAPI.getAllTags({ type: EQUIPMENT }),
+      dataSources.tagsAPI.getAllTags({ type: TAGS.EQUIPMENT }),
     allMealTypes: (_, __, { dataSources }) =>
-      dataSources.tagsAPI.getAllTags({ type: MEAL_TYPE }),
+      dataSources.tagsAPI.getAllTags({ type: TAGS.MEAL_TYPE }),
   },
   Mutation: {
     // METADATA MUTATIONS
@@ -24,16 +24,18 @@ module.exports = {
       dataSources.tagsAPI.updateTagType({ id, label }),
 
     addCategory: (_, { label }, { dataSources }) =>
-      dataSources.tagsAPI.addTag({ type: CATEGORY, label }),
+      dataSources.tagsAPI.addTag({ type: TAGS.CATEGORY, label }),
     addCuisine: (_, { label }, { dataSources }) =>
-      dataSources.tagsAPI.addTag({ type: CUISINE, label }),
+      dataSources.tagsAPI.addTag({ type: TAGS.CUISINE, label }),
     addEquipment: (_, { label }, { dataSources }) =>
-      dataSources.tagsAPI.addTag({ type: EQUIPMENT, label }),
+      dataSources.tagsAPI.addTag({ type: TAGS.EQUIPMENT, label }),
     addMealType: (_, { label }, { dataSources }) =>
-      dataSources.tagsAPI.addTag({ type: MEAL_TYPE, label }),
+      dataSources.tagsAPI.addTag({ type: TAGS.MEAL_TYPE, label }),
     deleteTag: (_, { id }, { dataSources }) =>
       dataSources.tagsAPI.deleteTag({ id }),
     updateTag: (_, { id, typeid, label }, { dataSources }) =>
       dataSources.tagsAPI.updateTag({ id, typeid, label }),
   },
 };
+
+export default Resolvers;

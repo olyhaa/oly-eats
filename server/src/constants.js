@@ -10,4 +10,4 @@ const TAGS = {
   MEAL_TYPE,
 };
 
-module.exports = TAGS;
+export default TAGS;

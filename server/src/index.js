@@ -1,9 +1,8 @@
-const { ApolloServer } = require('apollo-server');
-const typeDefs = require('./schema');
-const { createStore } = require('./utils');
-const resolvers = require('./resolvers');
-
-const RecipeAPI = require('./datasources/tags');
+import { ApolloServer } from 'apollo-server';
+import typeDefs from './schema';
+import { createStore } from './utils';
+import resolvers from './resolvers';
+import TagsAPI from './datasources/tags';
 
 const store = createStore();
 
