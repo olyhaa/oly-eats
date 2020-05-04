@@ -1,4 +1,4 @@
-import TAGS from './constants';
+import { TAGS } from './constants';
 
 const Resolvers = {
   Query: {
