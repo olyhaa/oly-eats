@@ -1,6 +1,6 @@
 const { DataSource } = require('apollo-datasource');
 
-class RecipeAPI extends DataSource {
+class TagsAPI extends DataSource {
   constructor({ store }) {
     super();
     this.store = store;
@@ -111,4 +111,4 @@ class RecipeAPI extends DataSource {
   }
 }
 
-module.exports = RecipeAPI;
+module.exports = TagsAPI;

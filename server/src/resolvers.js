@@ -4,36 +4,36 @@ module.exports = {
   Query: {
     // METADATA QUERIES
     allTagTypes: (_, __, { dataSources }) =>
-      dataSources.recipeAPI.getAllTagTypes(),
+      dataSources.tagsAPI.getAllTagTypes(),
     allCategories: (_, __, { dataSources }) =>
-      dataSources.recipeAPI.getAllTags({ type: CATEGORY }),
+      dataSources.tagsAPI.getAllTags({ type: CATEGORY }),
     allCuisines: (_, __, { dataSources }) =>
-      dataSources.recipeAPI.getAllTags({ type: CUISINE }),
+      dataSources.tagsAPI.getAllTags({ type: CUISINE }),
     allEquipment: (_, __, { dataSources }) =>
-      dataSources.recipeAPI.getAllTags({ type: EQUIPMENT }),
+      dataSources.tagsAPI.getAllTags({ type: EQUIPMENT }),
     allMealTypes: (_, __, { dataSources }) =>
-      dataSources.recipeAPI.getAllTags({ type: MEAL_TYPE }),
+      dataSources.tagsAPI.getAllTags({ type: MEAL_TYPE }),
   },
   Mutation: {
     // METADATA MUTATIONS
     addTagType: (_, { label }, { dataSources }) =>
-      dataSources.recipeAPI.addTagType({ label }),
+      dataSources.tagsAPI.addTagType({ label }),
     deleteTagType: (_, { id }, { dataSources }) =>
-      dataSources.recipeAPI.deleteTagType({ id }),
+      dataSources.tagsAPI.deleteTagType({ id }),
     updateTagType: (_, { id, label }, { dataSources }) =>
-      dataSources.recipeAPI.updateTagType({ id, label }),
+      dataSources.tagsAPI.updateTagType({ id, label }),
 
     addCategory: (_, { label }, { dataSources }) =>
-      dataSources.recipeAPI.addTag({ type: CATEGORY, label }),
+      dataSources.tagsAPI.addTag({ type: CATEGORY, label }),
     addCuisine: (_, { label }, { dataSources }) =>
-      dataSources.recipeAPI.addTag({ type: CUISINE, label }),
+      dataSources.tagsAPI.addTag({ type: CUISINE, label }),
     addEquipment: (_, { label }, { dataSources }) =>
-      dataSources.recipeAPI.addTag({ type: EQUIPMENT, label }),
+      dataSources.tagsAPI.addTag({ type: EQUIPMENT, label }),
     addMealType: (_, { label }, { dataSources }) =>
-      dataSources.recipeAPI.addTag({ type: MEAL_TYPE, label }),
+      dataSources.tagsAPI.addTag({ type: MEAL_TYPE, label }),
     deleteTag: (_, { id }, { dataSources }) =>
-      dataSources.recipeAPI.deleteTag({ id }),
+      dataSources.tagsAPI.deleteTag({ id }),
     updateTag: (_, { id, typeid, label }, { dataSources }) =>
-      dataSources.recipeAPI.updateTag({ id, typeid, label }),
+      dataSources.tagsAPI.updateTag({ id, typeid, label }),
   },
 };
