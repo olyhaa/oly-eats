@@ -14,6 +14,7 @@ The repo is split into two folders:
 In the `server` directory, you can run:
 
 `npm install`
+
 `npm run start`
 
 Open [http://localhost:4000](http://localhost:4000) to view the Apollo Server Playground editor in the browser.
@@ -25,6 +26,7 @@ Prereq: the Apollo Server must be running for the Client to work properly. Follo
 In the `client` directory, you can run:
 
 `npm install`
+
 `npm run start`
 
 Runs the app in the development mode.<br />
