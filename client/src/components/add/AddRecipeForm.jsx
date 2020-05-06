@@ -6,11 +6,12 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
+import { useQuery } from '@apollo/react-hooks';
 import {
-  getMealTypeList,
-  getCategoryList,
-  getEquipmentList,
-  getCuisineList,
+  getMealTypeListQuery,
+  getCategoryListQuery,
+  getEquipmentListQuery,
+  getCuisineListQuery,
 } from 'utils/FetchData';
 import {
   renderTextBoxField,
@@ -44,6 +45,11 @@ const useStyles = makeStyles((theme) => ({
 
 function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
   const classes = useStyles();
+  const { data: categoryData } = useQuery(getCategoryListQuery());
+  const { data: equipmentData } = useQuery(getEquipmentListQuery());
+  const { data: mealTypeData } = useQuery(getMealTypeListQuery());
+  const { data: cuisineData } = useQuery(getCuisineListQuery());
+
   return (
     <form onSubmit={handleSubmit}>
       <Paper className={classes.root}>
@@ -112,38 +118,46 @@ function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
           component={TimingInputComponent}
           label="Total Time"
         />
-        <Field
-          className={classes.formItem}
-          name={FIELDS.MEAL_TYPE}
-          component={MultipleSelectField}
-          required={isRequired(FIELDS.MEAL_TYPE)}
-          childrenList={getMealTypeList()}
-          label="Meal Type"
-        />
-        <Field
-          className={classes.formItem}
-          name={FIELDS.CUISINE}
-          component={MultipleSelectField}
-          required={isRequired(FIELDS.CUISINE)}
-          childrenList={getCuisineList()}
-          label="Cuisine"
-        />
-        <Field
-          className={classes.formItem}
-          name={FIELDS.EQUIPMENT}
-          component={MultipleSelectField}
-          required={isRequired(FIELDS.EQUIPMENT)}
-          childrenList={getEquipmentList()}
-          label="Special Equipment"
-        />
-        <Field
-          className={classes.formItem}
-          name={FIELDS.CATEGORY}
-          component={MultipleSelectField}
-          required={isRequired(FIELDS.CATEGORY)}
-          childrenList={getCategoryList()}
-          label="Category"
-        />
+        {mealTypeData?.allMealTypes && (
+          <Field
+            className={classes.formItem}
+            name={FIELDS.MEAL_TYPE}
+            component={MultipleSelectField}
+            required={isRequired(FIELDS.MEAL_TYPE)}
+            childrenList={mealTypeData?.allMealTypes}
+            label="Meal Type"
+          />
+        )}
+        {cuisineData?.allCuisines && (
+          <Field
+            className={classes.formItem}
+            name={FIELDS.CUISINE}
+            component={MultipleSelectField}
+            required={isRequired(FIELDS.CUISINE)}
+            childrenList={cuisineData?.allCuisines}
+            label="Cuisine"
+          />
+        )}
+        {equipmentData?.allEquipment && (
+          <Field
+            className={classes.formItem}
+            name={FIELDS.EQUIPMENT}
+            component={MultipleSelectField}
+            required={isRequired(FIELDS.EQUIPMENT)}
+            childrenList={equipmentData?.allEquipment}
+            label="Special Equipment"
+          />
+        )}
+        {categoryData?.allCategories && (
+          <Field
+            className={classes.formItem}
+            name={FIELDS.CATEGORY}
+            component={MultipleSelectField}
+            required={isRequired(FIELDS.CATEGORY)}
+            childrenList={categoryData?.allCategories}
+            label="Category"
+          />
+        )}
       </Paper>
       <Fab
         type="submit"

@@ -51,7 +51,7 @@ const MultipleSelectField = ({
   const id = label.split(' ').join('_').trim();
 
   childrenList.sort((item1, item2) => {
-    return item1.value.localeCompare(item2.value);
+    return item1.label.localeCompare(item2.label);
   });
 
   const handleChange = (event) => {
@@ -80,10 +80,10 @@ const MultipleSelectField = ({
         )}
         MenuProps={MenuProps}
       >
-        {childrenList.map(({ id, value }) => (
-          <MenuItem key={id} value={value}>
-            <Checkbox checked={selectedValues.indexOf(value) > -1} />
-            <ListItemText primary={value} className={classes.chip} />
+        {childrenList.map(({ id, label }) => (
+          <MenuItem key={id} value={label}>
+            <Checkbox checked={selectedValues.indexOf(label) > -1} />
+            <ListItemText primary={label} className={classes.chip} />
           </MenuItem>
         ))}
 
@@ -102,7 +102,7 @@ MultipleSelectField.propTypes = {
   childrenList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
     })
   ).isRequired,
   children: PropTypes.element,
