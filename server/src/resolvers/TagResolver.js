@@ -1,8 +1,7 @@
-import { TAGS } from './constants';
+import { TAGS } from '../constants';
 
-const Resolvers = {
+const TagResolver = {
   Query: {
-    // METADATA QUERIES
     allTagTypes: (_, __, { dataSources }) =>
       dataSources.tagsAPI.getAllTagTypes(),
     allCategories: (_, __, { dataSources }) =>
@@ -15,7 +14,6 @@ const Resolvers = {
       dataSources.tagsAPI.getAllTags({ type: TAGS.MEAL_TYPE }),
   },
   Mutation: {
-    // METADATA MUTATIONS
     addTagType: (_, { label }, { dataSources }) =>
       dataSources.tagsAPI.addTagType({ label }),
     deleteTagType: (_, { id }, { dataSources }) =>
@@ -38,4 +36,4 @@ const Resolvers = {
   },
 };
 
-export default Resolvers;
+export default TagResolver;
