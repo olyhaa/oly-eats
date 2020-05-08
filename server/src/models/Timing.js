@@ -1,11 +1,15 @@
 const Timing = (db, SQL, Recipe) => {
   return db.define('timing', {
+    type: {
+      type: SQL.ENUM('PREP', 'TOTAL'),
+      allowNull: false,
+    },
     value: {
       type: SQL.INTEGER,
       allowNull: false,
     },
     units: {
-      type: SQL.ENUM('minute', 'hour'),
+      type: SQL.ENUM('MINUTE', 'HOUR'),
       allowNull: false,
     },
     recipeid: {
