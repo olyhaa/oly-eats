@@ -14,22 +14,16 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    "Tag Type Operations"
     addTagType(label: String!): TagType
     deleteTagType(id: String!): String
     updateTagType(id: String!, label: String!): TagType
 
-    "Tag Operations"
-    addCategory(label: String!): ModifyTagMutationResponse
-    addCuisine(label: String!): ModifyTagMutationResponse
-    addEquipment(label: String!): ModifyTagMutationResponse
-    addMealType(label: String!): ModifyTagMutationResponse
-    deleteTag(id: String!): ModifyTagMutationResponse
-    updateTag(
-      id: String!
-      typeid: String
-      label: String
-    ): ModifyTagMutationResponse
+    addCategory(label: String!): Tag
+    addCuisine(label: String!): Tag
+    addEquipment(label: String!): Tag
+    addMealType(label: String!): Tag
+    deleteTag(id: String!): String
+    updateTag(id: String!, typeid: String, label: String): Tag
 
     addRecipe(recipe: RecipeInput!): Recipe
     deleteRecipe(id: String!): String
@@ -45,12 +39,6 @@ const typeDefs = gql`
     id: String!
     typeid: String!
     label: String!
-  }
-
-  type ModifyTagMutationResponse implements MutationResponse {
-    success: Boolean!
-    message: String
-    tag: Tag
   }
 
   type Recipe {
