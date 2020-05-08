@@ -2,8 +2,6 @@ import { TAGS } from '../constants';
 
 const TagResolver = {
   Query: {
-    allTagTypes: (_, __, { dataSources }) =>
-      dataSources.tagsAPI.getAllTagTypes(),
     allCategories: (_, __, { dataSources }) =>
       dataSources.tagsAPI.getAllTags({ type: TAGS.CATEGORY }),
     allCuisines: (_, __, { dataSources }) =>
@@ -14,13 +12,6 @@ const TagResolver = {
       dataSources.tagsAPI.getAllTags({ type: TAGS.MEAL_TYPE }),
   },
   Mutation: {
-    addTagType: (_, { label }, { dataSources }) =>
-      dataSources.tagsAPI.addTagType({ label }),
-    deleteTagType: (_, { id }, { dataSources }) =>
-      dataSources.tagsAPI.deleteTagType({ id }),
-    updateTagType: (_, { id, label }, { dataSources }) =>
-      dataSources.tagsAPI.updateTagType({ id, label }),
-
     addCategory: (_, { label }, { dataSources }) =>
       dataSources.tagsAPI.addTag({ type: TAGS.CATEGORY, label }),
     addCuisine: (_, { label }, { dataSources }) =>

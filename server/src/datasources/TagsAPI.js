@@ -6,49 +6,15 @@ class TagsAPI extends DataSource {
     this.store = store;
   }
 
-  async getAllTagTypes() {
-    const response = await this.store.TagType.findAll();
-    // TODO handle errors
-    return Array.isArray(response)
-      ? response.map((tag_type) => this.tagTypeReducer(tag_type))
-      : [];
-  }
-
-  async addTagType({ label }) {
-    const response = await this.store.TagType.create({
-      label,
-    });
-    // TODO handle errors
-    return this.tagTypeReducer(response);
-  }
-
-  async deleteTagType({ id }) {
-    const response = await this.store.TagType.destroy({ where: { id: id } });
-    // TODO handle errors
-    return 'Success!';
-  }
-
-  async updateTagType({ id, label }) {
-    let response = await this.store.TagType.update(
-      { label: label },
-      {
-        where: { id: id },
-      }
-    );
-    // TODO handle errors
-    response = await this.store.TagType.findByPk(id);
-    return this.tagTypeReducer(response);
-  }
-
   async getAllTags({ type }) {
     const tagType = await this.store.TagType.findOne({
       where: { label: type },
     });
-    const response = await this.store.Tag.findAll({
+    const tagArray = await this.store.Tag.findAll({
       where: { typeid: tagType.id },
     });
-    return Array.isArray(response)
-      ? response.map((tag) => this.tagReducer(tag))
+    return Array.isArray(tagArray)
+      ? tagArray.map((tag) => this.tagReducer(tag))
       : [];
   }
 
@@ -56,49 +22,37 @@ class TagsAPI extends DataSource {
     const tagType = await this.store.TagType.findOne({
       where: { label: type },
     });
-    const response = await this.store.Tag.create({
+    const tag = await this.store.Tag.create({
       typeid: tagType.id,
       label,
     });
-    return this.tagReducer(response);
+    return this.tagReducer(tag);
   }
 
   async deleteTag({ id }) {
-    const response = await this.store.Tag.destroy({ where: { id: id } });
-    // TODO handle errors
+    const tag = await this.store.Tag.findByPk(id);
+    if (!tag) {
+      return 'ID not found';
+    }
+    await tag.destroy();
     return 'Success!';
   }
 
   async updateTag({ id, typeid, label }) {
-    const tag = await this.store.Tag.findByPk(id);
+    let tag = await this.store.Tag.findByPk(id);
     if (!tag) {
       // TODO handle errors
     }
+    const updatedFields = {};
     if (typeid !== undefined) {
-      tag.typeid = typeid;
+      updatedFields.typeid = typeid;
     }
     if (label !== undefined) {
-      tag.label = label;
+      updatedFields.label = label;
     }
-    let response = await this.store.Tag.update(
-      { label: tag.label, typeid: tag.typeid },
-      {
-        where: { id: id },
-      }
-    );
-    // TODO handle errors
-    response = await this.store.Tag.findByPk(id);
-    return this.tagReducer(response);
-  }
-
-  tagTypeReducer(tagType) {
-    if (!tagType) {
-      return null;
-    }
-    return {
-      id: tagType.id,
-      label: tagType.label,
-    };
+    await tag.update(updatedFields);
+    tag = await this.store.Tag.findByPk(id);
+    return this.tagReducer(tag);
   }
 
   tagReducer(tag) {
