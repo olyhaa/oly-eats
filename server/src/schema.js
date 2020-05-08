@@ -14,9 +14,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addTagType(label: String!): TagType
-    deleteTagType(id: String!): String
-    updateTagType(id: String!, label: String!): TagType
+    addTagType(label: String!): TagTypeMutation
+    deleteTagType(id: String!): TagTypeMutation
+    updateTagType(id: String!, label: String!): TagTypeMutation
 
     addCategory(label: String!): Tag
     addCuisine(label: String!): Tag
@@ -33,6 +33,12 @@ const typeDefs = gql`
   type TagType {
     id: String!
     label: String!
+  }
+
+  type TagTypeMutation {
+    success: Boolean!
+    message: String
+    tagType: TagType
   }
 
   type Tag {

@@ -19,26 +19,37 @@ class TagTypeAPI extends DataSource {
       label,
     });
 
-    return this.tagTypeReducer(tagType);
+    return this.tagTypeMutationReducer({
+      success: true,
+      tagType,
+    });
   }
 
   async deleteTagType({ id }) {
     const tagType = await this.store.TagType.findByPk(id);
     if (!tagType) {
-      return 'ID not found';
+      return this.tagTypeMutationReducer({
+        success: false,
+        message: 'ID not found',
+      });
     }
     await tagType.destroy();
-    return 'Success!';
+    return this.tagTypeMutationReducer({
+      success: true,
+    });
   }
 
   async updateTagType({ id, label }) {
     let tagType = await this.store.TagType.findByPk(id);
     if (!tagType) {
-      // TODO handle errors
+      return this.tagTypeMutationReducer({
+        success: false,
+        message: 'ID not found',
+      });
     }
     await tagType.update({ label: label });
     tagType = await this.store.TagType.findByPk(id);
-    return this.tagTypeReducer(tagType);
+    return this.tagTypeMutationReducer({ tagType, success: true });
   }
 
   tagTypeReducer(tagType) {
@@ -48,6 +59,18 @@ class TagTypeAPI extends DataSource {
     return {
       id: tagType.id,
       label: tagType.label,
+    };
+  }
+
+  tagTypeMutationReducer({
+    success = false,
+    message = undefined,
+    tagType = null,
+  }) {
+    return {
+      success,
+      message,
+      tagType: this.tagTypeReducer(tagType),
     };
   }
 }
