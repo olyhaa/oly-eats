@@ -1,8 +1,9 @@
 import { ApolloServer } from 'apollo-server';
 import typeDefs from './schema';
 import { createStore } from './setup/database';
-import resolvers from './resolvers';
-import TagsAPI from './datasources/tags';
+import resolvers from './setup/resolvers';
+import TagsAPI from './datasources/TagsAPI';
+import RecipeAPI from './datasources/RecipeAPI';
 
 const store = createStore();
 
@@ -11,6 +12,7 @@ const server = new ApolloServer({
   resolvers,
   dataSources: () => ({
     tagsAPI: new TagsAPI({ store }),
+    recipeAPI: new RecipeAPI({ store }),
   }),
 });
 

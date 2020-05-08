@@ -41,7 +41,6 @@ class TagsAPI extends DataSource {
   }
 
   async getAllTags({ type }) {
-    console.log('searching for type: ' + type);
     const tagType = await this.store.TagType.findOne({
       where: { label: type },
     });
