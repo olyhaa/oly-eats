@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`addTagType calls store creator and returns result 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tagType": Object {
+    "id": "103",
+    "label": "meal_type",
+  },
+}
+`;
+
+exports[`deleteTagType calls store destroy and returns result - id exists 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tagType": null,
+}
+`;
+
+exports[`deleteTagType calls store destroy and returns result - id not found 1`] = `
+Object {
+  "message": "ID not found",
+  "success": false,
+  "tagType": null,
+}
+`;
+
 exports[`tag type mutation reducer properly transforms on failure 1`] = `
 Object {
   "message": undefined,
@@ -52,5 +79,24 @@ exports[`tag type reducer properly transforms tag type object 1`] = `
 Object {
   "id": "101",
   "label": "category",
+}
+`;
+
+exports[`updateTagType calls store update and returns result - id not found 1`] = `
+Object {
+  "message": "ID not found",
+  "success": false,
+  "tagType": null,
+}
+`;
+
+exports[`updateTagType calls store update with values and returns result - id exists 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tagType": Object {
+    "id": "102",
+    "label": "new label",
+  },
 }
 `;

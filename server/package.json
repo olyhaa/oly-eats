@@ -13,11 +13,10 @@
   },
   "main": "src/index.jsx",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "start": "nodemon --exec babel-node -- src/index.js"
   },
   "jest": {
-    "testEnvironment": "node",
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/__utils"
