@@ -33,7 +33,7 @@ describe('tag type reducer', () => {
 describe('tag type mutation reducer', () => {
   it('properly transforms tag type object', () => {
     expect(
-      tagTypes.tagTypeMutationReducer({ mockTagTypes: mockTagTypes[0] })
+      tagTypes.tagTypeMutationReducer({ tagType: mockTagTypes[0] })
     ).toMatchSnapshot();
   });
 
@@ -41,7 +41,7 @@ describe('tag type mutation reducer', () => {
     expect(
       tagTypes.tagTypeMutationReducer({
         success: true,
-        mockTagTypes: mockTagTypes[0],
+        tagType: mockTagTypes[0],
       })
     ).toMatchSnapshot();
   });
@@ -51,7 +51,7 @@ describe('tag type mutation reducer', () => {
       tagTypes.tagTypeMutationReducer({
         success: true,
         message: 'great job',
-        mockTagTypes: mockTagTypes[0],
+        tagType: mockTagTypes[0],
       })
     ).toMatchSnapshot();
   });

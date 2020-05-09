@@ -55,7 +55,10 @@ exports[`tag type mutation reducer properly transforms tag type object 1`] = `
 Object {
   "message": undefined,
   "success": false,
-  "tagType": null,
+  "tagType": Object {
+    "id": "101",
+    "label": "category",
+  },
 }
 `;
 
@@ -63,7 +66,10 @@ exports[`tag type mutation reducer properly transforms tag type object on succes
 Object {
   "message": undefined,
   "success": true,
-  "tagType": null,
+  "tagType": Object {
+    "id": "101",
+    "label": "category",
+  },
 }
 `;
 
@@ -71,7 +77,10 @@ exports[`tag type mutation reducer properly transforms tag type object on succes
 Object {
   "message": "great job",
   "success": true,
-  "tagType": null,
+  "tagType": Object {
+    "id": "101",
+    "label": "category",
+  },
 }
 `;
 
