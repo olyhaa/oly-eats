@@ -1,5 +1,3 @@
-import { TAGS } from '../constants';
-
 const TagResolver = {
   Query: {
     allTags: (_, { typeid }, { dataSources }) =>
