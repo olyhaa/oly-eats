@@ -118,43 +118,43 @@ function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
           component={TimingInputComponent}
           label="Total Time"
         />
-        {mealTypeData?.allMealTypes && (
+        {mealTypeData?.allTags && (
           <Field
             className={classes.formItem}
             name={FIELDS.MEAL_TYPE}
             component={MultipleSelectField}
             required={isRequired(FIELDS.MEAL_TYPE)}
-            childrenList={mealTypeData?.allMealTypes}
+            childrenList={mealTypeData?.allTags}
             label="Meal Type"
           />
         )}
-        {cuisineData?.allCuisines && (
+        {cuisineData?.allTags && (
           <Field
             className={classes.formItem}
             name={FIELDS.CUISINE}
             component={MultipleSelectField}
             required={isRequired(FIELDS.CUISINE)}
-            childrenList={cuisineData?.allCuisines}
+            childrenList={cuisineData?.allTags}
             label="Cuisine"
           />
         )}
-        {equipmentData?.allEquipment && (
+        {equipmentData?.allTags && (
           <Field
             className={classes.formItem}
             name={FIELDS.EQUIPMENT}
             component={MultipleSelectField}
             required={isRequired(FIELDS.EQUIPMENT)}
-            childrenList={equipmentData?.allEquipment}
+            childrenList={equipmentData?.allTags}
             label="Special Equipment"
           />
         )}
-        {categoryData?.allCategories && (
+        {categoryData?.allTags && (
           <Field
             className={classes.formItem}
             name={FIELDS.CATEGORY}
             component={MultipleSelectField}
             required={isRequired(FIELDS.CATEGORY)}
-            childrenList={categoryData?.allCategories}
+            childrenList={categoryData?.allTags}
             label="Category"
           />
         )}

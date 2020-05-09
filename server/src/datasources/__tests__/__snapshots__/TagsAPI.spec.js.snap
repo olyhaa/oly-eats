@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addTag calls store creator and returns result - valid typeid 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`addTag does not call store creator and returns result - invalid typeid 1`] = `
+Object {
+  "message": "Type ID does not exist",
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`deleteTag calls store destroy and returns result - id exists 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tag": null,
+}
+`;
+
+exports[`deleteTag calls store destroy and returns result - id not found 1`] = `
+Object {
+  "message": "ID not found",
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms on failure 1`] = `
+Object {
+  "message": undefined,
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms on failure with message 1`] = `
+Object {
+  "message": "bad test",
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms on success with message 1`] = `
+Object {
+  "message": "great job",
+  "success": true,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms tag object 1`] = `
+Object {
+  "message": undefined,
+  "success": false,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`tag mutation reducer properly transforms tag type object on success 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`tag mutation reducer properly transforms tag type object on success with message 1`] = `
+Object {
+  "message": "great job",
+  "success": true,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`tag reducer properly transforms tag object 1`] = `
+Object {
+  "id": "1",
+  "label": "bakery",
+  "typeid": "1",
+}
+`;
+
+exports[`updateTag calls store update and returns result - id not found 1`] = `
+Object {
+  "message": "ID does not exist",
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`updateTag calls store update with values and returns result - id exists 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tag": Object {
+    "id": "2",
+    "label": "new label",
+    "typeid": "1",
+  },
+}
+`;

@@ -3,11 +3,7 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
   type Query {
     allTagTypes: [TagType]
-
-    allCategories: [Tag]
-    allCuisines: [Tag]
-    allEquipment: [Tag]
-    allMealTypes: [Tag]
+    allTags(typeid: String!): [Tag]
 
     recipes: [Recipe]
     recipe(id: String!): Recipe
@@ -18,12 +14,9 @@ const typeDefs = gql`
     deleteTagType(id: String!): TagTypeMutation
     updateTagType(id: String!, label: String!): TagTypeMutation
 
-    addCategory(label: String!): Tag
-    addCuisine(label: String!): Tag
-    addEquipment(label: String!): Tag
-    addMealType(label: String!): Tag
-    deleteTag(id: String!): String
-    updateTag(id: String!, typeid: String, label: String): Tag
+    addTag(typeid: String!, label: String!): TagMutation
+    deleteTag(id: String!): TagMutation
+    updateTag(id: String!, label: String): TagMutation
 
     addRecipe(recipe: RecipeInput!): Recipe
     deleteRecipe(id: String!): String
@@ -45,6 +38,12 @@ const typeDefs = gql`
     id: String!
     typeid: String!
     label: String!
+  }
+
+  type TagMutation {
+    success: Boolean!
+    message: String
+    tag: Tag
   }
 
   type Recipe {

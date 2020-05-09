@@ -13,7 +13,7 @@ const getRecipeObject = (id) => {
 export const getCategoryListQuery = () => {
   return gql`
     query GetAllCategories {
-      allCategories {
+      allTags(typeid: "1") {
         id
         typeid
         label
@@ -25,7 +25,7 @@ export const getCategoryListQuery = () => {
 export const getCuisineListQuery = () => {
   return gql`
     query GetAllCuisines {
-      allCuisines {
+      allTags(typeid: "2") {
         id
         typeid
         label
@@ -37,7 +37,7 @@ export const getCuisineListQuery = () => {
 export const getEquipmentListQuery = () => {
   return gql`
     query GetAllEquipment {
-      allEquipment {
+      allTags(typeid: "3") {
         id
         typeid
         label
@@ -49,7 +49,7 @@ export const getEquipmentListQuery = () => {
 export const getMealTypeListQuery = () => {
   return gql`
     query GetAllMealTypes {
-      allMealTypes {
+      allTags(typeid: "4") {
         id
         typeid
         label

@@ -50,6 +50,11 @@ const MultipleSelectField = ({
   const [selectedValues, setSelectedValues] = useState(input.value || []);
   const id = label.split(' ').join('_').trim();
 
+  if (!childrenList) {
+    console.log(`Error loading ${label} Multiple Select Field`);
+    return null;
+  }
+
   childrenList.sort((item1, item2) => {
     return item1.label.localeCompare(item2.label);
   });
