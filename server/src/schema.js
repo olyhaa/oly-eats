@@ -18,14 +18,9 @@ const typeDefs = gql`
     deleteTag(id: String!): TagMutation
     updateTag(id: String!, label: String): TagMutation
 
-    addRecipe(recipe: RecipeInput!): Recipe
-    deleteRecipe(id: String!): String
-    updateRecipe(id: String!, recipe: RecipeInput!): Recipe
-  }
-
-  type TagType {
-    id: String!
-    label: String!
+    addRecipe(recipe: RecipeInput!): RecipeMutation
+    deleteRecipe(id: String!): RecipeMutation
+    updateRecipe(id: String!, recipe: RecipeInput!): RecipeMutation
   }
 
   type TagTypeMutation {
@@ -34,16 +29,27 @@ const typeDefs = gql`
     tagType: TagType
   }
 
+  type TagMutation {
+    success: Boolean!
+    message: String
+    tag: Tag
+  }
+
+  type TagType {
+    id: String!
+    label: String!
+  }
+
   type Tag {
     id: String!
     typeid: String!
     label: String!
   }
 
-  type TagMutation {
+  type RecipeMutation {
     success: Boolean!
     message: String
-    tag: Tag
+    recipe: String
   }
 
   type Recipe {
@@ -114,13 +120,52 @@ const typeDefs = gql`
     source_url: String
     photo_url: String
     servings: Int
+    directions: [DirectionSectionInput]
+    ingredients: [IngredientSectionInput]
+    prepTime: [TimingInput]
+    totaTime: [TimingInput]
+    tags: [RecipeTaginput]
+    dateAdded: String
+    dateUpdated: String
+  }
+
+  input DirectionSectionInput {
+    label: String
+    steps: [DirectionStepInput]
+  }
+
+  input DirectionStepInput {
+    text: String!
+  }
+
+  input IngredientSectionInput {
+    label: String
+    ingredients: [Ingredientinput]
+  }
+
+  input Ingredientinput {
+    amount: String
+    rangedAmount: RangedAmountInput
+    unit: String
+    prep: String
+    name: String
+    toTaste: Boolean
+    optional: Boolean
+  }
+
+  input RangedAmountInput {
+    min: String
+    max: String
+  }
+
+  input TimingInput {
+    value: Int
+    units: TimingUnit
+  }
+
+  input RecipeTaginput {
+    recipeid: String
+    tagid: String
   }
 `;
-/*
-    directions: [DirectionSection]// TODO need input type
-    ingredients: [IngredientSection]// TODO need input type
-    prepTime: [Timing]! // TODO need input type
-    totalTime: [Timing]!// TODO need input type
-    tags: [RecipeTag]// TODO need input type
-*/
 export default typeDefs;
