@@ -101,3 +101,58 @@ describe('deleteRecipe', () => {
 
 describe.skip('addRecipe', () => {});
 describe.skip('updateRecipe', () => {});
+
+describe('constructBaseRecipeObj', () => {
+  describe('no base recipe fields', () => {
+    it('empty object', () => {
+      const newFields = {};
+      expect(recipeDatasource.constructBaseRecipeObj(newFields)).toEqual({});
+    });
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(recipeDatasource.constructBaseRecipeObj(newFields)).toEqual({});
+    });
+  });
+
+  describe('only base recipe fields', () => {
+    it('has all fields', () => {
+      const newFields = {
+        title: 'my title',
+        description: 'some description',
+        source_display: 'My Recipe source',
+        source_url: 'http://source.com',
+        photo_url: 'http://photos.com/mine.jpg',
+        servings: 4,
+      };
+      expect(recipeDatasource.constructBaseRecipeObj(newFields)).toEqual(
+        newFields
+      );
+    });
+
+    it('has subset of fields', () => {
+      const newFields = {
+        title: 'my title',
+        description: 'some description',
+      };
+      expect(recipeDatasource.constructBaseRecipeObj(newFields)).toEqual(
+        newFields
+      );
+    });
+  });
+
+  it('base recipe fields + others', () => {
+    const baseFields = {
+      title: 'my title',
+      description: 'some description',
+      source_display: 'My Recipe source',
+      source_url: 'http://source.com',
+      photo_url: 'http://photos.com/mine.jpg',
+      servings: 4,
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    expect(recipeDatasource.constructBaseRecipeObj(allFields)).toEqual(
+      baseFields
+    );
+  });
+});

@@ -5,75 +5,6 @@ class RecipeAPI extends DataSource {
     super();
     this.store = store;
   }
-  /*
-  async addDirections({ recipeid, recipeFields }) {
-    const directionSection = await this.store.DirectionSection.create(
-      constructDirectionSectionObj({ recipeid: baseRecipe.id, recipeFields })
-    );
-    const directionStep = await this.store.DirectionStep.create(
-      constructDirectionStepObj({
-        sectionid: directionSection.id,
-        recipeFields,
-      })
-    );
-  }
-
-  async addIngredients({ recipeId, recipeFields }) {
-    const ingredientSection = await this.store.IngredientSection.create(
-      constructIngredientSectionObj({ recipeid: baseRecipe.id, recipeFields })
-    );
-    const ingredient = await this.store.Ingredient.create(
-      constructIngredientObj({ sectionid: ingredientSection.id, recipeFields })
-    );
-    const rangedAmount = await this.store.RangedAmount.create(
-      constructRangedAmountObj({ ingredientid: ingredient.id, recipeFields })
-    );
-  }
-*/
-
-  constructBaseRecipeObj(newFields) {
-    const recipeObj = {};
-    if (newFields.title) {
-      recipeObj.title = newFields.title;
-    }
-    if (newFields.description) {
-      recipeObj.description = newFields.description;
-    }
-    if (newFields.source_display) {
-      recipeObj.source_display = newFields.source_display;
-    }
-    if (newFields.source_url) {
-      recipeObj.source_url = newFields.source_url;
-    }
-    if (newFields.photo_url) {
-      recipeObj.photo_url = newFields.photo_url;
-    }
-    if (newFields.servings) {
-      recipeObj.servings = newFields.servings;
-    }
-    return recipeObj;
-  }
-
-  // TODO add unit test
-  constructTimeObj({ recipeid, newFields, type, typeFieldName }) {
-    const prepTimeObj = {};
-    let hasNewFields = false;
-
-    if (newFields?.[typeFieldName]?.value) {
-      prepTimeObj.value = newFields[typeFieldName].value;
-      hasNewFields = true;
-    }
-    if (newFields?.[typeFieldName]?.units) {
-      prepTimeObj.units = newFields[typeFieldName].units;
-      hasNewFields = true;
-    }
-    if (hasNewFields) {
-      prepTimeObj.type = type;
-      prepTimeObj.recipeid = recipeid;
-    }
-    return prepTimeObj;
-  }
-
   async getAllRecipes() {
     const response = await this.store.Recipe.findAll();
     return Array.isArray(response)
@@ -161,6 +92,73 @@ class RecipeAPI extends DataSource {
     // TODO handle errors
     response = await this.store.Recipe.findByPk(id);
     return this.recipeReducer(response);
+  }
+  /*
+  async addDirections({ recipeid, recipeFields }) {
+    const directionSection = await this.store.DirectionSection.create(
+      constructDirectionSectionObj({ recipeid: baseRecipe.id, recipeFields })
+    );
+    const directionStep = await this.store.DirectionStep.create(
+      constructDirectionStepObj({
+        sectionid: directionSection.id,
+        recipeFields,
+      })
+    );
+  }
+
+  async addIngredients({ recipeId, recipeFields }) {
+    const ingredientSection = await this.store.IngredientSection.create(
+      constructIngredientSectionObj({ recipeid: baseRecipe.id, recipeFields })
+    );
+    const ingredient = await this.store.Ingredient.create(
+      constructIngredientObj({ sectionid: ingredientSection.id, recipeFields })
+    );
+    const rangedAmount = await this.store.RangedAmount.create(
+      constructRangedAmountObj({ ingredientid: ingredient.id, recipeFields })
+    );
+  }
+*/
+
+  constructBaseRecipeObj(newFields) {
+    const recipeObj = {};
+    if (newFields.title) {
+      recipeObj.title = newFields.title;
+    }
+    if (newFields.description) {
+      recipeObj.description = newFields.description;
+    }
+    if (newFields.source_display) {
+      recipeObj.source_display = newFields.source_display;
+    }
+    if (newFields.source_url) {
+      recipeObj.source_url = newFields.source_url;
+    }
+    if (newFields.photo_url) {
+      recipeObj.photo_url = newFields.photo_url;
+    }
+    if (newFields.servings) {
+      recipeObj.servings = newFields.servings;
+    }
+    return recipeObj;
+  }
+
+  constructTimeObj({ recipeid, newFields, type, typeFieldName }) {
+    const prepTimeObj = {};
+    let hasNewFields = false;
+
+    if (newFields?.[typeFieldName]?.value) {
+      prepTimeObj.value = newFields[typeFieldName].value;
+      hasNewFields = true;
+    }
+    if (newFields?.[typeFieldName]?.units) {
+      prepTimeObj.units = newFields[typeFieldName].units;
+      hasNewFields = true;
+    }
+    if (hasNewFields) {
+      prepTimeObj.type = type;
+      prepTimeObj.recipeid = recipeid;
+    }
+    return prepTimeObj;
   }
 
   recipeReducer(recipe) {
