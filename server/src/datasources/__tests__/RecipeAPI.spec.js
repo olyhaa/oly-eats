@@ -1,4 +1,5 @@
 import RecipeAPI from '../RecipeAPI';
+import { TIMINGS, TIME_UNITS } from '../../constants';
 
 const mockRecipes = [
   {
@@ -154,5 +155,97 @@ describe('constructBaseRecipeObj', () => {
     expect(recipeDatasource.constructBaseRecipeObj(allFields)).toEqual(
       baseFields
     );
+  });
+});
+
+describe('constructTimeObj', () => {
+  describe('no time fields', () => {
+    it('empty object', () => {
+      const newFields = {};
+      expect(
+        recipeDatasource.constructTimeObj({
+          recipeid: '1',
+          newFields,
+          type: TIMINGS.PREP,
+        })
+      ).toEqual({});
+    });
+
+    it('undefined object', () => {
+      const newFields = undefined;
+      expect(
+        recipeDatasource.constructTimeObj({
+          recipeid: '1',
+          newFields,
+          type: TIMINGS.PREP,
+        })
+      ).toEqual({});
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(
+        recipeDatasource.constructTimeObj({
+          recipeid: '1',
+          newFields,
+          type: TIMINGS.PREP,
+        })
+      ).toEqual({});
+    });
+  });
+
+  describe('only time fields', () => {
+    it('has all fields', () => {
+      const newFields = {
+        value: '2',
+        units: TIME_UNITS.MINUTE,
+      };
+      const expectedFields = Object.assign({}, newFields);
+      expectedFields.type = TIMINGS.PREP;
+      expectedFields.recipeid = '1';
+
+      expect(
+        recipeDatasource.constructTimeObj({
+          recipeid: expectedFields.recipeid,
+          newFields,
+          type: expectedFields.type,
+        })
+      ).toEqual(expectedFields);
+    });
+
+    it('has subset of fields', () => {
+      const newFields = {
+        units: TIME_UNITS.MINUTE,
+      };
+      const expectedFields = Object.assign({}, newFields);
+      expectedFields.type = TIMINGS.PREP;
+      expectedFields.recipeid = '1';
+      expect(
+        recipeDatasource.constructTimeObj({
+          recipeid: expectedFields.recipeid,
+          newFields,
+          type: expectedFields.type,
+        })
+      ).toEqual(expectedFields);
+    });
+  });
+
+  it('time fields + others', () => {
+    const baseFields = {
+      value: '2',
+      units: TIME_UNITS.MINUTE,
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = Object.assign({}, baseFields);
+    expectedFields.type = TIMINGS.PREP;
+    expectedFields.recipeid = '1';
+    expect(
+      recipeDatasource.constructTimeObj({
+        recipeid: expectedFields.recipeid,
+        newFields: allFields,
+        type: expectedFields.type,
+      })
+    ).toEqual(expectedFields);
   });
 });

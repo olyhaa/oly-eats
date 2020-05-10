@@ -40,18 +40,16 @@ class RecipeAPI extends DataSource {
     const prepTime = await this.store.Timing.create(
       constructTimeObj({
         recipeid: baseRecipe.id,
-        recipeFields,
+        newFields: recipeFields.prepTime,
         type: 'PREP',
-        typeFieldName: 'prepTime',
       })
     );
 
     const totalTime = await this.store.Timing.create(
       constructTimeObj({
         recipeid: baseRecipe.id,
-        recipeFields,
+        newFields: recipeFields.totalTime,
         type: 'TOTAL',
-        typeFieldName: 'totalTime',
       })
     );
     /*
@@ -142,16 +140,16 @@ class RecipeAPI extends DataSource {
     return recipeObj;
   }
 
-  constructTimeObj({ recipeid, newFields, type, typeFieldName }) {
+  constructTimeObj({ recipeid, newFields, type }) {
     const prepTimeObj = {};
     let hasNewFields = false;
 
-    if (newFields?.[typeFieldName]?.value) {
-      prepTimeObj.value = newFields[typeFieldName].value;
+    if (newFields?.value) {
+      prepTimeObj.value = newFields.value;
       hasNewFields = true;
     }
-    if (newFields?.[typeFieldName]?.units) {
-      prepTimeObj.units = newFields[typeFieldName].units;
+    if (newFields?.units) {
+      prepTimeObj.units = newFields.units;
       hasNewFields = true;
     }
     if (hasNewFields) {
