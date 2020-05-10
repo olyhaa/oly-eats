@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deleteRecipe calls store destroy and returns result - id exists 1`] = `
+Object {
+  "message": undefined,
+  "recipe": null,
+  "success": true,
+}
+`;
+
+exports[`deleteRecipe calls store destroy and returns result - id not found 1`] = `
+Object {
+  "message": "ID not found",
+  "recipe": null,
+  "success": false,
+}
+`;
+
+exports[`getAllRecipes returns array of recipes 1`] = `
+Array [
+  Object {
+    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+    "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
+    "description": "the best recipe ever",
+    "id": "1",
+    "photo_url": "http://some.url.com/pic.jpg",
+    "servings": 2,
+    "source_display": "Mandy's Kitchen",
+    "source_url": "http://some.url.com/recipe",
+    "title": "my first recipe",
+  },
+]
+`;
+
+exports[`getRecipe returns recipe 1`] = `
+Object {
+  "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+  "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
+  "description": "the best recipe ever",
+  "id": "1",
+  "photo_url": "http://some.url.com/pic.jpg",
+  "servings": 2,
+  "source_display": "Mandy's Kitchen",
+  "source_url": "http://some.url.com/recipe",
+  "title": "my first recipe",
+}
+`;

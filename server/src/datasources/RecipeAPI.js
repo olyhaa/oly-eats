@@ -76,7 +76,6 @@ class RecipeAPI extends DataSource {
 
   async getAllRecipes() {
     const response = await this.store.Recipe.findAll();
-    // TODO handle errors
     return Array.isArray(response)
       ? response.map((recipe) => this.recipeReducer(recipe))
       : [];
@@ -84,8 +83,21 @@ class RecipeAPI extends DataSource {
 
   async getRecipe({ id }) {
     const response = await this.store.Recipe.findByPk(id);
-    // TODO handle errors
     return this.recipeReducer(response);
+  }
+
+  async deleteRecipe({ id }) {
+    const recipe = await this.store.Recipe.findByPk(id);
+    if (!recipe) {
+      return this.recipeMutationReducer({
+        success: false,
+        message: 'ID not found',
+      });
+    }
+    await recipe.destroy();
+    return this.recipeMutationReducer({
+      success: true,
+    });
   }
 
   async addRecipe({ recipe: recipeFields }) {
@@ -135,12 +147,6 @@ class RecipeAPI extends DataSource {
     );
   }
 
-  async deleteRecipe({ id }) {
-    const response = await this.store.Recipe.destroy({ where: { id: id } });
-    // TODO handle errors
-    return 'Success!';
-  }
-
   async updateRecipe({ id, recipe: updatedFields }) {
     const recipe = await this.store.Recipe.findByPk(id);
     if (!recipe) {
@@ -157,7 +163,7 @@ class RecipeAPI extends DataSource {
     return this.recipeReducer(response);
   }
 
-  async recipeReducer(recipe) {
+  recipeReducer(recipe) {
     if (!recipe) {
       return null;
     }
@@ -171,6 +177,18 @@ class RecipeAPI extends DataSource {
       servings: recipe.servings,
       dateAdded: recipe.createdAt,
       dateUpdated: recipe.updatedAt,
+    };
+  }
+
+  recipeMutationReducer({
+    success = false,
+    message = undefined,
+    recipe = null,
+  }) {
+    return {
+      success,
+      message,
+      recipe: this.recipeReducer(recipe),
     };
   }
 }
