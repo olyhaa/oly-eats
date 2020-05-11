@@ -5,6 +5,7 @@ Object {
   "dateAdded": "2020-05-10 00:00:45.511 +00:00",
   "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
   "description": "some description",
+  "directions": Array [],
   "id": "123",
   "photo": "http://photos.com/mine.jpg",
   "servings": 4,
@@ -15,22 +16,19 @@ Object {
   "timing": Object {
     "prep": Array [
       Object {
-        "recipeid": "123",
-        "type": "PREP",
+        "id": "1",
         "units": "MINUTE",
         "value": "2",
       },
     ],
     "total": Array [
       Object {
-        "recipeid": "123",
-        "type": "TOTAL",
+        "id": "2",
         "units": "MINUTE",
         "value": "20",
       },
       Object {
-        "recipeid": "123",
-        "type": "TOTAL",
+        "id": "3",
         "units": "HOUR",
         "value": "1",
       },
@@ -60,8 +58,9 @@ exports[`getAllRecipes returns array of recipes 1`] = `
 Array [
   Object {
     "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-    "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
+    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
     "description": "the best recipe ever",
+    "directions": Array [],
     "id": "123",
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
@@ -72,22 +71,19 @@ Array [
     "timing": Object {
       "prep": Array [
         Object {
-          "recipeid": "123",
-          "type": "PREP",
+          "id": "1",
           "units": "MINUTE",
           "value": "2",
         },
       ],
       "total": Array [
         Object {
-          "recipeid": "123",
-          "type": "TOTAL",
+          "id": "2",
           "units": "MINUTE",
           "value": "20",
         },
         Object {
-          "recipeid": "123",
-          "type": "TOTAL",
+          "id": "3",
           "units": "HOUR",
           "value": "1",
         },
@@ -101,8 +97,24 @@ Array [
 exports[`getRecipe returns recipe 1`] = `
 Object {
   "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-  "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
+  "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
   "description": "the best recipe ever",
+  "directions": Array [
+    Object {
+      "id": "1",
+      "label": "section 1",
+      "steps": Array [
+        Object {
+          "id": "1",
+          "text": "step 1",
+        },
+        Object {
+          "id": "2",
+          "text": "step 2",
+        },
+      ],
+    },
+  ],
   "id": "123",
   "photo": "http://some.url.com/pic.jpg",
   "servings": 2,
@@ -113,22 +125,19 @@ Object {
   "timing": Object {
     "prep": Array [
       Object {
-        "recipeid": "123",
-        "type": "PREP",
+        "id": "1",
         "units": "MINUTE",
         "value": "2",
       },
     ],
     "total": Array [
       Object {
-        "recipeid": "123",
-        "type": "TOTAL",
+        "id": "2",
         "units": "MINUTE",
         "value": "20",
       },
       Object {
-        "recipeid": "123",
-        "type": "TOTAL",
+        "id": "3",
         "units": "HOUR",
         "value": "1",
       },

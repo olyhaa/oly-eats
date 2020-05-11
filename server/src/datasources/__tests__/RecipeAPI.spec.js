@@ -11,28 +11,64 @@ const mockRecipes = [
     photo_url: 'http://some.url.com/pic.jpg',
     servings: 2,
     createdAt: '2020-05-10 00:00:45.511 +00:00',
-    updatedAt: '2020-05-10 00:00:45.511 +00:00',
+    updatedAt: '2020-05-10 00:01:45.511 +00:00',
   },
 ];
 
 const mockTimings = [
   {
+    id: '1',
     recipeid: '123',
     value: '2',
     units: TIME_UNITS.MINUTE,
     type: TIMINGS.PREP_TIME,
+    createdAt: '2020-05-10 00:02:45.511 +00:00',
+    updatedAt: '2020-05-10 00:03:45.511 +00:00',
   },
   {
+    id: '2',
     recipeid: '123',
     value: '20',
     units: TIME_UNITS.MINUTE,
     type: TIMINGS.TOTAL_TIME,
+    createdAt: '2020-05-10 00:04:45.511 +00:00',
+    updatedAt: '2020-05-10 00:05:45.511 +00:00',
   },
   {
+    id: '3',
     recipeid: '123',
     value: '1',
     units: TIME_UNITS.HOUR,
     type: TIMINGS.TOTAL_TIME,
+    createdAt: '2020-05-10 00:06:45.511 +00:00',
+    updatedAt: '2020-05-10 00:07:45.511 +00:00',
+  },
+];
+
+const mockDirectionSection = [
+  {
+    id: '1',
+    label: 'section 1',
+    recipeid: '123',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+];
+
+const mockDirectionStep = [
+  {
+    id: '1',
+    text: 'step 1',
+    recipeid: '123',
+    createdAt: '2020-05-10 00:09:45.511 +00:00',
+    updatedAt: '2020-05-10 00:10:45.511 +00:00',
+  },
+  {
+    id: '2',
+    text: 'step 2',
+    recipeid: '123',
+    createdAt: '2020-05-10 00:11:45.511 +00:00',
+    updatedAt: '2020-05-10 00:12:45.511 +00:00',
   },
 ];
 
@@ -46,6 +82,14 @@ const mockStore = {
     create: jest.fn(),
     findAll: jest.fn(),
   },
+  DirectionSection: {
+    create: jest.fn(),
+    findAll: jest.fn(),
+  },
+  DirectionStep: {
+    create: jest.fn(),
+    findAll: jest.fn(),
+  },
 };
 const recipeDatasource = new RecipeAPI({ store: mockStore });
 
@@ -53,9 +97,11 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe.skip('recipe reducer', () => {});
-
-describe.skip('recipe mutation reducer', () => {});
+describe.skip('recipeReducer', () => {});
+describe.skip('recipeMutationReducer', () => {});
+describe.skip('timeReducer', () => {});
+describe.skip('directionsReducer', () => {});
+describe.skip('directionStepsReducer', () => {});
 
 describe('getAllRecipes', () => {
   it('returns empty array for empty db', async () => {
@@ -104,6 +150,12 @@ describe('getRecipe', () => {
     mockStore.Timing.findAll
       .mockReturnValueOnce(mockTimings.slice(0, 1))
       .mockReturnValueOnce(mockTimings.slice(1, 3));
+    mockStore.DirectionSection.findAll.mockReturnValueOnce(
+      mockDirectionSection.slice(0, 1)
+    );
+    mockStore.DirectionStep.findAll.mockReturnValueOnce(
+      mockDirectionStep.slice(0, 2)
+    );
 
     const response = await recipeDatasource.getRecipe({
       id: mockRecipes[0].id,
@@ -111,12 +163,20 @@ describe('getRecipe', () => {
 
     expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
 
+    expect(mockStore.Timing.findAll).toHaveBeenCalledTimes(2);
     expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
       where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
     });
     expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
       where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
     });
+    expect(mockStore.DirectionSection.findAll).toHaveBeenCalledWith({
+      where: { recipeid: mockRecipes[0].id },
+    });
+    expect(mockStore.DirectionStep.findAll).toHaveBeenCalledWith({
+      where: { sectionid: mockDirectionSection[0].id },
+    });
+
     expect(response).toMatchSnapshot();
   });
 });
@@ -178,6 +238,9 @@ describe('addRecipe', () => {
       newFields: timeFieldsInput.prepTime[0],
       type: TIMINGS.PREP_TIME,
     });
+    prepTimeArray.id = '1';
+    prepTimeArray.createdAt = '2020-05-10 00:00:45.511 +00:00';
+    prepTimeArray.updatedAt = '2020-05-10 00:00:45.511 +00:00';
 
     const totalTimeArray = [
       recipeDatasource.constructTimeObj({
@@ -191,6 +254,12 @@ describe('addRecipe', () => {
         type: TIMINGS.TOTAL_TIME,
       }),
     ];
+    totalTimeArray[0].id = '2';
+    totalTimeArray[0].createdAt = '2020-05-10 00:00:45.511 +00:00';
+    totalTimeArray[0].updatedAt = '2020-05-10 00:00:45.511 +00:00';
+    totalTimeArray[1].id = '3';
+    totalTimeArray[1].createdAt = '2020-05-10 00:00:45.511 +00:00';
+    totalTimeArray[1].updatedAt = '2020-05-10 00:00:45.511 +00:00';
 
     mockStore.Recipe.create.mockReturnValueOnce(createdBaseFields);
     mockStore.Timing.create
@@ -215,6 +284,7 @@ describe('addRecipe', () => {
   });
 });
 
+describe.skip('addDirections', () => {});
 describe.skip('updateRecipe', () => {});
 
 describe('constructBaseRecipeObj', () => {
@@ -363,3 +433,7 @@ describe('constructTimeObj', () => {
     ).toEqual(expectedFields);
   });
 });
+
+describe('constructDirectionSectionObj', () => {});
+describe('constructDirectionStepObj', () => {});
+describe('getRecipeData', () => {});

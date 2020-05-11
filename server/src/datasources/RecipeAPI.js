@@ -7,6 +7,7 @@ class RecipeAPI extends DataSource {
     super();
     this.store = store;
   }
+
   async getAllRecipes() {
     const response = await this.store.Recipe.findAll();
     return Array.isArray(response)
@@ -71,9 +72,12 @@ class RecipeAPI extends DataSource {
       }
     }
 
-    /*
-      const directions = addDirections({ recipeid: baseRecipe.id, recipeFields });
+    const directionSections = this.addDirections({
+      recipeid: baseRecipe.id,
+      directions: recipeFields.directions,
+    });
 
+    /*
        const ingredients = addIngredients({
         recipeid: baseRecipe.id,
         recipeFields,
@@ -88,6 +92,7 @@ class RecipeAPI extends DataSource {
         recipe: baseRecipe,
         prepTimeArray,
         totalTimeArray,
+        diirections: directionSections,
       }
       /*
       directions,
@@ -113,17 +118,6 @@ class RecipeAPI extends DataSource {
     return this.recipeReducer(response);
   }
   /*
-  async addDirections({ recipeid, recipeFields }) {
-    const directionSection = await this.store.DirectionSection.create(
-      constructDirectionSectionObj({ recipeid: baseRecipe.id, recipeFields })
-    );
-    const directionStep = await this.store.DirectionStep.create(
-      constructDirectionStepObj({
-        sectionid: directionSection.id,
-        recipeFields,
-      })
-    );
-  }
 
   async addIngredients({ recipeId, recipeFields }) {
     const ingredientSection = await this.store.IngredientSection.create(
@@ -162,36 +156,148 @@ class RecipeAPI extends DataSource {
   }
 
   constructTimeObj({ recipeid, newFields, type }) {
-    const prepTimeObj = {};
+    const timeObj = {};
     let hasNewFields = false;
 
     if (newFields?.value) {
-      prepTimeObj.value = newFields.value;
+      timeObj.value = newFields.value;
       hasNewFields = true;
     }
     if (newFields?.units) {
-      prepTimeObj.units = newFields.units;
+      timeObj.units = newFields.units;
       hasNewFields = true;
     }
     if (hasNewFields) {
-      prepTimeObj.type = type;
-      prepTimeObj.recipeid = recipeid;
+      timeObj.type = type;
+      timeObj.recipeid = recipeid;
     }
-    return prepTimeObj;
+    return timeObj;
+  }
+
+  constructDirectionSectionObj({ recipeid, directions }) {
+    const directionSectionObj = {};
+    if (directions.label) {
+      directionSectionObj.label = directions.label;
+    }
+    directionSectionObj.recipeid = recipeid;
+    return directionSectionObj;
+  }
+
+  constructDirectionStepObj({ sectionid, step }) {
+    const stepObj = {};
+    if (step.text) {
+      stepObj.text = step.text;
+    }
+    stepObj.sectionid = sectionid;
+    return stepObj;
+  }
+
+  async addDirections({ recipeid, directions }) {
+    const directionSectionArray = [];
+
+    if (Array.isArray(directions)) {
+      for (let i = 0; i < directions.length; i++) {
+        const section = directions[i];
+        const directionSection = await this.store.DirectionSection.create(
+          constructDirectionSectionObj({
+            recipeid,
+            section,
+          })
+        );
+
+        const directionStepArray = [];
+        if (Array.isArray(section.steps)) {
+          for (let j = 0; i < section.steps.length; j++) {
+            const step = section.steps[j];
+            const directionStep = await this.store.DirectionStep.create(
+              constructDirectionStepObj({
+                sectionid: directionSection.id,
+                step,
+              })
+            );
+            directionStepArray.push(directionStep);
+          }
+        }
+        directionSection.steps = directionStepArray;
+        directionSectionArray.push(directionSection);
+      }
+    }
+    return directionSectionArray;
   }
 
   async getRecipeData(id) {
     const recipe = await this.store.Recipe.findByPk(id);
+    if (!recipe) {
+      return {};
+    }
     const prepTimeArray = await this.store.Timing.findAll({
       where: { recipeid: id, type: TIMINGS.PREP_TIME },
     });
     const totalTimeArray = await this.store.Timing.findAll({
       where: { recipeid: id, type: TIMINGS.TOTAL_TIME },
     });
-    return { recipe, prepTimeArray, totalTimeArray };
+    const directionSections = await this.store.DirectionSection.findAll({
+      where: { recipeid: id },
+    });
+
+    if (directionSections) {
+      for (let i = 0; i < directionSections.length; i++) {
+        const directionSteps = await this.store.DirectionStep.findAll({
+          where: { sectionid: directionSections[i].id },
+        });
+        directionSections[i].steps = directionSteps;
+      }
+    }
+
+    return {
+      recipe,
+      prepTimeArray,
+      totalTimeArray,
+      directionSections,
+    };
   }
 
-  recipeReducer({ recipe, prepTimeArray, totalTimeArray }) {
+  timeReducer({ timeArray }) {
+    let reducedTime = [];
+    if (timeArray) {
+      reducedTime = timeArray.map((element) => {
+        return { id: element.id, value: element.value, units: element.units };
+      });
+    }
+    return reducedTime;
+  }
+
+  directionStepsReducer({ steps }) {
+    console.log('steps array = ' + JSON.stringify(steps));
+    let reducedSteps = [];
+    if (steps) {
+      reducedSteps = steps.map((step) => {
+        return { id: step.id, text: step.text };
+      });
+    }
+    return reducedSteps;
+  }
+
+  directionsReducer({ directionSections }) {
+    console.log(
+      'directionSections array = ' + JSON.stringify(directionSections)
+    );
+    let reducedDirections = [];
+    if (directionSections) {
+      reducedDirections = directionSections.map((section) => {
+        const reducedSection = {};
+        reducedSection.label = section.label;
+        reducedSection.id = section.id;
+        reducedSection.steps = this.directionStepsReducer({
+          steps: section.steps,
+        });
+        return reducedSection;
+      });
+    }
+    return reducedDirections;
+  }
+
+  recipeReducer({ recipe, prepTimeArray, totalTimeArray, directionSections }) {
     if (!recipe) {
       return null;
     }
@@ -205,9 +311,10 @@ class RecipeAPI extends DataSource {
       },
       photo: recipe.photo_url,
       servings: recipe.servings,
+      directions: this.directionsReducer({ directionSections }),
       timing: {
-        prep: prepTimeArray,
-        total: totalTimeArray,
+        prep: this.timeReducer({ timeArray: prepTimeArray }),
+        total: this.timeReducer({ timeArray: totalTimeArray }),
       },
       dateAdded: recipe.createdAt,
       dateUpdated: recipe.updatedAt,
