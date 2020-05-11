@@ -3,7 +3,7 @@ import { TIMINGS, TIME_UNITS } from '../../constants';
 
 const mockRecipes = [
   {
-    id: '1',
+    id: '123',
     title: 'my first recipe',
     description: 'the best recipe ever',
     source_display: "Mandy's Kitchen",
@@ -15,14 +15,43 @@ const mockRecipes = [
   },
 ];
 
+const mockTimings = [
+  {
+    recipeid: '123',
+    value: '2',
+    units: TIME_UNITS.MINUTE,
+    type: TIMINGS.PREP_TIME,
+  },
+  {
+    recipeid: '123',
+    value: '20',
+    units: TIME_UNITS.MINUTE,
+    type: TIMINGS.TOTAL_TIME,
+  },
+  {
+    recipeid: '123',
+    value: '1',
+    units: TIME_UNITS.HOUR,
+    type: TIMINGS.TOTAL_TIME,
+  },
+];
+
 const mockStore = {
   Recipe: {
     create: jest.fn(),
     findAll: jest.fn(),
     findByPk: jest.fn(),
   },
+  Timing: {
+    create: jest.fn(),
+    findAll: jest.fn(),
+  },
 };
 const recipeDatasource = new RecipeAPI({ store: mockStore });
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe.skip('recipe reducer', () => {});
 
@@ -40,10 +69,21 @@ describe('getAllRecipes', () => {
 
   it('returns array of recipes', async () => {
     mockStore.Recipe.findAll.mockReturnValueOnce(mockRecipes);
+    mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
+    mockStore.Timing.findAll
+      .mockReturnValueOnce(mockTimings.slice(0, 1))
+      .mockReturnValueOnce(mockTimings.slice(1, 3));
 
     const response = await recipeDatasource.getAllRecipes();
 
     expect(mockStore.Recipe.findAll).toBeCalledWith();
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
+    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
+      where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
+    });
+    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
+      where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
+    });
     expect(response).toMatchSnapshot();
   });
 });
@@ -61,12 +101,22 @@ describe('getRecipe', () => {
 
   it('returns recipe', async () => {
     mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
+    mockStore.Timing.findAll
+      .mockReturnValueOnce(mockTimings.slice(0, 1))
+      .mockReturnValueOnce(mockTimings.slice(1, 3));
 
     const response = await recipeDatasource.getRecipe({
       id: mockRecipes[0].id,
     });
 
     expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
+
+    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
+      where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
+    });
+    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
+      where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
+    });
     expect(response).toMatchSnapshot();
   });
 });
@@ -100,7 +150,71 @@ describe('deleteRecipe', () => {
   });
 });
 
-describe.skip('addRecipe', () => {});
+describe('addRecipe', () => {
+  it('calls store creator and returns result', async () => {
+    const recipeBaseFieldsInput = {
+      title: 'my title',
+      description: 'some description',
+      source_display: 'My Recipe source',
+      source_url: 'http://source.com',
+      photo_url: 'http://photos.com/mine.jpg',
+      servings: 4,
+    };
+
+    const createdBaseFields = Object.assign({}, recipeBaseFieldsInput);
+    createdBaseFields.id = '123';
+    createdBaseFields.createdAt = '2020-05-10 00:00:45.511 +00:00';
+    createdBaseFields.updatedAt = '2020-05-10 00:00:45.511 +00:00';
+
+    const timeFieldsInput = {
+      prepTime: [{ value: '2', units: TIME_UNITS.MINUTE }],
+      totalTime: [
+        { value: '20', units: TIME_UNITS.MINUTE, type: TIMINGS.TOTAL },
+        { value: '1', units: TIME_UNITS.HOUR, type: TIMINGS.TOTAL },
+      ],
+    };
+    const prepTimeArray = recipeDatasource.constructTimeObj({
+      recipeid: createdBaseFields.id,
+      newFields: timeFieldsInput.prepTime[0],
+      type: TIMINGS.PREP_TIME,
+    });
+
+    const totalTimeArray = [
+      recipeDatasource.constructTimeObj({
+        recipeid: createdBaseFields.id,
+        newFields: timeFieldsInput.totalTime[0],
+        type: TIMINGS.TOTAL_TIME,
+      }),
+      recipeDatasource.constructTimeObj({
+        recipeid: createdBaseFields.id,
+        newFields: timeFieldsInput.totalTime[1],
+        type: TIMINGS.TOTAL_TIME,
+      }),
+    ];
+
+    mockStore.Recipe.create.mockReturnValueOnce(createdBaseFields);
+    mockStore.Timing.create
+      .mockReturnValueOnce(prepTimeArray)
+      .mockReturnValueOnce(totalTimeArray[0])
+      .mockReturnValueOnce(totalTimeArray[1]);
+
+    const recipe = {
+      ...recipeBaseFieldsInput,
+      ...timeFieldsInput,
+    };
+
+    // check the result of the fn
+    const res = await recipeDatasource.addRecipe({
+      recipe,
+    });
+    expect(res).toMatchSnapshot();
+
+    // make sure store is called properly
+    expect(mockStore.Recipe.create).toBeCalledWith(recipeBaseFieldsInput);
+    expect(mockStore.Timing.create).toBeCalledTimes(3);
+  });
+});
+
 describe.skip('updateRecipe', () => {});
 
 describe('constructBaseRecipeObj', () => {

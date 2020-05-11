@@ -1,4 +1,6 @@
 import { DataSource } from 'apollo-datasource';
+import { TIMINGS } from '../constants';
+import { extendResolversFromInterfaces } from 'apollo-server';
 
 class RecipeAPI extends DataSource {
   constructor({ store }) {
@@ -8,13 +10,18 @@ class RecipeAPI extends DataSource {
   async getAllRecipes() {
     const response = await this.store.Recipe.findAll();
     return Array.isArray(response)
-      ? response.map((recipe) => this.recipeReducer(recipe))
+      ? await Promise.all(
+          response.map(async (recipe) => {
+            const recipeObjs = await this.getRecipeData(recipe.id);
+            return this.recipeReducer(recipeObjs);
+          })
+        )
       : [];
   }
 
   async getRecipe({ id }) {
-    const response = await this.store.Recipe.findByPk(id);
-    return this.recipeReducer(response);
+    const recipeObjs = await this.getRecipeData(id);
+    return this.recipeReducer(recipeObjs);
   }
 
   async deleteRecipe({ id }) {
@@ -32,26 +39,38 @@ class RecipeAPI extends DataSource {
   }
 
   async addRecipe({ recipe: recipeFields }) {
-    console.log('in add recipe: ' + JSON.stringify(recipeFields));
     const baseRecipe = await this.store.Recipe.create(
       this.constructBaseRecipeObj(recipeFields)
     );
 
-    const prepTime = await this.store.Timing.create(
-      constructTimeObj({
-        recipeid: baseRecipe.id,
-        newFields: recipeFields.prepTime,
-        type: 'PREP',
-      })
-    );
+    const prepTimeArray = [];
+    if (Array.isArray(recipeFields.prepTime)) {
+      for (let i = 0; i < recipeFields.prepTime.length; i++) {
+        const timeElement = recipeFields.prepTime[i];
+        const timeObj = this.constructTimeObj({
+          recipeid: baseRecipe.id,
+          newFields: timeElement,
+          type: TIMINGS.PREP_TIME,
+        });
+        const timeEntry = await this.store.Timing.create(timeObj);
+        prepTimeArray.push(timeEntry);
+      }
+    }
 
-    const totalTime = await this.store.Timing.create(
-      constructTimeObj({
-        recipeid: baseRecipe.id,
-        newFields: recipeFields.totalTime,
-        type: 'TOTAL',
-      })
-    );
+    const totalTimeArray = [];
+    if (Array.isArray(recipeFields.totalTime)) {
+      for (let i = 0; i < recipeFields.totalTime.length; i++) {
+        const timeElement = recipeFields.totalTime[i];
+        const timeObj = this.constructTimeObj({
+          recipeid: baseRecipe.id,
+          newFields: timeElement,
+          type: TIMINGS.TOTAL_TIME,
+        });
+        const timeEntry = await this.store.Timing.create(timeObj);
+        totalTimeArray.push(timeEntry);
+      }
+    }
+
     /*
       const directions = addDirections({ recipeid: baseRecipe.id, recipeFields });
 
@@ -65,12 +84,14 @@ class RecipeAPI extends DataSource {
        );
 */
     return this.recipeReducer(
-      baseRecipe
+      {
+        recipe: baseRecipe,
+        prepTimeArray,
+        totalTimeArray,
+      }
       /*
       directions,
       ingredients,
-      prepTime,
-      totalTime,
       recipeTags
       */
     );
@@ -159,21 +180,40 @@ class RecipeAPI extends DataSource {
     return prepTimeObj;
   }
 
-  recipeReducer(recipe) {
+  async getRecipeData(id) {
+    const recipe = await this.store.Recipe.findByPk(id);
+    const prepTimeArray = await this.store.Timing.findAll({
+      where: { recipeid: id, type: TIMINGS.PREP_TIME },
+    });
+    const totalTimeArray = await this.store.Timing.findAll({
+      where: { recipeid: id, type: TIMINGS.TOTAL_TIME },
+    });
+    return { recipe, prepTimeArray, totalTimeArray };
+  }
+
+  recipeReducer({ recipe, prepTimeArray, totalTimeArray }) {
     if (!recipe) {
       return null;
     }
-    return {
+    const recipeObj = {
       id: recipe.id,
       title: recipe.title,
       description: recipe.description,
-      source_display: recipe.source_display,
-      source_url: recipe.source_url,
-      photo_url: recipe.photo_url,
+      source: {
+        display: recipe.source_display,
+        url: recipe.source_url,
+      },
+      photo: recipe.photo_url,
       servings: recipe.servings,
+      timing: {
+        prep: prepTimeArray,
+        total: totalTimeArray,
+      },
       dateAdded: recipe.createdAt,
       dateUpdated: recipe.updatedAt,
     };
+
+    return recipeObj;
   }
 
   recipeMutationReducer({
@@ -184,7 +224,7 @@ class RecipeAPI extends DataSource {
     return {
       success,
       message,
-      recipe: this.recipeReducer(recipe),
+      recipe: this.recipeReducer(recipe ? { recipe } : {}),
     };
   }
 }

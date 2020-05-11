@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`addRecipe calls store creator and returns result 1`] = `
+Object {
+  "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+  "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
+  "description": "some description",
+  "id": "123",
+  "photo": "http://photos.com/mine.jpg",
+  "servings": 4,
+  "source": Object {
+    "display": "My Recipe source",
+    "url": "http://source.com",
+  },
+  "timing": Object {
+    "prep": Array [
+      Object {
+        "recipeid": "123",
+        "type": "PREP",
+        "units": "MINUTE",
+        "value": "2",
+      },
+    ],
+    "total": Array [
+      Object {
+        "recipeid": "123",
+        "type": "TOTAL",
+        "units": "MINUTE",
+        "value": "20",
+      },
+      Object {
+        "recipeid": "123",
+        "type": "TOTAL",
+        "units": "HOUR",
+        "value": "1",
+      },
+    ],
+  },
+  "title": "my title",
+}
+`;
+
 exports[`deleteRecipe calls store destroy and returns result - id exists 1`] = `
 Object {
   "message": undefined,
@@ -22,11 +62,37 @@ Array [
     "dateAdded": "2020-05-10 00:00:45.511 +00:00",
     "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
     "description": "the best recipe ever",
-    "id": "1",
-    "photo_url": "http://some.url.com/pic.jpg",
+    "id": "123",
+    "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
-    "source_display": "Mandy's Kitchen",
-    "source_url": "http://some.url.com/recipe",
+    "source": Object {
+      "display": "Mandy's Kitchen",
+      "url": "http://some.url.com/recipe",
+    },
+    "timing": Object {
+      "prep": Array [
+        Object {
+          "recipeid": "123",
+          "type": "PREP",
+          "units": "MINUTE",
+          "value": "2",
+        },
+      ],
+      "total": Array [
+        Object {
+          "recipeid": "123",
+          "type": "TOTAL",
+          "units": "MINUTE",
+          "value": "20",
+        },
+        Object {
+          "recipeid": "123",
+          "type": "TOTAL",
+          "units": "HOUR",
+          "value": "1",
+        },
+      ],
+    },
     "title": "my first recipe",
   },
 ]
@@ -37,11 +103,37 @@ Object {
   "dateAdded": "2020-05-10 00:00:45.511 +00:00",
   "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
   "description": "the best recipe ever",
-  "id": "1",
-  "photo_url": "http://some.url.com/pic.jpg",
+  "id": "123",
+  "photo": "http://some.url.com/pic.jpg",
   "servings": 2,
-  "source_display": "Mandy's Kitchen",
-  "source_url": "http://some.url.com/recipe",
+  "source": Object {
+    "display": "Mandy's Kitchen",
+    "url": "http://some.url.com/recipe",
+  },
+  "timing": Object {
+    "prep": Array [
+      Object {
+        "recipeid": "123",
+        "type": "PREP",
+        "units": "MINUTE",
+        "value": "2",
+      },
+    ],
+    "total": Array [
+      Object {
+        "recipeid": "123",
+        "type": "TOTAL",
+        "units": "MINUTE",
+        "value": "20",
+      },
+      Object {
+        "recipeid": "123",
+        "type": "TOTAL",
+        "units": "HOUR",
+        "value": "1",
+      },
+    ],
+  },
   "title": "my first recipe",
 }
 `;
