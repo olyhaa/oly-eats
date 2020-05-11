@@ -70,20 +70,24 @@ const typeDefs = gql`
   }
 
   type DirectionSection {
+    id: String!
     label: String
     steps: [DirectionStep]!
   }
 
   type DirectionStep {
+    id: String!
     text: String!
   }
 
   type IngredientSection {
+    id: String!
     label: String
     ingredients: [Ingredient]!
   }
 
   type Ingredient {
+    id: String!
     amount: String
     rangedAmount: RangedAmount
     unit: String
@@ -94,16 +98,19 @@ const typeDefs = gql`
   }
 
   type RangedAmount {
+    id: String!
     min: String!
     max: String!
   }
 
   type RecipeTag {
+    id: String!
     recipeid: String!
     tagid: String!
   }
 
   type Timing {
+    id: String!
     value: Int!
     units: TimingUnit
   }
