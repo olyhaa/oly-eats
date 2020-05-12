@@ -113,7 +113,54 @@ afterEach(() => {
 describe.skip('recipeReducer', () => {});
 describe.skip('recipeMutationReducer', () => {});
 describe.skip('timeReducer', () => {});
-describe.skip('directionsReducer', () => {});
+
+describe('directionsReducer', () => {
+  it('properly reduces direction array', () => {
+    const directionSections = [
+      {
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        id: '1',
+        label: 'section 1',
+        recipeid: '123',
+        steps: [
+          {
+            createdAt: '2020-05-10 00:09:45.511 +00:00',
+            id: '3',
+            sectionid: '1',
+            text: 'step 1',
+            updatedAt: '2020-05-10 00:10:45.511 +00:00',
+          },
+        ],
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+      },
+      {
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        id: '2',
+        recipeid: '123',
+        steps: [
+          {
+            createdAt: '2020-05-10 00:09:45.511 +00:00',
+            id: '1',
+            sectionid: '2',
+            text: 'step 1',
+            updatedAt: '2020-05-10 00:10:45.511 +00:00',
+          },
+          {
+            createdAt: '2020-05-10 00:11:45.511 +00:00',
+            id: '2',
+            sectionid: '2',
+            text: 'step 2',
+            updatedAt: '2020-05-10 00:12:45.511 +00:00',
+          },
+        ],
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+      },
+    ];
+    expect(
+      recipeDatasource.directionsReducer({ directionSections })
+    ).toMatchSnapshot();
+  });
+});
 
 describe('directionStepsReducer', () => {
   it('properly reduces direction step array', () => {

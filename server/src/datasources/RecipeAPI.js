@@ -284,7 +284,9 @@ class RecipeAPI extends DataSource {
     if (directionSections) {
       reducedDirections = directionSections.map((section) => {
         const reducedSection = {};
-        reducedSection.label = section.label;
+        if (section.label) {
+          reducedSection.label = section.label;
+        }
         reducedSection.id = section.id;
         reducedSection.steps = this.directionStepsReducer({
           steps: section.steps,
