@@ -176,10 +176,9 @@ class RecipeAPI extends DataSource {
 
   constructDirectionSectionObj({ recipeid, directions }) {
     const directionSectionObj = {};
-    if (directions.label) {
+    if (directions?.label) {
       directionSectionObj.label = directions.label;
     }
-    directionSectionObj.recipeid = recipeid;
     return directionSectionObj;
   }
 
@@ -268,7 +267,6 @@ class RecipeAPI extends DataSource {
   }
 
   directionStepsReducer({ steps }) {
-    console.log('steps array = ' + JSON.stringify(steps));
     let reducedSteps = [];
     if (steps) {
       reducedSteps = steps.map((step) => {
@@ -279,9 +277,6 @@ class RecipeAPI extends DataSource {
   }
 
   directionsReducer({ directionSections }) {
-    console.log(
-      'directionSections array = ' + JSON.stringify(directionSections)
-    );
     let reducedDirections = [];
     if (directionSections) {
       reducedDirections = directionSections.map((section) => {

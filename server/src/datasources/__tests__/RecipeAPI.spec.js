@@ -434,6 +434,84 @@ describe('constructTimeObj', () => {
   });
 });
 
-describe('constructDirectionSectionObj', () => {});
+describe('constructDirectionSectionObj', () => {
+  describe('no direction fields', () => {
+    it('empty object', () => {
+      const newFields = {};
+      expect(
+        recipeDatasource.constructDirectionSectionObj({
+          recipeid: '1',
+          newFields,
+        })
+      ).toEqual({});
+    });
+
+    it('undefined object', () => {
+      const newFields = undefined;
+      expect(
+        recipeDatasource.constructDirectionSectionObj({
+          recipeid: '1',
+          newFields,
+        })
+      ).toEqual({});
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(
+        recipeDatasource.constructDirectionSectionObj({
+          recipeid: '1',
+          directions: newFields,
+        })
+      ).toEqual({});
+    });
+  });
+
+  it('only direction fields', () => {
+    const newFields = {
+      label: 'direction section',
+      steps: [
+        {
+          text: 'step 1',
+        },
+        {
+          text: 'step 2',
+        },
+      ],
+    };
+    const expectedFields = { label: newFields.label, recipeid: '45' };
+
+    expect(
+      recipeDatasource.constructDirectionSectionObj({
+        recipeid: expectedFields.recipeid,
+        directions: newFields,
+      })
+    ).toEqual(expectedFields);
+  });
+
+  it('direction fields + others', () => {
+    const baseFields = {
+      label: 'direction section',
+      steps: [
+        {
+          text: 'step 1',
+        },
+        {
+          text: 'step 2',
+        },
+      ],
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = { label: baseFields.label, recipeid: '45' };
+    expect(
+      recipeDatasource.constructDirectionSectionObj({
+        recipeid: expectedFields.recipeid,
+        directions: allFields,
+      })
+    ).toEqual(expectedFields);
+  });
+});
+
 describe('constructDirectionStepObj', () => {});
 describe('getRecipeData', () => {});
