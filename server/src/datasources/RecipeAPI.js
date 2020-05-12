@@ -174,10 +174,10 @@ class RecipeAPI extends DataSource {
     return timeObj;
   }
 
-  constructDirectionSectionObj({ recipeid, directions }) {
+  constructDirectionSectionObj({ recipeid, section }) {
     const directionSectionObj = {};
-    if (directions?.label) {
-      directionSectionObj.label = directions.label;
+    if (section?.label) {
+      directionSectionObj.label = section.label;
       directionSectionObj.recipeid = recipeid;
     }
     return directionSectionObj;
@@ -198,19 +198,20 @@ class RecipeAPI extends DataSource {
     if (Array.isArray(directions)) {
       for (let i = 0; i < directions.length; i++) {
         const section = directions[i];
+        const sectionObj = this.constructDirectionSectionObj({
+          recipeid,
+          section,
+        });
         const directionSection = await this.store.DirectionSection.create(
-          constructDirectionSectionObj({
-            recipeid,
-            section,
-          })
+          sectionObj
         );
 
         const directionStepArray = [];
         if (Array.isArray(section.steps)) {
-          for (let j = 0; i < section.steps.length; j++) {
+          for (let j = 0; j < section.steps.length; j++) {
             const step = section.steps[j];
             const directionStep = await this.store.DirectionStep.create(
-              constructDirectionStepObj({
+              this.constructDirectionStepObj({
                 sectionid: directionSection.id,
                 step,
               })

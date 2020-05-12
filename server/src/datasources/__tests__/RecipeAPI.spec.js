@@ -461,7 +461,7 @@ describe('constructDirectionSectionObj', () => {
       expect(
         recipeDatasource.constructDirectionSectionObj({
           recipeid: '1',
-          directions: newFields,
+          section: newFields,
         })
       ).toEqual({});
     });
@@ -484,7 +484,7 @@ describe('constructDirectionSectionObj', () => {
     expect(
       recipeDatasource.constructDirectionSectionObj({
         recipeid: expectedFields.recipeid,
-        directions: newFields,
+        section: newFields,
       })
     ).toEqual(expectedFields);
   });
@@ -507,7 +507,7 @@ describe('constructDirectionSectionObj', () => {
     expect(
       recipeDatasource.constructDirectionSectionObj({
         recipeid: expectedFields.recipeid,
-        directions: allFields,
+        section: allFields,
       })
     ).toEqual(expectedFields);
   });
