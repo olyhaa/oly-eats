@@ -114,7 +114,14 @@ describe.skip('recipeReducer', () => {});
 describe.skip('recipeMutationReducer', () => {});
 describe.skip('timeReducer', () => {});
 describe.skip('directionsReducer', () => {});
-describe.skip('directionStepsReducer', () => {});
+
+describe('directionStepsReducer', () => {
+  it('properly reduces direction step array', () => {
+    expect(
+      recipeDatasource.directionStepsReducer({ steps: mockDirectionStep })
+    ).toMatchSnapshot();
+  });
+});
 
 describe('getAllRecipes', () => {
   it('returns empty array for empty db', async () => {
