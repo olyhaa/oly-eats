@@ -109,7 +109,22 @@ Object {
   "dateAdded": "2020-05-10 00:00:45.511 +00:00",
   "dateUpdated": "2020-05-10 00:00:45.511 +00:00",
   "description": "some description",
-  "directions": Array [],
+  "directions": Array [
+    Object {
+      "id": "1",
+      "label": "section 1",
+      "steps": Array [
+        Object {
+          "id": "1",
+          "text": "step 1",
+        },
+        Object {
+          "id": "2",
+          "text": "step 2",
+        },
+      ],
+    },
+  ],
   "id": "123",
   "photo": "http://photos.com/mine.jpg",
   "servings": 4,

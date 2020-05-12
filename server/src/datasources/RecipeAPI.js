@@ -72,7 +72,7 @@ class RecipeAPI extends DataSource {
       }
     }
 
-    const directionSections = this.addDirections({
+    const directionSections = await this.addDirections({
       recipeid: baseRecipe.id,
       directions: recipeFields.directions,
     });
@@ -92,7 +92,7 @@ class RecipeAPI extends DataSource {
         recipe: baseRecipe,
         prepTimeArray,
         totalTimeArray,
-        diirections: directionSections,
+        directionSections,
       }
       /*
       directions,

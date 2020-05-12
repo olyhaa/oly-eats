@@ -1,5 +1,6 @@
 import RecipeAPI from '../RecipeAPI';
 import { TIMINGS, TIME_UNITS } from '../../constants';
+import { addDBFields } from './utils';
 
 const mockRecipes = [
   {
@@ -293,56 +294,100 @@ describe('addRecipe', () => {
       photo_url: 'http://photos.com/mine.jpg',
       servings: 4,
     };
-
-    const createdBaseFields = Object.assign({}, recipeBaseFieldsInput);
-    createdBaseFields.id = '123';
-    createdBaseFields.createdAt = '2020-05-10 00:00:45.511 +00:00';
-    createdBaseFields.updatedAt = '2020-05-10 00:00:45.511 +00:00';
+    const dbBaseFields = addDBFields({
+      fields: recipeBaseFieldsInput,
+      id: '123',
+    });
 
     const timeFieldsInput = {
       prepTime: [{ value: '2', units: TIME_UNITS.MINUTE }],
       totalTime: [
-        { value: '20', units: TIME_UNITS.MINUTE, type: TIMINGS.TOTAL },
-        { value: '1', units: TIME_UNITS.HOUR, type: TIMINGS.TOTAL },
+        { value: '20', units: TIME_UNITS.MINUTE },
+        { value: '1', units: TIME_UNITS.HOUR },
       ],
     };
-    const prepTimeArray = recipeDatasource.constructTimeObj({
-      recipeid: createdBaseFields.id,
-      newFields: timeFieldsInput.prepTime[0],
-      type: TIMINGS.PREP_TIME,
-    });
-    prepTimeArray.id = '1';
-    prepTimeArray.createdAt = '2020-05-10 00:00:45.511 +00:00';
-    prepTimeArray.updatedAt = '2020-05-10 00:00:45.511 +00:00';
-
-    const totalTimeArray = [
-      recipeDatasource.constructTimeObj({
-        recipeid: createdBaseFields.id,
-        newFields: timeFieldsInput.totalTime[0],
-        type: TIMINGS.TOTAL_TIME,
-      }),
-      recipeDatasource.constructTimeObj({
-        recipeid: createdBaseFields.id,
-        newFields: timeFieldsInput.totalTime[1],
-        type: TIMINGS.TOTAL_TIME,
+    const dbPrepTimeArray = [
+      addDBFields({
+        id: '1',
+        fields: recipeDatasource.constructTimeObj({
+          recipeid: dbBaseFields.id,
+          newFields: timeFieldsInput.prepTime[0],
+          type: TIMINGS.PREP_TIME,
+        }),
       }),
     ];
-    totalTimeArray[0].id = '2';
-    totalTimeArray[0].createdAt = '2020-05-10 00:00:45.511 +00:00';
-    totalTimeArray[0].updatedAt = '2020-05-10 00:00:45.511 +00:00';
-    totalTimeArray[1].id = '3';
-    totalTimeArray[1].createdAt = '2020-05-10 00:00:45.511 +00:00';
-    totalTimeArray[1].updatedAt = '2020-05-10 00:00:45.511 +00:00';
 
-    mockStore.Recipe.create.mockReturnValueOnce(createdBaseFields);
+    const dbTotalTimeArray = [
+      addDBFields({
+        id: '2',
+        fields: recipeDatasource.constructTimeObj({
+          recipeid: dbBaseFields.id,
+          newFields: timeFieldsInput.totalTime[0],
+          type: TIMINGS.TOTAL_TIME,
+        }),
+      }),
+      addDBFields({
+        id: '3',
+        fields: recipeDatasource.constructTimeObj({
+          recipeid: dbBaseFields.id,
+          newFields: timeFieldsInput.totalTime[1],
+          type: TIMINGS.TOTAL_TIME,
+        }),
+      }),
+    ];
+
+    const directionsInput = [
+      {
+        label: 'section 1',
+        steps: [
+          {
+            text: 'step 1',
+          },
+          {
+            text: 'step 2',
+          },
+        ],
+      },
+    ];
+    const dbDirectionsFields = addDBFields({
+      fields: {
+        label: directionsInput[0].label,
+        recipeid: dbBaseFields.id,
+      },
+      id: '1',
+    });
+
+    const dbStepFields = [
+      addDBFields({
+        fields: {
+          text: directionsInput[0].steps[0].text,
+          sectionid: dbDirectionsFields.id,
+        },
+        id: '1',
+      }),
+      addDBFields({
+        fields: {
+          text: directionsInput[0].steps[1].text,
+          sectionid: dbDirectionsFields.id,
+        },
+        id: '2',
+      }),
+    ];
+
+    mockStore.Recipe.create.mockReturnValueOnce(dbBaseFields);
     mockStore.Timing.create
-      .mockReturnValueOnce(prepTimeArray)
-      .mockReturnValueOnce(totalTimeArray[0])
-      .mockReturnValueOnce(totalTimeArray[1]);
+      .mockReturnValueOnce(dbPrepTimeArray[0])
+      .mockReturnValueOnce(dbTotalTimeArray[0])
+      .mockReturnValueOnce(dbTotalTimeArray[1]);
+    mockStore.DirectionSection.create.mockReturnValueOnce(dbDirectionsFields);
+    mockStore.DirectionStep.create
+      .mockReturnValueOnce(dbStepFields[0])
+      .mockReturnValueOnce(dbStepFields[1]);
 
     const recipe = {
       ...recipeBaseFieldsInput,
       ...timeFieldsInput,
+      directions: directionsInput,
     };
 
     // check the result of the fn
@@ -353,7 +398,40 @@ describe('addRecipe', () => {
 
     // make sure store is called properly
     expect(mockStore.Recipe.create).toBeCalledWith(recipeBaseFieldsInput);
+
     expect(mockStore.Timing.create).toBeCalledTimes(3);
+    expect(mockStore.Timing.create).toHaveBeenNthCalledWith(1, {
+      recipeid: mockRecipes[0].id,
+      type: TIMINGS.PREP_TIME,
+      ...timeFieldsInput.prepTime[0],
+    });
+    expect(mockStore.Timing.create).toHaveBeenNthCalledWith(2, {
+      recipeid: mockRecipes[0].id,
+      type: TIMINGS.TOTAL_TIME,
+      ...timeFieldsInput.totalTime[0],
+    });
+    expect(mockStore.Timing.create).toHaveBeenNthCalledWith(3, {
+      recipeid: mockRecipes[0].id,
+      type: TIMINGS.TOTAL_TIME,
+      ...timeFieldsInput.totalTime[1],
+    });
+
+    expect(mockStore.DirectionSection.create).toBeCalledWith({
+      label: directionsInput[0].label,
+      recipeid: dbBaseFields.id,
+    });
+    expect(mockStore.DirectionStep.create).toBeCalledTimes(2);
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(1, {
+      sectionid: dbDirectionsFields.id,
+      text: directionsInput[0].steps[0].text,
+    });
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
+      sectionid: dbDirectionsFields.id,
+      text: directionsInput[0].steps[1].text,
+    });
+  });
+});
+
 describe('addDirections', () => {
   it('empty object', async () => {
     const directions = {};
