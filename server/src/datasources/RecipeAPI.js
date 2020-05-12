@@ -178,16 +178,17 @@ class RecipeAPI extends DataSource {
     const directionSectionObj = {};
     if (directions?.label) {
       directionSectionObj.label = directions.label;
+      directionSectionObj.recipeid = recipeid;
     }
     return directionSectionObj;
   }
 
   constructDirectionStepObj({ sectionid, step }) {
     const stepObj = {};
-    if (step.text) {
+    if (step?.text) {
       stepObj.text = step.text;
+      stepObj.sectionid = sectionid;
     }
-    stepObj.sectionid = sectionid;
     return stepObj;
   }
 

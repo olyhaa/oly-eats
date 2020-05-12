@@ -513,5 +513,69 @@ describe('constructDirectionSectionObj', () => {
   });
 });
 
-describe('constructDirectionStepObj', () => {});
+describe('constructDirectionStepObj', () => {
+  describe('no step fields', () => {
+    it('empty object', () => {
+      const newFields = {};
+      expect(
+        recipeDatasource.constructDirectionStepObj({
+          sectionid: '1',
+          step: newFields,
+        })
+      ).toEqual({});
+    });
+
+    it('undefined object', () => {
+      const newFields = undefined;
+      expect(
+        recipeDatasource.constructDirectionStepObj({
+          sectionid: '1',
+          step: newFields,
+        })
+      ).toEqual({});
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(
+        recipeDatasource.constructDirectionStepObj({
+          sectionid: '1',
+          step: newFields,
+        })
+      ).toEqual({});
+    });
+  });
+
+  it('only step fields', () => {
+    const newFields = {
+      text: 'step 1',
+    };
+    const expectedFields = Object.assign({}, newFields);
+    expectedFields.sectionid = '56';
+
+    expect(
+      recipeDatasource.constructDirectionStepObj({
+        sectionid: expectedFields.sectionid,
+        step: newFields,
+      })
+    ).toEqual(expectedFields);
+  });
+
+  it('step fields + others', () => {
+    const baseFields = {
+      text: 'step 1',
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = Object.assign({}, baseFields);
+    expectedFields.sectionid = '56';
+    expect(
+      recipeDatasource.constructDirectionStepObj({
+        sectionid: expectedFields.sectionid,
+        step: baseFields,
+      })
+    ).toEqual(expectedFields);
+  });
+});
+
 describe('getRecipeData', () => {});
