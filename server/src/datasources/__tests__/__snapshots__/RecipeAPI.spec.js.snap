@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`addDirections single section, no steps provided, only label 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "label": "section 1",
+    "recipeid": "123",
+    "steps": Array [],
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
 exports[`addRecipe calls store creator and returns result 1`] = `
 Object {
   "dateAdded": "2020-05-10 00:00:45.511 +00:00",

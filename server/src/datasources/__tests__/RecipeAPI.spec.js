@@ -53,22 +53,35 @@ const mockDirectionSection = [
     createdAt: '2020-05-10 00:07:45.511 +00:00',
     updatedAt: '2020-05-10 00:08:45.511 +00:00',
   },
+  {
+    id: '2',
+    recipeid: '123',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
 ];
 
 const mockDirectionStep = [
   {
     id: '1',
     text: 'step 1',
-    recipeid: '123',
+    sectionid: '2',
     createdAt: '2020-05-10 00:09:45.511 +00:00',
     updatedAt: '2020-05-10 00:10:45.511 +00:00',
   },
   {
     id: '2',
     text: 'step 2',
-    recipeid: '123',
+    sectionid: '2',
     createdAt: '2020-05-10 00:11:45.511 +00:00',
     updatedAt: '2020-05-10 00:12:45.511 +00:00',
+  },
+  {
+    id: '3',
+    text: 'step 1',
+    sectionid: '1',
+    createdAt: '2020-05-10 00:09:45.511 +00:00',
+    updatedAt: '2020-05-10 00:10:45.511 +00:00',
   },
 ];
 
@@ -281,10 +294,42 @@ describe('addRecipe', () => {
     // make sure store is called properly
     expect(mockStore.Recipe.create).toBeCalledWith(recipeBaseFieldsInput);
     expect(mockStore.Timing.create).toBeCalledTimes(3);
+describe('addDirections', () => {
+  it('empty object', async () => {
+    const directions = {};
+
+    const res = await recipeDatasource.addDirections({
+      recipeid: '45',
+      directions,
+    });
+
+    expect(res).toEqual([]);
+  });
+
+  it('single section, no steps provided, only label', async () => {
+    mockStore.DirectionSection.create.mockReturnValueOnce(
+      mockDirectionSection[0]
+    );
+
+    const directions = [{ label: 'section 1' }];
+    const recipeid = '101';
+
+    const res = await recipeDatasource.addDirections({
+      recipeid,
+      directions,
+    });
+
+    expect(res).toMatchSnapshot();
+    expect(mockStore.DirectionSection.create).toBeCalledWith({
+      label: directions[0].label,
+      recipeid,
+    });
+    expect(mockStore.DirectionStep.create).toBeCalledTimes(0);
+  });
+
   });
 });
 
-describe.skip('addDirections', () => {});
 describe.skip('updateRecipe', () => {});
 
 describe('constructBaseRecipeObj', () => {
