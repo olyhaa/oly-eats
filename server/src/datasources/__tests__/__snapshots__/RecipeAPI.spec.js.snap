@@ -1,5 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`addDirections multiple direction sections 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "label": "section 1",
+    "recipeid": "123",
+    "steps": Array [
+      Object {
+        "createdAt": "2020-05-10 00:09:45.511 +00:00",
+        "id": "3",
+        "sectionid": "1",
+        "text": "step 1",
+        "updatedAt": "2020-05-10 00:10:45.511 +00:00",
+      },
+    ],
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "2",
+    "recipeid": "123",
+    "steps": Array [
+      Object {
+        "createdAt": "2020-05-10 00:09:45.511 +00:00",
+        "id": "1",
+        "sectionid": "2",
+        "text": "step 1",
+        "updatedAt": "2020-05-10 00:10:45.511 +00:00",
+      },
+      Object {
+        "createdAt": "2020-05-10 00:11:45.511 +00:00",
+        "id": "2",
+        "sectionid": "2",
+        "text": "step 2",
+        "updatedAt": "2020-05-10 00:12:45.511 +00:00",
+      },
+    ],
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
+exports[`addDirections single direction section, all fields 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "label": "section 1",
+    "recipeid": "123",
+    "steps": Array [
+      Object {
+        "createdAt": "2020-05-10 00:09:45.511 +00:00",
+        "id": "3",
+        "sectionid": "1",
+        "text": "step 1",
+        "updatedAt": "2020-05-10 00:10:45.511 +00:00",
+      },
+    ],
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
 exports[`addDirections single section, no steps provided, only label 1`] = `
 Array [
   Object {
@@ -8,6 +72,33 @@ Array [
     "label": "section 1",
     "recipeid": "123",
     "steps": Array [],
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
+exports[`addDirections single section, only steps provided, no label 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "2",
+    "recipeid": "123",
+    "steps": Array [
+      Object {
+        "createdAt": "2020-05-10 00:09:45.511 +00:00",
+        "id": "1",
+        "sectionid": "2",
+        "text": "step 1",
+        "updatedAt": "2020-05-10 00:10:45.511 +00:00",
+      },
+      Object {
+        "createdAt": "2020-05-10 00:11:45.511 +00:00",
+        "id": "2",
+        "sectionid": "2",
+        "text": "step 2",
+        "updatedAt": "2020-05-10 00:12:45.511 +00:00",
+      },
+    ],
     "updatedAt": "2020-05-10 00:08:45.511 +00:00",
   },
 ]

@@ -327,6 +327,144 @@ describe('addDirections', () => {
     expect(mockStore.DirectionStep.create).toBeCalledTimes(0);
   });
 
+  it('single section, only steps provided, no label', async () => {
+    mockStore.DirectionSection.create.mockReturnValueOnce(
+      mockDirectionSection[1]
+    );
+    mockStore.DirectionStep.create
+      .mockReturnValueOnce(mockDirectionStep[0])
+      .mockReturnValueOnce(mockDirectionStep[1]);
+
+    const directions = [
+      {
+        steps: [
+          {
+            text: 'step 1',
+          },
+          {
+            text: 'step 2',
+          },
+        ],
+      },
+    ];
+
+    const res = await recipeDatasource.addDirections({
+      recipeid: mockDirectionSection[0].recipeid,
+      directions,
+    });
+
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.DirectionSection.create).toBeCalledWith({
+      recipeid: mockDirectionSection[0].recipeid,
+    });
+
+    expect(mockStore.DirectionStep.create).toBeCalledTimes(2);
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(1, {
+      sectionid: mockDirectionSection[1].id,
+      text: directions[0].steps[0].text,
+    });
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
+      sectionid: mockDirectionSection[1].id,
+      text: directions[0].steps[1].text,
+    });
+  });
+
+  it('single direction section, all fields', async () => {
+    mockStore.DirectionSection.create.mockReturnValueOnce(
+      mockDirectionSection[0]
+    );
+    mockStore.DirectionStep.create.mockReturnValueOnce(mockDirectionStep[2]);
+
+    const directions = [
+      {
+        label: mockDirectionSection[0].label,
+        steps: [
+          {
+            text: mockDirectionStep[2].text,
+          },
+        ],
+      },
+    ];
+
+    const res = await recipeDatasource.addDirections({
+      recipeid: mockDirectionSection[0].recipeid,
+      directions,
+    });
+
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.DirectionSection.create).toBeCalledWith({
+      recipeid: mockDirectionSection[0].recipeid,
+      label: mockDirectionSection[0].label,
+    });
+
+    expect(mockStore.DirectionStep.create).toBeCalledWith({
+      sectionid: mockDirectionSection[0].id,
+      text: mockDirectionStep[2].text,
+    });
+  });
+
+  it('multiple direction sections', async () => {
+    mockStore.DirectionSection.create
+      .mockReturnValueOnce(mockDirectionSection[0])
+      .mockReturnValueOnce(mockDirectionSection[1]);
+    mockStore.DirectionStep.create
+      .mockReturnValueOnce(mockDirectionStep[2])
+      .mockReturnValueOnce(mockDirectionStep[0])
+      .mockReturnValueOnce(mockDirectionStep[1]);
+
+    const directions = [
+      {
+        label: mockDirectionSection[0].label,
+        steps: [
+          {
+            text: mockDirectionStep[2].text,
+          },
+        ],
+      },
+      {
+        steps: [
+          {
+            text: mockDirectionStep[0].text,
+          },
+          {
+            text: mockDirectionStep[1].text,
+          },
+        ],
+      },
+    ];
+
+    const res = await recipeDatasource.addDirections({
+      recipeid: mockDirectionSection[0].recipeid,
+      directions,
+    });
+
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.DirectionSection.create).toBeCalledTimes(2);
+    expect(mockStore.DirectionSection.create).toHaveBeenNthCalledWith(1, {
+      recipeid: mockDirectionSection[0].recipeid,
+      label: mockDirectionSection[0].label,
+    });
+
+    expect(mockStore.DirectionSection.create).toHaveBeenNthCalledWith(2, {
+      recipeid: mockDirectionSection[1].recipeid,
+    });
+
+    expect(mockStore.DirectionStep.create).toBeCalledTimes(3);
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(1, {
+      sectionid: mockDirectionSection[0].id,
+      text: directions[0].steps[0].text,
+    });
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
+      sectionid: mockDirectionSection[1].id,
+      text: directions[1].steps[0].text,
+    });
+    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(3, {
+      sectionid: mockDirectionSection[1].id,
+      text: directions[1].steps[1].text,
+    });
   });
 });
 
