@@ -1,6 +1,6 @@
 import RecipeAPI from '../RecipeAPI';
 import { TIMINGS, TIME_UNITS } from '../../constants';
-import { addDBFields } from './utils';
+import { addDBFields } from '../../testUtils';
 
 const mockRecipes = [
   {
