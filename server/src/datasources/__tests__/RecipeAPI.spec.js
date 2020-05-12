@@ -483,32 +483,35 @@ describe('constructDirectionSectionObj', () => {
   describe('no direction fields', () => {
     it('empty object', () => {
       const newFields = {};
+      const recipeid = '1';
       expect(
         recipeDatasource.constructDirectionSectionObj({
-          recipeid: '1',
+          recipeid,
           newFields,
         })
-      ).toEqual({});
+      ).toEqual({ recipeid });
     });
 
     it('undefined object', () => {
       const newFields = undefined;
+      const recipeid = '1';
       expect(
         recipeDatasource.constructDirectionSectionObj({
-          recipeid: '1',
+          recipeid,
           newFields,
         })
-      ).toEqual({});
+      ).toEqual({ recipeid });
     });
 
     it('object without relevant fields', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
+      const recipeid = '1';
       expect(
         recipeDatasource.constructDirectionSectionObj({
-          recipeid: '1',
+          recipeid,
           section: newFields,
         })
-      ).toEqual({});
+      ).toEqual({ recipeid });
     });
   });
 
