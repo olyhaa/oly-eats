@@ -227,6 +227,16 @@ class RecipeAPI extends DataSource {
     return directionSectionArray;
   }
 
+  constructRangedObj({ ingredientid, amount }) {
+    const rangedAmountObj = {};
+    if (amount?.min && amount?.max) {
+      rangedAmountObj.min = amount.min;
+      rangedAmountObj.max = amount.max;
+      rangedAmountObj.ingredientid = ingredientid;
+    }
+    return rangedAmountObj;
+  }
+
   async getRecipeData(id) {
     const recipe = await this.store.Recipe.findByPk(id);
     if (!recipe) {

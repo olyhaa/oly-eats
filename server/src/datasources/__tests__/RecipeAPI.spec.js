@@ -902,4 +902,93 @@ describe('constructDirectionStepObj', () => {
   });
 });
 
+describe('constructRangedObj', () => {
+  describe('no ranged fields', () => {
+    it('empty object', () => {
+      expect(
+        recipeDatasource.constructRangedObj({
+          ingredientid: '1',
+          amount: {},
+        })
+      ).toEqual({});
+    });
+
+    it('undefined object', () => {
+      expect(
+        recipeDatasource.constructRangedObj({
+          ingredientid: '1',
+          amount: undefined,
+        })
+      ).toEqual({});
+    });
+
+    it('string', () => {
+      const newFields = undefined;
+      expect(
+        recipeDatasource.constructRangedObj({
+          ingredientid: '1',
+          amount: '34',
+        })
+      ).toEqual({});
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(
+        recipeDatasource.constructRangedObj({
+          recipeid: '1',
+          amount: newFields,
+        })
+      ).toEqual({});
+    });
+  });
+
+  describe('only ranged amount fields', () => {
+    it('has all fields', () => {
+      const newFields = {
+        min: '2',
+        max: '3',
+      };
+      const expectedFields = Object.assign({}, newFields);
+      expectedFields.ingredientid = '42';
+
+      expect(
+        recipeDatasource.constructRangedObj({
+          ingredientid: expectedFields.ingredientid,
+          amount: newFields,
+        })
+      ).toEqual(expectedFields);
+    });
+
+    it('has subset of fields', () => {
+      const newFields = {
+        min: '2',
+      };
+      expect(
+        recipeDatasource.constructRangedObj({
+          ingredientid: '42',
+          amount: newFields,
+        })
+      ).toEqual({});
+    });
+  });
+
+  it('time fields + others', () => {
+    const baseFields = {
+      min: '2',
+      max: '3',
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = Object.assign({}, baseFields);
+    expectedFields.ingredientid = '42';
+    expect(
+      recipeDatasource.constructRangedObj({
+        ingredientid: expectedFields.ingredientid,
+        amount: allFields,
+      })
+    ).toEqual(expectedFields);
+  });
+});
+
 describe('getRecipeData', () => {});
