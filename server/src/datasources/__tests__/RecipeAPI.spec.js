@@ -112,7 +112,13 @@ afterEach(() => {
 
 describe.skip('recipeReducer', () => {});
 describe.skip('recipeMutationReducer', () => {});
-describe.skip('timeReducer', () => {});
+
+describe('timeReducer', () => {
+  it('properly reduces direction step array', () => {
+    const timeArray = [mockTimings[1], mockTimings[2]];
+    expect(recipeDatasource.timeReducer({ timeArray })).toMatchSnapshot();
+  });
+});
 
 describe('directionsReducer', () => {
   it('properly reduces direction array', () => {

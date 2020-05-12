@@ -295,3 +295,18 @@ Object {
   "title": "my first recipe",
 }
 `;
+
+exports[`timeReducer properly reduces direction step array 1`] = `
+Array [
+  Object {
+    "id": "2",
+    "units": "MINUTE",
+    "value": "20",
+  },
+  Object {
+    "id": "3",
+    "units": "HOUR",
+    "value": "1",
+  },
+]
+`;
