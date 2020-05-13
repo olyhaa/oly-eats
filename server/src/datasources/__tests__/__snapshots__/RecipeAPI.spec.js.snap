@@ -104,6 +104,133 @@ Array [
 ]
 `;
 
+exports[`addIngredients multiple ingredient sections 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "ingredients": Array [
+      Object {
+        "amount": "2",
+        "createdAt": "2020-05-10 00:07:45.511 +00:00",
+        "id": "1",
+        "name": "apples",
+        "optional": true,
+        "prep": "chopped",
+        "sectionid": "2",
+        "toTaste": true,
+        "unit": "cup",
+        "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+      },
+    ],
+    "label": "ingredient section 1",
+    "recipeid": "102",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "2",
+    "ingredients": Array [
+      Object {
+        "amount": "1",
+        "createdAt": "2020-05-10 00:07:45.511 +00:00",
+        "id": "3",
+        "name": "garlic",
+        "prep": "minced",
+        "sectionid": "2",
+        "unit": "tablespoon",
+        "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+      },
+    ],
+    "recipeid": "102",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
+exports[`addIngredients single ingredient section, all fields 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "ingredients": Array [
+      Object {
+        "amount": "2",
+        "createdAt": "2020-05-10 00:07:45.511 +00:00",
+        "id": "1",
+        "name": "apples",
+        "optional": true,
+        "prep": "chopped",
+        "sectionid": "2",
+        "toTaste": true,
+        "unit": "cup",
+        "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+      },
+    ],
+    "label": "ingredient section 1",
+    "recipeid": "102",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
+exports[`addIngredients single section, no ingredients provided, only label 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "ingredients": Array [],
+    "label": "ingredient section 1",
+    "recipeid": "102",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
+exports[`addIngredients single section, only ingredients provided, no label 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "2",
+    "ingredients": Array [
+      Object {
+        "amount": "2",
+        "createdAt": "2020-05-10 00:07:45.511 +00:00",
+        "id": "1",
+        "name": "apples",
+        "optional": true,
+        "prep": "chopped",
+        "sectionid": "2",
+        "toTaste": true,
+        "unit": "cup",
+        "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+      },
+      Object {
+        "createdAt": "2020-05-10 00:07:45.511 +00:00",
+        "id": "2",
+        "name": "garlic",
+        "optional": false,
+        "prep": "minced",
+        "rangedAmount": Object {
+          "createdAt": "2020-05-10 00:07:45.511 +00:00",
+          "id": "1",
+          "ingredientid": "2",
+          "max": "10",
+          "min": "5",
+          "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+        },
+        "sectionid": "2",
+        "toTaste": true,
+        "unit": "tablespoon",
+        "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+      },
+    ],
+    "recipeid": "102",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
+`;
+
 exports[`addRecipe calls store creator and returns result 1`] = `
 Object {
   "dateAdded": "2020-05-10 00:00:45.511 +00:00",
@@ -162,6 +289,16 @@ Object {
   "name": "apples",
   "prep": "chopped",
   "sectionid": "42",
+}
+`;
+
+exports[`constructIngredientObj only ingredient fields has subset of fields that are false 1`] = `
+Object {
+  "name": "apples",
+  "optional": false,
+  "prep": "chopped",
+  "sectionid": "42",
+  "toTaste": false,
 }
 `;
 

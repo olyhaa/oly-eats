@@ -86,6 +86,69 @@ const mockDirectionStep = [
   },
 ];
 
+const mockIngredientSection = [
+  {
+    id: '1',
+    label: 'ingredient section 1',
+    recipeid: '102',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+  {
+    id: '2',
+    recipeid: '102',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+];
+
+const mockIngredient = [
+  {
+    id: '1',
+    amount: '2',
+    unit: 'cup',
+    prep: 'chopped',
+    name: 'apples',
+    toTaste: true,
+    optional: true,
+    sectionid: '2',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+  {
+    id: '2',
+    unit: 'tablespoon',
+    prep: 'minced',
+    name: 'garlic',
+    toTaste: true,
+    optional: false,
+    sectionid: '2',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+  {
+    id: '3',
+    amount: '1',
+    unit: 'tablespoon',
+    prep: 'minced',
+    name: 'garlic',
+    sectionid: '2',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+];
+
+const mockRangedAmount = [
+  {
+    id: '1',
+    min: '5',
+    max: '10',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+    ingredientid: '2',
+  },
+];
+
 const mockStore = {
   Recipe: {
     create: jest.fn(),
@@ -104,7 +167,20 @@ const mockStore = {
     create: jest.fn(),
     findAll: jest.fn(),
   },
+  IngredientSection: {
+    create: jest.fn(),
+    findAll: jest.fn(),
+  },
+  Ingredient: {
+    create: jest.fn(),
+    findAll: jest.fn(),
+  },
+  RangedAmount: {
+    create: jest.fn(),
+    findAll: jest.fn(),
+  },
 };
+
 const recipeDatasource = new RecipeAPI({ store: mockStore });
 
 afterEach(() => {
@@ -606,6 +682,219 @@ describe('addDirections', () => {
   });
 });
 
+describe('addIngredients', () => {
+  it('empty object', async () => {
+    const ingredient = {};
+
+    const res = await recipeDatasource.addIngredients({
+      recipeid: '45',
+      ingredient,
+    });
+
+    expect(res).toEqual([]);
+  });
+
+  it('single section, no ingredients provided, only label', async () => {
+    mockStore.IngredientSection.create.mockReturnValueOnce(
+      mockIngredientSection[0]
+    );
+
+    const ingredients = [{ label: 'ingredient section 1' }];
+    const recipeid = '102';
+
+    const res = await recipeDatasource.addIngredients({
+      recipeid,
+      ingredients,
+    });
+
+    expect(res).toMatchSnapshot();
+    expect(mockStore.IngredientSection.create).toBeCalledWith({
+      label: ingredients[0].label,
+      recipeid,
+    });
+    expect(mockStore.Ingredient.create).toBeCalledTimes(0);
+  });
+
+  it('single section, only ingredients provided, no label', async () => {
+    mockStore.IngredientSection.create.mockReturnValueOnce(
+      mockIngredientSection[1]
+    );
+    mockStore.Ingredient.create
+      .mockReturnValueOnce(mockIngredient[0])
+      .mockReturnValueOnce(mockIngredient[1]);
+    mockStore.RangedAmount.create.mockReturnValueOnce(mockRangedAmount[0]);
+
+    const ingredients = [
+      {
+        ingredients: [
+          {
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+          },
+          {
+            rangedAmount: { min: '5', max: '10' },
+            unit: 'tablespoon',
+            prep: 'minced',
+            name: 'garlic',
+            toTaste: true,
+            optional: false,
+          },
+        ],
+      },
+    ];
+
+    const res = await recipeDatasource.addIngredients({
+      recipeid: mockIngredientSection[1].recipeid,
+      ingredients,
+    });
+
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.IngredientSection.create).toBeCalledWith({
+      recipeid: mockIngredientSection[1].recipeid,
+    });
+
+    expect(mockStore.Ingredient.create).toBeCalledTimes(2);
+    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(1, {
+      sectionid: mockIngredientSection[1].id,
+      amount: '2',
+      unit: 'cup',
+      prep: 'chopped',
+      name: 'apples',
+      toTaste: true,
+      optional: true,
+    });
+    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(2, {
+      sectionid: mockIngredientSection[1].id,
+      unit: 'tablespoon',
+      prep: 'minced',
+      name: 'garlic',
+      toTaste: true,
+      optional: false,
+    });
+
+    expect(mockStore.RangedAmount.create).toBeCalledWith({
+      ingredientid: mockIngredient[1].id,
+      ...ingredients[0].ingredients[1].rangedAmount,
+    });
+  });
+
+  it('single ingredient section, all fields', async () => {
+    mockStore.IngredientSection.create.mockReturnValueOnce(
+      mockIngredientSection[0]
+    );
+    mockStore.Ingredient.create.mockReturnValueOnce(mockIngredient[0]);
+
+    const ingredients = [
+      {
+        label: mockIngredientSection[0].label,
+        ingredients: [
+          {
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+          },
+        ],
+      },
+    ];
+
+    const res = await recipeDatasource.addIngredients({
+      recipeid: mockIngredientSection[0].recipeid,
+      ingredients,
+    });
+
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.IngredientSection.create).toBeCalledWith({
+      recipeid: mockIngredientSection[0].recipeid,
+      label: mockIngredientSection[0].label,
+    });
+
+    expect(mockStore.Ingredient.create).toBeCalledWith({
+      sectionid: mockIngredientSection[0].id,
+      amount: '2',
+      unit: 'cup',
+      prep: 'chopped',
+      name: 'apples',
+    });
+  });
+
+  it('multiple ingredient sections', async () => {
+    mockStore.IngredientSection.create
+      .mockReturnValueOnce(mockIngredientSection[0])
+      .mockReturnValueOnce(mockIngredientSection[1]);
+    mockStore.Ingredient.create
+      .mockReturnValueOnce(mockIngredient[0])
+      .mockReturnValueOnce(mockIngredient[2]);
+
+    const ingredients = [
+      {
+        label: mockIngredientSection[0].label,
+        ingredients: [
+          {
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+          },
+        ],
+      },
+      {
+        ingredients: [
+          {
+            amount: '1',
+            unit: 'tablespoon',
+            prep: 'minced',
+            name: 'garlic',
+          },
+        ],
+      },
+    ];
+
+    const res = await recipeDatasource.addIngredients({
+      recipeid: mockIngredientSection[0].recipeid,
+      ingredients,
+    });
+
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.IngredientSection.create).toBeCalledTimes(2);
+    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(1, {
+      recipeid: mockIngredientSection[0].recipeid,
+      label: mockIngredientSection[0].label,
+    });
+
+    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(2, {
+      recipeid: mockIngredientSection[1].recipeid,
+    });
+
+    expect(mockStore.Ingredient.create).toBeCalledTimes(2);
+    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(1, {
+      sectionid: mockIngredientSection[0].id,
+      amount: '2',
+      unit: 'cup',
+      prep: 'chopped',
+      name: 'apples',
+      toTaste: true,
+      optional: true,
+    });
+    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(2, {
+      sectionid: mockIngredientSection[1].id,
+      amount: '1',
+      unit: 'tablespoon',
+      prep: 'minced',
+      name: 'garlic',
+    });
+  });
+});
+
 describe.skip('updateRecipe', () => {});
 
 describe('constructBaseRecipeObj', () => {
@@ -1047,6 +1336,21 @@ describe('constructIngredientObj', () => {
       const newFields = {
         prep: 'chopped',
         name: 'apples',
+      };
+      expect(
+        recipeDatasource.constructIngredientObj({
+          sectionid: '42',
+          ingredient: newFields,
+        })
+      ).toMatchSnapshot();
+    });
+
+    it('has subset of fields that are false', () => {
+      const newFields = {
+        prep: 'chopped',
+        name: 'apples',
+        optional: false,
+        toTaste: false,
       };
       expect(
         recipeDatasource.constructIngredientObj({

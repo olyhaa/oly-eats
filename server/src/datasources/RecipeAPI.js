@@ -77,11 +77,12 @@ class RecipeAPI extends DataSource {
       directions: recipeFields.directions,
     });
 
+    const ingredients = await this.addIngredients({
+      recipeid: baseRecipe.id,
+      ingredients: recipeFields.ingredients,
+    });
+
     /*
-       const ingredients = addIngredients({
-        recipeid: baseRecipe.id,
-        recipeFields,
-      });
 
       const recipeTags = await this.store.RecipeTag.create(
          constructRecipeTagObj({ recipeid: baseRecipe.id, recipeFields })
@@ -93,6 +94,7 @@ class RecipeAPI extends DataSource {
         prepTimeArray,
         totalTimeArray,
         directionSections,
+        ingredients,
       }
       /*
       directions,
@@ -117,20 +119,6 @@ class RecipeAPI extends DataSource {
     response = await this.store.Recipe.findByPk(id);
     return this.recipeReducer(response);
   }
-  /*
-
-  async addIngredients({ recipeId, recipeFields }) {
-    const ingredientSection = await this.store.IngredientSection.create(
-      constructIngredientSectionObj({ recipeid: baseRecipe.id, recipeFields })
-    );
-    const ingredient = await this.store.Ingredient.create(
-      constructIngredientObj({ sectionid: ingredientSection.id, recipeFields })
-    );
-    const rangedAmount = await this.store.RangedAmount.create(
-      constructRangedAmountObj({ ingredientid: ingredient.id, recipeFields })
-    );
-  }
-*/
 
   constructBaseRecipeObj(newFields) {
     const recipeObj = {};
@@ -251,10 +239,10 @@ class RecipeAPI extends DataSource {
     if (ingredient?.name) {
       ingredientObj.name = ingredient.name;
     }
-    if (ingredient?.toTaste) {
+    if (ingredient?.toTaste != undefined) {
       ingredientObj.toTaste = ingredient.toTaste;
     }
-    if (ingredient?.optional) {
+    if (ingredient?.optional != undefined) {
       ingredientObj.optional = ingredient.optional;
     }
     ingredientObj.sectionid = sectionid;
@@ -270,6 +258,51 @@ class RecipeAPI extends DataSource {
       rangedAmountObj.ingredientid = ingredientid;
     }
     return rangedAmountObj;
+  }
+
+  async addIngredients({ recipeid, ingredients }) {
+    const ingredientSectionArray = [];
+
+    if (Array.isArray(ingredients)) {
+      for (let i = 0; i < ingredients.length; i++) {
+        const section = ingredients[i];
+        const sectionObj = this.constructIngredientSectionObj({
+          recipeid,
+          section,
+        });
+        const ingredientSection = await this.store.IngredientSection.create(
+          sectionObj
+        );
+
+        const ingredientsArray = [];
+        if (Array.isArray(section.ingredients)) {
+          for (let j = 0; j < section.ingredients.length; j++) {
+            const ingredient = section.ingredients[j];
+            const ingredientObj = this.constructIngredientObj({
+              sectionid: ingredientSection.id,
+              ingredient,
+            });
+            const ingredientItem = await this.store.Ingredient.create(
+              ingredientObj
+            );
+            if (ingredient.rangedAmount) {
+              const rangedObj = this.constructRangedObj({
+                ingredientid: ingredientItem.id,
+                amount: ingredient.rangedAmount,
+              });
+              const rangedAmount = await this.store.RangedAmount.create(
+                rangedObj
+              );
+              ingredientItem.rangedAmount = rangedAmount;
+            }
+            ingredientsArray.push(ingredientItem);
+          }
+        }
+        ingredientSection.ingredients = ingredientsArray;
+        ingredientSectionArray.push(ingredientSection);
+      }
+    }
+    return ingredientSectionArray;
   }
 
   async getRecipeData(id) {
