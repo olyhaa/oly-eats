@@ -227,6 +227,15 @@ class RecipeAPI extends DataSource {
     return directionSectionArray;
   }
 
+  constructIngredientSectionObj({ recipeid, section }) {
+    const ingredientSectionObj = {};
+    if (section?.label) {
+      ingredientSectionObj.label = section.label;
+    }
+    ingredientSectionObj.recipeid = recipeid;
+    return ingredientSectionObj;
+  }
+
   constructIngredientObj({ sectionid, ingredient }) {
     const ingredientObj = {};
 

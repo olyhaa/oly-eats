@@ -1076,4 +1076,82 @@ describe('constructIngredientObj', () => {
   });
 });
 
+describe('constructIngredientSectionObj', () => {
+  describe('no ingredient fields', () => {
+    it('empty object', () => {
+      const newFields = {};
+      const recipeid = '1';
+      expect(
+        recipeDatasource.constructIngredientSectionObj({
+          recipeid,
+          newFields,
+        })
+      ).toEqual({ recipeid });
+    });
+
+    it('undefined object', () => {
+      const newFields = undefined;
+      const recipeid = '1';
+      expect(
+        recipeDatasource.constructIngredientSectionObj({
+          recipeid,
+          newFields,
+        })
+      ).toEqual({ recipeid });
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      const recipeid = '1';
+      expect(
+        recipeDatasource.constructIngredientSectionObj({
+          recipeid,
+          section: newFields,
+        })
+      ).toEqual({ recipeid });
+    });
+  });
+
+  it('only ingredient fields', () => {
+    const newFields = {
+      label: 'ingredient section',
+      ingredients: [
+        {
+          amount: '2',
+          name: 'apples',
+        },
+      ],
+    };
+    const expectedFields = { label: newFields.label, recipeid: '45' };
+
+    expect(
+      recipeDatasource.constructIngredientSectionObj({
+        recipeid: expectedFields.recipeid,
+        section: newFields,
+      })
+    ).toEqual(expectedFields);
+  });
+
+  it('ingredient fields + others', () => {
+    const baseFields = {
+      label: 'ingredient section',
+      ingredients: [
+        {
+          amount: '2',
+          name: 'apples',
+        },
+      ],
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = { label: baseFields.label, recipeid: '45' };
+    expect(
+      recipeDatasource.constructIngredientSectionObj({
+        recipeid: expectedFields.recipeid,
+        section: allFields,
+      })
+    ).toEqual(expectedFields);
+  });
+});
+
 describe('getRecipeData', () => {});
