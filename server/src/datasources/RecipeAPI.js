@@ -375,7 +375,60 @@ class RecipeAPI extends DataSource {
     return reducedDirections;
   }
 
-  recipeReducer({ recipe, prepTimeArray, totalTimeArray, directionSections }) {
+  rangedAmountReducer({ rangedAmount }) {
+    let reducedRangedAmount = [];
+    if (rangedAmount) {
+      return {
+        min: rangedAmount.min,
+        max: rangedAmount.max,
+      };
+    }
+    return reducedRangedAmount;
+  }
+
+  ingredientReducer({ ingredient }) {
+    const reducedIngredient = {};
+    if (ingredient) {
+      reducedIngredient.amount =
+        ingredient.amount ??
+        this.rangedAmountReducer({
+          rangedAmount: ingredient.rangedAmount,
+        });
+      reducedIngredient.unit = ingredient.unit;
+      reducedIngredient.prep = ingredient.prep;
+      reducedIngredient.name = ingredient.name;
+      reducedIngredient.toTaste = ingredient.toTaste;
+      reducedIngredient.optional = ingredient.optional;
+    }
+    return reducedIngredient;
+  }
+
+  ingredientsReducer({ ingredients }) {
+    let reducedIngredients = [];
+    if (ingredients) {
+      reducedIngredients = ingredients.map((section) => {
+        const reducedSection = {};
+        if (section.label) {
+          reducedSection.label = section.label;
+        }
+        reducedSection.ingredients = section.ingredients.map((ingredient) => {
+          return this.ingredientReducer({
+            ingredient,
+          });
+        });
+        return reducedSection;
+      });
+    }
+    return reducedIngredients;
+  }
+
+  recipeReducer({
+    recipe,
+    prepTimeArray,
+    totalTimeArray,
+    directionSections,
+    ingredients,
+  }) {
     if (!recipe) {
       return null;
     }
@@ -390,6 +443,7 @@ class RecipeAPI extends DataSource {
       photo: recipe.photo_url,
       servings: recipe.servings,
       directions: this.directionsReducer({ directionSections }),
+      ingredients: this.ingredientsReducer({ ingredients }),
       timing: {
         prep: this.timeReducer({ timeArray: prepTimeArray }),
         total: this.timeReducer({ timeArray: totalTimeArray }),

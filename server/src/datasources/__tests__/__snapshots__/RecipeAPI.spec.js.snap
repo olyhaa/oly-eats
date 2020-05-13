@@ -253,6 +253,36 @@ Object {
     },
   ],
   "id": "123",
+  "ingredients": Array [
+    Object {
+      "ingredients": Array [
+        Object {
+          "amount": "2",
+          "name": "apples",
+          "optional": true,
+          "prep": "chopped",
+          "toTaste": true,
+          "unit": "cup",
+        },
+      ],
+      "label": "ingredient section 1",
+    },
+    Object {
+      "ingredients": Array [
+        Object {
+          "amount": Object {
+            "max": "10",
+            "min": "5",
+          },
+          "name": "garlic",
+          "optional": false,
+          "prep": "minced",
+          "toTaste": true,
+          "unit": "tablespoon",
+        },
+      ],
+    },
+  ],
   "photo": "http://photos.com/mine.jpg",
   "servings": 4,
   "source": Object {
@@ -371,6 +401,7 @@ Array [
     "description": "the best recipe ever",
     "directions": Array [],
     "id": "123",
+    "ingredients": Array [],
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source": Object {
@@ -425,6 +456,7 @@ Object {
     },
   ],
   "id": "123",
+  "ingredients": Array [],
   "photo": "http://some.url.com/pic.jpg",
   "servings": 2,
   "source": Object {
@@ -453,6 +485,68 @@ Object {
     ],
   },
   "title": "my first recipe",
+}
+`;
+
+exports[`ingredientReducer properly reduces ingredient 1`] = `
+Object {
+  "amount": Object {
+    "max": "10",
+    "min": "5",
+  },
+  "name": "garlic",
+  "optional": false,
+  "prep": "minced",
+  "toTaste": true,
+  "unit": "tablespoon",
+}
+`;
+
+exports[`ingredientsReducer properly reduces ingredients array 1`] = `
+Array [
+  Object {
+    "ingredients": Array [
+      Object {
+        "amount": "2",
+        "name": "apples",
+        "optional": true,
+        "prep": "chopped",
+        "toTaste": true,
+        "unit": "cup",
+      },
+    ],
+    "label": "section 1",
+  },
+  Object {
+    "ingredients": Array [
+      Object {
+        "amount": Object {
+          "max": "10",
+          "min": "5",
+        },
+        "name": "garlic",
+        "optional": false,
+        "prep": "minced",
+        "toTaste": true,
+        "unit": "tablespoon",
+      },
+      Object {
+        "amount": "3",
+        "name": "carrot",
+        "optional": undefined,
+        "prep": undefined,
+        "toTaste": undefined,
+        "unit": undefined,
+      },
+    ],
+  },
+]
+`;
+
+exports[`rangedAmountReducer properly reduces ranged amount 1`] = `
+Object {
+  "max": "10",
+  "min": "5",
 }
 `;
 

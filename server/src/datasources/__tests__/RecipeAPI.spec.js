@@ -253,6 +253,115 @@ describe('directionStepsReducer', () => {
   });
 });
 
+describe('ingredientsReducer', () => {
+  it('properly reduces ingredients array', () => {
+    const ingredientSections = [
+      {
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        id: '1',
+        label: 'section 1',
+        recipeid: '123',
+        ingredients: [
+          {
+            createdAt: '2020-05-10 00:09:45.511 +00:00',
+            id: '3',
+            sectionid: '1',
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+            updatedAt: '2020-05-10 00:10:45.511 +00:00',
+          },
+        ],
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+      },
+      {
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        id: '2',
+        recipeid: '123',
+        ingredients: [
+          {
+            createdAt: '2020-05-10 00:09:45.511 +00:00',
+            id: '1',
+            sectionid: '2',
+            unit: 'tablespoon',
+            prep: 'minced',
+            name: 'garlic',
+            toTaste: true,
+            optional: false,
+            rangedAmount: {
+              id: '1',
+              min: '5',
+              max: '10',
+              createdAt: '2020-05-10 00:07:45.511 +00:00',
+              updatedAt: '2020-05-10 00:08:45.511 +00:00',
+              ingredientid: '1',
+            },
+            updatedAt: '2020-05-10 00:10:45.511 +00:00',
+          },
+          {
+            createdAt: '2020-05-10 00:11:45.511 +00:00',
+            id: '2',
+            sectionid: '2',
+            amount: '3',
+            name: 'carrot',
+            updatedAt: '2020-05-10 00:12:45.511 +00:00',
+          },
+        ],
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+      },
+    ];
+    expect(
+      recipeDatasource.ingredientsReducer({ ingredients: ingredientSections })
+    ).toMatchSnapshot();
+  });
+});
+
+describe('ingredientReducer', () => {
+  it('properly reduces ingredient', () => {
+    const ingredient = {
+      createdAt: '2020-05-10 00:09:45.511 +00:00',
+      id: '1',
+      sectionid: '2',
+      unit: 'tablespoon',
+      prep: 'minced',
+      name: 'garlic',
+      toTaste: true,
+      optional: false,
+      rangedAmount: {
+        id: '1',
+        min: '5',
+        max: '10',
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        ingredientid: '1',
+      },
+      updatedAt: '2020-05-10 00:10:45.511 +00:00',
+    };
+    expect(
+      recipeDatasource.ingredientReducer({ ingredient })
+    ).toMatchSnapshot();
+  });
+});
+
+describe('rangedAmountReducer', () => {
+  it('properly reduces ranged amount', () => {
+    const rangedAmount = {
+      id: '1',
+      min: '5',
+      max: '10',
+      createdAt: '2020-05-10 00:07:45.511 +00:00',
+      updatedAt: '2020-05-10 00:08:45.511 +00:00',
+      ingredientid: '1',
+    };
+    expect(
+      recipeDatasource.rangedAmountReducer({ rangedAmount })
+    ).toMatchSnapshot();
+  });
+});
+
 describe('getAllRecipes', () => {
   it('returns empty array for empty db', async () => {
     mockStore.Recipe.findAll.mockReturnValueOnce([]);
@@ -382,6 +491,7 @@ describe('addRecipe', () => {
         { value: '1', units: TIME_UNITS.HOUR },
       ],
     };
+
     const dbPrepTimeArray = [
       addDBFields({
         id: '1',
@@ -425,6 +535,7 @@ describe('addRecipe', () => {
         ],
       },
     ];
+
     const dbDirectionsFields = addDBFields({
       fields: {
         label: directionsInput[0].label,
@@ -450,6 +561,34 @@ describe('addRecipe', () => {
       }),
     ];
 
+    const ingredientsInput = [
+      {
+        label: 'ingredient section 1',
+        ingredients: [
+          {
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+          },
+        ],
+      },
+      {
+        ingredients: [
+          {
+            rangedAmount: { min: '5', max: '10' },
+            unit: 'tablespoon',
+            prep: 'minced',
+            name: 'garlic',
+            toTaste: true,
+            optional: false,
+          },
+        ],
+      },
+    ];
+
     mockStore.Recipe.create.mockReturnValueOnce(dbBaseFields);
     mockStore.Timing.create
       .mockReturnValueOnce(dbPrepTimeArray[0])
@@ -459,11 +598,19 @@ describe('addRecipe', () => {
     mockStore.DirectionStep.create
       .mockReturnValueOnce(dbStepFields[0])
       .mockReturnValueOnce(dbStepFields[1]);
+    mockStore.IngredientSection.create
+      .mockReturnValueOnce(mockIngredientSection[0])
+      .mockReturnValueOnce(mockIngredientSection[1]);
+    mockStore.Ingredient.create
+      .mockReturnValueOnce(mockIngredient[0])
+      .mockReturnValueOnce(mockIngredient[1]);
+    mockStore.RangedAmount.create.mockReturnValueOnce(mockRangedAmount[0]);
 
     const recipe = {
       ...recipeBaseFieldsInput,
       ...timeFieldsInput,
       directions: directionsInput,
+      ingredients: ingredientsInput,
     };
 
     // check the result of the fn
@@ -504,6 +651,39 @@ describe('addRecipe', () => {
     expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
       sectionid: dbDirectionsFields.id,
       text: directionsInput[0].steps[1].text,
+    });
+
+    expect(mockStore.IngredientSection.create).toBeCalledTimes(2);
+    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(1, {
+      recipeid: mockRecipes[0].id,
+      label: ingredientsInput[0].label,
+    });
+    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(2, {
+      recipeid: mockRecipes[0].id,
+    });
+
+    expect(mockStore.Ingredient.create).toBeCalledTimes(2);
+    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(1, {
+      sectionid: mockIngredientSection[0].id,
+      amount: '2',
+      unit: 'cup',
+      prep: 'chopped',
+      name: 'apples',
+      toTaste: true,
+      optional: true,
+    });
+    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(2, {
+      sectionid: mockIngredientSection[1].id,
+      unit: 'tablespoon',
+      prep: 'minced',
+      name: 'garlic',
+      toTaste: true,
+      optional: false,
+    });
+
+    expect(mockStore.RangedAmount.create).toBeCalledWith({
+      ingredientid: mockIngredient[1].id,
+      ...ingredientsInput[1].ingredients[0].rangedAmount,
     });
   });
 });
