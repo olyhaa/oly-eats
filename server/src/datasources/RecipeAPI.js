@@ -227,6 +227,32 @@ class RecipeAPI extends DataSource {
     return directionSectionArray;
   }
 
+  constructIngredientObj({ sectionid, ingredient }) {
+    const ingredientObj = {};
+
+    if (ingredient?.amount) {
+      ingredientObj.amount = ingredient.amount;
+    }
+    if (ingredient?.unit) {
+      ingredientObj.unit = ingredient.unit;
+    }
+    if (ingredient?.prep) {
+      ingredientObj.prep = ingredient.prep;
+    }
+    if (ingredient?.name) {
+      ingredientObj.name = ingredient.name;
+    }
+    if (ingredient?.toTaste) {
+      ingredientObj.toTaste = ingredient.toTaste;
+    }
+    if (ingredient?.optional) {
+      ingredientObj.optional = ingredient.optional;
+    }
+    ingredientObj.sectionid = sectionid;
+
+    return ingredientObj;
+  }
+
   constructRangedObj({ ingredientid, amount }) {
     const rangedAmountObj = {};
     if (amount?.min && amount?.max) {

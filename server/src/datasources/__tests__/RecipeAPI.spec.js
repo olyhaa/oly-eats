@@ -991,4 +991,89 @@ describe('constructRangedObj', () => {
   });
 });
 
+describe('constructIngredientObj', () => {
+  describe('no ingredient fields', () => {
+    it('empty object', () => {
+      expect(
+        recipeDatasource.constructIngredientObj({
+          sectionid: '1',
+          ingredient: {},
+        })
+      ).toEqual({ sectionid: '1' });
+    });
+
+    it('undefined object', () => {
+      expect(
+        recipeDatasource.constructIngredientObj({
+          sectionid: '1',
+          ingredient: undefined,
+        })
+      ).toEqual({ sectionid: '1' });
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(
+        recipeDatasource.constructIngredientObj({
+          sectionid: '1',
+          amount: newFields,
+        })
+      ).toEqual({ sectionid: '1' });
+    });
+  });
+
+  describe('only ingredient fields', () => {
+    it('has all fields', () => {
+      const newFields = {
+        amount: '2',
+        unit: 'cup',
+        prep: 'chopped',
+        name: 'apples',
+        toTaste: true,
+        optional: true,
+      };
+      const expectedFields = Object.assign({}, newFields);
+      expectedFields.sectionid = '42';
+
+      expect(
+        recipeDatasource.constructIngredientObj({
+          sectionid: expectedFields.sectionid,
+          ingredient: newFields,
+        })
+      ).toEqual(expectedFields);
+    });
+
+    it('has subset of fields', () => {
+      const newFields = {
+        prep: 'chopped',
+        name: 'apples',
+      };
+      expect(
+        recipeDatasource.constructIngredientObj({
+          sectionid: '42',
+          ingredient: newFields,
+        })
+      ).toMatchSnapshot();
+    });
+  });
+
+  it('ingredient fields + others', () => {
+    const baseFields = {
+      amount: '2',
+      prep: 'chopped',
+      name: 'apples',
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = Object.assign({}, baseFields);
+    expectedFields.sectionid = '42';
+    expect(
+      recipeDatasource.constructIngredientObj({
+        sectionid: expectedFields.sectionid,
+        ingredient: allFields,
+      })
+    ).toEqual(expectedFields);
+  });
+});
+
 describe('getRecipeData', () => {});

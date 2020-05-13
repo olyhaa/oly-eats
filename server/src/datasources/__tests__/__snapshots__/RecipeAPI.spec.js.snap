@@ -157,6 +157,14 @@ Object {
 }
 `;
 
+exports[`constructIngredientObj only ingredient fields has subset of fields 1`] = `
+Object {
+  "name": "apples",
+  "prep": "chopped",
+  "sectionid": "42",
+}
+`;
+
 exports[`deleteRecipe calls store destroy and returns result - id exists 1`] = `
 Object {
   "message": undefined,
