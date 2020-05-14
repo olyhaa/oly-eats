@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tag mutation reducer properly transforms on failure 1`] = `
+Object {
+  "message": undefined,
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms on failure with message 1`] = `
+Object {
+  "message": "bad test",
+  "success": false,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms on success with message 1`] = `
+Object {
+  "message": "great job",
+  "success": true,
+  "tag": null,
+}
+`;
+
+exports[`tag mutation reducer properly transforms tag object 1`] = `
+Object {
+  "message": undefined,
+  "success": false,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`tag mutation reducer properly transforms tag type object on success 1`] = `
+Object {
+  "message": undefined,
+  "success": true,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`tag mutation reducer properly transforms tag type object on success with message 1`] = `
+Object {
+  "message": "great job",
+  "success": true,
+  "tag": Object {
+    "id": "1",
+    "label": "bakery",
+    "typeid": "1",
+  },
+}
+`;
+
+exports[`tag reducer properly transforms tag object 1`] = `
+Object {
+  "id": "1",
+  "label": "bakery",
+  "typeid": "1",
+}
+`;

@@ -1,4 +1,5 @@
 import TagsAPI from '../TagsAPI';
+import { tagReducer } from '../TagsReducer';
 
 const mockTagTypes = [
   {
@@ -51,60 +52,6 @@ const mockStore = {
 };
 const tagsDatasource = new TagsAPI({ store: mockStore });
 
-describe('tag reducer', () => {
-  it('properly transforms tag object', () => {
-    expect(tagsDatasource.tagReducer(mockTags[0])).toMatchSnapshot();
-  });
-});
-
-describe('tag mutation reducer', () => {
-  it('properly transforms tag object', () => {
-    expect(
-      tagsDatasource.tagMutationReducer({ tag: mockTags[0] })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms tag type object on success', () => {
-    expect(
-      tagsDatasource.tagMutationReducer({
-        success: true,
-        tag: mockTags[0],
-      })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms tag type object on success with message', () => {
-    expect(
-      tagsDatasource.tagMutationReducer({
-        success: true,
-        message: 'great job',
-        tag: mockTags[0],
-      })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms on success with message', () => {
-    expect(
-      tagsDatasource.tagMutationReducer({
-        success: true,
-        message: 'great job',
-      })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms on failure', () => {
-    expect(
-      tagsDatasource.tagMutationReducer({ success: false })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms on failure with message', () => {
-    expect(
-      tagsDatasource.tagMutationReducer({ success: false, message: 'bad test' })
-    ).toMatchSnapshot();
-  });
-});
-
 describe('getAllTags', () => {
   it('returns empty array for empty db for valid typeid', async () => {
     mockStore.TagType.findByPk.mockReturnValueOnce(mockTagTypes[0]);
@@ -143,7 +90,7 @@ describe('getAllTags', () => {
       where: { typeid: mockTagTypes[0].id },
     });
     expect(response).toEqual(
-      mockTags.slice(0, 3).map((tag) => tagsDatasource.tagReducer(tag))
+      mockTags.slice(0, 3).map((tag) => tagReducer(tag))
     );
   });
 });
