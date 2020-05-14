@@ -177,7 +177,7 @@ const mockStore = {
   },
   RangedAmount: {
     create: jest.fn(),
-    findAll: jest.fn(),
+    findOne: jest.fn(),
   },
 };
 
@@ -209,6 +209,15 @@ describe('getAllRecipes', () => {
     mockStore.DirectionStep.findAll.mockReturnValueOnce(
       mockDirectionStep.slice(0, 2)
     );
+    mockStore.IngredientSection.findAll.mockReturnValueOnce(
+      mockIngredientSection.slice(0, 1)
+    );
+    mockStore.Ingredient.findAll.mockReturnValueOnce(
+      mockIngredient.slice(0, 2)
+    );
+    mockStore.RangedAmount.findOne
+      .mockReturnValueOnce()
+      .mockReturnValueOnce(mockRangedAmount[0]);
 
     const response = await recipeDatasource.getAllRecipes();
 
@@ -219,6 +228,21 @@ describe('getAllRecipes', () => {
     });
     expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
       where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
+    });
+    expect(mockStore.DirectionSection.findAll).toBeCalledWith({
+      where: { recipeid: mockRecipes[0].id },
+    });
+    expect(mockStore.DirectionStep.findAll).toBeCalledWith({
+      where: { sectionid: mockDirectionSection[0].id },
+    });
+    expect(mockStore.IngredientSection.findAll).toBeCalledWith({
+      where: { recipeid: mockRecipes[0].id },
+    });
+    expect(mockStore.Ingredient.findAll).toBeCalledWith({
+      where: { sectionid: mockIngredientSection[0].id },
+    });
+    expect(mockStore.RangedAmount.findOne).toBeCalledWith({
+      where: { ingredientid: mockIngredient[1].id },
     });
     expect(response).toMatchSnapshot();
   });

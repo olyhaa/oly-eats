@@ -186,9 +186,7 @@ describe('ingredientsReducer', () => {
         updatedAt: '2020-05-10 00:08:45.511 +00:00',
       },
     ];
-    expect(
-      ingredientsReducer({ ingredients: ingredientSections })
-    ).toMatchSnapshot();
+    expect(ingredientsReducer({ ingredientSections })).toMatchSnapshot();
   });
 });
 

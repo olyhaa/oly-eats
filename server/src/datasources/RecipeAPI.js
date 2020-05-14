@@ -77,7 +77,7 @@ class RecipeAPI extends DataSource {
       directions: recipeFields.directions,
     });
 
-    const ingredients = await this.addIngredients({
+    const ingredientSections = await this.addIngredients({
       recipeid: baseRecipe.id,
       ingredients: recipeFields.ingredients,
     });
@@ -94,11 +94,9 @@ class RecipeAPI extends DataSource {
         prepTimeArray,
         totalTimeArray,
         directionSections,
-        ingredients,
+        ingredientSections,
       }
       /*
-      directions,
-      ingredients,
       recipeTags
       */
     );
@@ -328,12 +326,33 @@ class RecipeAPI extends DataSource {
         directionSections[i].steps = directionSteps;
       }
     }
+    const ingredientSections = await this.store.IngredientSection.findAll({
+      where: { recipeid: id },
+    });
+
+    if (ingredientSections) {
+      for (let i = 0; i < ingredientSections.length; i++) {
+        const ingredients = await this.store.Ingredient.findAll({
+          where: { sectionid: ingredientSections[i].id },
+        });
+        for (let j = 0; j < ingredients.length; j++) {
+          const rangedAmount = await this.store.RangedAmount.findOne({
+            where: { ingredientid: ingredients[j].id },
+          });
+          if (rangedAmount) {
+            ingredients[j].rangedAmount = rangedAmount;
+          }
+        }
+        ingredientSections[i].ingredients = ingredients;
+      }
+    }
 
     return {
       recipe,
       prepTimeArray,
       totalTimeArray,
       directionSections,
+      ingredientSections,
     };
   }
 }

@@ -64,10 +64,10 @@ export const ingredientReducer = ({ ingredient }) => {
   return reducedIngredient;
 };
 
-export const ingredientsReducer = ({ ingredients }) => {
+export const ingredientsReducer = ({ ingredientSections }) => {
   let reducedIngredients = [];
-  if (ingredients) {
-    reducedIngredients = ingredients.map((section) => {
+  if (ingredientSections) {
+    reducedIngredients = ingredientSections.map((section) => {
       const reducedSection = {};
       if (section.label) {
         reducedSection.label = section.label;
@@ -88,7 +88,7 @@ export const recipeReducer = ({
   prepTimeArray,
   totalTimeArray,
   directionSections,
-  ingredients,
+  ingredientSections,
 }) => {
   if (!recipe) {
     return null;
@@ -104,7 +104,7 @@ export const recipeReducer = ({
     photo: recipe.photo_url,
     servings: recipe.servings,
     directions: directionsReducer({ directionSections }),
-    ingredients: ingredientsReducer({ ingredients }),
+    ingredients: ingredientsReducer({ ingredientSections }),
     timing: {
       prep: timeReducer({ timeArray: prepTimeArray }),
       total: timeReducer({ timeArray: totalTimeArray }),
