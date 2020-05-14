@@ -203,6 +203,12 @@ describe('getAllRecipes', () => {
     mockStore.Timing.findAll
       .mockReturnValueOnce(mockTimings.slice(0, 1))
       .mockReturnValueOnce(mockTimings.slice(1, 3));
+    mockStore.DirectionSection.findAll.mockReturnValueOnce(
+      mockDirectionSection.slice(0, 1)
+    );
+    mockStore.DirectionStep.findAll.mockReturnValueOnce(
+      mockDirectionStep.slice(0, 2)
+    );
 
     const response = await recipeDatasource.getAllRecipes();
 
