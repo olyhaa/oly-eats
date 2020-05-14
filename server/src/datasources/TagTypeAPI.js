@@ -1,4 +1,5 @@
 import { DataSource } from 'apollo-datasource';
+import { tagTypeReducer, tagTypeMutationReducer } from './TagTypeReducer';
 
 class TagTypeAPI extends DataSource {
   constructor({ store }) {
@@ -10,7 +11,7 @@ class TagTypeAPI extends DataSource {
     const tagTypeArray = await this.store.TagType.findAll();
 
     return Array.isArray(tagTypeArray)
-      ? tagTypeArray.map((tag_type) => this.tagTypeReducer(tag_type))
+      ? tagTypeArray.map((tag_type) => tagTypeReducer(tag_type))
       : [];
   }
 
@@ -19,7 +20,7 @@ class TagTypeAPI extends DataSource {
       label,
     });
 
-    return this.tagTypeMutationReducer({
+    return tagTypeMutationReducer({
       success: true,
       tagType,
     });
@@ -28,13 +29,13 @@ class TagTypeAPI extends DataSource {
   async deleteTagType({ id }) {
     const tagType = await this.store.TagType.findByPk(id);
     if (!tagType) {
-      return this.tagTypeMutationReducer({
+      return tagTypeMutationReducer({
         success: false,
         message: 'ID not found',
       });
     }
     await tagType.destroy();
-    return this.tagTypeMutationReducer({
+    return tagTypeMutationReducer({
       success: true,
     });
   }
@@ -42,36 +43,14 @@ class TagTypeAPI extends DataSource {
   async updateTagType({ id, label }) {
     let tagType = await this.store.TagType.findByPk(id);
     if (!tagType) {
-      return this.tagTypeMutationReducer({
+      return tagTypeMutationReducer({
         success: false,
         message: 'ID not found',
       });
     }
     await tagType.update({ label: label });
     tagType = await this.store.TagType.findByPk(id);
-    return this.tagTypeMutationReducer({ tagType, success: true });
-  }
-
-  tagTypeReducer(tagType) {
-    if (!tagType) {
-      return null;
-    }
-    return {
-      id: tagType.id,
-      label: tagType.label,
-    };
-  }
-
-  tagTypeMutationReducer({
-    success = false,
-    message = undefined,
-    tagType = null,
-  }) {
-    return {
-      success,
-      message,
-      tagType: this.tagTypeReducer(tagType),
-    };
+    return tagTypeMutationReducer({ tagType, success: true });
   }
 }
 

@@ -1,4 +1,5 @@
 import TagTypeAPI from '../TagTypeAPI';
+import { tagTypeReducer } from '../TagTypeReducer';
 
 const mockTagTypes = [
   {
@@ -24,57 +25,6 @@ const mockStore = {
 };
 const tagTypes = new TagTypeAPI({ store: mockStore });
 
-describe('tag type reducer', () => {
-  it('properly transforms tag type object', () => {
-    expect(tagTypes.tagTypeReducer(mockTagTypes[0])).toMatchSnapshot();
-  });
-});
-
-describe('tag type mutation reducer', () => {
-  it('properly transforms tag type object', () => {
-    expect(
-      tagTypes.tagTypeMutationReducer({ tagType: mockTagTypes[0] })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms tag type object on success', () => {
-    expect(
-      tagTypes.tagTypeMutationReducer({
-        success: true,
-        tagType: mockTagTypes[0],
-      })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms tag type object on success with message', () => {
-    expect(
-      tagTypes.tagTypeMutationReducer({
-        success: true,
-        message: 'great job',
-        tagType: mockTagTypes[0],
-      })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms on success with message', () => {
-    expect(
-      tagTypes.tagTypeMutationReducer({ success: true, message: 'great job' })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms on failure', () => {
-    expect(
-      tagTypes.tagTypeMutationReducer({ success: false })
-    ).toMatchSnapshot();
-  });
-
-  it('properly transforms on failure with message', () => {
-    expect(
-      tagTypes.tagTypeMutationReducer({ success: false, message: 'bad test' })
-    ).toMatchSnapshot();
-  });
-});
-
 describe('getAllTagTypes', () => {
   it('returns empty array for empty db', async () => {
     mockStore.TagType.findAll.mockReturnValueOnce([]);
@@ -88,7 +38,7 @@ describe('getAllTagTypes', () => {
     const response = await tagTypes.getAllTagTypes();
     expect(mockStore.TagType.findAll).toBeCalledWith();
     expect(response).toEqual(
-      mockTagTypes.map((tag_type) => tagTypes.tagTypeReducer(tag_type))
+      mockTagTypes.map((tag_type) => tagTypeReducer(tag_type))
     );
   });
 });
