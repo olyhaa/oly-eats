@@ -99,8 +99,6 @@ const typeDefs = gql`
   }
 
   type RecipeTag {
-    id: String!
-    recipeid: String!
     tagid: String!
   }
 

@@ -99,6 +99,21 @@ Object {
 }
 `;
 
+exports[`tagsReducer properly reduces tags 1`] = `
+Array [
+  Object {
+    "id": "1",
+    "recipeid": "2",
+    "tagid": "3",
+  },
+  Object {
+    "id": "2",
+    "recipeid": "2",
+    "tagid": "4",
+  },
+]
+`;
+
 exports[`timeReducer properly reduces direction step array 1`] = `
 Array [
   Object {

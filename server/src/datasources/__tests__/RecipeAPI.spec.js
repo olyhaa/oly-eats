@@ -149,6 +149,23 @@ const mockRangedAmount = [
   },
 ];
 
+const mockTags = [
+  {
+    id: '1',
+    recipeid: '123',
+    tagid: '1',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+  {
+    id: '2',
+    recipeid: '123',
+    tagid: '23',
+    createdAt: '2020-05-10 00:07:45.511 +00:00',
+    updatedAt: '2020-05-10 00:08:45.511 +00:00',
+  },
+];
+
 const mockStore = {
   Recipe: {
     create: jest.fn(),
@@ -178,6 +195,10 @@ const mockStore = {
   RangedAmount: {
     create: jest.fn(),
     findOne: jest.fn(),
+  },
+  RecipeTag: {
+    create: jest.fn(),
+    findAll: jest.fn(),
   },
 };
 
@@ -218,6 +239,7 @@ describe('getAllRecipes', () => {
     mockStore.RangedAmount.findOne
       .mockReturnValueOnce()
       .mockReturnValueOnce(mockRangedAmount[0]);
+    mockStore.RecipeTag.findAll.mockReturnValueOnce(mockTags.slice(0, 2));
 
     const response = await recipeDatasource.getAllRecipes();
 
@@ -243,6 +265,9 @@ describe('getAllRecipes', () => {
     });
     expect(mockStore.RangedAmount.findOne).toBeCalledWith({
       where: { ingredientid: mockIngredient[1].id },
+    });
+    expect(mockStore.RecipeTag.findAll).toBeCalledWith({
+      where: { recipeid: mockRecipes[0].id },
     });
     expect(response).toMatchSnapshot();
   });
@@ -279,6 +304,7 @@ describe('getRecipe', () => {
     mockStore.RangedAmount.findOne
       .mockReturnValueOnce()
       .mockReturnValueOnce(mockRangedAmount[0]);
+    mockStore.RecipeTag.findAll.mockReturnValueOnce(mockTags.slice(0, 2));
 
     const response = await recipeDatasource.getRecipe({
       id: mockRecipes[0].id,
@@ -307,6 +333,9 @@ describe('getRecipe', () => {
     });
     expect(mockStore.RangedAmount.findOne).toBeCalledWith({
       where: { ingredientid: mockIngredient[1].id },
+    });
+    expect(mockStore.RecipeTag.findAll).toBeCalledWith({
+      where: { recipeid: mockRecipes[0].id },
     });
 
     expect(response).toMatchSnapshot();
@@ -462,6 +491,22 @@ describe('addRecipe', () => {
       },
     ];
 
+    const tagsInput = [
+      { tagid: mockTags[0].tagid },
+      { tagid: mockTags[1].tagid },
+    ];
+
+    const dbTagFields = [
+      addDBFields({
+        fields: tagsInput[0],
+        id: mockTags[0].id,
+      }),
+      addDBFields({
+        fields: tagsInput[1],
+        id: mockTags[1].id,
+      }),
+    ];
+
     mockStore.Recipe.create.mockReturnValueOnce(dbBaseFields);
     mockStore.Timing.create
       .mockReturnValueOnce(dbPrepTimeArray[0])
@@ -478,12 +523,16 @@ describe('addRecipe', () => {
       .mockReturnValueOnce(mockIngredient[0])
       .mockReturnValueOnce(mockIngredient[1]);
     mockStore.RangedAmount.create.mockReturnValueOnce(mockRangedAmount[0]);
+    mockStore.RecipeTag.create
+      .mockReturnValueOnce(mockTags[0])
+      .mockReturnValueOnce(mockTags[1]);
 
     const recipe = {
       ...recipeBaseFieldsInput,
       ...timeFieldsInput,
       directions: directionsInput,
       ingredients: ingredientsInput,
+      tags: tagsInput,
     };
 
     // check the result of the fn
@@ -558,12 +607,21 @@ describe('addRecipe', () => {
       ingredientid: mockIngredient[1].id,
       ...ingredientsInput[1].ingredients[0].rangedAmount,
     });
+
+    expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(1, {
+      recipeid: mockRecipes[0].id,
+      ...tagsInput[0],
+    });
+    expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(2, {
+      recipeid: mockRecipes[0].id,
+      ...tagsInput[1],
+    });
   });
 });
 
 describe('addDirections', () => {
-  it('empty object', async () => {
-    const directions = {};
+  it('empty array', async () => {
+    const directions = [];
 
     const res = await recipeDatasource.addDirections({
       recipeid: '45',
@@ -736,8 +794,8 @@ describe('addDirections', () => {
 });
 
 describe('addIngredients', () => {
-  it('empty object', async () => {
-    const ingredient = {};
+  it('empty array', async () => {
+    const ingredient = [];
 
     const res = await recipeDatasource.addIngredients({
       recipeid: '45',
@@ -944,6 +1002,43 @@ describe('addIngredients', () => {
       unit: 'tablespoon',
       prep: 'minced',
       name: 'garlic',
+    });
+  });
+});
+
+describe('addTags', () => {
+  it('empty array', async () => {
+    const tags = [];
+
+    const res = await recipeDatasource.addTags({
+      recipeid: '45',
+      tags,
+    });
+
+    expect(res).toEqual([]);
+  });
+
+  it('multiple tags', async () => {
+    mockStore.RecipeTag.create
+      .mockReturnValueOnce(mockTags[0])
+      .mockReturnValueOnce(mockTags[1]);
+
+    const recipeid = mockRecipes[0].id;
+    const tags = [{ tagid: '1' }, { tagid: '100' }];
+
+    const res = await recipeDatasource.addTags({
+      recipeid,
+      tags,
+    });
+
+    expect(res).toMatchSnapshot();
+    expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(1, {
+      recipeid,
+      ...tags[0],
+    });
+    expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(2, {
+      recipeid,
+      ...tags[1],
     });
   });
 });
@@ -1506,6 +1601,69 @@ describe('constructIngredientSectionObj', () => {
       recipeDatasource.constructIngredientSectionObj({
         recipeid: expectedFields.recipeid,
         section: allFields,
+      })
+    ).toEqual(expectedFields);
+  });
+});
+
+describe('constructTagObj', () => {
+  describe('no tag fields', () => {
+    it('empty object', () => {
+      expect(
+        recipeDatasource.constructTagObj({
+          recipeid: '1',
+          tags: {},
+        })
+      ).toBeUndefined();
+    });
+
+    it('undefined object', () => {
+      expect(
+        recipeDatasource.constructTagObj({
+          recipeid: '1',
+          tags: undefined,
+        })
+      ).toBeUndefined();
+    });
+
+    it('object without relevant fields', () => {
+      const newFields = { some_garbage_field: 'with some garbage values' };
+      expect(
+        recipeDatasource.constructTagObj({
+          recipeid: '1',
+          tags: newFields,
+        })
+      ).toBeUndefined();
+    });
+  });
+
+  describe('only tag fields', () => {
+    const newFields = {
+      tagid: '2',
+    };
+    const expectedFields = Object.assign({}, newFields);
+    expectedFields.recipeid = '42';
+
+    expect(
+      recipeDatasource.constructTagObj({
+        recipeid: expectedFields.recipeid,
+        tag: newFields,
+      })
+    ).toEqual(expectedFields);
+  });
+
+  it('tag fields + others', () => {
+    const baseFields = {
+      tagid: '2',
+    };
+    const allFields = Object.assign({}, baseFields);
+    allFields.some_garbage_field = 'some garbage';
+    const expectedFields = Object.assign({}, baseFields);
+    expectedFields.recipeid = '42';
+    expect(
+      recipeDatasource.constructTagObj({
+        recipeid: expectedFields.recipeid,
+        tag: allFields,
       })
     ).toEqual(expectedFields);
   });

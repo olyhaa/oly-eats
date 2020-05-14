@@ -286,6 +286,18 @@ Object {
     "display": "My Recipe source",
     "url": "http://source.com",
   },
+  "tags": Array [
+    Object {
+      "id": "1",
+      "recipeid": "123",
+      "tagid": "1",
+    },
+    Object {
+      "id": "2",
+      "recipeid": "123",
+      "tagid": "23",
+    },
+  ],
   "timing": Object {
     "prep": Array [
       Object {
@@ -306,6 +318,25 @@ Object {
   },
   "title": "my title",
 }
+`;
+
+exports[`addTags multiple tags 1`] = `
+Array [
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "1",
+    "recipeid": "123",
+    "tagid": "1",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+  Object {
+    "createdAt": "2020-05-10 00:07:45.511 +00:00",
+    "id": "2",
+    "recipeid": "123",
+    "tagid": "23",
+    "updatedAt": "2020-05-10 00:08:45.511 +00:00",
+  },
+]
 `;
 
 exports[`constructIngredientObj only ingredient fields has subset of fields 1`] = `
@@ -394,6 +425,18 @@ Array [
       "display": "Mandy's Kitchen",
       "url": "http://some.url.com/recipe",
     },
+    "tags": Array [
+      Object {
+        "id": "1",
+        "recipeid": "123",
+        "tagid": "1",
+      },
+      Object {
+        "id": "2",
+        "recipeid": "123",
+        "tagid": "23",
+      },
+    ],
     "timing": Object {
       "prep": Array [
         Object {
@@ -468,6 +511,18 @@ Object {
     "display": "Mandy's Kitchen",
     "url": "http://some.url.com/recipe",
   },
+  "tags": Array [
+    Object {
+      "id": "1",
+      "recipeid": "123",
+      "tagid": "1",
+    },
+    Object {
+      "id": "2",
+      "recipeid": "123",
+      "tagid": "23",
+    },
+  ],
   "timing": Object {
     "prep": Array [
       Object {

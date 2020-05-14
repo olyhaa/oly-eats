@@ -5,6 +5,7 @@ import {
   ingredientsReducer,
   ingredientReducer,
   rangedAmountReducer,
+  tagsReducer,
 } from '../RecipeReducer';
 import { TIMINGS, TIME_UNITS } from '../../constants';
 
@@ -226,5 +227,28 @@ describe('rangedAmountReducer', () => {
       ingredientid: '1',
     };
     expect(rangedAmountReducer({ rangedAmount })).toMatchSnapshot();
+  });
+});
+
+describe('tagsReducer', () => {
+  it('empty array', () => {
+    const recipeTags = [];
+    expect(tagsReducer({ recipeTags })).toEqual([]);
+  });
+
+  it('properly reduces tags', () => {
+    const recipeTags = [
+      {
+        id: '1',
+        recipeid: '2',
+        tagid: '3',
+      },
+      {
+        id: '2',
+        recipeid: '2',
+        tagid: '4',
+      },
+    ];
+    expect(tagsReducer({ recipeTags })).toMatchSnapshot();
   });
 });

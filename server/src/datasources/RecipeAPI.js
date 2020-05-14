@@ -82,24 +82,19 @@ class RecipeAPI extends DataSource {
       ingredients: recipeFields.ingredients,
     });
 
-    /*
+    const recipeTags = await this.addTags({
+      recipeid: baseRecipe.id,
+      tags: recipeFields.tags,
+    });
 
-      const recipeTags = await this.store.RecipeTag.create(
-         constructRecipeTagObj({ recipeid: baseRecipe.id, recipeFields })
-       );
-*/
-    return recipeReducer(
-      {
-        recipe: baseRecipe,
-        prepTimeArray,
-        totalTimeArray,
-        directionSections,
-        ingredientSections,
-      }
-      /*
-      recipeTags
-      */
-    );
+    return recipeReducer({
+      recipe: baseRecipe,
+      prepTimeArray,
+      totalTimeArray,
+      directionSections,
+      ingredientSections,
+      recipeTags,
+    });
   }
 
   async updateRecipe({ id, recipe: updatedFields }) {
@@ -303,6 +298,32 @@ class RecipeAPI extends DataSource {
     return ingredientSectionArray;
   }
 
+  constructTagObj({ recipeid, tag }) {
+    if (tag?.tagid) {
+      return { recipeid, tagid: tag.tagid };
+    }
+    return undefined;
+  }
+
+  async addTags({ recipeid, tags }) {
+    const tagsArray = [];
+
+    if (Array.isArray(tags)) {
+      for (let i = 0; i < tags.length; i++) {
+        const tagObj = this.constructTagObj({
+          recipeid,
+          tag: tags[i],
+        });
+        if (tagObj) {
+          const tag = await this.store.RecipeTag.create(tagObj);
+          tagsArray.push(tag);
+        }
+      }
+    }
+
+    return tagsArray;
+  }
+
   async getRecipeData(id) {
     const recipe = await this.store.Recipe.findByPk(id);
     if (!recipe) {
@@ -346,6 +367,9 @@ class RecipeAPI extends DataSource {
         ingredientSections[i].ingredients = ingredients;
       }
     }
+    const recipeTags = await this.store.RecipeTag.findAll({
+      where: { recipeid: id },
+    });
 
     return {
       recipe,
@@ -353,6 +377,7 @@ class RecipeAPI extends DataSource {
       totalTimeArray,
       directionSections,
       ingredientSections,
+      recipeTags,
     };
   }
 }

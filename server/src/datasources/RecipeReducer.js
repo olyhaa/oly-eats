@@ -82,12 +82,23 @@ export const ingredientsReducer = ({ ingredientSections }) => {
   return reducedIngredients;
 };
 
+export const tagsReducer = ({ recipeTags }) => {
+  let reducedTags = [];
+  if (recipeTags) {
+    reducedTags = recipeTags.map((tag) => {
+      return { id: tag.id, recipeid: tag.recipeid, tagid: tag.tagid };
+    });
+  }
+  return reducedTags;
+};
+
 export const recipeReducer = ({
   recipe,
   prepTimeArray,
   totalTimeArray,
   directionSections,
   ingredientSections,
+  recipeTags,
 }) => {
   if (!recipe) {
     return null;
@@ -108,6 +119,7 @@ export const recipeReducer = ({
       prep: timeReducer({ timeArray: prepTimeArray }),
       total: timeReducer({ timeArray: totalTimeArray }),
     },
+    tags: tagsReducer({ recipeTags }),
     dateAdded: recipe.createdAt,
     dateUpdated: recipe.updatedAt,
   };
