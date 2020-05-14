@@ -70,13 +70,11 @@ const typeDefs = gql`
   }
 
   type DirectionSection {
-    id: String!
     label: String
     steps: [DirectionStep]!
   }
 
   type DirectionStep {
-    id: String!
     text: String!
   }
 
@@ -107,7 +105,6 @@ const typeDefs = gql`
   }
 
   type Timing {
-    id: String!
     value: Int!
     units: TimingUnit
   }

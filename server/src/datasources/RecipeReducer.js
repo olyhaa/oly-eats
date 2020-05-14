@@ -2,7 +2,7 @@ export const timeReducer = ({ timeArray }) => {
   let reducedTime = [];
   if (timeArray) {
     reducedTime = timeArray.map((element) => {
-      return { id: element.id, value: element.value, units: element.units };
+      return { value: element.value, units: element.units };
     });
   }
   return reducedTime;
@@ -12,7 +12,7 @@ export const directionStepsReducer = ({ steps }) => {
   let reducedSteps = [];
   if (steps) {
     reducedSteps = steps.map((step) => {
-      return { id: step.id, text: step.text };
+      return { text: step.text };
     });
   }
   return reducedSteps;
@@ -26,7 +26,6 @@ export const directionsReducer = ({ directionSections }) => {
       if (section.label) {
         reducedSection.label = section.label;
       }
-      reducedSection.id = section.id;
       reducedSection.steps = directionStepsReducer({
         steps: section.steps,
       });
