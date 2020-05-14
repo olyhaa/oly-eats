@@ -1669,4 +1669,72 @@ describe('constructTagObj', () => {
   });
 });
 
-describe('getRecipeData', () => {});
+describe('getRecipeData', () => {
+  it('invalid id', async () => {
+    mockStore.Recipe.findByPk.mockReturnValueOnce();
+    const bad_id = 'bad_id';
+    const response = await recipeDatasource.getRecipeData({
+      id: bad_id,
+    });
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id);
+
+    expect(response).toEqual({});
+  });
+
+  it('valid id', async () => {
+    mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
+    mockStore.Timing.findAll
+      .mockReturnValueOnce(mockTimings.slice(0, 1))
+      .mockReturnValueOnce(mockTimings.slice(1, 3));
+    mockStore.DirectionSection.findAll.mockReturnValueOnce(
+      mockDirectionSection.slice(0, 1)
+    );
+    mockStore.DirectionStep.findAll.mockReturnValueOnce(
+      mockDirectionStep.slice(0, 2)
+    );
+    mockStore.IngredientSection.findAll.mockReturnValueOnce(
+      mockIngredientSection.slice(0, 1)
+    );
+    mockStore.Ingredient.findAll.mockReturnValueOnce(
+      mockIngredient.slice(0, 2)
+    );
+    mockStore.RangedAmount.findOne
+      .mockReturnValueOnce()
+      .mockReturnValueOnce(mockRangedAmount[0]);
+    mockStore.RecipeTag.findAll.mockReturnValueOnce(mockTags.slice(0, 2));
+
+    const response = await recipeDatasource.getRecipeData({
+      id: mockRecipes[0].id,
+    });
+
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
+
+    expect(mockStore.Timing.findAll).toHaveBeenCalledTimes(2);
+    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
+      where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
+    });
+    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
+      where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
+    });
+    expect(mockStore.DirectionSection.findAll).toHaveBeenCalledWith({
+      where: { recipeid: mockRecipes[0].id },
+    });
+    expect(mockStore.DirectionStep.findAll).toHaveBeenCalledWith({
+      where: { sectionid: mockDirectionSection[0].id },
+    });
+    expect(mockStore.IngredientSection.findAll).toBeCalledWith({
+      where: { recipeid: mockRecipes[0].id },
+    });
+    expect(mockStore.Ingredient.findAll).toBeCalledWith({
+      where: { sectionid: mockIngredientSection[0].id },
+    });
+    expect(mockStore.RangedAmount.findOne).toBeCalledWith({
+      where: { ingredientid: mockIngredient[1].id },
+    });
+    expect(mockStore.RecipeTag.findAll).toBeCalledWith({
+      where: { recipeid: mockRecipes[0].id },
+    });
+
+    expect(response).toMatchSnapshot();
+  });
+});
