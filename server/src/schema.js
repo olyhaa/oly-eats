@@ -122,7 +122,7 @@ const typeDefs = gql`
     directions: [DirectionSectionInput]
     ingredients: [IngredientSectionInput]
     prepTime: [TimingInput]
-    totaTime: [TimingInput]
+    totalTime: [TimingInput]
     tags: [RecipeTaginput]
     dateAdded: String
     dateUpdated: String
