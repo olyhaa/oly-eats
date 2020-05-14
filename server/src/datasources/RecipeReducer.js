@@ -135,6 +135,6 @@ export const recipeMutationReducer = ({
   return {
     success,
     message,
-    recipe: recipeReducer(recipe ? { recipe } : {}),
+    recipe: recipeReducer(recipe ? recipe : {}),
   };
 };

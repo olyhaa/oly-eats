@@ -7,6 +7,7 @@ import {
   rangedAmountReducer,
   tagsReducer,
   recipeReducer,
+  recipeMutationReducer,
 } from '../RecipeReducer';
 import { TIMINGS, TIME_UNITS } from '../../constants';
 
@@ -193,6 +194,10 @@ const fullRecipe = {
 };
 
 describe('recipeReducer', () => {
+  it('no data', () => {
+    expect(recipeReducer({})).toBeNull();
+  });
+
   it('missing recipe component', () => {
     const recipe = Object.assign({}, fullRecipe);
     recipe.recipe = undefined;
@@ -204,7 +209,38 @@ describe('recipeReducer', () => {
   });
 });
 
-describe('recipeMutationReducer', () => {});
+describe('recipeMutationReducer', () => {
+  it('no success field', () => {
+    expect(
+      recipeMutationReducer({ message: 'Success!', recipe: fullRecipe })
+    ).toMatchSnapshot();
+  });
+
+  it('no message field', () => {
+    expect(
+      recipeMutationReducer({ success: true, recipe: fullRecipe })
+    ).toMatchSnapshot();
+  });
+
+  it('no recipe field', () => {
+    expect(
+      recipeMutationReducer({
+        success: true,
+        message: 'Success!',
+      })
+    ).toMatchSnapshot();
+  });
+
+  it('all fields', () => {
+    expect(
+      recipeMutationReducer({
+        success: true,
+        message: 'Success!',
+        recipe: fullRecipe,
+      })
+    ).toMatchSnapshot();
+  });
+});
 
 describe('timeReducer', () => {
   it('properly reduces direction step array', () => {
