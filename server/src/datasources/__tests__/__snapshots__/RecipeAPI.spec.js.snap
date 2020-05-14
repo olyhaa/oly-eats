@@ -451,7 +451,32 @@ Object {
     },
   ],
   "id": "123",
-  "ingredients": Array [],
+  "ingredients": Array [
+    Object {
+      "ingredients": Array [
+        Object {
+          "amount": "2",
+          "name": "apples",
+          "optional": true,
+          "prep": "chopped",
+          "toTaste": true,
+          "unit": "cup",
+        },
+        Object {
+          "amount": Object {
+            "max": "10",
+            "min": "5",
+          },
+          "name": "garlic",
+          "optional": false,
+          "prep": "minced",
+          "toTaste": true,
+          "unit": "tablespoon",
+        },
+      ],
+      "label": "ingredient section 1",
+    },
+  ],
   "photo": "http://some.url.com/pic.jpg",
   "servings": 2,
   "source": Object {
