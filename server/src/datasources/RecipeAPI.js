@@ -1,6 +1,6 @@
 import { DataSource } from 'apollo-datasource';
 import { TIMINGS } from '../constants';
-import { extendResolversFromInterfaces } from 'apollo-server';
+import { recipeReducer, recipeMutationReducer } from './RecipeReducer';
 
 class RecipeAPI extends DataSource {
   constructor({ store }) {
@@ -14,7 +14,7 @@ class RecipeAPI extends DataSource {
       ? await Promise.all(
           response.map(async (recipe) => {
             const recipeObjs = await this.getRecipeData(recipe.id);
-            return this.recipeReducer(recipeObjs);
+            return recipeReducer(recipeObjs);
           })
         )
       : [];
@@ -22,19 +22,19 @@ class RecipeAPI extends DataSource {
 
   async getRecipe({ id }) {
     const recipeObjs = await this.getRecipeData(id);
-    return this.recipeReducer(recipeObjs);
+    return recipeReducer(recipeObjs);
   }
 
   async deleteRecipe({ id }) {
     const recipe = await this.store.Recipe.findByPk(id);
     if (!recipe) {
-      return this.recipeMutationReducer({
+      return recipeMutationReducer({
         success: false,
         message: 'ID not found',
       });
     }
     await recipe.destroy();
-    return this.recipeMutationReducer({
+    return recipeMutationReducer({
       success: true,
     });
   }
@@ -88,7 +88,7 @@ class RecipeAPI extends DataSource {
          constructRecipeTagObj({ recipeid: baseRecipe.id, recipeFields })
        );
 */
-    return this.recipeReducer(
+    return recipeReducer(
       {
         recipe: baseRecipe,
         prepTimeArray,
@@ -117,7 +117,7 @@ class RecipeAPI extends DataSource {
     );
     // TODO handle errors
     response = await this.store.Recipe.findByPk(id);
-    return this.recipeReducer(response);
+    return recipeReducer(response);
   }
 
   constructBaseRecipeObj(newFields) {
@@ -334,136 +334,6 @@ class RecipeAPI extends DataSource {
       prepTimeArray,
       totalTimeArray,
       directionSections,
-    };
-  }
-
-  timeReducer({ timeArray }) {
-    let reducedTime = [];
-    if (timeArray) {
-      reducedTime = timeArray.map((element) => {
-        return { id: element.id, value: element.value, units: element.units };
-      });
-    }
-    return reducedTime;
-  }
-
-  directionStepsReducer({ steps }) {
-    let reducedSteps = [];
-    if (steps) {
-      reducedSteps = steps.map((step) => {
-        return { id: step.id, text: step.text };
-      });
-    }
-    return reducedSteps;
-  }
-
-  directionsReducer({ directionSections }) {
-    let reducedDirections = [];
-    if (directionSections) {
-      reducedDirections = directionSections.map((section) => {
-        const reducedSection = {};
-        if (section.label) {
-          reducedSection.label = section.label;
-        }
-        reducedSection.id = section.id;
-        reducedSection.steps = this.directionStepsReducer({
-          steps: section.steps,
-        });
-        return reducedSection;
-      });
-    }
-    return reducedDirections;
-  }
-
-  rangedAmountReducer({ rangedAmount }) {
-    let reducedRangedAmount = [];
-    if (rangedAmount) {
-      return {
-        min: rangedAmount.min,
-        max: rangedAmount.max,
-      };
-    }
-    return reducedRangedAmount;
-  }
-
-  ingredientReducer({ ingredient }) {
-    const reducedIngredient = {};
-    if (ingredient) {
-      reducedIngredient.amount =
-        ingredient.amount ??
-        this.rangedAmountReducer({
-          rangedAmount: ingredient.rangedAmount,
-        });
-      reducedIngredient.unit = ingredient.unit;
-      reducedIngredient.prep = ingredient.prep;
-      reducedIngredient.name = ingredient.name;
-      reducedIngredient.toTaste = ingredient.toTaste;
-      reducedIngredient.optional = ingredient.optional;
-    }
-    return reducedIngredient;
-  }
-
-  ingredientsReducer({ ingredients }) {
-    let reducedIngredients = [];
-    if (ingredients) {
-      reducedIngredients = ingredients.map((section) => {
-        const reducedSection = {};
-        if (section.label) {
-          reducedSection.label = section.label;
-        }
-        reducedSection.ingredients = section.ingredients.map((ingredient) => {
-          return this.ingredientReducer({
-            ingredient,
-          });
-        });
-        return reducedSection;
-      });
-    }
-    return reducedIngredients;
-  }
-
-  recipeReducer({
-    recipe,
-    prepTimeArray,
-    totalTimeArray,
-    directionSections,
-    ingredients,
-  }) {
-    if (!recipe) {
-      return null;
-    }
-    const recipeObj = {
-      id: recipe.id,
-      title: recipe.title,
-      description: recipe.description,
-      source: {
-        display: recipe.source_display,
-        url: recipe.source_url,
-      },
-      photo: recipe.photo_url,
-      servings: recipe.servings,
-      directions: this.directionsReducer({ directionSections }),
-      ingredients: this.ingredientsReducer({ ingredients }),
-      timing: {
-        prep: this.timeReducer({ timeArray: prepTimeArray }),
-        total: this.timeReducer({ timeArray: totalTimeArray }),
-      },
-      dateAdded: recipe.createdAt,
-      dateUpdated: recipe.updatedAt,
-    };
-
-    return recipeObj;
-  }
-
-  recipeMutationReducer({
-    success = false,
-    message = undefined,
-    recipe = null,
-  }) {
-    return {
-      success,
-      message,
-      recipe: this.recipeReducer(recipe ? { recipe } : {}),
     };
   }
 }
