@@ -2,7 +2,7 @@ const DirectionSection = (db, SQL, Recipe) => {
   return db.define('direction_section', {
     label: {
       type: SQL.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     recipeid: {
       type: SQL.STRING,
