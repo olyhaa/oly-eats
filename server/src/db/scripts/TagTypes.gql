@@ -1,0 +1,63 @@
+query GetAllTagTypes {
+  allTagTypes {
+    id
+    label
+  }
+}
+
+mutation AddTagTypes {
+  addCategory: addTagType(label: "category") {
+    success
+    message
+    tagType {
+      id
+      label
+    }
+  }
+  addCuisine: addTagType(label: "cuisine") {
+    success
+    message
+    tagType {
+      id
+      label
+    }
+  }
+  addEquipment: addTagType(label: "equipment") {
+    success
+    message
+    tagType {
+      id
+      label
+    }
+  }
+  addMealType: addTagType(label: "meal_type") {
+    success
+    message
+    tagType {
+      id
+      label
+    }
+  }
+}
+
+mutation UpdateTagType {
+  updateTagType(id: "2", label: "cuisine") {
+    success
+    message
+    tagType {
+      id
+      label
+    }
+  }
+}
+
+mutation DeleteTagType {
+  deleteTagType(id: "6") {
+    success
+    message
+    tagType {
+      id
+      label
+    }
+  }
+}

@@ -1,0 +1,296 @@
+query GetAllTags {
+  GetAllCategories: allTags(typeid: "1") {
+    id
+    typeid
+    label
+  }
+  GetAllCuisines: allTags(typeid: "2") {
+    id
+    typeid
+    label
+  }
+  GetAllEquipment: allTags(typeid: "3") {
+    id
+    typeid
+    label
+  }
+  GetAllMealTypes: allTags(typeid: "4") {
+    id
+    typeid
+    label
+  }
+}
+
+query GetBadType {
+  allTags(typeid: "100") {
+    id
+    typeid
+    label
+  }
+}
+
+mutation addTags {
+  addCateorySoup: addTag(typeid: "1", label: "soup") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+
+  addCateorySalad: addTag(typeid: "1", label: "salad") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+
+  addCateoryBread: addTag(typeid: "1", label: "bread") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCateorySandwich: addTag(typeid: "1", label: "sandwich") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCateoryCasserole: addTag(typeid: "1", label: "casserole") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCateorybakery: addTag(typeid: "1", label: "bakery") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisinemexican: addTag(typeid: "2", label: "mexican") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisinejapanese: addTag(typeid: "2", label: "japanese") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisinethai: addTag(typeid: "2", label: "thai") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisinechinese: addTag(typeid: "2", label: "chinese") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisineamerican: addTag(typeid: "2", label: "american") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisinemediteranean: addTag(typeid: "2", label: "mediteranean") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisineasian: addTag(typeid: "2", label: "asian") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addCuisineportuguese: addTag(typeid: "2", label: "portuguese") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addEquipment: addTag(typeid: "3", label: "grill") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addEquipmentslowcooker: addTag(typeid: "3", label: "slow cooker") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addEquipmentpressurecooker: addTag(typeid: "3", label: "pressure cooker") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addEquipmentairfryer: addTag(typeid: "3", label: "air fryer") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addEquipmentsteamer: addTag(typeid: "3", label: "steamer") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addMealTypebreakfast: addTag(typeid: "4", label: "breakfast") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addMealTypedinner: addTag(typeid: "4", label: "dinner") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addMealTypesnack: addTag(typeid: "4", label: "snack") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addMealTypedessert: addTag(typeid: "4", label: "dessert") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addMealTypeside: addTag(typeid: "4", label: "side") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+  addMealTypeglutenfree: addTag(typeid: "4", label: "gluten-free") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+}
+
+mutation addBadTag {
+  addTag(typeid: "5", label: "bad tag") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+}
+
+mutation UpdateTag {
+  updateTag(id: "27", label: "new bad category") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+}
+
+mutation DeleteTag {
+  deleteTag(id: "26") {
+    success
+    message
+    tag {
+      id
+      typeid
+      label
+    }
+  }
+}
