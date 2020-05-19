@@ -56,17 +56,20 @@ const typeDefs = gql`
     id: ID!
     title: String!
     description: String
-    source_display: String!
-    source_url: String
-    photo_url: String
+    source: Source
+    photo: String
     servings: Int!
     directions: [DirectionSection]
     ingredients: [IngredientSection]
-    prepTime: [Timing]!
-    totaTime: [Timing]!
-    tags: [RecipeTag]
+    timing: TimeGroup
+    tags: [Tag]
     dateAdded: String
     dateUpdated: String
+  }
+
+  type Source {
+    display: String
+    url: String
   }
 
   type DirectionSection {
@@ -98,8 +101,6 @@ const typeDefs = gql`
     max: String!
   }
 
-  type RecipeTag {
-    tagid: String!
   type TimeGroup {
     prep: [Timing]
     total: [Timing]
@@ -107,7 +108,7 @@ const typeDefs = gql`
 
   type Timing {
     value: Int!
-    units: TimingUnit
+    units: TimingUnit!
   }
 
   enum TimingUnit {
@@ -166,7 +167,6 @@ const typeDefs = gql`
   }
 
   input RecipeTaginput {
-    recipeid: ID
     tagid: ID
   }
 `;
