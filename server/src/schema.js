@@ -3,24 +3,24 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
   type Query {
     allTagTypes: [TagType]
-    allTags(typeid: String!): [Tag]
+    allTags(typeid: ID!): [Tag]
 
     recipes: [Recipe]
-    recipe(id: String!): Recipe
+    recipe(id: ID!): Recipe
   }
 
   type Mutation {
     addTagType(label: String!): TagTypeMutation
-    deleteTagType(id: String!): TagTypeMutation
-    updateTagType(id: String!, label: String!): TagTypeMutation
+    deleteTagType(id: ID!): TagTypeMutation
+    updateTagType(id: ID!, label: String!): TagTypeMutation
 
     addTag(typeid: String!, label: String!): TagMutation
-    deleteTag(id: String!): TagMutation
-    updateTag(id: String!, label: String): TagMutation
+    deleteTag(id: ID!): TagMutation
+    updateTag(id: ID!, label: String): TagMutation
 
     addRecipe(recipe: RecipeInput!): RecipeMutation
-    deleteRecipe(id: String!): RecipeMutation
-    updateRecipe(id: String!, recipe: RecipeInput!): RecipeMutation
+    deleteRecipe(id: ID!): RecipeMutation
+    updateRecipe(id: ID!, recipe: RecipeInput!): RecipeMutation
   }
 
   type TagTypeMutation {
@@ -36,24 +36,24 @@ const typeDefs = gql`
   }
 
   type TagType {
-    id: String!
+    id: ID!
     label: String!
   }
 
   type Tag {
-    id: String!
-    typeid: String!
+    id: ID!
+    typeid: ID!
     label: String!
   }
 
   type RecipeMutation {
     success: Boolean!
     message: String
-    recipe: String
+    recipe: Recipe
   }
 
   type Recipe {
-    id: String!
+    id: ID!
     title: String!
     description: String
     source_display: String!
@@ -100,6 +100,9 @@ const typeDefs = gql`
 
   type RecipeTag {
     tagid: String!
+  type TimeGroup {
+    prep: [Timing]
+    total: [Timing]
   }
 
   type Timing {
@@ -163,8 +166,8 @@ const typeDefs = gql`
   }
 
   input RecipeTaginput {
-    recipeid: String
-    tagid: String
+    recipeid: ID
+    tagid: ID
   }
 `;
 export default typeDefs;
