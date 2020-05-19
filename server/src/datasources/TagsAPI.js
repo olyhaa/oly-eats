@@ -13,7 +13,7 @@ class TagsAPI extends DataSource {
       return [];
     }
     const tagArray = await this.store.Tag.findAll({
-      where: { typeid: tagType.id },
+      where: { tagTypeId: tagType.id },
     });
     return Array.isArray(tagArray)
       ? tagArray.map((tag) => tagReducer(tag))
@@ -29,7 +29,7 @@ class TagsAPI extends DataSource {
       });
     }
     const tag = await this.store.Tag.create({
-      typeid: tagType.id,
+      tagTypeId: tagType.id,
       label,
     });
 
