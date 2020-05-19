@@ -33,6 +33,7 @@ class RecipeAPI extends DataSource {
         message: 'ID not found',
       });
     }
+    // TODO delete everyting associated with recipe
     await recipe.destroy();
     return recipeMutationReducer({
       success: true,
@@ -87,13 +88,16 @@ class RecipeAPI extends DataSource {
       tags: recipeFields.tags,
     });
 
-    return recipeReducer({
-      recipe: baseRecipe,
-      prepTimeArray,
-      totalTimeArray,
-      directionSections,
-      ingredientSections,
-      recipeTags,
+    return recipeMutationReducer({
+      success: true,
+      recipe: {
+        recipe: baseRecipe,
+        prepTimeArray,
+        totalTimeArray,
+        directionSections,
+        ingredientSections,
+        recipeTags,
+      },
     });
   }
 
