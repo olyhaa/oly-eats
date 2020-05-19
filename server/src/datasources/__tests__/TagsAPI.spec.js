@@ -15,27 +15,27 @@ const mockTagTypes = [
 const mockTags = [
   {
     id: '1',
-    typeid: '1',
+    tagTypeId: '1',
     label: 'bakery',
   },
   {
     id: '2',
-    typeid: '1',
+    tagTypeId: '1',
     label: 'casserole',
   },
   {
     id: '3',
-    typeid: '1',
+    tagTypeId: '1',
     label: 'salad',
   },
   {
     id: '7',
-    typeid: '2',
+    tagTypeId: '2',
     label: 'american',
   },
   {
     id: '8',
-    typeid: '2',
+    tagTypeId: '2',
     label: 'asian',
   },
 ];
@@ -62,7 +62,7 @@ describe('getAllTags', () => {
     });
     expect(mockStore.TagType.findByPk).toBeCalledWith(mockTagTypes[0].id);
     expect(mockStore.Tag.findAll).toBeCalledWith({
-      where: { typeid: mockTagTypes[0].id },
+      where: { tagTypeId: mockTagTypes[0].id },
     });
     expect(response).toEqual([]);
   });
@@ -87,7 +87,7 @@ describe('getAllTags', () => {
       typeid: mockTagTypes[0].id,
     });
     expect(mockStore.Tag.findAll).toBeCalledWith({
-      where: { typeid: mockTagTypes[0].id },
+      where: { tagTypeId: mockTagTypes[0].id },
     });
     expect(response).toEqual(
       mockTags.slice(0, 3).map((tag) => tagReducer(tag))
@@ -111,7 +111,7 @@ describe('addTag', () => {
     // make sure store is called properly
     expect(mockStore.TagType.findByPk).toBeCalledWith(mockTagTypes[0].id);
     expect(mockStore.Tag.create).toBeCalledWith({
-      typeid: mockTagTypes[0].id,
+      tagTypeId: mockTagTypes[0].id,
       label: test_label,
     });
   });
