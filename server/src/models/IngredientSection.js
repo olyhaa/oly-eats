@@ -4,14 +4,6 @@ const IngredientSection = (db, SQL, Recipe) => {
       type: SQL.STRING,
       allowNull: true,
     },
-    recipeid: {
-      type: SQL.STRING,
-      allowNull: false,
-      references: {
-        model: Recipe,
-        key: 'id',
-      },
-    },
   });
 };
 

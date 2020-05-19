@@ -1,16 +1,8 @@
-const DirectionStep = (db, SQL, DirectionSection) => {
+const DirectionStep = (db, SQL) => {
   return db.define('direction_step', {
     text: {
       type: SQL.STRING,
       allowNull: false,
-    },
-    sectionid: {
-      type: SQL.STRING,
-      allowNull: false,
-      references: {
-        model: DirectionSection,
-        key: 'id',
-      },
     },
   });
 };

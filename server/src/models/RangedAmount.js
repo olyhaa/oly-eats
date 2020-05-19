@@ -1,4 +1,4 @@
-const RangedAmount = (db, SQL, Ingredient) => {
+const RangedAmount = (db, SQL) => {
   return db.define('ranged_amount', {
     min: {
       type: SQL.STRING,
@@ -7,14 +7,6 @@ const RangedAmount = (db, SQL, Ingredient) => {
     max: {
       type: SQL.STRING,
       allowNull: false,
-    },
-    ingredientid: {
-      type: SQL.STRING,
-      allowNull: false,
-      references: {
-        model: Ingredient,
-        key: 'id',
-      },
     },
   });
 };

@@ -1,16 +1,8 @@
-const DirectionSection = (db, SQL, Recipe) => {
+const DirectionSection = (db, SQL) => {
   return db.define('direction_section', {
     label: {
       type: SQL.STRING,
       allowNull: true,
-    },
-    recipeid: {
-      type: SQL.STRING,
-      allowNull: false,
-      references: {
-        model: Recipe,
-        key: 'id',
-      },
     },
   });
 };

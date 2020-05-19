@@ -7,7 +7,6 @@ import DirectionSectionModel from '../models/DirectionSection';
 import RecipeModel from '../models/Recipe';
 import IngredientSectionModel from '../models/IngredientSection';
 import IngredientModel from '../models/Ingredient';
-import RecipeTagModel from '../models/RecipeTag';
 import RangedAmountModel from '../models/RangedAmount';
 
 export const createStore = () => {
@@ -23,24 +22,49 @@ export const createStore = () => {
     logging: true,
   });
 
+  // define Models
   const TagType = new TagTypeModel(db, SQL);
-  const Tag = new TagModel(db, SQL, TagType);
+  const Tag = new TagModel(db, SQL);
   const Recipe = new RecipeModel(db, SQL);
-  const DirectionSection = new DirectionSectionModel(db, SQL, Recipe);
-  const DirectionStep = new DirectionStepModel(db, SQL, DirectionSection);
-  const Timing = new TimingModel(db, SQL, Recipe);
-  const IngredientSection = new IngredientSectionModel(db, SQL, Recipe);
-  const Ingredient = new IngredientModel(db, SQL, IngredientSection);
-  const RangedAmount = new RangedAmountModel(db, SQL, Ingredient);
-  const RecipeTag = new RecipeTagModel(db, SQL, Recipe, Tag);
+  const DirectionSection = new DirectionSectionModel(db, SQL);
+  const DirectionStep = new DirectionStepModel(db, SQL);
+  const Timing = new TimingModel(db, SQL);
+  const IngredientSection = new IngredientSectionModel(db, SQL);
+  const Ingredient = new IngredientModel(db, SQL);
+  const RangedAmount = new RangedAmountModel(db, SQL);
+
+  // define relationships
+  TagType.hasMany(Tag);
+  Tag.belongsTo(TagType);
+
+  Recipe.hasMany(DirectionSection);
+  DirectionSection.belongsTo(Recipe);
+
+  DirectionSection.hasMany(DirectionStep);
+  DirectionStep.belongsTo(DirectionSection);
+
+  Recipe.hasMany(IngredientSection);
+  IngredientSection.belongsTo(Recipe);
+
+  IngredientSection.hasMany(Ingredient);
+  Ingredient.belongsTo(IngredientSection);
+
+  Ingredient.hasOne(RangedAmount);
+  RangedAmount.belongsTo(Ingredient);
+
+  Recipe.hasMany(Timing);
+  Timing.belongsTo(Recipe);
+
+  Recipe.hasMany(Tag);
+  Tag.belongsToMany(Recipe, { through: 'recipe_tags' });
 
   // Sync all the models
   db.sync()
     .then(() => {
       console.info('Database sync complete.');
     })
-    .catch(() => {
-      console.error('ERROR - Unable to sync database.');
+    .catch((error) => {
+      console.error('ERROR - Unable to sync database: \n' + error);
     });
 
   return {
@@ -52,7 +76,6 @@ export const createStore = () => {
     Ingredient,
     RangedAmount,
     Timing,
-    RecipeTag,
     Tag,
     TagType,
   };

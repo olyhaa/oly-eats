@@ -1,4 +1,4 @@
-const Ingredient = (db, SQL, IngredientSection) => {
+const Ingredient = (db, SQL) => {
   return db.define('ingredient', {
     amount: {
       type: SQL.STRING,
@@ -20,14 +20,6 @@ const Ingredient = (db, SQL, IngredientSection) => {
     optional: {
       type: SQL.BOOLEAN,
       allowNull: false,
-    },
-    sectionid: {
-      type: SQL.STRING,
-      allowNull: false,
-      references: {
-        model: IngredientSection,
-        key: 'id',
-      },
     },
   });
 };
