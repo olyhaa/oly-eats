@@ -1,0 +1,131 @@
+mutation AddRecipe {
+  addRecipe(
+    recipe: {
+      title: "Vegetarian Chili"
+      description: "While this time of year can seem gray, cold, and dark, this Vegetarian Chili is the exact opposite!"
+      source_display: "Well Plated"
+      source_url: "https://www.wellplated.com/instant-pot-vegetarian-chili/"
+      photo_url: "https://i2.wp.com/wellplated.com/wp-content/uploads/2018/10/Instant-Pot-Vegetarian-Chili-Canned-Beans-600x747.jpg"
+      servings: 6
+      ingredients: [
+        {
+          ingredients: [
+            { amount: "1", unit: "tablespoon", name: "olive oil" }
+            { amount: "1", prep: "1/4-inch diced", name: "medium yellow onion" }
+            {
+              amount: "2"
+              prep: "about 4 generous cups, peeled and 1/2-inch diced"
+              name: "medium sweet potatoes"
+            }
+            {
+              amount: "2"
+              prep: "3/4-inch diced"
+              name: "medium red bell peppers"
+            }
+            { amount: "4", unit: "clove", prep: "minced", name: "garlic" }
+            { amount: "1", unit: "tablespoon", name: "chili powder" }
+            { amount: "1", unit: "teaspoon", name: "chipotle chili powder" }
+            { amount: "1", unit: "teaspoon", name: "ground cumin" }
+            { amount: "1 1/4", unit: "teaspoon", name: "kosher salt" }
+            { amount: "2 1/2", unit: "cup", name: "low-sodium vegetable broth" }
+            {
+              amount: "1"
+              prep: "8-ounce"
+              name: "can low-sodium or no-salt-added tomato sauce"
+            }
+            { amount: "1/2", unit: "cup", name: "uncooked quinoa" }
+            {
+              amount: "1"
+              prep: "15-ounce, rinsed and drained"
+              name: "can low-sodium black beans"
+            }
+            {
+              amount: "1"
+              prep: "15-ounce, rinsed and drained"
+              name: "can low-sodium dark or light red kidney beans"
+            }
+            {
+              rangedAmount: { min: "1/4", max: "1/2" }
+              unit: "teaspoon"
+              name: "granulated sugar"
+            }
+          ]
+        }
+      ]
+      directions: [
+        {
+          label: "direction group 1"
+          steps: [
+            {
+              text: "To a 6-quart or large Instant Pot, add the olive oil. Turn to SAUTE and let the oil heat. Once the oil is hot, add the onion and cook until beginning to soften, about 3 minutes. Add the sweet potatoes, bell pepper, garlic, chili powder, chipotle chili powder, cumin, and kosher salt. Cook for 1 to 2 additional minutes, until the garlic is fragrant."
+            }
+            {
+              text: "Add half of the vegetable broth and stir, scraping up any stuck-on bits of food (this will prevent a burn warning). Stir in the remaining broth and the quinoa. Pour the tomato sauce on top (do not stir again)."
+            }
+            {
+              text: "Cover and seal the Instant Pot. Cook on manual (HIGH) pressure for 8 minutes. Immediately release the pressure. Carefully open the Instant Pot."
+            }
+            {
+              text: "Turn the Instant Pot to OFF. Stir in the black beans, kidney beans, and sugar. Place the lid back on top and let stand 10 minutes to thicken. Uncover. Taste and adjust seasoning as desired. Serve hot, with any and all the toppings!"
+            }
+          ]
+        }
+      ]
+      prepTime: [{ value: 15, units: MINUTE }, { value: 1, units: HOUR }]
+      totalTime: [{ value: 1, units: HOUR }]
+      tags: [{ id: "22" }, { id: "17" }, { id: "5" }, { id: "7" }]
+    }
+  ) {
+    success
+    message
+    recipe {
+      id
+      title
+      description
+      source {
+        display
+        url
+      }
+      photo
+      servings
+      directions {
+        label
+        steps {
+          text
+        }
+      }
+      ingredients {
+        label
+        ingredients {
+          amount
+          rangedAmount {
+            min
+            max
+          }
+          unit
+          prep
+          name
+          toTaste
+          optional
+        }
+      }
+      timing {
+        prep {
+          value
+          units
+        }
+        total {
+          value
+          units
+        }
+      }
+      tags {
+        id
+        label
+        typeid
+      }
+      dateAdded
+      dateUpdated
+    }
+  }
+}
