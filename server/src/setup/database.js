@@ -67,25 +67,35 @@ export const createStore = () => {
   const RecipeTag = new RecipeTagModel(db);
 
   // define relationships
-  Tag.TagType = TagType.hasMany(Tag);
+  Tag.TagType = TagType.hasMany(Tag, { onDelete: 'cascade' });
   TagType.Tag = Tag.belongsTo(TagType);
 
-  DirectionSection.Recipe = Recipe.hasMany(DirectionSection);
+  DirectionSection.Recipe = Recipe.hasMany(DirectionSection, {
+    onDelete: 'cascade',
+  });
   Recipe.DirectionSection = DirectionSection.belongsTo(Recipe);
 
-  DirectionStep.DirectionSection = DirectionSection.hasMany(DirectionStep);
+  DirectionStep.DirectionSection = DirectionSection.hasMany(DirectionStep, {
+    onDelete: 'cascade',
+  });
   DirectionSection.DirectionStep = DirectionStep.belongsTo(DirectionSection);
 
-  IngredientSection.Recipe = Recipe.hasMany(IngredientSection);
+  IngredientSection.Recipe = Recipe.hasMany(IngredientSection, {
+    onDelete: 'cascade',
+  });
   Recipe.IngredientSection = IngredientSection.belongsTo(Recipe);
 
-  Ingredient.IngredientSection = IngredientSection.hasMany(Ingredient);
+  Ingredient.IngredientSection = IngredientSection.hasMany(Ingredient, {
+    onDelete: 'cascade',
+  });
   IngredientSection.Ingredient = Ingredient.belongsTo(IngredientSection);
 
-  RangedAmount.Ingredient = Ingredient.hasOne(RangedAmount);
+  RangedAmount.Ingredient = Ingredient.hasOne(RangedAmount, {
+    onDelete: 'cascade',
+  });
   Ingredient.RangedAmount = RangedAmount.belongsTo(Ingredient);
 
-  Timing.Recipe = Recipe.hasMany(Timing);
+  Timing.Recipe = Recipe.hasMany(Timing, { onDelete: 'cascade' });
   Recipe.Timing = Timing.belongsTo(Recipe);
 
   Recipe.belongsToMany(Tag, { through: RecipeTag });
