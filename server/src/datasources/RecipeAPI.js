@@ -115,6 +115,7 @@ class RecipeAPI extends DataSource {
     const recipeObj = await this.getRecipeData({ id: baseRecipe.id });
     return recipeMutationReducer({
       success: false,
+      message: 'Action not supported yet',
       recipe: recipeObj,
     });
   }
