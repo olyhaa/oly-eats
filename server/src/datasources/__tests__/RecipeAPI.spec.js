@@ -654,7 +654,20 @@ describe('addTags', () => {
   });
 });
 
-describe.skip('updateRecipe', () => {});
+describe('updateRecipe', () => {
+  it('id not found', async () => {
+    mockStore.Recipe.findByPk.mockReturnValueOnce(null);
+    const bad_id = 'bad id';
+
+    // check the result of the fn
+    const res = await recipeDatasource.updateRecipe({ id: bad_id });
+    expect(res).toMatchSnapshot();
+
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id);
+  });
+
+  it.skip('calls store update and returns result - id exists', async () => {});
+});
 
 describe('constructBaseRecipeObj', () => {
   describe('no base recipe fields', () => {

@@ -99,17 +99,24 @@ class RecipeAPI extends DataSource {
   async updateRecipe({ id, recipe: updatedFields }) {
     const recipe = await this.store.Recipe.findByPk(id);
     if (!recipe) {
-      // TODO handle errors
+      return recipeMutationReducer({
+        success: false,
+        message: 'ID not found',
+      });
     }
+    /*
     let response = await this.store.Recipe.update(
       this.constructBaseRecipeObj(updatedFields),
       {
         where: { id: id },
       }
     );
-    // TODO handle errors
-    response = await this.store.Recipe.findByPk(id);
-    return recipeReducer(response);
+*/
+    const recipeObj = await this.getRecipeData({ id: baseRecipe.id });
+    return recipeMutationReducer({
+      success: false,
+      recipe: recipeObj,
+    });
   }
 
   constructBaseRecipeObj(newFields) {
