@@ -143,10 +143,10 @@ const typeDefs = gql`
 
   input IngredientSectionInput {
     label: String
-    ingredients: [Ingredientinput]
+    ingredients: [IngredientInput]
   }
 
-  input Ingredientinput {
+  input IngredientInput {
     amount: String
     rangedAmount: RangedAmountInput
     unit: String
