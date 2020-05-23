@@ -106,17 +106,17 @@ function Overview({
 Overview.propTypes = {
   prepTime: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
+      value: PropTypes.number,
       units: PropTypes.string,
     })
   ).isRequired,
   totalTime: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
+      value: PropTypes.number,
       units: PropTypes.string,
     })
   ).isRequired,
-  servings: PropTypes.string.isRequired,
+  servings: PropTypes.number.isRequired,
   source: PropTypes.shape({
     display: PropTypes.string,
     url: PropTypes.string,

@@ -5,13 +5,9 @@ export const RangedAmountPropTypes = {};
 RangedAmountPropTypes[RECIPE.INGREDIENTS_AMOUNT_MIN] = PropTypes.string;
 RangedAmountPropTypes[RECIPE.INGREDIENTS_AMOUNT_MAX] = PropTypes.string;
 
-const amountPropType = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.shape(RangedAmountPropTypes),
-]).isRequired;
-
 const ingredientItemPropType = {};
-ingredientItemPropType[RECIPE.INGREDIENT_AMOUNT] = amountPropType;
+ingredientItemPropType[RECIPE.INGREDIENTS_AMOUNT] = PropTypes.string;
+ingredientItemPropType[RECIPE.INGREDIENTS_RANGE] = RangedAmountPropTypes;
 ingredientItemPropType[RECIPE.INGREDIENTS_UNIT] = PropTypes.string;
 ingredientItemPropType[RECIPE.INGREDIENTS_NAME] = PropTypes.string.isRequired;
 ingredientItemPropType[RECIPE.INGREDIENTS_PREP] = PropTypes.string;

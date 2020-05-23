@@ -37,6 +37,7 @@ function IngredientSection({ label, ingredients }) {
               index={index}
               key={index}
               amount={ingredientItem[RECIPE.INGREDIENTS_AMOUNT]}
+              rangedAmount={ingredientItem[RECIPE.INGREDIENTS_RANGE]}
               unit={ingredientItem[RECIPE.INGREDIENTS_UNIT]}
               name={ingredientItem[RECIPE.INGREDIENTS_NAME]}
               prep={ingredientItem[RECIPE.INGREDIENTS_PREP]}

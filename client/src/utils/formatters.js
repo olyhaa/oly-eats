@@ -63,7 +63,7 @@ export const getDisplayTime = (timeArray) => {
         item[RECIPE.TIMING_VALUE] > 1
           ? Pluralize.plural(item[RECIPE.TIMING_UNIT])
           : item[RECIPE.TIMING_UNIT];
-      displayStr += `${item.value} ${unit} `;
+      displayStr += `${item.value} ${unit.toLowerCase()} `;
     });
     return displayStr.trim();
   }

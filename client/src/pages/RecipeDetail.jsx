@@ -5,13 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import { RECIPE } from 'utils/recipeConstants';
 import EditIcon from '@material-ui/icons/Edit';
-import getRecipeObject from '../utils/FetchData';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import Header from '../components/Header';
+import { getRecipeQuery } from 'utils/FetchData';
+import { useQuery } from 'react-apollo';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +54,16 @@ const useStyles = makeStyles((theme) => ({
 function RecipeDetail() {
   const classes = useStyles();
   const { id } = useParams();
-  const recipe = getRecipeObject(id);
+  const { data, loading } = useQuery(getRecipeQuery(), {
+    variables: { id },
+  });
+
+  // TODO
+  if (loading) {
+    return <span>Loading!</span>;
+  }
+
+  const recipe = data.recipe;
 
   if (!recipe) {
     return (

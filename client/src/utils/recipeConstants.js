@@ -1,6 +1,6 @@
 export const TIMING_UNITS = {
-  MINUTE: 'minute',
-  HOUR: 'hour',
+  MINUTE: 'MINUTE',
+  HOUR: 'HOUR',
 };
 
 const ID = 'id';
@@ -11,10 +11,11 @@ const SOURCE_DISPLAY = 'display';
 const SOURCE_URL = 'url';
 const PHOTO = 'photo';
 const SERVINGS = 'servings';
-const INGREDIENT_SECTION = 'ingredientSection';
+const INGREDIENT_SECTION = 'ingredients';
 const INGREDIENT_SECTION_INGREDIENTS = 'ingredients';
 const INGREDIENT_SECTION_LABEL = 'label';
 const INGREDIENTS_AMOUNT = 'amount';
+const INGREDIENTS_RANGE = 'rangedAmount';
 const INGREDIENTS_AMOUNT_MIN = 'min';
 const INGREDIENTS_AMOUNT_MAX = 'max';
 const INGREDIENTS_UNIT = 'unit';
@@ -22,7 +23,7 @@ const INGREDIENTS_NAME = 'name';
 const INGREDIENTS_PREP = 'prep';
 const INGREDIENTS_TO_TASTE = 'toTaste';
 const INGREDIENTS_OPTIONAL = 'optional';
-const DIRECTIONS_SECTION = 'directionsSection';
+const DIRECTIONS_SECTION = 'directions';
 const DIRECTIONS_SECTION_LABEL = 'label';
 const DIRECTIONS_SECTION_STEPS = 'steps';
 const DIRECTIONS_SECTION_TEXT = 'text';
@@ -52,6 +53,7 @@ export const RECIPE = {
   INGREDIENT_SECTION_INGREDIENTS,
   INGREDIENT_SECTION_LABEL,
   INGREDIENTS_AMOUNT,
+  INGREDIENTS_RANGE,
   INGREDIENTS_AMOUNT_MIN,
   INGREDIENTS_AMOUNT_MAX,
   INGREDIENTS_UNIT,

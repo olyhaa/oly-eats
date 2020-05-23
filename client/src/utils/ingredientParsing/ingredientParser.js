@@ -79,6 +79,7 @@ export const parseIngredient = (source) => {
 
 export const buildIngredientString = ({
   amount = undefined,
+  rangedAmount = undefined,
   unit = undefined,
   name,
   prep = undefined,
@@ -87,13 +88,13 @@ export const buildIngredientString = ({
 }) => {
   let ingredientStr = '';
   if (
-    amount?.[RECIPE.INGREDIENTS_AMOUNT_MIN] &&
-    amount?.[RECIPE.INGREDIENTS_AMOUNT_MAX]
+    rangedAmount?.[RECIPE.INGREDIENTS_AMOUNT_MIN] &&
+    rangedAmount?.[RECIPE.INGREDIENTS_AMOUNT_MAX]
   ) {
     ingredientStr = addStrWithSpace(
       ingredientStr,
-      `${amount[RECIPE.INGREDIENTS_AMOUNT_MIN]} - ${
-        amount[RECIPE.INGREDIENTS_AMOUNT_MAX]
+      `${rangedAmount[RECIPE.INGREDIENTS_AMOUNT_MIN]} - ${
+        rangedAmount[RECIPE.INGREDIENTS_AMOUNT_MAX]
       }`
     );
   }

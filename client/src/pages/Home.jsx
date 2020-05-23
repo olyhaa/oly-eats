@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-// TODO
-// @ts-ignore
-import RecipeData from '../recipeData/recipes.json';
+import { useQuery } from '@apollo/react-hooks';
 import Header from '../components/Header';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
+import { getAllRecipesQuery } from 'utils/FetchData';
 
 const useStyles = makeStyles((theme) => ({
   featuredBlock: {
@@ -29,6 +28,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
   const classes = useStyles();
+  const { data, loading } = useQuery(getAllRecipesQuery());
+
+  // TODO
+  if (loading) {
+    return <span>Loading!</span>;
+  }
+
+  const RecipeData = data.recipes;
 
   // Shuffle array
   const shuffledRecipes = RecipeData.sort(() => 0.5 - Math.random());

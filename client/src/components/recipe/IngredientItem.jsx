@@ -10,6 +10,7 @@ import { buildIngredientString } from '../../utils/ingredientParsing/ingredientP
 function IngredientItem({
   index,
   amount,
+  rangedAmount,
   unit,
   name,
   prep,
@@ -33,6 +34,7 @@ function IngredientItem({
 
   const ingredientString = buildIngredientString({
     amount,
+    rangedAmount,
     unit,
     name,
     prep,
