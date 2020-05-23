@@ -1,5 +1,9 @@
 import { TIMINGS } from '../constants';
 
+export const sortById = (item1, item2) => {
+  return item1.id - item2.id;
+};
+
 export const timingReducer = ({ timingArray }) => {
   const reducedTiming = {};
   if (timingArray) {
@@ -31,7 +35,7 @@ export const timeReducer = ({ timeArray }) => {
 export const directionStepsReducer = ({ steps }) => {
   let reducedSteps = [];
   if (steps) {
-    reducedSteps = steps.map((step) => {
+    reducedSteps = steps.sort(sortById).map((step) => {
       return { text: step.text };
     });
   }
@@ -41,7 +45,7 @@ export const directionStepsReducer = ({ steps }) => {
 export const directionsReducer = ({ directionSections }) => {
   let reducedDirections = [];
   if (directionSections) {
-    reducedDirections = directionSections.map((section) => {
+    reducedDirections = directionSections.sort(sortById).map((section) => {
       const reducedSection = {};
       if (section.label) {
         reducedSection.label = section.label;
@@ -89,16 +93,18 @@ export const ingredientReducer = ({ ingredient }) => {
 export const ingredientsReducer = ({ ingredientSections }) => {
   let reducedIngredients = [];
   if (ingredientSections) {
-    reducedIngredients = ingredientSections.map((section) => {
+    reducedIngredients = ingredientSections.sort(sortById).map((section) => {
       const reducedSection = {};
       if (section.label) {
         reducedSection.label = section.label;
       }
-      reducedSection.ingredients = section.ingredients.map((ingredient) => {
-        return ingredientReducer({
-          ingredient,
+      reducedSection.ingredients = section.ingredients
+        .sort(sortById)
+        .map((ingredient) => {
+          return ingredientReducer({
+            ingredient,
+          });
         });
-      });
       return reducedSection;
     });
   }
