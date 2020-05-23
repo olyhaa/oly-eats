@@ -119,7 +119,7 @@ Object {
         ],
       },
     ],
-    "id": "123",
+    "id": 123,
     "ingredients": Array [
       Object {
         "ingredients": Array [
@@ -154,14 +154,14 @@ Object {
     },
     "tags": Array [
       Object {
-        "id": "1",
-        "recipeid": "123",
-        "tagid": "1",
+        "id": 1,
+        "label": "bread",
+        "typeid": 2,
       },
       Object {
-        "id": "2",
-        "recipeid": "123",
-        "tagid": "23",
+        "id": 2,
+        "label": "snack",
+        "typeid": 4,
       },
     ],
     "timing": Object {
@@ -208,7 +208,7 @@ Object {
         ],
       },
     ],
-    "id": "123",
+    "id": 123,
     "ingredients": Array [
       Object {
         "ingredients": Array [
@@ -243,14 +243,14 @@ Object {
     },
     "tags": Array [
       Object {
-        "id": "1",
-        "recipeid": "123",
-        "tagid": "1",
+        "id": 1,
+        "label": "bread",
+        "typeid": 2,
       },
       Object {
-        "id": "2",
-        "recipeid": "123",
-        "tagid": "23",
+        "id": 2,
+        "label": "snack",
+        "typeid": 4,
       },
     ],
     "timing": Object {
@@ -305,7 +305,7 @@ Object {
         ],
       },
     ],
-    "id": "123",
+    "id": 123,
     "ingredients": Array [
       Object {
         "ingredients": Array [
@@ -340,14 +340,14 @@ Object {
     },
     "tags": Array [
       Object {
-        "id": "1",
-        "recipeid": "123",
-        "tagid": "1",
+        "id": 1,
+        "label": "bread",
+        "typeid": 2,
       },
       Object {
-        "id": "2",
-        "recipeid": "123",
-        "tagid": "23",
+        "id": 2,
+        "label": "snack",
+        "typeid": 4,
       },
     ],
     "timing": Object {
@@ -392,7 +392,7 @@ Object {
       ],
     },
   ],
-  "id": "123",
+  "id": 123,
   "ingredients": Array [
     Object {
       "ingredients": Array [
@@ -427,14 +427,14 @@ Object {
   },
   "tags": Array [
     Object {
-      "id": "1",
-      "recipeid": "123",
-      "tagid": "1",
+      "id": 1,
+      "label": "bread",
+      "typeid": 2,
     },
     Object {
-      "id": "2",
-      "recipeid": "123",
-      "tagid": "23",
+      "id": 2,
+      "label": "snack",
+      "typeid": 4,
     },
   ],
   "timing": Object {
@@ -462,19 +462,19 @@ Object {
 exports[`tagsReducer properly reduces tags 1`] = `
 Array [
   Object {
-    "id": "1",
-    "recipeid": "2",
-    "tagid": "3",
+    "id": 1,
+    "label": "bread",
+    "typeid": 2,
   },
   Object {
-    "id": "2",
-    "recipeid": "2",
-    "tagid": "4",
+    "id": 2,
+    "label": "snack",
+    "typeid": 4,
   },
 ]
 `;
 
-exports[`timeReducer properly reduces direction step array 1`] = `
+exports[`timeReducer properly reduces total time array 1`] = `
 Array [
   Object {
     "units": "MINUTE",
@@ -485,4 +485,25 @@ Array [
     "value": "1",
   },
 ]
+`;
+
+exports[`timingReducer properly reduces timing array 1`] = `
+Object {
+  "prep": Array [
+    Object {
+      "units": "MINUTE",
+      "value": "2",
+    },
+  ],
+  "total": Array [
+    Object {
+      "units": "MINUTE",
+      "value": "20",
+    },
+    Object {
+      "units": "HOUR",
+      "value": "1",
+    },
+  ],
+}
 `;

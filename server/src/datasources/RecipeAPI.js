@@ -45,59 +45,55 @@ class RecipeAPI extends DataSource {
       this.constructBaseRecipeObj(recipeFields)
     );
 
-    const prepTimeArray = [];
     if (Array.isArray(recipeFields.prepTime)) {
       for (let i = 0; i < recipeFields.prepTime.length; i++) {
         const timeElement = recipeFields.prepTime[i];
         const timeObj = this.constructTimeObj({
-          recipeid: baseRecipe.id,
           newFields: timeElement,
           type: TIMINGS.PREP_TIME,
         });
-        const timeEntry = await this.store.Timing.create(timeObj);
-        prepTimeArray.push(timeEntry);
+        baseRecipe.createTiming(timeObj);
       }
     }
 
-    const totalTimeArray = [];
     if (Array.isArray(recipeFields.totalTime)) {
       for (let i = 0; i < recipeFields.totalTime.length; i++) {
         const timeElement = recipeFields.totalTime[i];
         const timeObj = this.constructTimeObj({
-          recipeid: baseRecipe.id,
           newFields: timeElement,
           type: TIMINGS.TOTAL_TIME,
         });
-        const timeEntry = await this.store.Timing.create(timeObj);
-        totalTimeArray.push(timeEntry);
+        baseRecipe.createTiming(timeObj);
       }
     }
 
-    const directionSections = await this.addDirections({
-      recipeid: baseRecipe.id,
+    const directionsArray = this.constructDirections({
       directions: recipeFields.directions,
     });
+    for (let i = 0; i < directionsArray.length; i++) {
+      baseRecipe.createDirectionSection(directionsArray[i], {
+        include: { all: true, nested: true },
+      });
+    }
 
-    const ingredientSections = await this.addIngredients({
-      recipeid: baseRecipe.id,
+    const ingredientsArray = this.constructIngredients({
       ingredients: recipeFields.ingredients,
     });
+    for (let i = 0; i < ingredientsArray.length; i++) {
+      baseRecipe.createIngredientSection(ingredientsArray[i], {
+        include: { all: true, nested: true },
+      });
+    }
 
-    const recipeTags = await this.addTags({
-      recipeid: baseRecipe.id,
+    await this.addTags({
+      recipeId: baseRecipe.id,
       tags: recipeFields.tags,
     });
 
+    const recipeObj = await this.getRecipeData({ id: baseRecipe.id });
     return recipeMutationReducer({
       success: true,
-      recipe: {
-        recipe: baseRecipe,
-        prepTimeArray,
-        totalTimeArray,
-        directionSections,
-        ingredientSections,
-        recipeTags,
-      },
+      recipe: recipeObj,
     });
   }
 
@@ -140,7 +136,7 @@ class RecipeAPI extends DataSource {
     return recipeObj;
   }
 
-  constructTimeObj({ recipeid, newFields, type }) {
+  constructTimeObj({ recipeId, newFields, type }) {
     const timeObj = {};
     let hasNewFields = false;
 
@@ -154,74 +150,63 @@ class RecipeAPI extends DataSource {
     }
     if (hasNewFields) {
       timeObj.type = type;
-      timeObj.recipeid = recipeid;
+      timeObj.recipeId = recipeId;
     }
     return timeObj;
   }
 
-  constructDirectionSectionObj({ recipeid, section }) {
+  constructDirectionSectionObj({ section }) {
     const directionSectionObj = {};
     if (section?.label) {
       directionSectionObj.label = section.label;
     }
-    directionSectionObj.recipeid = recipeid;
     return directionSectionObj;
   }
 
-  constructDirectionStepObj({ sectionid, step }) {
+  constructDirectionStepObj({ step }) {
     const stepObj = {};
     if (step?.text) {
       stepObj.text = step.text;
-      stepObj.sectionid = sectionid;
     }
     return stepObj;
   }
 
-  async addDirections({ recipeid, directions }) {
+  constructDirections({ directions }) {
     const directionSectionArray = [];
 
     if (Array.isArray(directions)) {
       for (let i = 0; i < directions.length; i++) {
         const section = directions[i];
         const sectionObj = this.constructDirectionSectionObj({
-          recipeid,
           section,
         });
-        const directionSection = await this.store.DirectionSection.create(
-          sectionObj
-        );
 
         const directionStepArray = [];
         if (Array.isArray(section.steps)) {
           for (let j = 0; j < section.steps.length; j++) {
             const step = section.steps[j];
             const stepObj = this.constructDirectionStepObj({
-              sectionid: directionSection.id,
               step,
             });
-            const directionStep = await this.store.DirectionStep.create(
-              stepObj
-            );
-            directionStepArray.push(directionStep);
+            directionStepArray.push(stepObj);
           }
         }
-        directionSection.steps = directionStepArray;
-        directionSectionArray.push(directionSection);
+        sectionObj.directionSteps = directionStepArray;
+        directionSectionArray.push(sectionObj);
       }
     }
     return directionSectionArray;
   }
 
-  constructIngredientSectionObj({ recipeid, section }) {
+  constructIngredientSectionObj({ section }) {
     const ingredientSectionObj = {};
     if (section?.label) {
       ingredientSectionObj.label = section.label;
     }
-    ingredientSectionObj.recipeid = recipeid;
     return ingredientSectionObj;
   }
 
-  constructIngredientObj({ sectionid, ingredient }) {
+  constructIngredientObj({ ingredient }) {
     const ingredientObj = {};
 
     if (ingredient?.amount) {
@@ -242,80 +227,66 @@ class RecipeAPI extends DataSource {
     if (ingredient?.optional != undefined) {
       ingredientObj.optional = ingredient.optional;
     }
-    ingredientObj.sectionid = sectionid;
 
     return ingredientObj;
   }
 
-  constructRangedObj({ ingredientid, amount }) {
+  constructRangedObj({ amount }) {
     const rangedAmountObj = {};
     if (amount?.min && amount?.max) {
       rangedAmountObj.min = amount.min;
       rangedAmountObj.max = amount.max;
-      rangedAmountObj.ingredientid = ingredientid;
     }
     return rangedAmountObj;
   }
 
-  async addIngredients({ recipeid, ingredients }) {
+  constructIngredients({ ingredients }) {
     const ingredientSectionArray = [];
 
     if (Array.isArray(ingredients)) {
       for (let i = 0; i < ingredients.length; i++) {
         const section = ingredients[i];
         const sectionObj = this.constructIngredientSectionObj({
-          recipeid,
           section,
         });
-        const ingredientSection = await this.store.IngredientSection.create(
-          sectionObj
-        );
 
         const ingredientsArray = [];
         if (Array.isArray(section.ingredients)) {
           for (let j = 0; j < section.ingredients.length; j++) {
             const ingredient = section.ingredients[j];
             const ingredientObj = this.constructIngredientObj({
-              sectionid: ingredientSection.id,
               ingredient,
             });
-            const ingredientItem = await this.store.Ingredient.create(
-              ingredientObj
-            );
             if (ingredient.rangedAmount) {
               const rangedObj = this.constructRangedObj({
-                ingredientid: ingredientItem.id,
                 amount: ingredient.rangedAmount,
               });
-              const rangedAmount = await this.store.RangedAmount.create(
-                rangedObj
-              );
-              ingredientItem.rangedAmount = rangedAmount;
+              ingredientObj.rangedAmount = rangedObj;
             }
-            ingredientsArray.push(ingredientItem);
+            ingredientsArray.push(ingredientObj);
           }
         }
-        ingredientSection.ingredients = ingredientsArray;
-        ingredientSectionArray.push(ingredientSection);
+        sectionObj.ingredients = ingredientsArray;
+        ingredientSectionArray.push(sectionObj);
       }
     }
     return ingredientSectionArray;
   }
 
-  constructTagObj({ recipeid, tag }) {
-    if (tag?.tagid) {
-      return { recipeid, tagid: tag.tagid };
+  constructTagObj({ recipeId, tag }) {
+    if (tag?.id) {
+      return { recipeId, tagId: tag.id };
     }
     return undefined;
   }
 
-  async addTags({ recipeid, tags }) {
+  async addTags({ recipeId, tags }) {
     const tagsArray = [];
 
     if (Array.isArray(tags)) {
       for (let i = 0; i < tags.length; i++) {
         const tagObj = this.constructTagObj({
-          recipeid,
+          recipeId,
           tag: tags[i],
         });
         if (tagObj) {
@@ -329,59 +300,16 @@ class RecipeAPI extends DataSource {
   }
 
   async getRecipeData({ id }) {
-    const recipe = await this.store.Recipe.findByPk(id);
+    const recipe = await this.store.Recipe.findByPk(id, {
+      include: { all: true, nested: true },
+    });
+
     if (!recipe) {
       return {};
     }
-    const prepTimeArray = await this.store.Timing.findAll({
-      where: { recipeid: id, type: TIMINGS.PREP_TIME },
-    });
-    const totalTimeArray = await this.store.Timing.findAll({
-      where: { recipeid: id, type: TIMINGS.TOTAL_TIME },
-    });
-    const directionSections = await this.store.DirectionSection.findAll({
-      where: { recipeid: id },
-    });
-
-    if (directionSections) {
-      for (let i = 0; i < directionSections.length; i++) {
-        const directionSteps = await this.store.DirectionStep.findAll({
-          where: { sectionid: directionSections[i].id },
-        });
-        directionSections[i].steps = directionSteps;
-      }
-    }
-    const ingredientSections = await this.store.IngredientSection.findAll({
-      where: { recipeid: id },
-    });
-
-    if (ingredientSections) {
-      for (let i = 0; i < ingredientSections.length; i++) {
-        const ingredients = await this.store.Ingredient.findAll({
-          where: { sectionid: ingredientSections[i].id },
-        });
-        for (let j = 0; j < ingredients.length; j++) {
-          const rangedAmount = await this.store.RangedAmount.findOne({
-            where: { ingredientid: ingredients[j].id },
-          });
-          if (rangedAmount) {
-            ingredients[j].rangedAmount = rangedAmount;
-          }
-        }
-        ingredientSections[i].ingredients = ingredients;
-      }
-    }
-    const recipeTags = await this.store.RecipeTag.findAll({
-      where: { recipeid: id },
-    });
 
     return {
       recipe,
-      prepTimeArray,
-      totalTimeArray,
-      directionSections,
-      ingredientSections,
-      recipeTags,
     };
   }
 }

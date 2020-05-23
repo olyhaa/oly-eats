@@ -1,5 +1,5 @@
 const IngredientSection = (db, SQL, Recipe) => {
-  return db.define('ingredient_section', {
+  return db.define('ingredientSection', {
     label: {
       type: SQL.STRING,
       allowNull: true,

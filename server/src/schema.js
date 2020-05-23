@@ -127,7 +127,7 @@ const typeDefs = gql`
     ingredients: [IngredientSectionInput]
     prepTime: [TimingInput]
     totalTime: [TimingInput]
-    tags: [RecipeTaginput]
+    tags: [RecipeTagInput]
     dateAdded: String
     dateUpdated: String
   }
@@ -166,8 +166,8 @@ const typeDefs = gql`
     units: TimingUnit
   }
 
-  input RecipeTaginput {
-    tagid: ID
+  input RecipeTagInput {
+    id: ID
   }
 `;
 export default typeDefs;

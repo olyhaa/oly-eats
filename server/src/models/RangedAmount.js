@@ -1,5 +1,5 @@
 const RangedAmount = (db, SQL) => {
-  return db.define('ranged_amount', {
+  return db.define('rangedAmount', {
     min: {
       type: SQL.STRING,
       allowNull: false,

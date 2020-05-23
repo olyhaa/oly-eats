@@ -2,9 +2,11 @@ import RecipeAPI from '../RecipeAPI';
 import { TIMINGS, TIME_UNITS } from '../../constants';
 import { addDBFields } from '../../testUtils';
 
+const pkParams = { include: { all: true, nested: true } };
+
 const mockRecipes = [
   {
-    id: '123',
+    id: 123,
     title: 'my first recipe',
     description: 'the best recipe ever',
     source_display: "Mandy's Kitchen",
@@ -13,154 +15,161 @@ const mockRecipes = [
     servings: 2,
     createdAt: '2020-05-10 00:00:45.511 +00:00',
     updatedAt: '2020-05-10 00:01:45.511 +00:00',
-  },
-];
-
-const mockTimings = [
-  {
-    id: '1',
-    recipeid: '123',
-    value: '2',
-    units: TIME_UNITS.MINUTE,
-    type: TIMINGS.PREP_TIME,
-    createdAt: '2020-05-10 00:02:45.511 +00:00',
-    updatedAt: '2020-05-10 00:03:45.511 +00:00',
-  },
-  {
-    id: '2',
-    recipeid: '123',
-    value: '20',
-    units: TIME_UNITS.MINUTE,
-    type: TIMINGS.TOTAL_TIME,
-    createdAt: '2020-05-10 00:04:45.511 +00:00',
-    updatedAt: '2020-05-10 00:05:45.511 +00:00',
-  },
-  {
-    id: '3',
-    recipeid: '123',
-    value: '1',
-    units: TIME_UNITS.HOUR,
-    type: TIMINGS.TOTAL_TIME,
-    createdAt: '2020-05-10 00:06:45.511 +00:00',
-    updatedAt: '2020-05-10 00:07:45.511 +00:00',
-  },
-];
-
-const mockDirectionSection = [
-  {
-    id: '1',
-    label: 'section 1',
-    recipeid: '123',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-  {
-    id: '2',
-    recipeid: '123',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-];
-
-const mockDirectionStep = [
-  {
-    id: '1',
-    text: 'step 1',
-    sectionid: '2',
-    createdAt: '2020-05-10 00:09:45.511 +00:00',
-    updatedAt: '2020-05-10 00:10:45.511 +00:00',
-  },
-  {
-    id: '2',
-    text: 'step 2',
-    sectionid: '2',
-    createdAt: '2020-05-10 00:11:45.511 +00:00',
-    updatedAt: '2020-05-10 00:12:45.511 +00:00',
-  },
-  {
-    id: '3',
-    text: 'step 1',
-    sectionid: '1',
-    createdAt: '2020-05-10 00:09:45.511 +00:00',
-    updatedAt: '2020-05-10 00:10:45.511 +00:00',
-  },
-];
-
-const mockIngredientSection = [
-  {
-    id: '1',
-    label: 'ingredient section 1',
-    recipeid: '102',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-  {
-    id: '2',
-    recipeid: '102',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-];
-
-const mockIngredient = [
-  {
-    id: '1',
-    amount: '2',
-    unit: 'cup',
-    prep: 'chopped',
-    name: 'apples',
-    toTaste: true,
-    optional: true,
-    sectionid: '2',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-  {
-    id: '2',
-    unit: 'tablespoon',
-    prep: 'minced',
-    name: 'garlic',
-    toTaste: true,
-    optional: false,
-    sectionid: '2',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-  {
-    id: '3',
-    amount: '1',
-    unit: 'tablespoon',
-    prep: 'minced',
-    name: 'garlic',
-    sectionid: '2',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-  },
-];
-
-const mockRangedAmount = [
-  {
-    id: '1',
-    min: '5',
-    max: '10',
-    createdAt: '2020-05-10 00:07:45.511 +00:00',
-    updatedAt: '2020-05-10 00:08:45.511 +00:00',
-    ingredientid: '2',
+    timings: [
+      {
+        id: 1,
+        value: '2',
+        units: TIME_UNITS.MINUTE,
+        type: TIMINGS.PREP_TIME,
+        recipeId: 123,
+        createdAt: '2020-05-10 00:02:45.511 +00:00',
+        updatedAt: '2020-05-10 00:03:45.511 +00:00',
+      },
+      {
+        id: 2,
+        value: '20',
+        units: TIME_UNITS.MINUTE,
+        type: TIMINGS.TOTAL_TIME,
+        recipeId: 123,
+        createdAt: '2020-05-10 00:04:45.511 +00:00',
+        updatedAt: '2020-05-10 00:05:45.511 +00:00',
+      },
+      {
+        id: 3,
+        value: '1',
+        units: TIME_UNITS.HOUR,
+        type: TIMINGS.TOTAL_TIME,
+        recipeId: 123,
+        createdAt: '2020-05-10 00:06:45.511 +00:00',
+        updatedAt: '2020-05-10 00:07:45.511 +00:00',
+      },
+    ],
+    directionSections: [
+      {
+        id: 2,
+        label: 'section 1',
+        recipeId: 123,
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        directionSteps: [
+          {
+            id: 1,
+            text: 'step 1',
+            directionSectionId: 2,
+            createdAt: '2020-05-10 00:09:45.511 +00:00',
+            updatedAt: '2020-05-10 00:10:45.511 +00:00',
+          },
+          {
+            id: 2,
+            text: 'step 2',
+            directionSectionId: 2,
+            createdAt: '2020-05-10 00:11:45.511 +00:00',
+            updatedAt: '2020-05-10 00:12:45.511 +00:00',
+          },
+        ],
+      },
+    ],
+    ingredientSections: [
+      {
+        id: 1,
+        recipeId: 123,
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        label: 'ingredient section 1',
+        ingredients: [
+          {
+            id: 1,
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+            ingredientSectionId: 2,
+            createdAt: '2020-05-10 00:07:45.511 +00:00',
+            updatedAt: '2020-05-10 00:08:45.511 +00:00',
+          },
+          {
+            id: 2,
+            unit: 'tablespoon',
+            prep: 'minced',
+            name: 'garlic',
+            toTaste: true,
+            optional: false,
+            ingredientSectionId: 2,
+            createdAt: '2020-05-10 00:07:45.511 +00:00',
+            updatedAt: '2020-05-10 00:08:45.511 +00:00',
+            rangedAmount: {
+              id: 1,
+              min: '5',
+              max: '10',
+              createdAt: '2020-05-10 00:07:45.511 +00:00',
+              updatedAt: '2020-05-10 00:08:45.511 +00:00',
+              ingredientId: 2,
+            },
+          },
+        ],
+      },
+    ],
+    tags: [
+      {
+        id: 1,
+        label: 'tag 1',
+        tagTypeId: 1,
+        recipeId: 123,
+        tagid: 12,
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        recipeTag: {
+          createdAt: '2020-05-23T00:20:58.070Z',
+          updatedAt: '2020-05-23T00:20:58.070Z',
+          recipeId: 123,
+          tagId: 12,
+        },
+        tagType: {
+          id: 1,
+          label: 'category',
+          createdAt: '2020-05-22T22:25:13.475Z',
+          updatedAt: '2020-05-22T22:25:13.475Z',
+        },
+      },
+      {
+        id: 2,
+        label: 'tag 2',
+        recipeId: 123,
+        tagid: 23,
+        tagTypeId: 1,
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        recipeTag: {
+          createdAt: '2020-05-23T00:20:58.070Z',
+          updatedAt: '2020-05-23T00:20:58.070Z',
+          recipeId: 123,
+          tagId: 23,
+        },
+        tagType: {
+          id: 1,
+          label: 'category',
+          createdAt: '2020-05-22T22:25:13.475Z',
+          updatedAt: '2020-05-22T22:25:13.475Z',
+        },
+      },
+    ],
   },
 ];
 
 const mockTags = [
   {
-    id: '1',
-    recipeid: '123',
-    tagid: '1',
+    id: 1,
+    recipeId: 123,
+    tagid: 1,
     createdAt: '2020-05-10 00:07:45.511 +00:00',
     updatedAt: '2020-05-10 00:08:45.511 +00:00',
   },
   {
-    id: '2',
-    recipeid: '123',
-    tagid: '23',
+    id: 2,
+    recipeId: 123,
+    tagid: 23,
     createdAt: '2020-05-10 00:07:45.511 +00:00',
     updatedAt: '2020-05-10 00:08:45.511 +00:00',
   },
@@ -172,33 +181,8 @@ const mockStore = {
     findAll: jest.fn(),
     findByPk: jest.fn(),
   },
-  Timing: {
-    create: jest.fn(),
-    findAll: jest.fn(),
-  },
-  DirectionSection: {
-    create: jest.fn(),
-    findAll: jest.fn(),
-  },
-  DirectionStep: {
-    create: jest.fn(),
-    findAll: jest.fn(),
-  },
-  IngredientSection: {
-    create: jest.fn(),
-    findAll: jest.fn(),
-  },
-  Ingredient: {
-    create: jest.fn(),
-    findAll: jest.fn(),
-  },
-  RangedAmount: {
-    create: jest.fn(),
-    findOne: jest.fn(),
-  },
   RecipeTag: {
     create: jest.fn(),
-    findAll: jest.fn(),
   },
 };
 
@@ -221,54 +205,14 @@ describe('getAllRecipes', () => {
   it('returns array of recipes', async () => {
     mockStore.Recipe.findAll.mockReturnValueOnce(mockRecipes);
     mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
-    mockStore.Timing.findAll
-      .mockReturnValueOnce(mockTimings.slice(0, 1))
-      .mockReturnValueOnce(mockTimings.slice(1, 3));
-    mockStore.DirectionSection.findAll.mockReturnValueOnce(
-      mockDirectionSection.slice(0, 1)
-    );
-    mockStore.DirectionStep.findAll.mockReturnValueOnce(
-      mockDirectionStep.slice(0, 2)
-    );
-    mockStore.IngredientSection.findAll.mockReturnValueOnce(
-      mockIngredientSection.slice(0, 1)
-    );
-    mockStore.Ingredient.findAll.mockReturnValueOnce(
-      mockIngredient.slice(0, 2)
-    );
-    mockStore.RangedAmount.findOne
-      .mockReturnValueOnce()
-      .mockReturnValueOnce(mockRangedAmount[0]);
-    mockStore.RecipeTag.findAll.mockReturnValueOnce(mockTags.slice(0, 2));
 
     const response = await recipeDatasource.getAllRecipes();
 
     expect(mockStore.Recipe.findAll).toBeCalledWith();
-    expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
-    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
-      where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
-    });
-    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
-      where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
-    });
-    expect(mockStore.DirectionSection.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
-    expect(mockStore.DirectionStep.findAll).toBeCalledWith({
-      where: { sectionid: mockDirectionSection[0].id },
-    });
-    expect(mockStore.IngredientSection.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
-    expect(mockStore.Ingredient.findAll).toBeCalledWith({
-      where: { sectionid: mockIngredientSection[0].id },
-    });
-    expect(mockStore.RangedAmount.findOne).toBeCalledWith({
-      where: { ingredientid: mockIngredient[1].id },
-    });
-    expect(mockStore.RecipeTag.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(
+      mockRecipes[0].id,
+      pkParams
+    );
     expect(response).toMatchSnapshot();
   });
 });
@@ -280,69 +224,27 @@ describe('getRecipe', () => {
 
     const response = await recipeDatasource.getRecipe({ id: bad_id });
 
-    expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id);
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id, pkParams);
     expect(response).toEqual(null);
   });
 
   it('returns recipe', async () => {
     mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
-    mockStore.Timing.findAll
-      .mockReturnValueOnce(mockTimings.slice(0, 1))
-      .mockReturnValueOnce(mockTimings.slice(1, 3));
-    mockStore.DirectionSection.findAll.mockReturnValueOnce(
-      mockDirectionSection.slice(0, 1)
-    );
-    mockStore.DirectionStep.findAll.mockReturnValueOnce(
-      mockDirectionStep.slice(0, 2)
-    );
-    mockStore.IngredientSection.findAll.mockReturnValueOnce(
-      mockIngredientSection.slice(0, 1)
-    );
-    mockStore.Ingredient.findAll.mockReturnValueOnce(
-      mockIngredient.slice(0, 2)
-    );
-    mockStore.RangedAmount.findOne
-      .mockReturnValueOnce()
-      .mockReturnValueOnce(mockRangedAmount[0]);
-    mockStore.RecipeTag.findAll.mockReturnValueOnce(mockTags.slice(0, 2));
 
     const response = await recipeDatasource.getRecipe({
       id: mockRecipes[0].id,
     });
 
-    expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
-
-    expect(mockStore.Timing.findAll).toHaveBeenCalledTimes(2);
-    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
-      where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
-    });
-    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
-      where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
-    });
-    expect(mockStore.DirectionSection.findAll).toHaveBeenCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
-    expect(mockStore.DirectionStep.findAll).toHaveBeenCalledWith({
-      where: { sectionid: mockDirectionSection[0].id },
-    });
-    expect(mockStore.IngredientSection.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
-    expect(mockStore.Ingredient.findAll).toBeCalledWith({
-      where: { sectionid: mockIngredientSection[0].id },
-    });
-    expect(mockStore.RangedAmount.findOne).toBeCalledWith({
-      where: { ingredientid: mockIngredient[1].id },
-    });
-    expect(mockStore.RecipeTag.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(
+      mockRecipes[0].id,
+      pkParams
+    );
 
     expect(response).toMatchSnapshot();
   });
 });
 
-describe('deleteRecipe', () => {
+describe.skip('deleteRecipe', () => {
   it('calls store destroy and returns result - id exists', async () => {
     const findPkVal = Object.assign({}, mockRecipes[0]);
     findPkVal.destroy = jest.fn();
@@ -383,8 +285,11 @@ describe('addRecipe', () => {
     };
     const dbBaseFields = addDBFields({
       fields: recipeBaseFieldsInput,
-      id: '123',
+      id: 123,
     });
+    dbBaseFields.createTiming = jest.fn();
+    dbBaseFields.createDirectionSection = jest.fn();
+    dbBaseFields.createIngredientSection = jest.fn();
 
     const timeFieldsInput = {
       prepTime: [{ value: '2', units: TIME_UNITS.MINUTE }],
@@ -393,36 +298,6 @@ describe('addRecipe', () => {
         { value: '1', units: TIME_UNITS.HOUR },
       ],
     };
-
-    const dbPrepTimeArray = [
-      addDBFields({
-        id: '1',
-        fields: recipeDatasource.constructTimeObj({
-          recipeid: dbBaseFields.id,
-          newFields: timeFieldsInput.prepTime[0],
-          type: TIMINGS.PREP_TIME,
-        }),
-      }),
-    ];
-
-    const dbTotalTimeArray = [
-      addDBFields({
-        id: '2',
-        fields: recipeDatasource.constructTimeObj({
-          recipeid: dbBaseFields.id,
-          newFields: timeFieldsInput.totalTime[0],
-          type: TIMINGS.TOTAL_TIME,
-        }),
-      }),
-      addDBFields({
-        id: '3',
-        fields: recipeDatasource.constructTimeObj({
-          recipeid: dbBaseFields.id,
-          newFields: timeFieldsInput.totalTime[1],
-          type: TIMINGS.TOTAL_TIME,
-        }),
-      }),
-    ];
 
     const directionsInput = [
       {
@@ -436,31 +311,6 @@ describe('addRecipe', () => {
           },
         ],
       },
-    ];
-
-    const dbDirectionsFields = addDBFields({
-      fields: {
-        label: directionsInput[0].label,
-        recipeid: dbBaseFields.id,
-      },
-      id: '1',
-    });
-
-    const dbStepFields = [
-      addDBFields({
-        fields: {
-          text: directionsInput[0].steps[0].text,
-          sectionid: dbDirectionsFields.id,
-        },
-        id: '1',
-      }),
-      addDBFields({
-        fields: {
-          text: directionsInput[0].steps[1].text,
-          sectionid: dbDirectionsFields.id,
-        },
-        id: '2',
-      }),
     ];
 
     const ingredientsInput = [
@@ -491,41 +341,13 @@ describe('addRecipe', () => {
       },
     ];
 
-    const tagsInput = [
-      { tagid: mockTags[0].tagid },
-      { tagid: mockTags[1].tagid },
-    ];
-
-    const dbTagFields = [
-      addDBFields({
-        fields: tagsInput[0],
-        id: mockTags[0].id,
-      }),
-      addDBFields({
-        fields: tagsInput[1],
-        id: mockTags[1].id,
-      }),
-    ];
+    const tagsInput = [{ id: mockTags[0].tagid }, { id: mockTags[1].tagid }];
 
     mockStore.Recipe.create.mockReturnValueOnce(dbBaseFields);
-    mockStore.Timing.create
-      .mockReturnValueOnce(dbPrepTimeArray[0])
-      .mockReturnValueOnce(dbTotalTimeArray[0])
-      .mockReturnValueOnce(dbTotalTimeArray[1]);
-    mockStore.DirectionSection.create.mockReturnValueOnce(dbDirectionsFields);
-    mockStore.DirectionStep.create
-      .mockReturnValueOnce(dbStepFields[0])
-      .mockReturnValueOnce(dbStepFields[1]);
-    mockStore.IngredientSection.create
-      .mockReturnValueOnce(mockIngredientSection[0])
-      .mockReturnValueOnce(mockIngredientSection[1]);
-    mockStore.Ingredient.create
-      .mockReturnValueOnce(mockIngredient[0])
-      .mockReturnValueOnce(mockIngredient[1]);
-    mockStore.RangedAmount.create.mockReturnValueOnce(mockRangedAmount[0]);
     mockStore.RecipeTag.create
       .mockReturnValueOnce(mockTags[0])
       .mockReturnValueOnce(mockTags[1]);
+    mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
 
     const recipe = {
       ...recipeBaseFieldsInput,
@@ -539,92 +361,67 @@ describe('addRecipe', () => {
     const res = await recipeDatasource.addRecipe({
       recipe,
     });
-    expect(res).toMatchSnapshot();
 
     // make sure store is called properly
     expect(mockStore.Recipe.create).toBeCalledWith(recipeBaseFieldsInput);
 
-    expect(mockStore.Timing.create).toBeCalledTimes(3);
-    expect(mockStore.Timing.create).toHaveBeenNthCalledWith(1, {
-      recipeid: mockRecipes[0].id,
+    expect(dbBaseFields.createTiming).toBeCalledTimes(3);
+    expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(1, {
       type: TIMINGS.PREP_TIME,
       ...timeFieldsInput.prepTime[0],
     });
-    expect(mockStore.Timing.create).toHaveBeenNthCalledWith(2, {
-      recipeid: mockRecipes[0].id,
+    expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(2, {
       type: TIMINGS.TOTAL_TIME,
       ...timeFieldsInput.totalTime[0],
     });
-    expect(mockStore.Timing.create).toHaveBeenNthCalledWith(3, {
-      recipeid: mockRecipes[0].id,
+    expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(3, {
       type: TIMINGS.TOTAL_TIME,
       ...timeFieldsInput.totalTime[1],
     });
 
-    expect(mockStore.DirectionSection.create).toBeCalledWith({
-      label: directionsInput[0].label,
-      recipeid: dbBaseFields.id,
-    });
-    expect(mockStore.DirectionStep.create).toBeCalledTimes(2);
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(1, {
-      sectionid: dbDirectionsFields.id,
-      text: directionsInput[0].steps[0].text,
-    });
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
-      sectionid: dbDirectionsFields.id,
-      text: directionsInput[0].steps[1].text,
-    });
+    expect(dbBaseFields.createDirectionSection).toBeCalledWith(
+      {
+        label: directionsInput[0].label,
+        directionSteps: directionsInput[0].steps,
+      },
+      pkParams
+    );
 
-    expect(mockStore.IngredientSection.create).toBeCalledTimes(2);
-    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(1, {
-      recipeid: mockRecipes[0].id,
-      label: ingredientsInput[0].label,
-    });
-    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(2, {
-      recipeid: mockRecipes[0].id,
-    });
+    expect(dbBaseFields.createIngredientSection).toBeCalledTimes(2);
+    expect(dbBaseFields.createIngredientSection).toHaveBeenNthCalledWith(
+      1,
+      ingredientsInput[0],
+      pkParams
+    );
+    expect(dbBaseFields.createIngredientSection).toHaveBeenNthCalledWith(
+      2,
+      ingredientsInput[1],
+      pkParams
+    );
 
-    expect(mockStore.Ingredient.create).toBeCalledTimes(2);
-    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(1, {
-      sectionid: mockIngredientSection[0].id,
-      amount: '2',
-      unit: 'cup',
-      prep: 'chopped',
-      name: 'apples',
-      toTaste: true,
-      optional: true,
-    });
-    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(2, {
-      sectionid: mockIngredientSection[1].id,
-      unit: 'tablespoon',
-      prep: 'minced',
-      name: 'garlic',
-      toTaste: true,
-      optional: false,
-    });
-
-    expect(mockStore.RangedAmount.create).toBeCalledWith({
-      ingredientid: mockIngredient[1].id,
-      ...ingredientsInput[1].ingredients[0].rangedAmount,
-    });
-
+    expect(mockStore.RecipeTag.create).toBeCalledTimes(2);
     expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(1, {
-      recipeid: mockRecipes[0].id,
-      ...tagsInput[0],
+      recipeId: mockRecipes[0].id,
+      tagId: tagsInput[0].id,
     });
     expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(2, {
-      recipeid: mockRecipes[0].id,
-      ...tagsInput[1],
+      recipeId: mockRecipes[0].id,
+      tagId: tagsInput[1].id,
     });
+
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(
+      mockRecipes[0].id,
+      pkParams
+    );
+    expect(res).toMatchSnapshot();
   });
 });
 
-describe('addDirections', () => {
+describe('constructDirections', () => {
   it('empty array', async () => {
     const directions = [];
 
-    const res = await recipeDatasource.addDirections({
-      recipeid: '45',
+    const res = recipeDatasource.constructDirections({
       directions,
     });
 
@@ -632,34 +429,16 @@ describe('addDirections', () => {
   });
 
   it('single section, no steps provided, only label', async () => {
-    mockStore.DirectionSection.create.mockReturnValueOnce(
-      mockDirectionSection[0]
-    );
-
     const directions = [{ label: 'section 1' }];
-    const recipeid = '101';
 
-    const res = await recipeDatasource.addDirections({
-      recipeid,
+    const res = recipeDatasource.constructDirections({
       directions,
     });
 
     expect(res).toMatchSnapshot();
-    expect(mockStore.DirectionSection.create).toBeCalledWith({
-      label: directions[0].label,
-      recipeid,
-    });
-    expect(mockStore.DirectionStep.create).toBeCalledTimes(0);
   });
 
   it('single section, only steps provided, no label', async () => {
-    mockStore.DirectionSection.create.mockReturnValueOnce(
-      mockDirectionSection[1]
-    );
-    mockStore.DirectionStep.create
-      .mockReturnValueOnce(mockDirectionStep[0])
-      .mockReturnValueOnce(mockDirectionStep[1]);
-
     const directions = [
       {
         steps: [
@@ -673,132 +452,67 @@ describe('addDirections', () => {
       },
     ];
 
-    const res = await recipeDatasource.addDirections({
-      recipeid: mockDirectionSection[0].recipeid,
+    const res = recipeDatasource.constructDirections({
       directions,
     });
 
     expect(res).toMatchSnapshot();
-
-    expect(mockStore.DirectionSection.create).toBeCalledWith({
-      recipeid: mockDirectionSection[0].recipeid,
-    });
-
-    expect(mockStore.DirectionStep.create).toBeCalledTimes(2);
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(1, {
-      sectionid: mockDirectionSection[1].id,
-      text: directions[0].steps[0].text,
-    });
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
-      sectionid: mockDirectionSection[1].id,
-      text: directions[0].steps[1].text,
-    });
   });
 
   it('single direction section, all fields', async () => {
-    mockStore.DirectionSection.create.mockReturnValueOnce(
-      mockDirectionSection[0]
-    );
-    mockStore.DirectionStep.create.mockReturnValueOnce(mockDirectionStep[2]);
-
     const directions = [
       {
-        label: mockDirectionSection[0].label,
+        label: 'section 1',
         steps: [
           {
-            text: mockDirectionStep[2].text,
+            text: 'step 1',
           },
         ],
       },
     ];
 
-    const res = await recipeDatasource.addDirections({
-      recipeid: mockDirectionSection[0].recipeid,
+    const res = recipeDatasource.constructDirections({
       directions,
     });
 
     expect(res).toMatchSnapshot();
-
-    expect(mockStore.DirectionSection.create).toBeCalledWith({
-      recipeid: mockDirectionSection[0].recipeid,
-      label: mockDirectionSection[0].label,
-    });
-
-    expect(mockStore.DirectionStep.create).toBeCalledWith({
-      sectionid: mockDirectionSection[0].id,
-      text: mockDirectionStep[2].text,
-    });
   });
 
   it('multiple direction sections', async () => {
-    mockStore.DirectionSection.create
-      .mockReturnValueOnce(mockDirectionSection[0])
-      .mockReturnValueOnce(mockDirectionSection[1]);
-    mockStore.DirectionStep.create
-      .mockReturnValueOnce(mockDirectionStep[2])
-      .mockReturnValueOnce(mockDirectionStep[0])
-      .mockReturnValueOnce(mockDirectionStep[1]);
-
     const directions = [
       {
-        label: mockDirectionSection[0].label,
+        label: 'section 1',
         steps: [
           {
-            text: mockDirectionStep[2].text,
+            text: 'step 1',
           },
         ],
       },
       {
         steps: [
           {
-            text: mockDirectionStep[0].text,
+            text: 'step 1',
           },
           {
-            text: mockDirectionStep[1].text,
+            text: 'step 2',
           },
         ],
       },
     ];
 
-    const res = await recipeDatasource.addDirections({
-      recipeid: mockDirectionSection[0].recipeid,
+    const res = recipeDatasource.constructDirections({
       directions,
     });
 
     expect(res).toMatchSnapshot();
-
-    expect(mockStore.DirectionSection.create).toBeCalledTimes(2);
-    expect(mockStore.DirectionSection.create).toHaveBeenNthCalledWith(1, {
-      recipeid: mockDirectionSection[0].recipeid,
-      label: mockDirectionSection[0].label,
-    });
-
-    expect(mockStore.DirectionSection.create).toHaveBeenNthCalledWith(2, {
-      recipeid: mockDirectionSection[1].recipeid,
-    });
-
-    expect(mockStore.DirectionStep.create).toBeCalledTimes(3);
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(1, {
-      sectionid: mockDirectionSection[0].id,
-      text: directions[0].steps[0].text,
-    });
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(2, {
-      sectionid: mockDirectionSection[1].id,
-      text: directions[1].steps[0].text,
-    });
-    expect(mockStore.DirectionStep.create).toHaveBeenNthCalledWith(3, {
-      sectionid: mockDirectionSection[1].id,
-      text: directions[1].steps[1].text,
-    });
   });
 });
 
-describe('addIngredients', () => {
+describe('constructIngredients', () => {
   it('empty array', async () => {
     const ingredient = [];
 
-    const res = await recipeDatasource.addIngredients({
-      recipeid: '45',
+    const res = recipeDatasource.constructIngredients({
       ingredient,
     });
 
@@ -806,35 +520,16 @@ describe('addIngredients', () => {
   });
 
   it('single section, no ingredients provided, only label', async () => {
-    mockStore.IngredientSection.create.mockReturnValueOnce(
-      mockIngredientSection[0]
-    );
-
     const ingredients = [{ label: 'ingredient section 1' }];
-    const recipeid = '102';
 
-    const res = await recipeDatasource.addIngredients({
-      recipeid,
+    const res = recipeDatasource.constructIngredients({
       ingredients,
     });
 
     expect(res).toMatchSnapshot();
-    expect(mockStore.IngredientSection.create).toBeCalledWith({
-      label: ingredients[0].label,
-      recipeid,
-    });
-    expect(mockStore.Ingredient.create).toBeCalledTimes(0);
   });
 
   it('single section, only ingredients provided, no label', async () => {
-    mockStore.IngredientSection.create.mockReturnValueOnce(
-      mockIngredientSection[1]
-    );
-    mockStore.Ingredient.create
-      .mockReturnValueOnce(mockIngredient[0])
-      .mockReturnValueOnce(mockIngredient[1]);
-    mockStore.RangedAmount.create.mockReturnValueOnce(mockRangedAmount[0]);
-
     const ingredients = [
       {
         ingredients: [
@@ -858,51 +553,17 @@ describe('addIngredients', () => {
       },
     ];
 
-    const res = await recipeDatasource.addIngredients({
-      recipeid: mockIngredientSection[1].recipeid,
+    const res = recipeDatasource.constructIngredients({
       ingredients,
     });
 
     expect(res).toMatchSnapshot();
-
-    expect(mockStore.IngredientSection.create).toBeCalledWith({
-      recipeid: mockIngredientSection[1].recipeid,
-    });
-
-    expect(mockStore.Ingredient.create).toBeCalledTimes(2);
-    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(1, {
-      sectionid: mockIngredientSection[1].id,
-      amount: '2',
-      unit: 'cup',
-      prep: 'chopped',
-      name: 'apples',
-      toTaste: true,
-      optional: true,
-    });
-    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(2, {
-      sectionid: mockIngredientSection[1].id,
-      unit: 'tablespoon',
-      prep: 'minced',
-      name: 'garlic',
-      toTaste: true,
-      optional: false,
-    });
-
-    expect(mockStore.RangedAmount.create).toBeCalledWith({
-      ingredientid: mockIngredient[1].id,
-      ...ingredients[0].ingredients[1].rangedAmount,
-    });
   });
 
   it('single ingredient section, all fields', async () => {
-    mockStore.IngredientSection.create.mockReturnValueOnce(
-      mockIngredientSection[0]
-    );
-    mockStore.Ingredient.create.mockReturnValueOnce(mockIngredient[0]);
-
     const ingredients = [
       {
-        label: mockIngredientSection[0].label,
+        label: 'ingredient section 1',
         ingredients: [
           {
             amount: '2',
@@ -914,38 +575,17 @@ describe('addIngredients', () => {
       },
     ];
 
-    const res = await recipeDatasource.addIngredients({
-      recipeid: mockIngredientSection[0].recipeid,
+    const res = recipeDatasource.constructIngredients({
       ingredients,
     });
 
     expect(res).toMatchSnapshot();
-
-    expect(mockStore.IngredientSection.create).toBeCalledWith({
-      recipeid: mockIngredientSection[0].recipeid,
-      label: mockIngredientSection[0].label,
-    });
-
-    expect(mockStore.Ingredient.create).toBeCalledWith({
-      sectionid: mockIngredientSection[0].id,
-      amount: '2',
-      unit: 'cup',
-      prep: 'chopped',
-      name: 'apples',
-    });
   });
 
   it('multiple ingredient sections', async () => {
-    mockStore.IngredientSection.create
-      .mockReturnValueOnce(mockIngredientSection[0])
-      .mockReturnValueOnce(mockIngredientSection[1]);
-    mockStore.Ingredient.create
-      .mockReturnValueOnce(mockIngredient[0])
-      .mockReturnValueOnce(mockIngredient[2]);
-
     const ingredients = [
       {
-        label: mockIngredientSection[0].label,
+        label: 'ingredient section 1',
         ingredients: [
           {
             amount: '2',
@@ -969,40 +609,11 @@ describe('addIngredients', () => {
       },
     ];
 
-    const res = await recipeDatasource.addIngredients({
-      recipeid: mockIngredientSection[0].recipeid,
+    const res = recipeDatasource.constructIngredients({
       ingredients,
     });
 
     expect(res).toMatchSnapshot();
-
-    expect(mockStore.IngredientSection.create).toBeCalledTimes(2);
-    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(1, {
-      recipeid: mockIngredientSection[0].recipeid,
-      label: mockIngredientSection[0].label,
-    });
-
-    expect(mockStore.IngredientSection.create).toHaveBeenNthCalledWith(2, {
-      recipeid: mockIngredientSection[1].recipeid,
-    });
-
-    expect(mockStore.Ingredient.create).toBeCalledTimes(2);
-    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(1, {
-      sectionid: mockIngredientSection[0].id,
-      amount: '2',
-      unit: 'cup',
-      prep: 'chopped',
-      name: 'apples',
-      toTaste: true,
-      optional: true,
-    });
-    expect(mockStore.Ingredient.create).toHaveBeenNthCalledWith(2, {
-      sectionid: mockIngredientSection[1].id,
-      amount: '1',
-      unit: 'tablespoon',
-      prep: 'minced',
-      name: 'garlic',
-    });
   });
 });
 
@@ -1011,7 +622,7 @@ describe('addTags', () => {
     const tags = [];
 
     const res = await recipeDatasource.addTags({
-      recipeid: '45',
+      recipeId: '45',
       tags,
     });
 
@@ -1023,22 +634,22 @@ describe('addTags', () => {
       .mockReturnValueOnce(mockTags[0])
       .mockReturnValueOnce(mockTags[1]);
 
-    const recipeid = mockRecipes[0].id;
-    const tags = [{ tagid: '1' }, { tagid: '100' }];
+    const recipeId = mockRecipes[0].id;
+    const tags = [{ id: 1 }, { id: 100 }];
 
     const res = await recipeDatasource.addTags({
-      recipeid,
+      recipeId,
       tags,
     });
 
     expect(res).toMatchSnapshot();
     expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(1, {
-      recipeid,
-      ...tags[0],
+      recipeId,
+      tagId: tags[0].id,
     });
     expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(2, {
-      recipeid,
-      ...tags[1],
+      recipeId,
+      tagId: tags[1].id,
     });
   });
 });
@@ -1106,7 +717,7 @@ describe('constructTimeObj', () => {
       const newFields = {};
       expect(
         recipeDatasource.constructTimeObj({
-          recipeid: '1',
+          recipeId: '1',
           newFields,
           type: TIMINGS.PREP,
         })
@@ -1117,7 +728,7 @@ describe('constructTimeObj', () => {
       const newFields = undefined;
       expect(
         recipeDatasource.constructTimeObj({
-          recipeid: '1',
+          recipeId: '1',
           newFields,
           type: TIMINGS.PREP,
         })
@@ -1128,7 +739,7 @@ describe('constructTimeObj', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
       expect(
         recipeDatasource.constructTimeObj({
-          recipeid: '1',
+          recipeId: '1',
           newFields,
           type: TIMINGS.PREP,
         })
@@ -1144,11 +755,11 @@ describe('constructTimeObj', () => {
       };
       const expectedFields = Object.assign({}, newFields);
       expectedFields.type = TIMINGS.PREP;
-      expectedFields.recipeid = '1';
+      expectedFields.recipeId = '1';
 
       expect(
         recipeDatasource.constructTimeObj({
-          recipeid: expectedFields.recipeid,
+          recipeId: expectedFields.recipeId,
           newFields,
           type: expectedFields.type,
         })
@@ -1161,10 +772,10 @@ describe('constructTimeObj', () => {
       };
       const expectedFields = Object.assign({}, newFields);
       expectedFields.type = TIMINGS.PREP;
-      expectedFields.recipeid = '1';
+      expectedFields.recipeId = '1';
       expect(
         recipeDatasource.constructTimeObj({
-          recipeid: expectedFields.recipeid,
+          recipeId: expectedFields.recipeId,
           newFields,
           type: expectedFields.type,
         })
@@ -1181,10 +792,10 @@ describe('constructTimeObj', () => {
     allFields.some_garbage_field = 'some garbage';
     const expectedFields = Object.assign({}, baseFields);
     expectedFields.type = TIMINGS.PREP;
-    expectedFields.recipeid = '1';
+    expectedFields.recipeId = '1';
     expect(
       recipeDatasource.constructTimeObj({
-        recipeid: expectedFields.recipeid,
+        recipeId: expectedFields.recipeId,
         newFields: allFields,
         type: expectedFields.type,
       })
@@ -1196,35 +807,29 @@ describe('constructDirectionSectionObj', () => {
   describe('no direction fields', () => {
     it('empty object', () => {
       const newFields = {};
-      const recipeid = '1';
       expect(
         recipeDatasource.constructDirectionSectionObj({
-          recipeid,
           newFields,
         })
-      ).toEqual({ recipeid });
+      ).toEqual({});
     });
 
     it('undefined object', () => {
       const newFields = undefined;
-      const recipeid = '1';
       expect(
         recipeDatasource.constructDirectionSectionObj({
-          recipeid,
           newFields,
         })
-      ).toEqual({ recipeid });
+      ).toEqual({});
     });
 
     it('object without relevant fields', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
-      const recipeid = '1';
       expect(
         recipeDatasource.constructDirectionSectionObj({
-          recipeid,
           section: newFields,
         })
-      ).toEqual({ recipeid });
+      ).toEqual({});
     });
   });
 
@@ -1240,11 +845,10 @@ describe('constructDirectionSectionObj', () => {
         },
       ],
     };
-    const expectedFields = { label: newFields.label, recipeid: '45' };
+    const expectedFields = { label: newFields.label };
 
     expect(
       recipeDatasource.constructDirectionSectionObj({
-        recipeid: expectedFields.recipeid,
         section: newFields,
       })
     ).toEqual(expectedFields);
@@ -1264,10 +868,9 @@ describe('constructDirectionSectionObj', () => {
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
-    const expectedFields = { label: baseFields.label, recipeid: '45' };
+    const expectedFields = { label: baseFields.label };
     expect(
       recipeDatasource.constructDirectionSectionObj({
-        recipeid: expectedFields.recipeid,
         section: allFields,
       })
     ).toEqual(expectedFields);
@@ -1280,7 +883,6 @@ describe('constructDirectionStepObj', () => {
       const newFields = {};
       expect(
         recipeDatasource.constructDirectionStepObj({
-          sectionid: '1',
           step: newFields,
         })
       ).toEqual({});
@@ -1290,7 +892,6 @@ describe('constructDirectionStepObj', () => {
       const newFields = undefined;
       expect(
         recipeDatasource.constructDirectionStepObj({
-          sectionid: '1',
           step: newFields,
         })
       ).toEqual({});
@@ -1300,7 +901,6 @@ describe('constructDirectionStepObj', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
       expect(
         recipeDatasource.constructDirectionStepObj({
-          sectionid: '1',
           step: newFields,
         })
       ).toEqual({});
@@ -1311,15 +911,12 @@ describe('constructDirectionStepObj', () => {
     const newFields = {
       text: 'step 1',
     };
-    const expectedFields = Object.assign({}, newFields);
-    expectedFields.sectionid = '56';
 
     expect(
       recipeDatasource.constructDirectionStepObj({
-        sectionid: expectedFields.sectionid,
         step: newFields,
       })
-    ).toEqual(expectedFields);
+    ).toEqual(newFields);
   });
 
   it('step fields + others', () => {
@@ -1328,14 +925,11 @@ describe('constructDirectionStepObj', () => {
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
-    const expectedFields = Object.assign({}, baseFields);
-    expectedFields.sectionid = '56';
     expect(
       recipeDatasource.constructDirectionStepObj({
-        sectionid: expectedFields.sectionid,
-        step: baseFields,
+        step: allFields,
       })
-    ).toEqual(expectedFields);
+    ).toEqual(baseFields);
   });
 });
 
@@ -1344,7 +938,6 @@ describe('constructRangedObj', () => {
     it('empty object', () => {
       expect(
         recipeDatasource.constructRangedObj({
-          ingredientid: '1',
           amount: {},
         })
       ).toEqual({});
@@ -1353,17 +946,14 @@ describe('constructRangedObj', () => {
     it('undefined object', () => {
       expect(
         recipeDatasource.constructRangedObj({
-          ingredientid: '1',
           amount: undefined,
         })
       ).toEqual({});
     });
 
     it('string', () => {
-      const newFields = undefined;
       expect(
         recipeDatasource.constructRangedObj({
-          ingredientid: '1',
           amount: '34',
         })
       ).toEqual({});
@@ -1373,7 +963,6 @@ describe('constructRangedObj', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
       expect(
         recipeDatasource.constructRangedObj({
-          recipeid: '1',
           amount: newFields,
         })
       ).toEqual({});
@@ -1386,15 +975,12 @@ describe('constructRangedObj', () => {
         min: '2',
         max: '3',
       };
-      const expectedFields = Object.assign({}, newFields);
-      expectedFields.ingredientid = '42';
 
       expect(
         recipeDatasource.constructRangedObj({
-          ingredientid: expectedFields.ingredientid,
           amount: newFields,
         })
-      ).toEqual(expectedFields);
+      ).toEqual(newFields);
     });
 
     it('has subset of fields', () => {
@@ -1403,7 +989,6 @@ describe('constructRangedObj', () => {
       };
       expect(
         recipeDatasource.constructRangedObj({
-          ingredientid: '42',
           amount: newFields,
         })
       ).toEqual({});
@@ -1417,14 +1002,11 @@ describe('constructRangedObj', () => {
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
-    const expectedFields = Object.assign({}, baseFields);
-    expectedFields.ingredientid = '42';
     expect(
       recipeDatasource.constructRangedObj({
-        ingredientid: expectedFields.ingredientid,
         amount: allFields,
       })
-    ).toEqual(expectedFields);
+    ).toEqual(baseFields);
   });
 });
 
@@ -1433,29 +1015,26 @@ describe('constructIngredientObj', () => {
     it('empty object', () => {
       expect(
         recipeDatasource.constructIngredientObj({
-          sectionid: '1',
           ingredient: {},
         })
-      ).toEqual({ sectionid: '1' });
+      ).toEqual({});
     });
 
     it('undefined object', () => {
       expect(
         recipeDatasource.constructIngredientObj({
-          sectionid: '1',
           ingredient: undefined,
         })
-      ).toEqual({ sectionid: '1' });
+      ).toEqual({});
     });
 
     it('object without relevant fields', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
       expect(
         recipeDatasource.constructIngredientObj({
-          sectionid: '1',
           amount: newFields,
         })
-      ).toEqual({ sectionid: '1' });
+      ).toEqual({});
     });
   });
 
@@ -1469,15 +1048,12 @@ describe('constructIngredientObj', () => {
         toTaste: true,
         optional: true,
       };
-      const expectedFields = Object.assign({}, newFields);
-      expectedFields.sectionid = '42';
 
       expect(
         recipeDatasource.constructIngredientObj({
-          sectionid: expectedFields.sectionid,
           ingredient: newFields,
         })
-      ).toEqual(expectedFields);
+      ).toEqual(newFields);
     });
 
     it('has subset of fields', () => {
@@ -1487,7 +1063,6 @@ describe('constructIngredientObj', () => {
       };
       expect(
         recipeDatasource.constructIngredientObj({
-          sectionid: '42',
           ingredient: newFields,
         })
       ).toMatchSnapshot();
@@ -1502,7 +1077,6 @@ describe('constructIngredientObj', () => {
       };
       expect(
         recipeDatasource.constructIngredientObj({
-          sectionid: '42',
           ingredient: newFields,
         })
       ).toMatchSnapshot();
@@ -1517,14 +1091,12 @@ describe('constructIngredientObj', () => {
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
-    const expectedFields = Object.assign({}, baseFields);
-    expectedFields.sectionid = '42';
+
     expect(
       recipeDatasource.constructIngredientObj({
-        sectionid: expectedFields.sectionid,
         ingredient: allFields,
       })
-    ).toEqual(expectedFields);
+    ).toEqual(baseFields);
   });
 });
 
@@ -1532,35 +1104,29 @@ describe('constructIngredientSectionObj', () => {
   describe('no ingredient fields', () => {
     it('empty object', () => {
       const newFields = {};
-      const recipeid = '1';
       expect(
         recipeDatasource.constructIngredientSectionObj({
-          recipeid,
           newFields,
         })
-      ).toEqual({ recipeid });
+      ).toEqual({});
     });
 
     it('undefined object', () => {
       const newFields = undefined;
-      const recipeid = '1';
       expect(
         recipeDatasource.constructIngredientSectionObj({
-          recipeid,
           newFields,
         })
-      ).toEqual({ recipeid });
+      ).toEqual({});
     });
 
     it('object without relevant fields', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
-      const recipeid = '1';
       expect(
         recipeDatasource.constructIngredientSectionObj({
-          recipeid,
           section: newFields,
         })
-      ).toEqual({ recipeid });
+      ).toEqual({});
     });
   });
 
@@ -1574,11 +1140,10 @@ describe('constructIngredientSectionObj', () => {
         },
       ],
     };
-    const expectedFields = { label: newFields.label, recipeid: '45' };
+    const expectedFields = { label: newFields.label };
 
     expect(
       recipeDatasource.constructIngredientSectionObj({
-        recipeid: expectedFields.recipeid,
         section: newFields,
       })
     ).toEqual(expectedFields);
@@ -1596,10 +1161,9 @@ describe('constructIngredientSectionObj', () => {
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
-    const expectedFields = { label: baseFields.label, recipeid: '45' };
+    const expectedFields = { label: baseFields.label };
     expect(
       recipeDatasource.constructIngredientSectionObj({
-        recipeid: expectedFields.recipeid,
         section: allFields,
       })
     ).toEqual(expectedFields);
@@ -1611,7 +1175,7 @@ describe('constructTagObj', () => {
     it('empty object', () => {
       expect(
         recipeDatasource.constructTagObj({
-          recipeid: '1',
+          recipeId: 1,
           tags: {},
         })
       ).toBeUndefined();
@@ -1620,7 +1184,7 @@ describe('constructTagObj', () => {
     it('undefined object', () => {
       expect(
         recipeDatasource.constructTagObj({
-          recipeid: '1',
+          recipeId: 1,
           tags: undefined,
         })
       ).toBeUndefined();
@@ -1630,7 +1194,7 @@ describe('constructTagObj', () => {
       const newFields = { some_garbage_field: 'with some garbage values' };
       expect(
         recipeDatasource.constructTagObj({
-          recipeid: '1',
+          recipeId: 1,
           tags: newFields,
         })
       ).toBeUndefined();
@@ -1638,15 +1202,12 @@ describe('constructTagObj', () => {
   });
 
   describe('only tag fields', () => {
-    const newFields = {
-      tagid: '2',
-    };
-    const expectedFields = Object.assign({}, newFields);
-    expectedFields.recipeid = '42';
+    const newFields = { id: 2 };
+    const expectedFields = { recipeId: 42, tagId: newFields.id };
 
     expect(
       recipeDatasource.constructTagObj({
-        recipeid: expectedFields.recipeid,
+        recipeId: expectedFields.recipeId,
         tag: newFields,
       })
     ).toEqual(expectedFields);
@@ -1654,15 +1215,14 @@ describe('constructTagObj', () => {
 
   it('tag fields + others', () => {
     const baseFields = {
-      tagid: '2',
+      id: 2,
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
-    const expectedFields = Object.assign({}, baseFields);
-    expectedFields.recipeid = '42';
+    const expectedFields = { recipeId: '42', tagId: baseFields.id };
     expect(
       recipeDatasource.constructTagObj({
-        recipeid: expectedFields.recipeid,
+        recipeId: expectedFields.recipeId,
         tag: allFields,
       })
     ).toEqual(expectedFields);
@@ -1676,64 +1236,22 @@ describe('getRecipeData', () => {
     const response = await recipeDatasource.getRecipeData({
       id: bad_id,
     });
-    expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id);
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id, pkParams);
 
     expect(response).toEqual({});
   });
 
   it('valid id', async () => {
     mockStore.Recipe.findByPk.mockReturnValueOnce(mockRecipes[0]);
-    mockStore.Timing.findAll
-      .mockReturnValueOnce(mockTimings.slice(0, 1))
-      .mockReturnValueOnce(mockTimings.slice(1, 3));
-    mockStore.DirectionSection.findAll.mockReturnValueOnce(
-      mockDirectionSection.slice(0, 1)
-    );
-    mockStore.DirectionStep.findAll.mockReturnValueOnce(
-      mockDirectionStep.slice(0, 2)
-    );
-    mockStore.IngredientSection.findAll.mockReturnValueOnce(
-      mockIngredientSection.slice(0, 1)
-    );
-    mockStore.Ingredient.findAll.mockReturnValueOnce(
-      mockIngredient.slice(0, 2)
-    );
-    mockStore.RangedAmount.findOne
-      .mockReturnValueOnce()
-      .mockReturnValueOnce(mockRangedAmount[0]);
-    mockStore.RecipeTag.findAll.mockReturnValueOnce(mockTags.slice(0, 2));
 
     const response = await recipeDatasource.getRecipeData({
       id: mockRecipes[0].id,
     });
 
-    expect(mockStore.Recipe.findByPk).toBeCalledWith(mockRecipes[0].id);
-
-    expect(mockStore.Timing.findAll).toHaveBeenCalledTimes(2);
-    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(1, {
-      where: { recipeid: mockRecipes[0].id, type: TIMINGS.PREP_TIME },
-    });
-    expect(mockStore.Timing.findAll).toHaveBeenNthCalledWith(2, {
-      where: { recipeid: mockRecipes[0].id, type: TIMINGS.TOTAL_TIME },
-    });
-    expect(mockStore.DirectionSection.findAll).toHaveBeenCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
-    expect(mockStore.DirectionStep.findAll).toHaveBeenCalledWith({
-      where: { sectionid: mockDirectionSection[0].id },
-    });
-    expect(mockStore.IngredientSection.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
-    expect(mockStore.Ingredient.findAll).toBeCalledWith({
-      where: { sectionid: mockIngredientSection[0].id },
-    });
-    expect(mockStore.RangedAmount.findOne).toBeCalledWith({
-      where: { ingredientid: mockIngredient[1].id },
-    });
-    expect(mockStore.RecipeTag.findAll).toBeCalledWith({
-      where: { recipeid: mockRecipes[0].id },
-    });
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(
+      mockRecipes[0].id,
+      pkParams
+    );
 
     expect(response).toMatchSnapshot();
   });

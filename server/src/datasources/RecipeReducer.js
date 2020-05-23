@@ -1,3 +1,23 @@
+import { TIMINGS } from '../constants';
+
+export const timingReducer = ({ timingArray }) => {
+  const reducedTiming = {};
+  if (timingArray) {
+    const prepArray = [];
+    const totalArray = [];
+    for (let i = 0; i < timingArray.length; i++) {
+      if (timingArray[i].type === TIMINGS.PREP_TIME) {
+        prepArray.push(timingArray[i]);
+      } else if (timingArray[i].type === TIMINGS.TOTAL_TIME) {
+        totalArray.push(timingArray[i]);
+      }
+    }
+    reducedTiming.prep = timeReducer({ timeArray: prepArray });
+    reducedTiming.total = timeReducer({ timeArray: totalArray });
+  }
+  return reducedTiming;
+};
+
 export const timeReducer = ({ timeArray }) => {
   let reducedTime = [];
   if (timeArray) {
@@ -27,7 +47,7 @@ export const directionsReducer = ({ directionSections }) => {
         reducedSection.label = section.label;
       }
       reducedSection.steps = directionStepsReducer({
-        steps: section.steps,
+        steps: section.directionSteps,
       });
       return reducedSection;
     });
@@ -86,20 +106,17 @@ export const tagsReducer = ({ recipeTags }) => {
   let reducedTags = [];
   if (recipeTags) {
     reducedTags = recipeTags.map((tag) => {
-      return { id: tag.id, recipeid: tag.recipeid, tagid: tag.tagid };
+      return {
+        id: tag.id,
+        label: tag.label,
+        typeid: tag.tagTypeId,
+      };
     });
   }
   return reducedTags;
 };
 
-export const recipeReducer = ({
-  recipe,
-  prepTimeArray,
-  totalTimeArray,
-  directionSections,
-  ingredientSections,
-  recipeTags,
-}) => {
+export const recipeReducer = ({ recipe }) => {
   if (!recipe) {
     return null;
   }
@@ -113,13 +130,14 @@ export const recipeReducer = ({
     },
     photo: recipe.photo_url,
     servings: recipe.servings,
-    directions: directionsReducer({ directionSections }),
-    ingredients: ingredientsReducer({ ingredientSections }),
-    timing: {
-      prep: timeReducer({ timeArray: prepTimeArray }),
-      total: timeReducer({ timeArray: totalTimeArray }),
-    },
-    tags: tagsReducer({ recipeTags }),
+    directions: directionsReducer({
+      directionSections: recipe.directionSections,
+    }),
+    ingredients: ingredientsReducer({
+      ingredientSections: recipe.ingredientSections,
+    }),
+    timing: timingReducer({ timingArray: recipe.timings }),
+    tags: tagsReducer({ recipeTags: recipe.tags }),
     dateAdded: recipe.createdAt,
     dateUpdated: recipe.updatedAt,
   };

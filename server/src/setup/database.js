@@ -8,6 +8,38 @@ import RecipeModel from '../models/Recipe';
 import IngredientSectionModel from '../models/IngredientSection';
 import IngredientModel from '../models/Ingredient';
 import RangedAmountModel from '../models/RangedAmount';
+import RecipeTagModel from '../models/RecipeTag';
+
+const debugDBModels = (models) => {
+  for (let model of Object.keys(models)) {
+    if (!models[model].name) continue;
+
+    console.log(
+      '\n\n----------------------------------\n',
+      models[model].name,
+      '\n----------------------------------'
+    );
+
+    console.log('\nAttributes');
+    for (let attr of Object.keys(models[model].attributes)) {
+      console.log(models[model].name + '.' + attr);
+    }
+
+    console.log('\nAssociations');
+    for (let assoc of Object.keys(models[model].associations)) {
+      for (let accessor of Object.keys(
+        models[model].associations[assoc].accessors
+      )) {
+        console.log(
+          models[model].name +
+            '.' +
+            models[model].associations[assoc].accessors[accessor] +
+            '()'
+        );
+      }
+    }
+  }
+};
 
 export const createStore = () => {
   const Op = SQL.Op;
@@ -32,31 +64,32 @@ export const createStore = () => {
   const IngredientSection = new IngredientSectionModel(db, SQL);
   const Ingredient = new IngredientModel(db, SQL);
   const RangedAmount = new RangedAmountModel(db, SQL);
+  const RecipeTag = new RecipeTagModel(db);
 
   // define relationships
-  TagType.hasMany(Tag);
-  Tag.belongsTo(TagType);
+  Tag.TagType = TagType.hasMany(Tag);
+  TagType.Tag = Tag.belongsTo(TagType);
 
-  Recipe.hasMany(DirectionSection);
-  DirectionSection.belongsTo(Recipe);
+  DirectionSection.Recipe = Recipe.hasMany(DirectionSection);
+  Recipe.DirectionSection = DirectionSection.belongsTo(Recipe);
 
-  DirectionSection.hasMany(DirectionStep);
-  DirectionStep.belongsTo(DirectionSection);
+  DirectionStep.DirectionSection = DirectionSection.hasMany(DirectionStep);
+  DirectionSection.DirectionStep = DirectionStep.belongsTo(DirectionSection);
 
-  Recipe.hasMany(IngredientSection);
-  IngredientSection.belongsTo(Recipe);
+  IngredientSection.Recipe = Recipe.hasMany(IngredientSection);
+  Recipe.IngredientSection = IngredientSection.belongsTo(Recipe);
 
-  IngredientSection.hasMany(Ingredient);
-  Ingredient.belongsTo(IngredientSection);
+  Ingredient.IngredientSection = IngredientSection.hasMany(Ingredient);
+  IngredientSection.Ingredient = Ingredient.belongsTo(IngredientSection);
 
-  Ingredient.hasOne(RangedAmount);
-  RangedAmount.belongsTo(Ingredient);
+  RangedAmount.Ingredient = Ingredient.hasOne(RangedAmount);
+  Ingredient.RangedAmount = RangedAmount.belongsTo(Ingredient);
 
-  Recipe.hasMany(Timing);
-  Timing.belongsTo(Recipe);
+  Timing.Recipe = Recipe.hasMany(Timing);
+  Recipe.Timing = Timing.belongsTo(Recipe);
 
-  Recipe.hasMany(Tag);
-  Tag.belongsToMany(Recipe, { through: 'recipe_tags' });
+  Recipe.belongsToMany(Tag, { through: RecipeTag });
+  Tag.belongsToMany(Recipe, { through: RecipeTag });
 
   // Sync all the models
   db.sync()
@@ -66,7 +99,20 @@ export const createStore = () => {
     .catch((error) => {
       console.error('ERROR - Unable to sync database: \n' + error);
     });
-
+  /*
+  debugDBModels({
+    TagType,
+    Tag,
+    Recipe,
+    DirectionSection,
+    DirectionStep,
+    Timing,
+    IngredientSection,
+    Ingredient,
+    RangedAmount,
+    RecipeTag,
+  });
+*/
   return {
     db,
     Recipe,
@@ -76,6 +122,7 @@ export const createStore = () => {
     Ingredient,
     RangedAmount,
     Timing,
+    RecipeTag,
     Tag,
     TagType,
   };

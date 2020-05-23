@@ -16,10 +16,12 @@ const Ingredient = (db, SQL) => {
     toTaste: {
       type: SQL.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     optional: {
       type: SQL.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
   });
 };

@@ -1,5 +1,5 @@
 const DirectionSection = (db, SQL) => {
-  return db.define('direction_section', {
+  return db.define('directionSection', {
     label: {
       type: SQL.STRING,
       allowNull: true,

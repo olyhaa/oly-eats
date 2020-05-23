@@ -1,4 +1,5 @@
 import {
+  timingReducer,
   timeReducer,
   directionsReducer,
   directionStepsReducer,
@@ -13,8 +14,8 @@ import { TIMINGS, TIME_UNITS } from '../../constants';
 
 const mockTimings = [
   {
-    id: '1',
-    recipeid: '123',
+    id: 1,
+    recipeId: 123,
     value: '2',
     units: TIME_UNITS.MINUTE,
     type: TIMINGS.PREP_TIME,
@@ -22,8 +23,8 @@ const mockTimings = [
     updatedAt: '2020-05-10 00:03:45.511 +00:00',
   },
   {
-    id: '2',
-    recipeid: '123',
+    id: 2,
+    recipeId: 123,
     value: '20',
     units: TIME_UNITS.MINUTE,
     type: TIMINGS.TOTAL_TIME,
@@ -31,8 +32,8 @@ const mockTimings = [
     updatedAt: '2020-05-10 00:05:45.511 +00:00',
   },
   {
-    id: '3',
-    recipeid: '123',
+    id: 3,
+    recipeId: 123,
     value: '1',
     units: TIME_UNITS.HOUR,
     type: TIMINGS.TOTAL_TIME,
@@ -43,23 +44,23 @@ const mockTimings = [
 
 const mockDirectionStep = [
   {
-    id: '1',
+    id: 1,
     text: 'step 1',
-    sectionid: '2',
+    directionSectionId: 2,
     createdAt: '2020-05-10 00:09:45.511 +00:00',
     updatedAt: '2020-05-10 00:10:45.511 +00:00',
   },
   {
-    id: '2',
+    id: 2,
     text: 'step 2',
-    sectionid: '2',
+    directionSectionId: 2,
     createdAt: '2020-05-10 00:11:45.511 +00:00',
     updatedAt: '2020-05-10 00:12:45.511 +00:00',
   },
   {
-    id: '3',
+    id: 3,
     text: 'step 1',
-    sectionid: '1',
+    directionSectionId: 1,
     createdAt: '2020-05-10 00:09:45.511 +00:00',
     updatedAt: '2020-05-10 00:10:45.511 +00:00',
   },
@@ -67,7 +68,7 @@ const mockDirectionStep = [
 
 const fullRecipe = {
   recipe: {
-    id: '123',
+    id: 123,
     title: 'my first recipe',
     description: 'the best recipe ever',
     source_display: "Mandy's Kitchen",
@@ -76,121 +77,143 @@ const fullRecipe = {
     servings: 2,
     createdAt: '2020-05-10 00:00:45.511 +00:00',
     updatedAt: '2020-05-10 00:01:45.511 +00:00',
-  },
-  prepTimeArray: [
-    {
-      id: '1',
-      recipeid: '123',
-      value: '2',
-      units: 'MINUTE',
-      type: 'PREP',
-      createdAt: '2020-05-10 00:02:45.511 +00:00',
-      updatedAt: '2020-05-10 00:03:45.511 +00:00',
-    },
-  ],
-  totalTimeArray: [
-    {
-      id: '2',
-      recipeid: '123',
-      value: '20',
-      units: 'MINUTE',
-      type: 'TOTAL',
-      createdAt: '2020-05-10 00:04:45.511 +00:00',
-      updatedAt: '2020-05-10 00:05:45.511 +00:00',
-    },
-    {
-      id: '3',
-      recipeid: '123',
-      value: '1',
-      units: 'HOUR',
-      type: 'TOTAL',
-      createdAt: '2020-05-10 00:06:45.511 +00:00',
-      updatedAt: '2020-05-10 00:07:45.511 +00:00',
-    },
-  ],
-  directionSections: [
-    {
-      id: '1',
-      label: 'section 1',
-      recipeid: '123',
-      createdAt: '2020-05-10 00:07:45.511 +00:00',
-      updatedAt: '2020-05-10 00:08:45.511 +00:00',
-      steps: [
-        {
-          id: '1',
-          text: 'step 1',
-          sectionid: '2',
-          createdAt: '2020-05-10 00:09:45.511 +00:00',
-          updatedAt: '2020-05-10 00:10:45.511 +00:00',
-        },
-        {
-          id: '2',
-          text: 'step 2',
-          sectionid: '2',
-          createdAt: '2020-05-10 00:11:45.511 +00:00',
-          updatedAt: '2020-05-10 00:12:45.511 +00:00',
-        },
-      ],
-    },
-  ],
-  ingredientSections: [
-    {
-      id: '1',
-      label: 'ingredient section 1',
-      recipeid: '102',
-      createdAt: '2020-05-10 00:07:45.511 +00:00',
-      updatedAt: '2020-05-10 00:08:45.511 +00:00',
-      ingredients: [
-        {
-          id: '1',
-          amount: '2',
-          unit: 'cup',
-          prep: 'chopped',
-          name: 'apples',
-          toTaste: true,
-          optional: true,
-          sectionid: '2',
-          createdAt: '2020-05-10 00:07:45.511 +00:00',
-          updatedAt: '2020-05-10 00:08:45.511 +00:00',
-        },
-        {
-          id: '2',
-          unit: 'tablespoon',
-          prep: 'minced',
-          name: 'garlic',
-          toTaste: true,
-          optional: false,
-          sectionid: '2',
-          createdAt: '2020-05-10 00:07:45.511 +00:00',
-          updatedAt: '2020-05-10 00:08:45.511 +00:00',
-          rangedAmount: {
-            id: '1',
-            min: '5',
-            max: '10',
+    timings: [
+      {
+        id: 1,
+        recipeId: 123,
+        value: '2',
+        units: 'MINUTE',
+        type: 'PREP',
+        createdAt: '2020-05-10 00:02:45.511 +00:00',
+        updatedAt: '2020-05-10 00:03:45.511 +00:00',
+      },
+      {
+        id: 2,
+        recipeId: 123,
+        value: '20',
+        units: 'MINUTE',
+        type: 'TOTAL',
+        createdAt: '2020-05-10 00:04:45.511 +00:00',
+        updatedAt: '2020-05-10 00:05:45.511 +00:00',
+      },
+      {
+        id: 3,
+        recipeId: 123,
+        value: '1',
+        units: 'HOUR',
+        type: 'TOTAL',
+        createdAt: '2020-05-10 00:06:45.511 +00:00',
+        updatedAt: '2020-05-10 00:07:45.511 +00:00',
+      },
+    ],
+    directionSections: [
+      {
+        id: 1,
+        label: 'section 1',
+        recipeId: 123,
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        directionSteps: [
+          {
+            id: 1,
+            text: 'step 1',
+            directionSectionId: 2,
+            createdAt: '2020-05-10 00:09:45.511 +00:00',
+            updatedAt: '2020-05-10 00:10:45.511 +00:00',
+          },
+          {
+            id: 2,
+            text: 'step 2',
+            directionSectionId: 2,
+            createdAt: '2020-05-10 00:11:45.511 +00:00',
+            updatedAt: '2020-05-10 00:12:45.511 +00:00',
+          },
+        ],
+      },
+    ],
+    ingredientSections: [
+      {
+        id: 1,
+        label: 'ingredient section 1',
+        recipeId: 102,
+        createdAt: '2020-05-10 00:07:45.511 +00:00',
+        updatedAt: '2020-05-10 00:08:45.511 +00:00',
+        ingredients: [
+          {
+            id: 1,
+            amount: '2',
+            unit: 'cup',
+            prep: 'chopped',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+            ingredientSectionId: 2,
             createdAt: '2020-05-10 00:07:45.511 +00:00',
             updatedAt: '2020-05-10 00:08:45.511 +00:00',
-            ingredientid: '2',
           },
+          {
+            id: 2,
+            unit: 'tablespoon',
+            prep: 'minced',
+            name: 'garlic',
+            toTaste: true,
+            optional: false,
+            ingredientSectionId: 2,
+            createdAt: '2020-05-10 00:07:45.511 +00:00',
+            updatedAt: '2020-05-10 00:08:45.511 +00:00',
+            rangedAmount: {
+              id: 1,
+              min: '5',
+              max: '10',
+              createdAt: '2020-05-10 00:07:45.511 +00:00',
+              updatedAt: '2020-05-10 00:08:45.511 +00:00',
+              ingredientId: 2,
+            },
+          },
+        ],
+      },
+    ],
+    tags: [
+      {
+        id: 1,
+        label: 'bread',
+        reatedAt: '2020-05-22T22:25:23.214Z',
+        updatedAt: '2020-05-22T22:25:23.214Z',
+        tagTypeId: 2,
+        recipeTag: {
+          createdAt: '2020-05-23T00:20:55.988Z',
+          updatedAt: '2020-05-23T00:20:55.988Z',
+          recipeId: 123,
+          tagId: 1,
         },
-      ],
-    },
-  ],
-  recipeTags: [
-    {
-      id: '1',
-      recipeid: '123',
-      tagid: '1',
-      createdAt: '2020-05-10 00:07:45.511 +00:00',
-      updatedAt: '2020-05-10 00:08:45.511 +00:00',
-    },
-    {
-      id: '2',
-      recipeid: '123',
-      tagid: '23',
-      createdAt: '2020-05-10 00:07:45.511 +00:00',
-      updatedAt: '2020-05-10 00:08:45.511 +00:00',
-    },
-  ],
+        tagType: {
+          id: 2,
+          label: 'category',
+          createdAt: '2020-05-22T22:25:14.275Z',
+          updatedAt: '2020-05-22T22:25:14.275Z',
+        },
+      },
+      {
+        id: 2,
+        label: 'snack',
+        reatedAt: '2020-05-22T22:25:23.214Z',
+        updatedAt: '2020-05-22T22:25:23.214Z',
+        tagTypeId: 4,
+        recipeTag: {
+          createdAt: '2020-05-23T00:20:55.988Z',
+          updatedAt: '2020-05-23T00:20:55.988Z',
+          recipeId: 4,
+          tagId: 2,
+        },
+        tagType: {
+          id: 4,
+          label: 'meal_type',
+          createdAt: '2020-05-22T22:25:14.275Z',
+          updatedAt: '2020-05-22T22:25:14.275Z',
+        },
+      },
+    ],
+  },
 };
 
 describe('recipeReducer', () => {
@@ -243,9 +266,15 @@ describe('recipeMutationReducer', () => {
 });
 
 describe('timeReducer', () => {
-  it('properly reduces direction step array', () => {
+  it('properly reduces total time array', () => {
     const timeArray = [mockTimings[1], mockTimings[2]];
     expect(timeReducer({ timeArray })).toMatchSnapshot();
+  });
+});
+
+describe('timingReducer', () => {
+  it('properly reduces timing array', () => {
+    expect(timingReducer({ timingArray: mockTimings })).toMatchSnapshot();
   });
 });
 
@@ -256,12 +285,12 @@ describe('directionsReducer', () => {
         createdAt: '2020-05-10 00:07:45.511 +00:00',
         id: '1',
         label: 'section 1',
-        recipeid: '123',
-        steps: [
+        recipeId: '123',
+        directionSteps: [
           {
             createdAt: '2020-05-10 00:09:45.511 +00:00',
             id: '3',
-            sectionid: '1',
+            directionSectionId: '1',
             text: 'step 1',
             updatedAt: '2020-05-10 00:10:45.511 +00:00',
           },
@@ -271,19 +300,19 @@ describe('directionsReducer', () => {
       {
         createdAt: '2020-05-10 00:07:45.511 +00:00',
         id: '2',
-        recipeid: '123',
-        steps: [
+        recipeId: '123',
+        directionSteps: [
           {
             createdAt: '2020-05-10 00:09:45.511 +00:00',
             id: '1',
-            sectionid: '2',
+            directionSectionId: '2',
             text: 'step 1',
             updatedAt: '2020-05-10 00:10:45.511 +00:00',
           },
           {
             createdAt: '2020-05-10 00:11:45.511 +00:00',
             id: '2',
-            sectionid: '2',
+            directionSectionId: '2',
             text: 'step 2',
             updatedAt: '2020-05-10 00:12:45.511 +00:00',
           },
@@ -310,12 +339,12 @@ describe('ingredientsReducer', () => {
         createdAt: '2020-05-10 00:07:45.511 +00:00',
         id: '1',
         label: 'section 1',
-        recipeid: '123',
+        recipeId: '123',
         ingredients: [
           {
             createdAt: '2020-05-10 00:09:45.511 +00:00',
             id: '3',
-            sectionid: '1',
+            ingredientSectionId: '1',
             amount: '2',
             unit: 'cup',
             prep: 'chopped',
@@ -330,12 +359,12 @@ describe('ingredientsReducer', () => {
       {
         createdAt: '2020-05-10 00:07:45.511 +00:00',
         id: '2',
-        recipeid: '123',
+        recipeId: '123',
         ingredients: [
           {
             createdAt: '2020-05-10 00:09:45.511 +00:00',
             id: '1',
-            sectionid: '2',
+            ingredientSectionId: '2',
             unit: 'tablespoon',
             prep: 'minced',
             name: 'garlic',
@@ -347,14 +376,14 @@ describe('ingredientsReducer', () => {
               max: '10',
               createdAt: '2020-05-10 00:07:45.511 +00:00',
               updatedAt: '2020-05-10 00:08:45.511 +00:00',
-              ingredientid: '1',
+              ingredientId: '1',
             },
             updatedAt: '2020-05-10 00:10:45.511 +00:00',
           },
           {
             createdAt: '2020-05-10 00:11:45.511 +00:00',
             id: '2',
-            sectionid: '2',
+            ingredientSectionId: '2',
             amount: '3',
             name: 'carrot',
             updatedAt: '2020-05-10 00:12:45.511 +00:00',
@@ -372,7 +401,7 @@ describe('ingredientReducer', () => {
     const ingredient = {
       createdAt: '2020-05-10 00:09:45.511 +00:00',
       id: '1',
-      sectionid: '2',
+      ingredientSectionId: '2',
       unit: 'tablespoon',
       prep: 'minced',
       name: 'garlic',
@@ -384,7 +413,7 @@ describe('ingredientReducer', () => {
         max: '10',
         createdAt: '2020-05-10 00:07:45.511 +00:00',
         updatedAt: '2020-05-10 00:08:45.511 +00:00',
-        ingredientid: '1',
+        ingredientId: '1',
       },
       updatedAt: '2020-05-10 00:10:45.511 +00:00',
     };
@@ -400,7 +429,7 @@ describe('rangedAmountReducer', () => {
       max: '10',
       createdAt: '2020-05-10 00:07:45.511 +00:00',
       updatedAt: '2020-05-10 00:08:45.511 +00:00',
-      ingredientid: '1',
+      ingredientId: '1',
     };
     expect(rangedAmountReducer({ rangedAmount })).toMatchSnapshot();
   });
@@ -415,14 +444,42 @@ describe('tagsReducer', () => {
   it('properly reduces tags', () => {
     const recipeTags = [
       {
-        id: '1',
-        recipeid: '2',
-        tagid: '3',
+        id: 1,
+        label: 'bread',
+        reatedAt: '2020-05-22T22:25:23.214Z',
+        updatedAt: '2020-05-22T22:25:23.214Z',
+        tagTypeId: 2,
+        recipeTag: {
+          createdAt: '2020-05-23T00:20:55.988Z',
+          updatedAt: '2020-05-23T00:20:55.988Z',
+          recipeId: 123,
+          tagId: 1,
+        },
+        tagType: {
+          id: 2,
+          label: 'category',
+          createdAt: '2020-05-22T22:25:14.275Z',
+          updatedAt: '2020-05-22T22:25:14.275Z',
+        },
       },
       {
-        id: '2',
-        recipeid: '2',
-        tagid: '4',
+        id: 2,
+        label: 'snack',
+        reatedAt: '2020-05-22T22:25:23.214Z',
+        updatedAt: '2020-05-22T22:25:23.214Z',
+        tagTypeId: 4,
+        recipeTag: {
+          createdAt: '2020-05-23T00:20:55.988Z',
+          updatedAt: '2020-05-23T00:20:55.988Z',
+          recipeId: 4,
+          tagId: 2,
+        },
+        tagType: {
+          id: 4,
+          label: 'meal_type',
+          createdAt: '2020-05-22T22:25:14.275Z',
+          updatedAt: '2020-05-22T22:25:14.275Z',
+        },
       },
     ];
     expect(tagsReducer({ recipeTags })).toMatchSnapshot();
