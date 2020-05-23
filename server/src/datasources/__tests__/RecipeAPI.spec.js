@@ -244,7 +244,7 @@ describe('getRecipe', () => {
   });
 });
 
-describe.skip('deleteRecipe', () => {
+describe('deleteRecipe', () => {
   it('calls store destroy and returns result - id exists', async () => {
     const findPkVal = Object.assign({}, mockRecipes[0]);
     findPkVal.destroy = jest.fn();
