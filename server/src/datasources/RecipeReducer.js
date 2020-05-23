@@ -69,11 +69,14 @@ export const rangedAmountReducer = ({ rangedAmount }) => {
 export const ingredientReducer = ({ ingredient }) => {
   const reducedIngredient = {};
   if (ingredient) {
-    reducedIngredient.amount =
-      ingredient.amount ??
-      rangedAmountReducer({
+    if (ingredient.amount) {
+      reducedIngredient.amount = ingredient.amount;
+    }
+    if (ingredient.rangedAmount) {
+      reducedIngredient.rangedAmount = rangedAmountReducer({
         rangedAmount: ingredient.rangedAmount,
       });
+    }
     reducedIngredient.unit = ingredient.unit;
     reducedIngredient.prep = ingredient.prep;
     reducedIngredient.name = ingredient.name;

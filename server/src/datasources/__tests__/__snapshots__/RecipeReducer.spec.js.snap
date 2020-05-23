@@ -39,13 +39,13 @@ Array [
 
 exports[`ingredientReducer properly reduces ingredient 1`] = `
 Object {
-  "amount": Object {
-    "max": "10",
-    "min": "5",
-  },
   "name": "garlic",
   "optional": false,
   "prep": "minced",
+  "rangedAmount": Object {
+    "max": "10",
+    "min": "5",
+  },
   "toTaste": true,
   "unit": "tablespoon",
 }
@@ -69,13 +69,13 @@ Array [
   Object {
     "ingredients": Array [
       Object {
-        "amount": Object {
-          "max": "10",
-          "min": "5",
-        },
         "name": "garlic",
         "optional": false,
         "prep": "minced",
+        "rangedAmount": Object {
+          "max": "10",
+          "min": "5",
+        },
         "toTaste": true,
         "unit": "tablespoon",
       },
@@ -132,13 +132,13 @@ Object {
             "unit": "cup",
           },
           Object {
-            "amount": Object {
-              "max": "10",
-              "min": "5",
-            },
             "name": "garlic",
             "optional": false,
             "prep": "minced",
+            "rangedAmount": Object {
+              "max": "10",
+              "min": "5",
+            },
             "toTaste": true,
             "unit": "tablespoon",
           },
@@ -221,13 +221,13 @@ Object {
             "unit": "cup",
           },
           Object {
-            "amount": Object {
-              "max": "10",
-              "min": "5",
-            },
             "name": "garlic",
             "optional": false,
             "prep": "minced",
+            "rangedAmount": Object {
+              "max": "10",
+              "min": "5",
+            },
             "toTaste": true,
             "unit": "tablespoon",
           },
@@ -318,13 +318,13 @@ Object {
             "unit": "cup",
           },
           Object {
-            "amount": Object {
-              "max": "10",
-              "min": "5",
-            },
             "name": "garlic",
             "optional": false,
             "prep": "minced",
+            "rangedAmount": Object {
+              "max": "10",
+              "min": "5",
+            },
             "toTaste": true,
             "unit": "tablespoon",
           },
@@ -405,13 +405,13 @@ Object {
           "unit": "cup",
         },
         Object {
-          "amount": Object {
-            "max": "10",
-            "min": "5",
-          },
           "name": "garlic",
           "optional": false,
           "prep": "minced",
+          "rangedAmount": Object {
+            "max": "10",
+            "min": "5",
+          },
           "toTaste": true,
           "unit": "tablespoon",
         },

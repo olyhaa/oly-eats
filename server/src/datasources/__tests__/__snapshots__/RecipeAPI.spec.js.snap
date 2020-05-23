@@ -33,13 +33,13 @@ Object {
             "unit": "cup",
           },
           Object {
-            "amount": Object {
-              "max": "10",
-              "min": "5",
-            },
             "name": "garlic",
             "optional": false,
             "prep": "minced",
+            "rangedAmount": Object {
+              "max": "10",
+              "min": "5",
+            },
             "toTaste": true,
             "unit": "tablespoon",
           },
@@ -313,13 +313,13 @@ Array [
             "unit": "cup",
           },
           Object {
-            "amount": Object {
-              "max": "10",
-              "min": "5",
-            },
             "name": "garlic",
             "optional": false,
             "prep": "minced",
+            "rangedAmount": Object {
+              "max": "10",
+              "min": "5",
+            },
             "toTaste": true,
             "unit": "tablespoon",
           },
@@ -399,13 +399,13 @@ Object {
           "unit": "cup",
         },
         Object {
-          "amount": Object {
-            "max": "10",
-            "min": "5",
-          },
           "name": "garlic",
           "optional": false,
           "prep": "minced",
+          "rangedAmount": Object {
+            "max": "10",
+            "min": "5",
+          },
           "toTaste": true,
           "unit": "tablespoon",
         },
@@ -606,5 +606,13 @@ Object {
     "title": "my first recipe",
     "updatedAt": "2020-05-10 00:01:45.511 +00:00",
   },
+}
+`;
+
+exports[`updateRecipe id not found 1`] = `
+Object {
+  "message": "ID not found",
+  "recipe": null,
+  "success": false,
 }
 `;
