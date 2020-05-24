@@ -37,6 +37,7 @@ const TAGS_MEAL = 'meal';
 const TAGS_EQUIPMENT = 'equipment';
 const TAGS_CATEGORY = 'category';
 const TAGS_CUISINE = 'cuisine';
+const META = 'meta';
 const DATE_ADDED = 'dateAdded';
 const DATE_UPDATED = 'dateUpdated';
 
@@ -75,6 +76,7 @@ export const RECIPE = {
   TAGS_EQUIPMENT,
   TAGS_CATEGORY,
   TAGS_CUISINE,
+  META,
   DATE_ADDED,
   DATE_UPDATED,
 };

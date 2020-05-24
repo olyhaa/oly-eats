@@ -4,8 +4,6 @@ exports[`addRecipe calls store creator and returns result 1`] = `
 Object {
   "message": undefined,
   "recipe": Object {
-    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
     "description": "the best recipe ever",
     "directions": Array [
       Object {
@@ -47,6 +45,10 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "meta": Object {
+      "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+      "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+    },
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source": Object {
@@ -284,8 +286,6 @@ Object {
 exports[`getAllRecipes returns array of recipes 1`] = `
 Array [
   Object {
-    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
     "description": "the best recipe ever",
     "directions": Array [
       Object {
@@ -327,6 +327,10 @@ Array [
         "label": "ingredient section 1",
       },
     ],
+    "meta": Object {
+      "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+      "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+    },
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source": Object {
@@ -370,8 +374,6 @@ Array [
 
 exports[`getRecipe returns recipe 1`] = `
 Object {
-  "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-  "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
   "description": "the best recipe ever",
   "directions": Array [
     Object {
@@ -413,6 +415,10 @@ Object {
       "label": "ingredient section 1",
     },
   ],
+  "meta": Object {
+    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+  },
   "photo": "http://some.url.com/pic.jpg",
   "servings": 2,
   "source": Object {

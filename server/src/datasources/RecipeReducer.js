@@ -125,6 +125,17 @@ export const tagsReducer = ({ recipeTags }) => {
   return reducedTags;
 };
 
+export const metaReducer = ({ createdAt, updatedAt }) => {
+  const reducedMeta = {};
+  if (createdAt) {
+    reducedMeta.dateAdded = createdAt;
+    if (createdAt.toString() != updatedAt.toString()) {
+      reducedMeta.dateUpdated = updatedAt;
+    }
+  }
+  return reducedMeta;
+};
+
 export const recipeReducer = ({ recipe }) => {
   if (!recipe) {
     return null;
@@ -147,8 +158,10 @@ export const recipeReducer = ({ recipe }) => {
     }),
     timing: timingReducer({ timingArray: recipe.timings }),
     tags: tagsReducer({ recipeTags: recipe.tags }),
-    dateAdded: recipe.createdAt,
-    dateUpdated: recipe.updatedAt,
+    meta: metaReducer({
+      createdAt: recipe.createdAt,
+      updatedAt: recipe.updatedAt,
+    }),
   };
 
   return recipeObj;

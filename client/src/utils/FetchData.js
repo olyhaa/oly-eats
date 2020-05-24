@@ -58,8 +58,10 @@ export const getAllRecipesQuery = () => {
           typeid
           label
         }
-        dateAdded
-        dateUpdated
+        meta {
+          dateAdded
+          dateUpdated
+        }
       }
     }
   `;
@@ -114,8 +116,10 @@ export const getRecipeQuery = () => {
           typeid
           label
         }
-        dateAdded
-        dateUpdated
+        meta {
+          dateAdded
+          dateUpdated
+        }
       }
     }
   `;

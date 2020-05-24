@@ -63,8 +63,14 @@ const typeDefs = gql`
     ingredients: [IngredientSection]
     timing: TimeGroup
     tags: [Tag]
-    dateAdded: String
-    dateUpdated: String
+    meta: RecipeMeta
+  }
+
+  scalar ISODate
+
+  type RecipeMeta {
+    dateAdded: ISODate
+    dateUpdated: ISODate
   }
 
   type Source {
@@ -128,8 +134,6 @@ const typeDefs = gql`
     prepTime: [TimingInput]
     totalTime: [TimingInput]
     tags: [RecipeTagInput]
-    dateAdded: String
-    dateUpdated: String
   }
 
   input DirectionSectionInput {

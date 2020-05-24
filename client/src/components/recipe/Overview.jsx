@@ -122,8 +122,8 @@ Overview.propTypes = {
     url: PropTypes.string,
   }),
   description: PropTypes.string,
-  dateAdded: PropTypes.number,
-  lastUpdated: PropTypes.number,
+  dateAdded: PropTypes.string,
+  lastUpdated: PropTypes.string,
 };
 
 Overview.defaultProps = {

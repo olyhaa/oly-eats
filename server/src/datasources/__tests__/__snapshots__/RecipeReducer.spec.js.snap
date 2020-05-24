@@ -103,8 +103,6 @@ exports[`recipeMutationReducer all fields 1`] = `
 Object {
   "message": "Success!",
   "recipe": Object {
-    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
     "description": "the best recipe ever",
     "directions": Array [
       Object {
@@ -146,6 +144,10 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "meta": Object {
+      "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+      "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+    },
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source": Object {
@@ -192,8 +194,6 @@ exports[`recipeMutationReducer no message field 1`] = `
 Object {
   "message": undefined,
   "recipe": Object {
-    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
     "description": "the best recipe ever",
     "directions": Array [
       Object {
@@ -235,6 +235,10 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "meta": Object {
+      "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+      "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+    },
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source": Object {
@@ -289,8 +293,6 @@ exports[`recipeMutationReducer no success field 1`] = `
 Object {
   "message": "Success!",
   "recipe": Object {
-    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
     "description": "the best recipe ever",
     "directions": Array [
       Object {
@@ -332,6 +334,10 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "meta": Object {
+      "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+      "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+    },
     "photo": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source": Object {
@@ -376,8 +382,6 @@ Object {
 
 exports[`recipeReducer all recipe components 1`] = `
 Object {
-  "dateAdded": "2020-05-10 00:00:45.511 +00:00",
-  "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
   "description": "the best recipe ever",
   "directions": Array [
     Object {
@@ -419,6 +423,10 @@ Object {
       "label": "ingredient section 1",
     },
   ],
+  "meta": Object {
+    "dateAdded": "2020-05-10 00:00:45.511 +00:00",
+    "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
+  },
   "photo": "http://some.url.com/pic.jpg",
   "servings": 2,
   "source": Object {

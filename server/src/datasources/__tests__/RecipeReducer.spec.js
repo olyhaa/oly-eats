@@ -9,6 +9,7 @@ import {
   tagsReducer,
   recipeReducer,
   recipeMutationReducer,
+  metaReducer,
 } from '../RecipeReducer';
 import { TIMINGS, TIME_UNITS } from '../../constants';
 
@@ -483,5 +484,33 @@ describe('tagsReducer', () => {
       },
     ];
     expect(tagsReducer({ recipeTags })).toMatchSnapshot();
+  });
+});
+
+describe('metaReducer', () => {
+  it('empty object', () => {
+    const metaObj = {};
+    expect(metaReducer(metaObj)).toEqual({});
+  });
+
+  it('different created and updated dates', () => {
+    const metaObj = {
+      createdAt: '2020-05-23 14:34:55.641 +00:00',
+      updatedAt: '2020-05-23 14:34:55.641 +00:00',
+    };
+    expect(metaReducer(metaObj)).toEqual({
+      dateAdded: metaObj.createdAt,
+    });
+  });
+
+  it('same created and updated dates', () => {
+    const metaObj = {
+      createdAt: '2020-05-20 14:34:55.641 +00:00',
+      updatedAt: '2020-05-23 14:34:55.641 +00:00',
+    };
+    expect(metaReducer(metaObj)).toEqual({
+      dateAdded: metaObj.createdAt,
+      dateUpdated: metaObj.updatedAt,
+    });
   });
 });
