@@ -44,9 +44,9 @@ class RecipeAPI extends DataSource {
       this.constructBaseRecipeObj(recipeFields)
     );
 
-    if (Array.isArray(recipeFields.prepTime)) {
-      for (let i = 0; i < recipeFields.prepTime.length; i++) {
-        const timeElement = recipeFields.prepTime[i];
+    if (Array.isArray(recipeFields?.timing.prep)) {
+      for (let i = 0; i < recipeFields.timing.prep.length; i++) {
+        const timeElement = recipeFields.timing.prep[i];
         const timeObj = this.constructTimeObj({
           newFields: timeElement,
           type: TIMINGS.PREP_TIME,
@@ -55,9 +55,9 @@ class RecipeAPI extends DataSource {
       }
     }
 
-    if (Array.isArray(recipeFields.totalTime)) {
-      for (let i = 0; i < recipeFields.totalTime.length; i++) {
-        const timeElement = recipeFields.totalTime[i];
+    if (Array.isArray(recipeFields?.timing.total)) {
+      for (let i = 0; i < recipeFields.timing.total.length; i++) {
+        const timeElement = recipeFields.timing.total[i];
         const timeObj = this.constructTimeObj({
           newFields: timeElement,
           type: TIMINGS.TOTAL_TIME,
@@ -128,14 +128,14 @@ class RecipeAPI extends DataSource {
     if (newFields.description) {
       recipeObj.description = newFields.description;
     }
-    if (newFields.source_display) {
-      recipeObj.source_display = newFields.source_display;
+    if (newFields?.source.display) {
+      recipeObj.source_display = newFields.source.display;
     }
-    if (newFields.source_url) {
-      recipeObj.source_url = newFields.source_url;
+    if (newFields?.source.url) {
+      recipeObj.source_url = newFields.source.url;
     }
-    if (newFields.photo_url) {
-      recipeObj.photo_url = newFields.photo_url;
+    if (newFields.photo) {
+      recipeObj.photo_url = newFields.photo;
     }
     if (newFields.servings) {
       recipeObj.servings = newFields.servings;

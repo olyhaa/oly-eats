@@ -125,15 +125,23 @@ const typeDefs = gql`
   input RecipeInput {
     title: String
     description: String
-    source_display: String
-    source_url: String
-    photo_url: String
+    source: SourceInput
+    photo: String
     servings: Int
     directions: [DirectionSectionInput]
     ingredients: [IngredientSectionInput]
-    prepTime: [TimingInput]
-    totalTime: [TimingInput]
+    timing: TimingInput
     tags: [RecipeTagInput]
+  }
+
+  input SourceInput {
+    display: String
+    url: String
+  }
+
+  input TimingInput {
+    prep: [TimeInput]
+    total: [TimeInput]
   }
 
   input DirectionSectionInput {
@@ -165,7 +173,7 @@ const typeDefs = gql`
     max: String
   }
 
-  input TimingInput {
+  input TimeInput {
     value: Int
     units: TimingUnit
   }
