@@ -128,10 +128,10 @@ class RecipeAPI extends DataSource {
     if (newFields.description) {
       recipeObj.description = newFields.description;
     }
-    if (newFields?.source.display) {
+    if (newFields.source?.display) {
       recipeObj.source_display = newFields.source.display;
     }
-    if (newFields?.source.url) {
+    if (newFields.source?.url) {
       recipeObj.source_url = newFields.source.url;
     }
     if (newFields.photo) {

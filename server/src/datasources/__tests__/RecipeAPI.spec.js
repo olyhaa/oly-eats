@@ -278,13 +278,23 @@ describe('addRecipe', () => {
     const recipeBaseFieldsInput = {
       title: 'my title',
       description: 'some description',
-      source_display: 'My Recipe source',
-      source_url: 'http://source.com',
-      photo_url: 'http://photos.com/mine.jpg',
+      source: {
+        display: 'My Recipe source',
+        url: 'http://source.com',
+      },
+      photo: 'http://photos.com/mine.jpg',
       servings: 4,
     };
+    const recipeBaseFieldsInputFlat = {
+      title: recipeBaseFieldsInput.title,
+      description: recipeBaseFieldsInput.description,
+      source_display: recipeBaseFieldsInput.source.display,
+      source_url: recipeBaseFieldsInput.source.url,
+      photo_url: recipeBaseFieldsInput.photo,
+      servings: recipeBaseFieldsInput.servings,
+    };
     const dbBaseFields = addDBFields({
-      fields: recipeBaseFieldsInput,
+      fields: recipeBaseFieldsInputFlat,
       id: 123,
     });
     dbBaseFields.createTiming = jest.fn();
@@ -292,11 +302,13 @@ describe('addRecipe', () => {
     dbBaseFields.createIngredientSection = jest.fn();
 
     const timeFieldsInput = {
-      prepTime: [{ value: '2', units: TIME_UNITS.MINUTE }],
-      totalTime: [
-        { value: '20', units: TIME_UNITS.MINUTE },
-        { value: '1', units: TIME_UNITS.HOUR },
-      ],
+      timing: {
+        prep: [{ value: '2', units: TIME_UNITS.MINUTE }],
+        total: [
+          { value: '20', units: TIME_UNITS.MINUTE },
+          { value: '1', units: TIME_UNITS.HOUR },
+        ],
+      },
     };
 
     const directionsInput = [
@@ -363,20 +375,20 @@ describe('addRecipe', () => {
     });
 
     // make sure store is called properly
-    expect(mockStore.Recipe.create).toBeCalledWith(recipeBaseFieldsInput);
+    expect(mockStore.Recipe.create).toBeCalledWith(recipeBaseFieldsInputFlat);
 
     expect(dbBaseFields.createTiming).toBeCalledTimes(3);
     expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(1, {
       type: TIMINGS.PREP_TIME,
-      ...timeFieldsInput.prepTime[0],
+      ...timeFieldsInput.timing.prep[0],
     });
     expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(2, {
       type: TIMINGS.TOTAL_TIME,
-      ...timeFieldsInput.totalTime[0],
+      ...timeFieldsInput.timing.total[0],
     });
     expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(3, {
       type: TIMINGS.TOTAL_TIME,
-      ...timeFieldsInput.totalTime[1],
+      ...timeFieldsInput.timing.total[1],
     });
 
     expect(dbBaseFields.createDirectionSection).toBeCalledWith(
@@ -686,13 +698,23 @@ describe('constructBaseRecipeObj', () => {
       const newFields = {
         title: 'my title',
         description: 'some description',
-        source_display: 'My Recipe source',
-        source_url: 'http://source.com',
-        photo_url: 'http://photos.com/mine.jpg',
+        source: {
+          display: 'My Recipe source',
+          url: 'http://source.com',
+        },
+        photo: 'http://photos.com/mine.jpg',
         servings: 4,
       };
+      const newFieldsExpected = {
+        title: newFields.title,
+        description: newFields.description,
+        source_display: newFields.source.display,
+        source_url: newFields.source.url,
+        photo_url: newFields.photo,
+        servings: newFields.servings,
+      };
       expect(recipeDatasource.constructBaseRecipeObj(newFields)).toEqual(
-        newFields
+        newFieldsExpected
       );
     });
 
@@ -711,15 +733,25 @@ describe('constructBaseRecipeObj', () => {
     const baseFields = {
       title: 'my title',
       description: 'some description',
-      source_display: 'My Recipe source',
-      source_url: 'http://source.com',
-      photo_url: 'http://photos.com/mine.jpg',
+      source: {
+        display: 'My Recipe source',
+        url: 'http://source.com',
+      },
+      photo: 'http://photos.com/mine.jpg',
       servings: 4,
+    };
+    const baseFieldsExpected = {
+      title: baseFields.title,
+      description: baseFields.description,
+      source_display: baseFields.source.display,
+      source_url: baseFields.source.url,
+      photo_url: baseFields.photo,
+      servings: baseFields.servings,
     };
     const allFields = Object.assign({}, baseFields);
     allFields.some_garbage_field = 'some garbage';
     expect(recipeDatasource.constructBaseRecipeObj(allFields)).toEqual(
-      baseFields
+      baseFieldsExpected
     );
   });
 });
