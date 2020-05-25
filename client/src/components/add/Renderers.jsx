@@ -7,7 +7,7 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { FIELDS, isRequired } from './constants/formConstants';
+import { FIELDS } from './constants/formConstants';
 
 export const onlyNums = (value, previousValue) => {
   const pattern = new RegExp(/^[0-9]*$/);
@@ -83,7 +83,7 @@ export const renderNumberField = ({
 export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
   <>
     {fields.map((section, index) => (
-      <>
+      <div key={index}>
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={11}>
             <Field
@@ -110,7 +110,7 @@ export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
           label="Ingredients"
           helperText="Add each ingredient to a new line"
         />
-      </>
+      </div>
     ))}
     <Grid container justify="center" direction="column">
       <Fab
@@ -131,7 +131,7 @@ export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
 export const renderDirections = ({ fields, meta: { dirty, error } }) => (
   <div>
     {fields.map((section, index) => (
-      <>
+      <div key={index}>
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={11}>
             <Field
@@ -159,7 +159,7 @@ export const renderDirections = ({ fields, meta: { dirty, error } }) => (
           label="Directions"
           helperText="Add each step to a new line"
         />
-      </>
+      </div>
     ))}
     <Grid container justify="center" direction="column">
       <Fab

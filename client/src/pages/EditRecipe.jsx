@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import getRecipeObject from 'utils/FetchData';
+import { getRecipeObject } from 'utils/FetchData';
 import { useParams } from 'react-router-dom';
 import { decodeRecipe } from 'components/add/utils/decodeRecipe';
 import { FIELDS } from 'components/add/constants/formConstants';

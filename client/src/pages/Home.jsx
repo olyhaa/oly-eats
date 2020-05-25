@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { useQuery } from '@apollo/react-hooks';
+import { getAllRecipesQuery } from 'utils/FetchData';
 import Header from '../components/Header';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
-import { getAllRecipesQuery } from 'utils/FetchData';
 
 const useStyles = makeStyles((theme) => ({
   featuredBlock: {
@@ -35,7 +35,7 @@ function Home() {
     return <span>Loading!</span>;
   }
 
-  const RecipeData = data.recipes;
+  const { recipes: RecipeData } = data;
 
   // Shuffle array
   const shuffledRecipes = RecipeData.sort(() => 0.5 - Math.random());

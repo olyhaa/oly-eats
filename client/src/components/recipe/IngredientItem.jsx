@@ -66,10 +66,8 @@ function IngredientItem({
 
 IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,
-  amount: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.shape(RangedAmountPropTypes),
-  ]).isRequired,
+  amount: PropTypes.string,
+  rangedAmount: PropTypes.shape(RangedAmountPropTypes),
   unit: PropTypes.string,
   name: PropTypes.string.isRequired,
   prep: PropTypes.string,
@@ -78,6 +76,8 @@ IngredientItem.propTypes = {
 };
 
 IngredientItem.defaultProps = {
+  amount: undefined,
+  rangedAmount: undefined,
   unit: undefined,
   prep: undefined,
   optional: false,

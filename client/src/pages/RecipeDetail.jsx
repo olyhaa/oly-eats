@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
+import { getRecipeQuery } from 'utils/FetchData';
+import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
 import EditIcon from '@material-ui/icons/Edit';
 import CarrotIcon from '../images/carrot.svg';
@@ -11,8 +13,6 @@ import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import Header from '../components/Header';
-import { getRecipeQuery } from 'utils/FetchData';
-import { useQuery } from 'react-apollo';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +63,7 @@ function RecipeDetail() {
     return <span>Loading!</span>;
   }
 
-  const recipe = data.recipe;
+  const { recipe } = data;
 
   if (!recipe) {
     return (
