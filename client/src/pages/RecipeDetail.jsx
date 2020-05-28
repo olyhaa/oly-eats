@@ -54,13 +54,16 @@ const useStyles = makeStyles((theme) => ({
 function RecipeDetail() {
   const classes = useStyles();
   const { id } = useParams();
-  const { data, loading } = useQuery(getRecipeQuery(), {
+  const { data, error, loading } = useQuery(getRecipeQuery(), {
     variables: { id },
   });
 
   // TODO
   if (loading) {
     return <span>Loading!</span>;
+  }
+  if (error) {
+    return <span>Error!</span>;
   }
 
   const { recipe } = data;

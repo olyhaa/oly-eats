@@ -28,11 +28,14 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
   const classes = useStyles();
-  const { data, loading } = useQuery(getAllRecipesQuery());
+  const { data, error, loading } = useQuery(getAllRecipesQuery());
 
   // TODO
   if (loading) {
     return <span>Loading!</span>;
+  }
+  if (error) {
+    return <span>Error!</span>;
   }
 
   const { recipes: RecipeData } = data;
