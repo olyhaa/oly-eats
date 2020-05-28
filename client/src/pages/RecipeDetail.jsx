@@ -83,13 +83,19 @@ function RecipeDetail() {
       <div className={classes.mainContent}>
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
-            <Grid className={classes.photoGrid} item xs={6}>
-              <Image
-                title={recipe[RECIPE.TITLE]}
-                imageSrc={recipe[RECIPE.PHOTO]}
-              />
-            </Grid>
-            <Grid className={classes.photoGrid} item xs={6}>
+            {recipe[RECIPE.PHOTO] && (
+              <Grid className={classes.photoGrid} item xs={6}>
+                <Image
+                  title={recipe[RECIPE.TITLE]}
+                  imageSrc={recipe[RECIPE.PHOTO]}
+                />
+              </Grid>
+            )}
+            <Grid
+              className={classes.photoGrid}
+              item
+              xs={recipe[RECIPE.PHOTO] ? 6 : 12}
+            >
               <Overview
                 description={recipe[RECIPE.DESCRIPTION]}
                 prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
