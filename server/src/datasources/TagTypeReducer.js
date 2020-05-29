@@ -5,6 +5,7 @@ export const tagTypeReducer = (tagType) => {
   return {
     id: tagType.id,
     label: tagType.label,
+    tags: tagType.getTags(),
   };
 };
 

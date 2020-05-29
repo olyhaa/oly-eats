@@ -59,6 +59,14 @@ const MultipleSelectField = ({
     return item1.label.localeCompare(item2.label);
   });
 
+  const getTagLabel = (id) => {
+    const tags = childrenList.filter((tag) => tag.id === id);
+    if (tags.length > 0) {
+      return tags[0].label;
+    }
+    return undefined;
+  };
+
   const handleChange = (event) => {
     setSelectedValues(event.target.value);
   };
@@ -78,16 +86,16 @@ const MultipleSelectField = ({
         onChange={handleChange}
         renderValue={(selected) => (
           <div className={classes.chips}>
-            {selected.map((value) => (
-              <Chip key={value} label={value} className={classes.chip} />
+            {selected.map((id) => (
+              <Chip key={id} label={getTagLabel(id)} className={classes.chip} />
             ))}
           </div>
         )}
         MenuProps={MenuProps}
       >
         {childrenList.map(({ id, label }) => (
-          <MenuItem key={id} value={label}>
-            <Checkbox checked={selectedValues.indexOf(label) > -1} />
+          <MenuItem key={id} value={id}>
+            <Checkbox checked={selectedValues.indexOf(id) > -1} />
             <ListItemText primary={label} className={classes.chip} />
           </MenuItem>
         ))}

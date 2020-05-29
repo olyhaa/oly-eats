@@ -112,13 +112,17 @@ export const ingredientsReducer = ({ ingredientSections }) => {
 };
 
 export const tagsReducer = ({ recipeTags }) => {
+  console.log('recipeTags: ' + JSON.stringify(recipeTags));
   let reducedTags = [];
   if (recipeTags) {
     reducedTags = recipeTags.map((tag) => {
       return {
         id: tag.id,
         label: tag.label,
-        typeid: tag.tagTypeId,
+        type: {
+          id: tag.tagType.id,
+          label: tag.tagType.label,
+        },
       };
     });
   }

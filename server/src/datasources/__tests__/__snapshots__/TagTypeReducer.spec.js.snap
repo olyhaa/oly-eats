@@ -31,6 +31,7 @@ Object {
   "tagType": Object {
     "id": "101",
     "label": "category",
+    "tags": Array [],
   },
 }
 `;
@@ -42,6 +43,7 @@ Object {
   "tagType": Object {
     "id": "101",
     "label": "category",
+    "tags": Array [],
   },
 }
 `;
@@ -53,6 +55,7 @@ Object {
   "tagType": Object {
     "id": "101",
     "label": "category",
+    "tags": Array [],
   },
 }
 `;
@@ -61,5 +64,6 @@ exports[`tag type reducer properly transforms tag type object 1`] = `
 Object {
   "id": "101",
   "label": "category",
+  "tags": Array [],
 }
 `;

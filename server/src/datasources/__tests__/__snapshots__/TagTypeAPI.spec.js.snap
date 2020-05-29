@@ -7,6 +7,7 @@ Object {
   "tagType": Object {
     "id": "103",
     "label": "meal_type",
+    "tags": Array [],
   },
 }
 `;
@@ -27,6 +28,26 @@ Object {
 }
 `;
 
+exports[`getAllTagTypes returns array of tag types 1`] = `
+Array [
+  Object {
+    "id": "101",
+    "label": "category",
+    "tags": Array [],
+  },
+  Object {
+    "id": "102",
+    "label": "cuisine",
+    "tags": Array [],
+  },
+  Object {
+    "id": "103",
+    "label": "meal_type",
+    "tags": Array [],
+  },
+]
+`;
+
 exports[`updateTagType calls store update and returns result - id not found 1`] = `
 Object {
   "message": "ID not found",
@@ -42,6 +63,7 @@ Object {
   "tagType": Object {
     "id": "102",
     "label": "new label",
+    "tags": Array [],
   },
 }
 `;

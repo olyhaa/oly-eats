@@ -38,6 +38,7 @@ const typeDefs = gql`
   type TagType {
     id: ID!
     label: String!
+    tags: [Tag]!
   }
 
   type Tag {

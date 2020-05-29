@@ -2,51 +2,75 @@ query GetAllTagTypes {
   allTagTypes {
     id
     label
+    tags {
+      id
+      label
+    }
   }
 }
 
 mutation AddTagTypes {
-  addCategory: addTagType(label: "category") {
+  addCategory: addTagType(label: "Category") {
     success
     message
     tagType {
       id
       label
+      tags {
+        id
+        label
+      }
     }
   }
-  addCuisine: addTagType(label: "cuisine") {
+  addCuisine: addTagType(label: "Cuisine") {
     success
     message
     tagType {
       id
       label
+      tags {
+        id
+        label
+      }
     }
   }
-  addEquipment: addTagType(label: "equipment") {
+  addEquipment: addTagType(label: "Equipment") {
     success
     message
     tagType {
       id
       label
+      tags {
+        id
+        label
+      }
     }
   }
-  addMealType: addTagType(label: "meal_type") {
+  addMealType: addTagType(label: "Meal Type") {
     success
     message
     tagType {
       id
       label
+      tags {
+        id
+        label
+      }
     }
   }
 }
 
 mutation UpdateTagType {
-  updateTagType(id: "2", label: "cuisine") {
+  updateTagType(id: "2", label: "Cuisine") {
     success
     message
     tagType {
       id
       label
+      tags {
+        id
+        label
+      }
     }
   }
 }
@@ -58,6 +82,10 @@ mutation DeleteTagType {
     tagType {
       id
       label
+      tags {
+        id
+        label
+      }
     }
   }
 }

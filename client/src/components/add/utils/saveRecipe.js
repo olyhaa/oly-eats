@@ -115,12 +115,15 @@ export const saveRecipe = (values) => {
     values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
   );
 
-  /*
-  recipe[RECIPE.TAGS] = {};
-  recipe[RECIPE.TAGS][RECIPE.TAGS_MEAL] = values[FIELDS.MEAL_TYPE];
-  recipe[RECIPE.TAGS][RECIPE.TAGS_EQUIPMENT] = values[FIELDS.EQUIPMENT];
-  recipe[RECIPE.TAGS][RECIPE.TAGS_CATEGORY] = values[FIELDS.CATEGORY];
-  recipe[RECIPE.TAGS][RECIPE.TAGS_CUISINE] = values[FIELDS.CUISINE];
-*/
+  recipe[RECIPE.TAGS] = [];
+  const tagGroups = Object.getOwnPropertyNames(values).filter((prop) =>
+    prop.startsWith(FIELDS.TAGS + '_')
+  );
+  for (let i = 0; i < tagGroups.length; i++) {
+    for (let j = 0; j < values[tagGroups[i]].length; j++) {
+      recipe[RECIPE.TAGS].push({ id: values[tagGroups[i]][j] });
+    }
+  }
+
   return recipe;
 };

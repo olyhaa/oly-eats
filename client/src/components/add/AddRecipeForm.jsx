@@ -49,18 +49,11 @@ function AddRecipeForm({
   submitMutation,
 }) {
   const classes = useStyles();
-  const { data: categoryData } = useQuery(getTagsListQuery(), {
-    variables: { typeid: '1' },
-  });
-  const { data: equipmentData } = useQuery(getTagsListQuery(), {
-    variables: { typeid: '3' },
-  });
-  const { data: mealTypeData } = useQuery(getTagsListQuery(), {
-    variables: { typeid: '4' },
-  });
-  const { data: cuisineData } = useQuery(getTagsListQuery(), {
-    variables: { typeid: '2' },
-  });
+  const {
+    data: allTagsData,
+    loading: allTagsLoading,
+    error: allTagsError,
+  } = useQuery(getTagsListQuery());
 
   const handleSubmitForm = (data) => {
     return submitMutation({
@@ -136,46 +129,19 @@ function AddRecipeForm({
           component={TimingInputComponent}
           label="Total Time"
         />
-        {mealTypeData?.allTags && (
-          <Field
-            className={classes.formItem}
-            name={FIELDS.MEAL_TYPE}
-            component={MultipleSelectField}
-            required={isRequired(FIELDS.MEAL_TYPE)}
-            childrenList={mealTypeData?.allTags}
-            label="Meal Type"
-          />
-        )}
-        {cuisineData?.allTags && (
-          <Field
-            className={classes.formItem}
-            name={FIELDS.CUISINE}
-            component={MultipleSelectField}
-            required={isRequired(FIELDS.CUISINE)}
-            childrenList={cuisineData?.allTags}
-            label="Cuisine"
-          />
-        )}
-        {equipmentData?.allTags && (
-          <Field
-            className={classes.formItem}
-            name={FIELDS.EQUIPMENT}
-            component={MultipleSelectField}
-            required={isRequired(FIELDS.EQUIPMENT)}
-            childrenList={equipmentData?.allTags}
-            label="Special Equipment"
-          />
-        )}
-        {categoryData?.allTags && (
-          <Field
-            className={classes.formItem}
-            name={FIELDS.CATEGORY}
-            component={MultipleSelectField}
-            required={isRequired(FIELDS.CATEGORY)}
-            childrenList={categoryData?.allTags}
-            label="Category"
-          />
-        )}
+        {allTagsData &&
+          allTagsData.allTagTypes.map((tagType, index) => {
+            return (
+              <Field
+                className={classes.formItem}
+                name={FIELDS.TAGS + '_' + tagType.id}
+                component={MultipleSelectField}
+                childrenList={tagType.tags}
+                label={tagType.label}
+                key={index}
+              />
+            );
+          })}
       </Paper>
       <Fab
         type="submit"

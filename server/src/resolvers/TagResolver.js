@@ -9,7 +9,7 @@ const TagResolver = {
     deleteTag: (_, { id }, { dataSources }) =>
       dataSources.tagsAPI.deleteTag({ id }),
     updateTag: (_, { id, label }, { dataSources }) =>
-      dataSources.tagsAPI.updateTag({ id, typeid, label }),
+      dataSources.tagsAPI.updateTag({ id, label }),
   },
 };
 

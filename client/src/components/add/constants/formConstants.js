@@ -5,6 +5,7 @@ const PHOTO_URL = 'photo';
 const SERVINGS = 'servings';
 const DATE_ADDED = 'dateAdded';
 const LAST_UPDATED = 'lastUpdated';
+const TAGS = 'tags';
 
 // INGREDIENTS
 const INGREDIENTS = 'ingredients';
@@ -26,12 +27,6 @@ const TIMING_PREP_VALUE_MINS = 'timingPrepValueMins';
 const TIMING_TOTAL_VALUE_HOURS = 'timingTotalValueHours';
 const TIMING_TOTAL_VALUE_MINS = 'timingTotalValueMins';
 
-// OPTIONAL FIELDS
-const MEAL_TYPE = 'mealType';
-const CUISINE = 'cuisine';
-const EQUIPMENT = 'equipment';
-const CATEGORY = 'category';
-
 export const FIELDS = {
   ID,
   TITLE,
@@ -50,10 +45,7 @@ export const FIELDS = {
   DIRECTIONS,
   DIRECTIONS_LABEL,
   DIRECTIONS_LIST,
-  MEAL_TYPE,
-  CUISINE,
-  EQUIPMENT,
-  CATEGORY,
+  TAGS,
   DATE_ADDED,
   LAST_UPDATED,
 };

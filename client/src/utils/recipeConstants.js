@@ -33,10 +33,6 @@ const TIMING_TOTAL = 'total';
 const TIMING_VALUE = 'value';
 const TIMING_UNIT = 'units';
 const TAGS = 'tags';
-const TAGS_MEAL = 'meal';
-const TAGS_EQUIPMENT = 'equipment';
-const TAGS_CATEGORY = 'category';
-const TAGS_CUISINE = 'cuisine';
 const META = 'meta';
 const DATE_ADDED = 'dateAdded';
 const DATE_UPDATED = 'dateUpdated';
@@ -72,10 +68,6 @@ export const RECIPE = {
   TIMING_VALUE,
   TIMING_UNIT,
   TAGS,
-  TAGS_MEAL,
-  TAGS_EQUIPMENT,
-  TAGS_CATEGORY,
-  TAGS_CUISINE,
   META,
   DATE_ADDED,
   DATE_UPDATED,

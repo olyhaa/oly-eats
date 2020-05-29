@@ -78,7 +78,10 @@ export const getAllRecipesQuery = () => {
         }
         tags {
           id
-          typeid
+          type {
+            id
+            label
+          }
           label
         }
         meta {
@@ -136,7 +139,10 @@ export const getRecipeQuery = () => {
         }
         tags {
           id
-          typeid
+          type {
+            id
+            label
+          }
           label
         }
         meta {
@@ -197,8 +203,11 @@ export const getAddRecipeMutation = () => {
           }
           tags {
             id
-            typeid
             label
+            type {
+              id
+              label
+            }
           }
           meta {
             dateAdded
@@ -212,14 +221,14 @@ export const getAddRecipeMutation = () => {
 
 export const getTagsListQuery = () => {
   return gql`
-    query GetTags($typeid: ID!) {
-      allTags(typeid: $typeid) {
+    query GetAllTags {
+      allTagTypes {
         id
-        type {
+        label
+        tags {
           id
           label
         }
-        label
       }
     }
   `;
