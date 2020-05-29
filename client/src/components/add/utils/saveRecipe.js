@@ -59,13 +59,13 @@ export const parseTiming = (minutes = '0', hours = '0') => {
   }
   if (mins > 0) {
     const time = {};
-    time[RECIPE.TIMING_VALUE] = mins.toString();
+    time[RECIPE.TIMING_VALUE] = mins;
     time[RECIPE.TIMING_UNIT] = TIMING_UNITS.MINUTE;
     timing.push(time);
   }
   if (hrs > 0) {
     const time = {};
-    time[RECIPE.TIMING_VALUE] = hrs.toString();
+    time[RECIPE.TIMING_VALUE] = hrs;
     time[RECIPE.TIMING_UNIT] = TIMING_UNITS.HOUR;
     timing.push(time);
   }
