@@ -158,12 +158,18 @@ Object {
       Object {
         "id": 1,
         "label": "bread",
-        "typeid": 2,
+        "type": Object {
+          "id": 2,
+          "label": "category",
+        },
       },
       Object {
         "id": 2,
         "label": "snack",
-        "typeid": 4,
+        "type": Object {
+          "id": 4,
+          "label": "meal_type",
+        },
       },
     ],
     "timing": Object {
@@ -249,12 +255,18 @@ Object {
       Object {
         "id": 1,
         "label": "bread",
-        "typeid": 2,
+        "type": Object {
+          "id": 2,
+          "label": "category",
+        },
       },
       Object {
         "id": 2,
         "label": "snack",
-        "typeid": 4,
+        "type": Object {
+          "id": 4,
+          "label": "meal_type",
+        },
       },
     ],
     "timing": Object {
@@ -348,12 +360,18 @@ Object {
       Object {
         "id": 1,
         "label": "bread",
-        "typeid": 2,
+        "type": Object {
+          "id": 2,
+          "label": "category",
+        },
       },
       Object {
         "id": 2,
         "label": "snack",
-        "typeid": 4,
+        "type": Object {
+          "id": 4,
+          "label": "meal_type",
+        },
       },
     ],
     "timing": Object {
@@ -437,12 +455,18 @@ Object {
     Object {
       "id": 1,
       "label": "bread",
-      "typeid": 2,
+      "type": Object {
+        "id": 2,
+        "label": "category",
+      },
     },
     Object {
       "id": 2,
       "label": "snack",
-      "typeid": 4,
+      "type": Object {
+        "id": 4,
+        "label": "meal_type",
+      },
     },
   ],
   "timing": Object {
@@ -472,12 +496,18 @@ Array [
   Object {
     "id": 1,
     "label": "bread",
-    "typeid": 2,
+    "type": Object {
+      "id": 2,
+      "label": "category",
+    },
   },
   Object {
     "id": 2,
     "label": "snack",
-    "typeid": 4,
+    "type": Object {
+      "id": 4,
+      "label": "meal_type",
+    },
   },
 ]
 `;

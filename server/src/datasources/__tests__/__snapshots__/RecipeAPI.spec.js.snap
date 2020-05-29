@@ -59,12 +59,18 @@ Object {
       Object {
         "id": 1,
         "label": "tag 1",
-        "typeid": 1,
+        "type": Object {
+          "id": 1,
+          "label": "category",
+        },
       },
       Object {
         "id": 2,
         "label": "tag 2",
-        "typeid": 1,
+        "type": Object {
+          "id": 1,
+          "label": "category",
+        },
       },
     ],
     "timing": Object {
@@ -341,12 +347,18 @@ Array [
       Object {
         "id": 1,
         "label": "tag 1",
-        "typeid": 1,
+        "type": Object {
+          "id": 1,
+          "label": "category",
+        },
       },
       Object {
         "id": 2,
         "label": "tag 2",
-        "typeid": 1,
+        "type": Object {
+          "id": 1,
+          "label": "category",
+        },
       },
     ],
     "timing": Object {
@@ -429,12 +441,18 @@ Object {
     Object {
       "id": 1,
       "label": "tag 1",
-      "typeid": 1,
+      "type": Object {
+        "id": 1,
+        "label": "category",
+      },
     },
     Object {
       "id": 2,
       "label": "tag 2",
-      "typeid": 1,
+      "type": Object {
+        "id": 1,
+        "label": "category",
+      },
     },
   ],
   "timing": Object {
