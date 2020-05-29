@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
   type Query {
     allTagTypes: [TagType]
-    allTags(typeid: ID!): [Tag]
+    allTags(typeid: ID): [Tag]
 
     recipes: [Recipe]
     recipe(id: ID!): Recipe
@@ -42,7 +42,7 @@ const typeDefs = gql`
 
   type Tag {
     id: ID!
-    typeid: ID!
+    type: TagType!
     label: String!
   }
 

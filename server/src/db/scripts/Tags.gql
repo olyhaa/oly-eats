@@ -1,22 +1,45 @@
+query GetAllTagsFlat {
+  allTags {
+    id
+    type {
+      id
+      label
+    }
+    label
+  }
+}
+
 query GetAllTags {
   GetAllCategories: allTags(typeid: "1") {
     id
-    typeid
+    type {
+      id
+      label
+    }
     label
   }
   GetAllCuisines: allTags(typeid: "2") {
     id
-    typeid
+    type {
+      id
+      label
+    }
     label
   }
   GetAllEquipment: allTags(typeid: "3") {
     id
-    typeid
+    type {
+      id
+      label
+    }
     label
   }
   GetAllMealTypes: allTags(typeid: "4") {
     id
-    typeid
+    type {
+      id
+      label
+    }
     label
   }
 }
@@ -24,7 +47,10 @@ query GetAllTags {
 query GetBadType {
   allTags(typeid: "100") {
     id
-    typeid
+    type {
+      id
+      label
+    }
     label
   }
 }
@@ -35,7 +61,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -45,7 +74,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -55,7 +87,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -64,7 +99,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -73,7 +111,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -82,7 +123,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -91,7 +135,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -100,7 +147,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -109,7 +159,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -118,7 +171,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -127,7 +183,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -136,7 +195,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -145,7 +207,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -154,7 +219,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -163,7 +231,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -172,7 +243,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -181,7 +255,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -190,7 +267,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -199,7 +279,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -208,7 +291,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -217,7 +303,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -226,7 +315,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -235,7 +327,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -244,7 +339,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -253,7 +351,10 @@ mutation addTags {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -265,7 +366,10 @@ mutation addBadTag {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -277,7 +381,10 @@ mutation UpdateTag {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }
@@ -289,7 +396,10 @@ mutation DeleteTag {
     message
     tag {
       id
-      typeid
+      type {
+        id
+        label
+      }
       label
     }
   }

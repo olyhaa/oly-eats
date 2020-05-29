@@ -8,12 +8,17 @@ class TagsAPI extends DataSource {
   }
 
   async getAllTags({ typeid }) {
-    const tagType = await this.store.TagType.findByPk(typeid);
-    if (!tagType) {
-      return [];
+    let whereClause = {};
+    if (typeid) {
+      const tagType = await this.store.TagType.findByPk(typeid);
+      if (!tagType) {
+        return [];
+      }
+      whereClause.tagTypeId = tagType.id;
     }
     const tagArray = await this.store.Tag.findAll({
-      where: { tagTypeId: tagType.id },
+      where: whereClause,
+      include: { all: true, nested: true },
     });
     return Array.isArray(tagArray)
       ? tagArray.map((tag) => tagReducer(tag))

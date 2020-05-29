@@ -17,26 +17,31 @@ const mockTags = [
     id: '1',
     tagTypeId: '1',
     label: 'bakery',
+    getTagType: jest.fn(),
   },
   {
     id: '2',
     tagTypeId: '1',
     label: 'casserole',
+    getTagType: jest.fn(),
   },
   {
     id: '3',
     tagTypeId: '1',
     label: 'salad',
+    getTagType: jest.fn(),
   },
   {
     id: '7',
     tagTypeId: '2',
     label: 'american',
+    getTagType: jest.fn(),
   },
   {
     id: '8',
     tagTypeId: '2',
     label: 'asian',
+    getTagType: jest.fn(),
   },
 ];
 
@@ -56,6 +61,7 @@ describe('getAllTags', () => {
   it('returns empty array for empty db for valid typeid', async () => {
     mockStore.TagType.findByPk.mockReturnValueOnce(mockTagTypes[0]);
     mockStore.Tag.findAll.mockReturnValueOnce([]);
+    mockTags[0].getTagType.mockReturnValueOnce(mockTagTypes[0]);
 
     const response = await tagsDatasource.getAllTags({
       typeid: mockTagTypes[0].id,
@@ -63,6 +69,7 @@ describe('getAllTags', () => {
     expect(mockStore.TagType.findByPk).toBeCalledWith(mockTagTypes[0].id);
     expect(mockStore.Tag.findAll).toBeCalledWith({
       where: { tagTypeId: mockTagTypes[0].id },
+      include: { all: true, nested: true },
     });
     expect(response).toEqual([]);
   });
@@ -82,12 +89,14 @@ describe('getAllTags', () => {
   it('returns array of tags for valid typeid', async () => {
     mockStore.Tag.findAll.mockReturnValueOnce(mockTags.slice(0, 3));
     mockStore.TagType.findByPk.mockReturnValueOnce(mockTagTypes[0]);
+    mockTags[0].getTagType.mockReturnValueOnce(mockTagTypes[0]);
 
     const response = await tagsDatasource.getAllTags({
       typeid: mockTagTypes[0].id,
     });
     expect(mockStore.Tag.findAll).toBeCalledWith({
       where: { tagTypeId: mockTagTypes[0].id },
+      include: { all: true, nested: true },
     });
     expect(response).toEqual(
       mockTags.slice(0, 3).map((tag) => tagReducer(tag))
@@ -100,6 +109,7 @@ describe('addTag', () => {
     const test_label = 'test label';
     mockStore.TagType.findByPk.mockReturnValueOnce(mockTagTypes[0]);
     mockStore.Tag.create.mockReturnValueOnce(mockTags[0]);
+    mockTags[0].getTagType.mockReturnValueOnce(mockTagTypes[0]);
 
     // check the result of the fn
     const res = await tagsDatasource.addTag({
@@ -167,6 +177,7 @@ describe('updateTag', () => {
     const findPkVal = Object.assign({}, mockTags[1]);
     const updatedPkVal = Object.assign({}, findPkVal);
     updatedPkVal.label = 'new label';
+    mockTags[1].getTagType.mockReturnValueOnce(mockTagTypes[0]);
 
     findPkVal.update = jest.fn();
 

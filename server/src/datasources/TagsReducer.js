@@ -4,7 +4,7 @@ export const tagReducer = (tag) => {
   }
   return {
     id: tag.id,
-    typeid: tag.tagTypeId,
+    type: tag.getTagType(),
     label: tag.label,
   };
 };

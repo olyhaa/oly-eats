@@ -210,48 +210,15 @@ export const getAddRecipeMutation = () => {
   `;
 };
 
-export const getCategoryListQuery = () => {
+export const getTagsListQuery = () => {
   return gql`
-    query GetAllCategories {
-      allTags(typeid: "1") {
+    query GetTags($typeid: ID!) {
+      allTags(typeid: $typeid) {
         id
-        typeid
-        label
-      }
-    }
-  `;
-};
-
-export const getCuisineListQuery = () => {
-  return gql`
-    query GetAllCuisines {
-      allTags(typeid: "2") {
-        id
-        typeid
-        label
-      }
-    }
-  `;
-};
-
-export const getEquipmentListQuery = () => {
-  return gql`
-    query GetAllEquipment {
-      allTags(typeid: "3") {
-        id
-        typeid
-        label
-      }
-    }
-  `;
-};
-
-export const getMealTypeListQuery = () => {
-  return gql`
-    query GetAllMealTypes {
-      allTags(typeid: "4") {
-        id
-        typeid
+        type {
+          id
+          label
+        }
         label
       }
     }

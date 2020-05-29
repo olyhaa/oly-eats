@@ -9,13 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  getMealTypeListQuery,
-  getCategoryListQuery,
-  getEquipmentListQuery,
-  getCuisineListQuery,
-  getAddRecipeMutation,
-} from 'utils/FetchData';
+import { getTagsListQuery, getAddRecipeMutation } from 'utils/FetchData';
 import {
   renderTextBoxField,
   renderTextField,
@@ -55,10 +49,18 @@ function AddRecipeForm({
   submitMutation,
 }) {
   const classes = useStyles();
-  const { data: categoryData } = useQuery(getCategoryListQuery());
-  const { data: equipmentData } = useQuery(getEquipmentListQuery());
-  const { data: mealTypeData } = useQuery(getMealTypeListQuery());
-  const { data: cuisineData } = useQuery(getCuisineListQuery());
+  const { data: categoryData } = useQuery(getTagsListQuery(), {
+    variables: { typeid: '1' },
+  });
+  const { data: equipmentData } = useQuery(getTagsListQuery(), {
+    variables: { typeid: '3' },
+  });
+  const { data: mealTypeData } = useQuery(getTagsListQuery(), {
+    variables: { typeid: '4' },
+  });
+  const { data: cuisineData } = useQuery(getTagsListQuery(), {
+    variables: { typeid: '2' },
+  });
 
   const handleSubmitForm = (data) => {
     return submitMutation({

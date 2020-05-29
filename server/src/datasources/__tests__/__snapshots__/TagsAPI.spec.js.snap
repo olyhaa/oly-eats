@@ -7,7 +7,10 @@ Object {
   "tag": Object {
     "id": "1",
     "label": "bakery",
-    "typeid": "1",
+    "type": Object {
+      "id": "1",
+      "label": "category",
+    },
   },
 }
 `;
@@ -51,7 +54,10 @@ Object {
   "tag": Object {
     "id": "2",
     "label": "new label",
-    "typeid": "1",
+    "type": Object {
+      "id": "1",
+      "label": "category",
+    },
   },
 }
 `;

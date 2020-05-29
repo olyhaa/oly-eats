@@ -31,7 +31,10 @@ Object {
   "tag": Object {
     "id": "1",
     "label": "bakery",
-    "typeid": "1",
+    "type": Object {
+      "id": "1",
+      "label": "type 1",
+    },
   },
 }
 `;
@@ -43,7 +46,10 @@ Object {
   "tag": Object {
     "id": "1",
     "label": "bakery",
-    "typeid": "1",
+    "type": Object {
+      "id": "1",
+      "label": "type 1",
+    },
   },
 }
 `;
@@ -55,7 +61,10 @@ Object {
   "tag": Object {
     "id": "1",
     "label": "bakery",
-    "typeid": "1",
+    "type": Object {
+      "id": "1",
+      "label": "type 1",
+    },
   },
 }
 `;
@@ -64,6 +73,9 @@ exports[`tag reducer properly transforms tag object 1`] = `
 Object {
   "id": "1",
   "label": "bakery",
-  "typeid": "1",
+  "type": Object {
+    "id": "1",
+    "label": "type 1",
+  },
 }
 `;
