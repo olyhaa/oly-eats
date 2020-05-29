@@ -24,6 +24,7 @@ export const unitsOfMeasure = {
   large: ['lg', 'LG', 'Lg'],
   package: ['pkg', 'Pkg', 'PKG'],
   pound: ['lb', 'Lb', 'LB'],
+  kilogram: ['kg', 'KG'],
   gram: ['g'],
 };
 
