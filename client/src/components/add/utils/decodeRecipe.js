@@ -67,7 +67,6 @@ export const decodeRecipe = (recipe) => {
   formRecipe[FIELDS.TITLE] = recipe[RECIPE.TITLE];
   formRecipe[FIELDS.DESCRIPTION] = recipe[RECIPE.DESCRIPTION];
   formRecipe[FIELDS.PHOTO_URL] = recipe[RECIPE.PHOTO];
-  formRecipe[FIELDS.DATE_ADDED] = recipe[RECIPE.DATE_ADDED];
 
   // source info
   formRecipe[FIELDS.SOURCE_DISPLAY] =
@@ -106,9 +105,16 @@ export const decodeRecipe = (recipe) => {
   );
 
   // tags
-  formRecipe[FIELDS.MEAL_TYPE] = recipe[RECIPE.TAGS][RECIPE.TAGS_MEAL];
-  formRecipe[FIELDS.CUISINE] = recipe[RECIPE.TAGS][RECIPE.TAGS_CUISINE];
-  formRecipe[FIELDS.EQUIPMENT] = recipe[RECIPE.TAGS][RECIPE.TAGS_EQUIPMENT];
-  formRecipe[FIELDS.CATEGORY] = recipe[RECIPE.TAGS][RECIPE.TAGS_CATEGORY];
+  const tagsMap = {};
+  for (let i = 0; i < recipe[RECIPE.TAGS].length; i++) {
+    const tag = recipe[RECIPE.TAGS][i];
+    if (!tagsMap[tag.type.id]) {
+      tagsMap[tag.type.id] = [];
+    }
+    tagsMap[tag.type.id].push(tag.id);
+  }
+  Object.keys(tagsMap).forEach((key) => {
+    formRecipe[`${FIELDS.TAGS}_${key}`] = tagsMap[key];
+  });
   return formRecipe;
 };

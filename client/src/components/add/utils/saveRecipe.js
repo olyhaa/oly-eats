@@ -72,9 +72,6 @@ export const parseTiming = (minutes = '0', hours = '0') => {
 
 export const saveRecipe = (values) => {
   const recipe = {};
-  if (values[RECIPE.ID]) {
-    recipe[RECIPE.ID] = values[RECIPE.ID];
-  }
   recipe[RECIPE.TITLE] = values[FIELDS.TITLE];
   recipe[RECIPE.DESCRIPTION] = values[FIELDS.DESCRIPTION];
   recipe[RECIPE.SOURCE] = {};

@@ -9,7 +9,11 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
-import { getTagsListQuery, getAddRecipeMutation } from 'utils/FetchData';
+import {
+  getTagsListQuery,
+  getAddRecipeMutation,
+  getUpdateRecipeMutation,
+} from 'utils/FetchData';
 import history from '../../store/history';
 import {
   renderTextBoxField,
@@ -24,6 +28,7 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
+import { RECIPE } from 'utils/recipeConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +50,9 @@ const handleSuccess = (result) => {
   if (result?.data?.addRecipe?.success) {
     const { id } = result.data.addRecipe.recipe;
     history.push(`/recipe/${id}`);
+  } else if (result?.data?.updateRecipe?.success) {
+    const { id } = result.data.updateRecipe.recipe;
+    history.push(`/recipe/${id}`);
   }
 };
 
@@ -54,7 +62,8 @@ function AddRecipeForm({
   submitting,
   submitSucceeded,
   isEdit,
-  submitMutation,
+  addMutation,
+  updateMutation,
 }) {
   const classes = useStyles();
   const {
@@ -64,7 +73,12 @@ function AddRecipeForm({
   } = useQuery(getTagsListQuery());
 
   const handleSubmitForm = (data) => {
-    return submitMutation({
+    if (isEdit) {
+      return updateMutation({
+        variables: { id: data[RECIPE.ID], recipe: saveRecipe(data) },
+      });
+    }
+    return addMutation({
       variables: { recipe: saveRecipe(data) },
     });
   };
@@ -190,8 +204,11 @@ AddRecipeForm.defaultProps = {
 
 export default compose(
   graphql(getAddRecipeMutation(), {
-    name: 'submitMutation',
+    name: 'addMutation',
   }), // https://www.apollographql.com/docs/react/api/react-apollo/#configname
+  graphql(getUpdateRecipeMutation(), {
+    name: 'updateMutation',
+  }),
   reduxForm({
     form: 'AddRecipeForm', // a unique identifier for this form
     validate: validateAll,

@@ -1,6 +1,4 @@
 import gql from 'graphql-tag';
-// @ts-ignore
-import RecipeData from '../recipeData/recipes.json';
 
 export const removeNulls = (obj) => {
   let newObj;
@@ -23,13 +21,6 @@ export const removeNulls = (obj) => {
   }
 
   return newObj;
-};
-
-export const getRecipeObject = (id) => {
-  const recipes = RecipeData.filter((recipe) => {
-    return recipe.id === id;
-  });
-  return recipes.length > 0 ? recipes[0] : undefined;
 };
 
 export const getAllRecipesQuery = () => {
@@ -158,6 +149,71 @@ export const getAddRecipeMutation = () => {
   return gql`
     mutation AddRecipe($recipe: RecipeInput!) {
       addRecipe(recipe: $recipe) {
+        success
+        message
+        recipe {
+          id
+          title
+          description
+          source {
+            display
+            url
+          }
+          photo
+          servings
+          directions {
+            label
+            steps {
+              text
+            }
+          }
+          ingredients {
+            label
+            ingredients {
+              rangedAmount {
+                min
+                max
+              }
+              amount
+              unit
+              prep
+              name
+              toTaste
+              optional
+            }
+          }
+          timing {
+            prep {
+              value
+              units
+            }
+            total {
+              value
+              units
+            }
+          }
+          tags {
+            id
+            label
+            type {
+              id
+              label
+            }
+          }
+          meta {
+            dateAdded
+            dateUpdated
+          }
+        }
+      }
+    }
+  `;
+};
+
+export const getUpdateRecipeMutation = () => {
+  return gql`
+    mutation UpdateRecipe($id: ID!, $recipe: RecipeInput!) {
+      updateRecipe(id: $id, recipe: $recipe) {
         success
         message
         recipe {
