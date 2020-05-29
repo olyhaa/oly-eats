@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
+import compose from 'lodash.flowright';
+import { graphql } from '@apollo/react-hoc';
 import { Field, FieldArray, reduxForm, Fields } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
@@ -12,6 +14,7 @@ import {
   getCategoryListQuery,
   getEquipmentListQuery,
   getCuisineListQuery,
+  getAddRecipeMutation,
 } from 'utils/FetchData';
 import {
   renderTextBoxField,
@@ -43,15 +46,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
+function AddRecipeForm({
+  pristine,
+  handleSubmit,
+  submitting,
+  submitSucceeded,
+  isEdit,
+  submitMutation,
+}) {
   const classes = useStyles();
   const { data: categoryData } = useQuery(getCategoryListQuery());
   const { data: equipmentData } = useQuery(getEquipmentListQuery());
   const { data: mealTypeData } = useQuery(getMealTypeListQuery());
   const { data: cuisineData } = useQuery(getCuisineListQuery());
 
+  const handleSubmitForm = (data) => {
+    return submitMutation({
+      variables: { recipe: saveRecipe(data) },
+    });
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(handleSubmitForm)}>
       <Paper className={classes.root}>
         <Field
           className={classes.formItem}
@@ -178,6 +194,7 @@ function AddRecipeForm({ pristine, handleSubmit, submitting, isEdit }) {
           </>
         )}
       </Fab>
+      {submitSucceeded && <p>Sent!!!</p>}
     </form>
   );
 }
@@ -193,10 +210,12 @@ AddRecipeForm.defaultProps = {
   isEdit: false,
 };
 
-export default reduxForm({
-  form: 'AddRecipeForm', // a unique identifier for this form
-  validate: validateAll,
-  asyncValidate: asyncValidateAll,
-  onSubmit: saveRecipe,
-  asyncBlurFields: [FIELDS.PHOTO_URL],
-})(AddRecipeForm);
+export default compose(
+  graphql(getAddRecipeMutation(), { name: 'submitMutation' }), // https://www.apollographql.com/docs/react/api/react-apollo/#configname
+  reduxForm({
+    form: 'AddRecipeForm', // a unique identifier for this form
+    validate: validateAll,
+    asyncValidate: asyncValidateAll,
+    asyncBlurFields: [FIELDS.PHOTO_URL],
+  })
+)(AddRecipeForm);

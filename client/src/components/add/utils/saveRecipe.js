@@ -1,5 +1,3 @@
-import { saveAs } from 'file-saver';
-import uuid from 'uuid/v4';
 import { FIELDS } from '../constants/formConstants';
 import { TIMING_UNITS, RECIPE } from '../../../utils/recipeConstants';
 import { parseIngredient } from '../../../utils/ingredientParsing/ingredientParser';
@@ -74,7 +72,9 @@ export const parseTiming = (minutes = '0', hours = '0') => {
 
 export const saveRecipe = (values) => {
   const recipe = {};
-  recipe[RECIPE.ID] = values[RECIPE.ID] || uuid();
+  if (values[RECIPE.ID]) {
+    recipe[RECIPE.ID] = values[RECIPE.ID];
+  }
   recipe[RECIPE.TITLE] = values[FIELDS.TITLE];
   recipe[RECIPE.DESCRIPTION] = values[FIELDS.DESCRIPTION];
   recipe[RECIPE.SOURCE] = {};
@@ -115,19 +115,12 @@ export const saveRecipe = (values) => {
     values[FIELDS.TIMING_TOTAL_VALUE_HOURS]
   );
 
+  /*
   recipe[RECIPE.TAGS] = {};
   recipe[RECIPE.TAGS][RECIPE.TAGS_MEAL] = values[FIELDS.MEAL_TYPE];
   recipe[RECIPE.TAGS][RECIPE.TAGS_EQUIPMENT] = values[FIELDS.EQUIPMENT];
   recipe[RECIPE.TAGS][RECIPE.TAGS_CATEGORY] = values[FIELDS.CATEGORY];
   recipe[RECIPE.TAGS][RECIPE.TAGS_CUISINE] = values[FIELDS.CUISINE];
-
-  if (values[RECIPE.DATE_ADDED]) {
-    recipe[RECIPE.DATE_ADDED] = values[RECIPE.DATE_ADDED];
-    recipe[RECIPE.DATE_UPDATED] = Date.now();
-  } else {
-    recipe[RECIPE.DATE_ADDED] = Date.now();
-  }
-
-  const blob = new Blob([JSON.stringify(recipe)], { type: 'application/json' });
-  saveAs(blob, 'recipe.json');
+*/
+  return recipe;
 };

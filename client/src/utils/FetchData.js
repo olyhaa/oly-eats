@@ -148,6 +148,68 @@ export const getRecipeQuery = () => {
   `;
 };
 
+export const getAddRecipeMutation = () => {
+  return gql`
+    mutation AddRecipe($recipe: RecipeInput!) {
+      addRecipe(recipe: $recipe) {
+        success
+        message
+        recipe {
+          id
+          title
+          description
+          source {
+            display
+            url
+          }
+          photo
+          servings
+          directions {
+            label
+            steps {
+              text
+            }
+          }
+          ingredients {
+            label
+            ingredients {
+              rangedAmount {
+                min
+                max
+              }
+              amount
+              unit
+              prep
+              name
+              toTaste
+              optional
+            }
+          }
+          timing {
+            prep {
+              value
+              units
+            }
+            total {
+              value
+              units
+            }
+          }
+          tags {
+            id
+            typeid
+            label
+          }
+          meta {
+            dateAdded
+            dateUpdated
+          }
+        }
+      }
+    }
+  `;
+};
+
 export const getCategoryListQuery = () => {
   return gql`
     query GetAllCategories {
