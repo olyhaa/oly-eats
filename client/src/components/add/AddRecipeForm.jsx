@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
-import { Field, FieldArray, reduxForm, Fields } from 'redux-form';
+import { Field, FieldArray, reduxForm, Fields, submit } from 'redux-form';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -23,6 +23,7 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,9 @@ function AddRecipeForm({
   submitSucceeded,
   isEdit,
   submitMutation,
+  data: submitData,
+  loading: submitLoading,
+  error: submitError,
 }) {
   const classes = useStyles();
   const {
@@ -56,10 +60,19 @@ function AddRecipeForm({
   } = useQuery(getTagsListQuery());
 
   const handleSubmitForm = (data) => {
-    return submitMutation({
+    const result = submitMutation({
       variables: { recipe: saveRecipe(data) },
     });
+    return result;
   };
+
+  if (submitData) {
+    const result = submitData.addRecipe;
+    if (result.success) {
+      const id = result.recipe.id;
+      return <Redirect to={`/recipe/${id}`} />;
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit(handleSubmitForm)}>
@@ -181,7 +194,9 @@ AddRecipeForm.defaultProps = {
 };
 
 export default compose(
-  graphql(getAddRecipeMutation(), { name: 'submitMutation' }), // https://www.apollographql.com/docs/react/api/react-apollo/#configname
+  graphql(getAddRecipeMutation(), {
+    name: 'submitMutation',
+  }), // https://www.apollographql.com/docs/react/api/react-apollo/#configname
   reduxForm({
     form: 'AddRecipeForm', // a unique identifier for this form
     validate: validateAll,
