@@ -62,15 +62,9 @@ function IconCard({ title, display, value, type }) {
         <Typography variant="subtitle1">{title}</Typography>
 
         <Typography variant="subtitle1">
-          {type === SOURCE_CARD ? (
-            value ? (
-              <Link href={value}>{display}</Link>
-            ) : (
-              display
-            )
-          ) : (
-            value
-          )}
+          {type === SOURCE_CARD &&
+            (value ? <Link href={value}>{display}</Link> : display)}
+          {type !== SOURCE_CARD && value}
         </Typography>
       </Box>
     </Paper>

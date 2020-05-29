@@ -117,7 +117,7 @@ export const saveRecipe = (values) => {
 
   recipe[RECIPE.TAGS] = [];
   const tagGroups = Object.getOwnPropertyNames(values).filter((prop) =>
-    prop.startsWith(FIELDS.TAGS + '_')
+    prop.startsWith(`${FIELDS.TAGS}_`)
   );
   for (let i = 0; i < tagGroups.length; i++) {
     for (let j = 0; j < values[tagGroups[i]].length; j++) {

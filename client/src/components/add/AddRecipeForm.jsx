@@ -134,7 +134,7 @@ function AddRecipeForm({
             return (
               <Field
                 className={classes.formItem}
-                name={FIELDS.TAGS + '_' + tagType.id}
+                name={`${FIELDS.TAGS}_${tagType.id}`}
                 component={MultipleSelectField}
                 childrenList={tagType.tags}
                 label={tagType.label}
@@ -170,7 +170,9 @@ function AddRecipeForm({
 AddRecipeForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  submitMutation: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
   isEdit: PropTypes.bool,
 };
 
