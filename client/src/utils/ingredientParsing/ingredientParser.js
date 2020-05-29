@@ -10,6 +10,7 @@
  */
 import {
   getAmount,
+  getRangedAmount,
   getUnit,
   getPrep,
   getOptional,
@@ -34,6 +35,13 @@ export const parseIngredient = (source) => {
   }
 
   // get any numbers that are at the beginning of the string
+
+  const rangedAmount = getRangedAmount(words);
+  if (rangedAmount.match) {
+    ingredient[RECIPE.INGREDIENTS_RANGE] = rangedAmount.match;
+  }
+  words = rangedAmount.rest;
+
   const amount = getAmount(words);
   if (!tmpAmount && amount.match) {
     ingredient[RECIPE.INGREDIENTS_AMOUNT] = amount.match;

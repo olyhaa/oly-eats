@@ -120,7 +120,7 @@ describe('Ingredient Parser', () => {
         name: 'carrots',
       },
       '1 to 2 Cups salt': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },
@@ -128,7 +128,7 @@ describe('Ingredient Parser', () => {
         name: 'salt',
       },
       '1to2 Cups salt': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },
@@ -136,7 +136,7 @@ describe('Ingredient Parser', () => {
         name: 'salt',
       },
       '1-2 Cups salt': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },
@@ -144,7 +144,7 @@ describe('Ingredient Parser', () => {
         name: 'salt',
       },
       '1 - 2 Cups salt': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },
@@ -256,7 +256,7 @@ describe('Ingredient Parser', () => {
         name: 'apple',
       },
       '2 to 1 apples': {
-        amount: {
+        rangedAmount: {
           min: '2',
           max: '1',
         },
@@ -273,7 +273,7 @@ describe('Ingredient Parser', () => {
           'about 4 to 5 medium, peeled and shredded on the large holes of a box grater',
       },
       '1 to 2 tablespoons freshly squeezed lemon juice': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },
@@ -281,7 +281,7 @@ describe('Ingredient Parser', () => {
         unit: 'tablespoon',
       },
       '1 or 2 tablespoons freshly squeezed lemon juice': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },
@@ -289,7 +289,7 @@ describe('Ingredient Parser', () => {
         unit: 'tablespoon',
       },
       '1 to 2 11 oz cans of tomatoes': {
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2 11',
         },

@@ -98,10 +98,6 @@ export const getRangedAmount = (words) => {
 };
 
 export const getAmount = (words) => {
-  const rangedAmount = getRangedAmount(words);
-  if (rangedAmount.match) {
-    return rangedAmount;
-  }
   return getNumber(words);
 };
 
