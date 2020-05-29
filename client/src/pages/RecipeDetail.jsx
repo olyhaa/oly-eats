@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import { getRecipeQuery } from 'utils/FetchData';
+import { getRecipeQuery, removeNulls } from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
 import EditIcon from '@material-ui/icons/Edit';
@@ -66,7 +66,7 @@ function RecipeDetail() {
     return <span>Error!</span>;
   }
 
-  const { recipe } = data;
+  const { recipe } = removeNulls(data);
 
   if (!recipe) {
     return (

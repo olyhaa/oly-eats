@@ -339,7 +339,7 @@ describe('buildIngredientString', () => {
   it('ranged amounts', () => {
     expect(
       buildIngredientString({
-        amount: {
+        rangedAmount: {
           min: '1',
           max: '2',
         },

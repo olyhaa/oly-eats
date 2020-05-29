@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { useQuery } from '@apollo/react-hooks';
-import { getAllRecipesQuery } from 'utils/FetchData';
+import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
 import Header from '../components/Header';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
@@ -38,7 +38,7 @@ function Home() {
     return <span>Error!</span>;
   }
 
-  const { recipes: RecipeData } = data;
+  const { recipes: RecipeData } = removeNulls(data);
 
   // Shuffle array
   const shuffledRecipes = RecipeData.sort(() => 0.5 - Math.random());
