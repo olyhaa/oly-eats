@@ -178,11 +178,22 @@ const mockTags = [
 const mockStore = {
   Recipe: {
     create: jest.fn(),
+    update: jest.fn(),
     findAll: jest.fn(),
     findByPk: jest.fn(),
   },
+  Timing: {
+    destroy: jest.fn(),
+  },
+  DirectionSection: {
+    destroy: jest.fn(),
+  },
+  IngredientSection: {
+    destroy: jest.fn(),
+  },
   RecipeTag: {
     create: jest.fn(),
+    destroy: jest.fn(),
   },
 };
 
@@ -678,7 +689,165 @@ describe('updateRecipe', () => {
     expect(mockStore.Recipe.findByPk).toBeCalledWith(bad_id);
   });
 
-  it.skip('calls store update and returns result - id exists', async () => {});
+  it('calls store update and returns result - id exists', async () => {
+    const recipe_id = 'update_id';
+
+    const recipeBaseFieldsInput = {
+      title: 'updated title',
+      description: 'some updated description',
+      source: {
+        display: 'My Recipe Updated source',
+        url: 'http://updated-source.com',
+      },
+      photo: 'http://updated-photos.com/mine.jpg',
+      servings: 1,
+    };
+    const recipeBaseFieldsInputFlat = {
+      title: recipeBaseFieldsInput.title,
+      description: recipeBaseFieldsInput.description,
+      source_display: recipeBaseFieldsInput.source.display,
+      source_url: recipeBaseFieldsInput.source.url,
+      photo_url: recipeBaseFieldsInput.photo,
+      servings: recipeBaseFieldsInput.servings,
+    };
+    const dbBaseFields = addDBFields({
+      fields: recipeBaseFieldsInputFlat,
+      id: recipe_id,
+    });
+    dbBaseFields.createTiming = jest.fn();
+    dbBaseFields.createDirectionSection = jest.fn();
+    dbBaseFields.createIngredientSection = jest.fn();
+
+    const timeFieldsInput = {
+      timing: {
+        prep: [{ value: '4', units: TIME_UNITS.MINUTE }],
+        total: [{ value: '20', units: TIME_UNITS.MINUTE }],
+      },
+    };
+
+    const directionsInput = [
+      {
+        label: 'updated section 1',
+        steps: [
+          {
+            text: 'updated step 1',
+          },
+          {
+            text: 'updated step 2',
+          },
+        ],
+      },
+    ];
+
+    const ingredientsInput = [
+      {
+        label: 'updated ingredient section 1',
+        ingredients: [
+          {
+            amount: '2',
+            unit: 'cup',
+            prep: 'updated',
+            name: 'apples',
+            toTaste: true,
+            optional: true,
+          },
+        ],
+      },
+      {
+        ingredients: [
+          {
+            rangedAmount: { min: '5', max: '10' },
+            unit: 'tablespoon',
+            prep: 'updated',
+            name: 'garlic',
+            toTaste: true,
+            optional: false,
+          },
+        ],
+      },
+    ];
+
+    const tagsInput = [{ id: mockTags[0].tagid }, { id: mockTags[1].tagid }];
+
+    const existingRecipe = Object.assign({}, mockRecipes[0]);
+    existingRecipe.update = jest.fn().mockReturnValueOnce(dbBaseFields);
+
+    mockStore.Recipe.findByPk.mockReturnValueOnce(existingRecipe);
+    mockStore.RecipeTag.create
+      .mockReturnValueOnce(mockTags[0])
+      .mockReturnValueOnce(mockTags[1]);
+
+    const recipe = {
+      ...recipeBaseFieldsInput,
+      ...timeFieldsInput,
+      directions: directionsInput,
+      ingredients: ingredientsInput,
+      tags: tagsInput,
+    };
+
+    // check the result of the fn
+    await recipeDatasource.updateRecipe({ id: recipe_id, recipe });
+
+    // make sure deletes are called properly
+    expect(mockStore.Timing.destroy).toBeCalledWith({
+      where: { recipeId: recipe_id },
+    });
+    expect(mockStore.DirectionSection.destroy).toBeCalledWith({
+      where: { recipeId: recipe_id },
+    });
+    expect(mockStore.IngredientSection.destroy).toBeCalledWith({
+      where: { recipeId: recipe_id },
+    });
+    expect(mockStore.RecipeTag.destroy).toBeCalledWith({
+      where: { recipeId: recipe_id },
+    });
+
+    // make sure creates are called properly
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(recipe_id);
+    expect(existingRecipe.update).toBeCalledWith(recipeBaseFieldsInputFlat);
+
+    expect(dbBaseFields.createTiming).toBeCalledTimes(2);
+    expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(1, {
+      type: TIMINGS.PREP_TIME,
+      ...timeFieldsInput.timing.prep[0],
+    });
+    expect(dbBaseFields.createTiming).toHaveBeenNthCalledWith(2, {
+      type: TIMINGS.TOTAL_TIME,
+      ...timeFieldsInput.timing.total[0],
+    });
+
+    expect(dbBaseFields.createDirectionSection).toBeCalledWith(
+      {
+        label: directionsInput[0].label,
+        directionSteps: directionsInput[0].steps,
+      },
+      pkParams
+    );
+
+    expect(dbBaseFields.createIngredientSection).toBeCalledTimes(2);
+    expect(dbBaseFields.createIngredientSection).toHaveBeenNthCalledWith(
+      1,
+      ingredientsInput[0],
+      pkParams
+    );
+    expect(dbBaseFields.createIngredientSection).toHaveBeenNthCalledWith(
+      2,
+      ingredientsInput[1],
+      pkParams
+    );
+
+    expect(mockStore.RecipeTag.create).toBeCalledTimes(2);
+    expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(1, {
+      recipeId: recipe_id,
+      tagId: tagsInput[0].id,
+    });
+    expect(mockStore.RecipeTag.create).toHaveBeenNthCalledWith(2, {
+      recipeId: recipe_id,
+      tagId: tagsInput[1].id,
+    });
+
+    expect(mockStore.Recipe.findByPk).toBeCalledWith(recipe_id, pkParams);
+  });
 });
 
 describe('constructBaseRecipeObj', () => {

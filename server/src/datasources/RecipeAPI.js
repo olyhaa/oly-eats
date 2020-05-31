@@ -39,11 +39,29 @@ class RecipeAPI extends DataSource {
     });
   }
 
-  async addRecipe({ recipe: recipeFields }) {
-    const baseRecipe = await this.store.Recipe.create(
-      this.constructBaseRecipeObj(recipeFields)
-    );
+  async deletedSupportingRecipeData({ recipeId }) {
+    // delete associated timings
+    this.store.Timing.destroy({
+      where: { recipeId },
+    });
 
+    // delete associated directions
+    this.store.DirectionSection.destroy({
+      where: { recipeId },
+    });
+
+    // delete associated ingredients
+    this.store.IngredientSection.destroy({
+      where: { recipeId },
+    });
+
+    // delete associated tags
+    this.store.RecipeTag.destroy({
+      where: { recipeId },
+    });
+  }
+
+  async addSupportingRecipeData({ recipe, recipeFields }) {
     if (Array.isArray(recipeFields?.timing.prep)) {
       for (let i = 0; i < recipeFields.timing.prep.length; i++) {
         const timeElement = recipeFields.timing.prep[i];
@@ -51,7 +69,7 @@ class RecipeAPI extends DataSource {
           newFields: timeElement,
           type: TIMINGS.PREP_TIME,
         });
-        baseRecipe.createTiming(timeObj);
+        recipe.createTiming(timeObj);
       }
     }
 
@@ -62,7 +80,7 @@ class RecipeAPI extends DataSource {
           newFields: timeElement,
           type: TIMINGS.TOTAL_TIME,
         });
-        baseRecipe.createTiming(timeObj);
+        recipe.createTiming(timeObj);
       }
     }
 
@@ -70,7 +88,7 @@ class RecipeAPI extends DataSource {
       directions: recipeFields.directions,
     });
     for (let i = 0; i < directionsArray.length; i++) {
-      baseRecipe.createDirectionSection(directionsArray[i], {
+      recipe.createDirectionSection(directionsArray[i], {
         include: { all: true, nested: true },
       });
     }
@@ -79,15 +97,23 @@ class RecipeAPI extends DataSource {
       ingredients: recipeFields.ingredients,
     });
     for (let i = 0; i < ingredientsArray.length; i++) {
-      baseRecipe.createIngredientSection(ingredientsArray[i], {
+      recipe.createIngredientSection(ingredientsArray[i], {
         include: { all: true, nested: true },
       });
     }
 
     await this.addTags({
-      recipeId: baseRecipe.id,
+      recipeId: recipe.id,
       tags: recipeFields.tags,
     });
+  }
+
+  async addRecipe({ recipe: recipeFields }) {
+    const baseRecipe = await this.store.Recipe.create(
+      this.constructBaseRecipeObj(recipeFields)
+    );
+
+    await this.addSupportingRecipeData({ recipe: baseRecipe, recipeFields });
 
     const recipeObj = await this.getRecipeData({ id: baseRecipe.id });
     return recipeMutationReducer({
@@ -104,18 +130,23 @@ class RecipeAPI extends DataSource {
         message: 'ID not found',
       });
     }
-    /*
-    let response = await this.store.Recipe.update(
-      this.constructBaseRecipeObj(updatedFields),
-      {
-        where: { id: id },
-      }
+    // update base fields
+    const updatedRecipe = await recipe.update(
+      this.constructBaseRecipeObj(updatedFields)
     );
-*/
-    const recipeObj = await this.getRecipeData({ id: baseRecipe.id });
+
+    // delete all associated data
+    await this.deletedSupportingRecipeData({ recipeId: id });
+
+    // add back associated data
+    await this.addSupportingRecipeData({
+      recipe: updatedRecipe,
+      recipeFields: updatedFields,
+    });
+
+    const recipeObj = await this.getRecipeData({ id });
     return recipeMutationReducer({
-      success: false,
-      message: 'Action not supported yet',
+      success: true,
       recipe: recipeObj,
     });
   }
