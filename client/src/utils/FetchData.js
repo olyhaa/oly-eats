@@ -275,6 +275,17 @@ export const getUpdateRecipeMutation = () => {
   `;
 };
 
+export const getDeleteRecipeMutation = () => {
+  return gql`
+    mutation DeleteRecipe($id: ID!) {
+      deleteRecipe(id: $id) {
+        success
+        message
+      }
+    }
+  `;
+};
+
 export const getTagsListQuery = () => {
   return gql`
     query GetAllTags {

@@ -1,18 +1,26 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
+import compose from 'lodash.flowright';
+import { graphql } from '@apollo/react-hoc';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import { getRecipeQuery, removeNulls } from 'utils/FetchData';
+import {
+  getRecipeQuery,
+  removeNulls,
+  getDeleteRecipeMutation,
+} from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
-import EditIcon from '@material-ui/icons/Edit';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import Header from '../components/Header';
+import ActionGroup from 'components/add/ActionGroup';
+import history from '../store/history';
+import DeleteRecipeModal from 'components/add/DeleteRecipeModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,12 +59,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeDetail() {
+function RecipeDetail({ deleteMutation }) {
   const classes = useStyles();
   const { id } = useParams();
   const { data, error, loading } = useQuery(getRecipeQuery(), {
     variables: { id },
   });
+  const [modalOpenState, setModalOpen] = React.useState(false);
 
   // TODO
   if (loading) {
@@ -67,6 +76,29 @@ function RecipeDetail() {
   }
 
   const { recipe } = removeNulls(data);
+
+  const handleEditOption = () => {
+    history.push(`/editRecipe/${id}`);
+  };
+
+  const handleDeleteOption = () => {
+    setModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    deleteMutation({
+      variables: { id },
+    }).then((result) => {
+      if (result?.data?.deleteRecipe?.success) {
+        setModalOpen(false);
+        history.push(`/home`);
+      }
+    });
+  };
+
+  const handleDeleteCancel = () => {
+    setModalOpen(false);
+  };
 
   if (!recipe) {
     return (
@@ -123,16 +155,24 @@ function RecipeDetail() {
           </Grid>
         </div>
       </div>
-      <Fab
-        color="primary"
-        className={classes.fab}
-        component={Link}
-        to={`/editRecipe/${id}`}
-      >
-        <EditIcon />
-      </Fab>
+      <ActionGroup
+        handleEdit={handleEditOption}
+        handleDelete={handleDeleteOption}
+      />
+      <DeleteRecipeModal
+        open={modalOpenState}
+        handleDelete={handleDeleteConfirm}
+        handleCancel={handleDeleteCancel}
+      />
     </>
   );
 }
+RecipeDetail.propTypes = {
+  deleteMutation: PropTypes.func.isRequired,
+};
 
-export default RecipeDetail;
+export default compose(
+  graphql(getDeleteRecipeMutation(), {
+    name: 'deleteMutation',
+  })
+)(RecipeDetail);
