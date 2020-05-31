@@ -124,30 +124,30 @@ const typeDefs = gql`
   }
 
   input RecipeInput {
-    title: String
-    description: String
-    source: SourceInput
+    title: String!
+    description: String!
+    source: SourceInput!
     photo: String
-    servings: Int
-    directions: [DirectionSectionInput]
-    ingredients: [IngredientSectionInput]
-    timing: TimingInput
-    tags: [RecipeTagInput]
+    servings: Int!
+    directions: [DirectionSectionInput]!
+    ingredients: [IngredientSectionInput]!
+    timing: TimingInput!
+    tags: [RecipeTagInput]!
   }
 
   input SourceInput {
-    display: String
+    display: String!
     url: String
   }
 
   input TimingInput {
-    prep: [TimeInput]
-    total: [TimeInput]
+    prep: [TimeInput]!
+    total: [TimeInput]!
   }
 
   input DirectionSectionInput {
     label: String
-    steps: [DirectionStepInput]
+    steps: [DirectionStepInput]!
   }
 
   input DirectionStepInput {
@@ -156,7 +156,7 @@ const typeDefs = gql`
 
   input IngredientSectionInput {
     label: String
-    ingredients: [IngredientInput]
+    ingredients: [IngredientInput]!
   }
 
   input IngredientInput {
@@ -164,23 +164,23 @@ const typeDefs = gql`
     rangedAmount: RangedAmountInput
     unit: String
     prep: String
-    name: String
+    name: String!
     toTaste: Boolean
     optional: Boolean
   }
 
   input RangedAmountInput {
-    min: String
-    max: String
+    min: String!
+    max: String!
   }
 
   input TimeInput {
-    value: Int
-    units: TimingUnit
+    value: Int!
+    units: TimingUnit!
   }
 
   input RecipeTagInput {
-    id: ID
+    id: ID!
   }
 `;
 export default typeDefs;
