@@ -12,15 +12,14 @@ import {
 } from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
-import CarrotIcon from '../images/carrot.svg';
-import Image from '../components/recipe/Image';
+import ActionGroup from 'components/add/ActionGroup';
+import DeleteRecipeModal from 'components/add/DeleteRecipeModal';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import Header from '../components/Header';
-import ActionGroup from 'components/add/ActionGroup';
 import history from '../store/history';
-import DeleteRecipeModal from 'components/add/DeleteRecipeModal';
+import CarrotIcon from '../images/carrot.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {

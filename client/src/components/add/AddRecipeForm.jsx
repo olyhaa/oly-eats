@@ -9,6 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
+import { RECIPE } from 'utils/recipeConstants';
 import {
   getTagsListQuery,
   getAddRecipeMutation,
@@ -28,7 +29,6 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
-import { RECIPE } from 'utils/recipeConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -192,10 +192,11 @@ function AddRecipeForm({
 AddRecipeForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  submitMutation: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   isEdit: PropTypes.bool,
+  addMutation: PropTypes.func.isRequired,
+  updateMutation: PropTypes.func.isRequired,
 };
 
 AddRecipeForm.defaultProps = {
