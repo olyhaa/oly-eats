@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import AddRecipe from './pages/AddRecipe';
 import RecipeDetail from './pages/RecipeDetail';
 import EditRecipe from './pages/EditRecipe';
+import AdminHome from './pages/AdminHome';
 
 function App() {
   const darkTheme = createMuiTheme({
@@ -23,6 +24,9 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Router history={history}>
         <Switch>
+          <Route path="/admin">
+            <AdminHome />
+          </Route>
           <Route path="/recipe/:id">
             <RecipeDetail />
           </Route>
