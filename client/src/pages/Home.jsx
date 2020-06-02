@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery } from '@apollo/react-hooks';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
 import Header from '../components/Header';
@@ -10,6 +11,13 @@ import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
 
 const useStyles = makeStyles((theme) => ({
+  loadingContainer: {
+    display: 'flex',
+    margin: theme.spacing(3),
+  },
+  loading: {
+    margin: 'auto',
+  },
   featuredBlock: {
     margin: theme.spacing(5),
   },
@@ -31,9 +39,6 @@ function Home() {
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
   // TODO
-  if (loading) {
-    return <span>Loading!</span>;
-  }
   if (error) {
     return <span>Error!</span>;
   }
@@ -41,7 +46,9 @@ function Home() {
   const { recipes: RecipeData } = removeNulls(data);
 
   // Shuffle array
-  const shuffledRecipes = RecipeData.sort(() => 0.5 - Math.random());
+  const shuffledRecipes = RecipeData
+    ? RecipeData.sort(() => 0.5 - Math.random())
+    : [];
 
   // Get sub-array of first n elements after shuffled
   const featuredRecipeList = shuffledRecipes.slice(0, 3);
@@ -49,22 +56,31 @@ function Home() {
   return (
     <>
       <Header title="OlyEats" />
-      {featuredRecipeList && (
-        <div className={classes.featuredBlock}>
-          <FeaturedRecipes featuredRecipeList={featuredRecipeList} />
+      {loading && (
+        <div className={classes.loadingContainer}>
+          <CircularProgress className={classes.loading} />
         </div>
       )}
-      <div className={classes.listBlock}>
-        <SearchGroup recipeList={RecipeData} />
-      </div>
-      <Fab
-        color="primary"
-        className={classes.fab}
-        component={Link}
-        to="/addRecipe"
-      >
-        <AddIcon />
-      </Fab>
+      {!loading && (
+        <>
+          {featuredRecipeList && (
+            <div className={classes.featuredBlock}>
+              <FeaturedRecipes featuredRecipeList={featuredRecipeList} />
+            </div>
+          )}
+          <div className={classes.listBlock}>
+            <SearchGroup recipeList={RecipeData} />
+          </div>
+          <Fab
+            color="primary"
+            className={classes.fab}
+            component={Link}
+            to="/addRecipe"
+          >
+            <AddIcon />
+          </Fab>
+        </>
+      )}
     </>
   );
 }

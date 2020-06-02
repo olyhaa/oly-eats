@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
 import { Field, FieldArray, reduxForm, Fields } from 'redux-form';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -34,6 +35,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(5),
     maxWidth: theme.spacing(125),
+  },
+  loadingContainer: {
+    display: 'flex',
+    margin: theme.spacing(3),
+  },
+  loading: {
+    margin: 'auto',
   },
   formItem: {},
   submitButton: {
@@ -82,6 +90,13 @@ function AddRecipeForm({
       variables: { recipe: saveRecipe(data) },
     });
   };
+  if (submitting || allTagsLoading) {
+    return (
+      <div className={classes.loadingContainer}>
+        <CircularProgress className={classes.loading} />
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(handleSubmitForm)}>
