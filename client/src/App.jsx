@@ -17,6 +17,24 @@ function App() {
       primary: green,
       secondary: orange,
     },
+    overrides: {
+      // Style sheet name
+      MuiSpeedDial: {
+        // Name of the rule
+        fab: {
+          // Some CSS
+          position: 'fixed',
+          right: '16px',
+          bottom: '16px',
+        },
+        actions: {
+          // Some CSS
+          position: 'fixed',
+          right: '16px',
+          bottom: '60px',
+        },
+      },
+    },
   });
 
   return (

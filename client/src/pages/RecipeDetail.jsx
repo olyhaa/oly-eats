@@ -20,6 +20,7 @@ import Overview from '../components/recipe/Overview';
 import Header from '../components/Header';
 import history from '../store/history';
 import CarrotIcon from '../images/carrot.svg';
+import Image from '../components/recipe/Image';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,14 +48,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: 'auto',
     alignSelf: 'flex-end',
-  },
-  fab: {
-    margin: 0,
-    top: 'auto',
-    right: theme.spacing(2),
-    bottom: theme.spacing(2),
-    left: 'auto',
-    position: 'fixed',
   },
 }));
 
