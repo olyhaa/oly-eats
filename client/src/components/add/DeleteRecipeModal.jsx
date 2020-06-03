@@ -15,7 +15,7 @@ const DeleteRecipeModal = ({ open, handleDelete, handleCancel }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{'Delete Recipe?'}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">Delete Recipe?</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           Are you sure you want to delete this recipe?
@@ -35,7 +35,7 @@ const DeleteRecipeModal = ({ open, handleDelete, handleCancel }) => {
 
 DeleteRecipeModal.propTypes = {
   open: PropTypes.bool.isRequired,
-  handleEdit: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
 

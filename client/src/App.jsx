@@ -10,6 +10,7 @@ import AddRecipe from './pages/AddRecipe';
 import RecipeDetail from './pages/RecipeDetail';
 import EditRecipe from './pages/EditRecipe';
 import AdminHome from './pages/AdminHome';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
   const darkTheme = createMuiTheme({
@@ -17,6 +18,25 @@ function App() {
       type: 'dark',
       primary: green,
       secondary: orange,
+    },
+    overrides: {
+      // Style sheet name
+      // @ts-ignore
+      MuiSpeedDial: {
+        // Name of the rule
+        fab: {
+          // Some CSS
+          position: 'fixed',
+          right: '16px',
+          bottom: '16px',
+        },
+        actions: {
+          // Some CSS
+          position: 'fixed',
+          right: '16px',
+          bottom: '60px',
+        },
+      },
     },
   });
 
@@ -36,8 +56,11 @@ function App() {
           <Route path="/editRecipe/:id">
             <EditRecipe />
           </Route>
-          <Route path="/">
+          <Route path="/home">
             <Home />
+          </Route>
+          <Route path="*">
+            <ErrorPage />
           </Route>
         </Switch>
       </Router>

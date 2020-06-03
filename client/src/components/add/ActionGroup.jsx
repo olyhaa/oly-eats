@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActionGroup = ({ handleEdit, handleDelete }) => {
+const ActionGroup = ({ hidden, handleEdit, handleDelete }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -56,6 +56,7 @@ const ActionGroup = ({ handleEdit, handleDelete }) => {
 
   return (
     <SpeedDial
+      hidden={hidden}
       ariaLabel="Recipe Actions"
       className={classes.speedDial}
       icon={<SpeedDialIcon />}
@@ -75,7 +76,12 @@ const ActionGroup = ({ handleEdit, handleDelete }) => {
   );
 };
 
+ActionGroup.defaultProps = {
+  hidden: false,
+};
+
 ActionGroup.propTypes = {
+  hidden: PropTypes.bool,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

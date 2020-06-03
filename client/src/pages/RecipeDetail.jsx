@@ -5,6 +5,7 @@ import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   getRecipeQuery,
   removeNulls,
@@ -12,20 +13,27 @@ import {
 } from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
-import CarrotIcon from '../images/carrot.svg';
-import Image from '../components/recipe/Image';
+import ActionGroup from 'components/add/ActionGroup';
+import DeleteRecipeModal from 'components/add/DeleteRecipeModal';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import Header from '../components/Header';
-import ActionGroup from 'components/add/ActionGroup';
 import history from '../store/history';
-import DeleteRecipeModal from 'components/add/DeleteRecipeModal';
+import CarrotIcon from '../images/carrot.svg';
+import Image from '../components/recipe/Image';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: theme.spacing(2),
+  },
+  loadingContainer: {
+    display: 'flex',
+    margin: theme.spacing(3),
+  },
+  loading: {
+    margin: 'auto',
   },
   missingRecipe: {
     textAlign: 'center',
@@ -49,14 +57,6 @@ const useStyles = makeStyles((theme) => ({
     height: 'auto',
     alignSelf: 'flex-end',
   },
-  fab: {
-    margin: 0,
-    top: 'auto',
-    right: theme.spacing(2),
-    bottom: theme.spacing(2),
-    left: 'auto',
-    position: 'fixed',
-  },
 }));
 
 function RecipeDetail({ deleteMutation }) {
@@ -68,14 +68,12 @@ function RecipeDetail({ deleteMutation }) {
   const [modalOpenState, setModalOpen] = React.useState(false);
 
   // TODO
-  if (loading) {
-    return <span>Loading!</span>;
-  }
   if (error) {
     return <span>Error!</span>;
   }
 
   const { recipe } = removeNulls(data);
+  const recipeTitle = recipe ? recipe[RECIPE.TITLE] : '';
 
   const handleEditOption = () => {
     history.push(`/editRecipe/${id}`);
@@ -100,7 +98,7 @@ function RecipeDetail({ deleteMutation }) {
     setModalOpen(false);
   };
 
-  if (!recipe) {
+  if (!loading && !recipe) {
     return (
       <>
         <Header title="OlyEats: No Recipe Found" />
@@ -114,48 +112,62 @@ function RecipeDetail({ deleteMutation }) {
 
   return (
     <>
-      <Header title={`OlyEats: ${recipe[RECIPE.TITLE]}`} />
-      <div className={classes.mainContent}>
-        <div className={classes.root}>
-          <Grid container spacing={2} alignItems="stretch">
-            {recipe[RECIPE.PHOTO] && (
-              <Grid className={classes.photoGrid} item xs={6}>
-                <Image
-                  title={recipe[RECIPE.TITLE]}
-                  imageSrc={recipe[RECIPE.PHOTO]}
-                />
+      <Header title={recipeTitle} />
+      {loading && (
+        <div className={classes.loadingContainer}>
+          <CircularProgress className={classes.loading} />
+        </div>
+      )}
+      {!loading && (
+        <>
+          <div className={classes.mainContent}>
+            <div className={classes.root}>
+              <Grid container spacing={2} alignItems="stretch">
+                {recipe[RECIPE.PHOTO] && (
+                  <Grid className={classes.photoGrid} item xs={6}>
+                    <Image
+                      title={recipe[RECIPE.TITLE]}
+                      imageSrc={recipe[RECIPE.PHOTO]}
+                    />
+                  </Grid>
+                )}
+                <Grid
+                  className={classes.photoGrid}
+                  item
+                  xs={recipe[RECIPE.PHOTO] ? 6 : 12}
+                >
+                  <Overview
+                    description={recipe[RECIPE.DESCRIPTION]}
+                    prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
+                    totalTime={recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL]}
+                    servings={recipe[RECIPE.SERVINGS]}
+                    source={recipe[RECIPE.SOURCE]}
+                    dateAdded={recipe[RECIPE.META][RECIPE.DATE_ADDED]}
+                    lastUpdated={recipe[RECIPE.META][RECIPE.DATE_UPDATED]}
+                  />
+                </Grid>
               </Grid>
-            )}
-            <Grid
-              className={classes.photoGrid}
-              item
-              xs={recipe[RECIPE.PHOTO] ? 6 : 12}
-            >
-              <Overview
-                description={recipe[RECIPE.DESCRIPTION]}
-                prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
-                totalTime={recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL]}
-                servings={recipe[RECIPE.SERVINGS]}
-                source={recipe[RECIPE.SOURCE]}
-                dateAdded={recipe[RECIPE.META][RECIPE.DATE_ADDED]}
-                lastUpdated={recipe[RECIPE.META][RECIPE.DATE_UPDATED]}
-              />
-            </Grid>
-          </Grid>
-        </div>
+            </div>
 
-        <div className={classes.root}>
-          <Grid container spacing={2} alignItems="stretch">
-            <Grid item xs={4}>
-              <Ingredients ingredientList={recipe[RECIPE.INGREDIENT_SECTION]} />
-            </Grid>
-            <Grid item xs={8}>
-              <Directions directionsList={recipe[RECIPE.DIRECTIONS_SECTION]} />
-            </Grid>
-          </Grid>
-        </div>
-      </div>
+            <div className={classes.root}>
+              <Grid container spacing={2} alignItems="stretch">
+                <Grid item xs={4}>
+                  <Ingredients
+                    ingredientList={recipe[RECIPE.INGREDIENT_SECTION]}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <Directions
+                    directionsList={recipe[RECIPE.DIRECTIONS_SECTION]}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          </div>
+        </>
+      )}
       <ActionGroup
+        hidden={loading}
         handleEdit={handleEditOption}
         handleDelete={handleDeleteOption}
       />
