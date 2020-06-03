@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import AddRecipe from './pages/AddRecipe';
 import RecipeDetail from './pages/RecipeDetail';
 import EditRecipe from './pages/EditRecipe';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
   const darkTheme = createMuiTheme({
@@ -19,6 +20,7 @@ function App() {
     },
     overrides: {
       // Style sheet name
+      // @ts-ignore
       MuiSpeedDial: {
         // Name of the rule
         fab: {
@@ -50,8 +52,11 @@ function App() {
           <Route path="/editRecipe/:id">
             <EditRecipe />
           </Route>
-          <Route path="/">
+          <Route path="/home">
             <Home />
+          </Route>
+          <Route path="*">
+            <ErrorPage />
           </Route>
         </Switch>
       </Router>
