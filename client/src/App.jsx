@@ -1,7 +1,7 @@
 import React from 'react';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import orange from '@material-ui/core/colors/orange';
 import green from '@material-ui/core/colors/green';
 import history from './store/history';
@@ -44,6 +44,9 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Router history={history}>
         <Switch>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
           <Route path="/admin">
             <AdminHome />
           </Route>
