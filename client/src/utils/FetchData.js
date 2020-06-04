@@ -300,3 +300,36 @@ export const getTagsListQuery = () => {
     }
   `;
 };
+
+export const getAddTagMutation = () => {
+  return gql`
+    mutation AddTag($typeid: ID!, $label: String!) {
+      addTag(typeid: $typeid, label: $label) {
+        success
+        message
+      }
+    }
+  `;
+};
+
+export const getUpdateTagMutation = () => {
+  return gql`
+    mutation UpdateTag($id: ID!, $label: String!) {
+      updateTag(id: $id, label: $label) {
+        success
+        message
+      }
+    }
+  `;
+};
+
+export const getDeleteTagMutation = () => {
+  return gql`
+    mutation DeleteTag($id: ID!) {
+      deleteTag(id: $id) {
+        success
+        message
+      }
+    }
+  `;
+};
