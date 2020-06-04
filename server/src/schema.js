@@ -14,9 +14,9 @@ const typeDefs = gql`
     deleteTagType(id: ID!): TagTypeMutation
     updateTagType(id: ID!, label: String!): TagTypeMutation
 
-    addTag(typeid: String!, label: String!): TagMutation
+    addTag(typeid: ID!, label: String!): TagMutation
     deleteTag(id: ID!): TagMutation
-    updateTag(id: ID!, label: String): TagMutation
+    updateTag(id: ID!, label: String!): TagMutation
 
     addRecipe(recipe: RecipeInput!): RecipeMutation
     deleteRecipe(id: ID!): RecipeMutation
