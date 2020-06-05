@@ -8,8 +8,15 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
-const AddTagTypeModal = ({ open, handleAdd, handleCancel }) => {
-  const [name, setName] = useState('');
+const EditModal = ({
+  open,
+  handleConfirm,
+  handleCancel,
+  initialValue,
+  title,
+  confirmLabel,
+}) => {
+  const [name, setName] = useState();
   const handleChange = (event) => {
     setName(event.target.value);
   };
@@ -21,14 +28,14 @@ const AddTagTypeModal = ({ open, handleAdd, handleCancel }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">Add New Tag Type</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <TextField
           label="Tag Type Name"
           fullWidth
           required
           margin="normal"
-          value={name}
+          defaultValue={initialValue}
           onChange={handleChange}
         />
       </DialogContent>
@@ -36,20 +43,29 @@ const AddTagTypeModal = ({ open, handleAdd, handleCancel }) => {
         <Button onClick={handleCancel} color="primary">
           Cancel
         </Button>
-        <Button onClick={(event) => handleAdd(name)} color="primary" autoFocus>
-          Add
+        <Button
+          onClick={(event) => handleConfirm(name)}
+          color="primary"
+          autoFocus
+        >
+          {confirmLabel}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-AddTagTypeModal.propTypes = {
+EditModal.propTypes = {
+  initialValue: PropTypes.string,
   open: PropTypes.bool.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  handleAdd: PropTypes.func.isRequired,
+  handleConfirm: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  confirmLabel: PropTypes.string.isRequired,
 };
 
-AddTagTypeModal.defaultProps = {};
+EditModal.defaultProps = {
+  initialValue: '',
+};
 
-export default AddTagTypeModal;
+export default EditModal;
