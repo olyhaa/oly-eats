@@ -1,24 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { useQuery } from '@apollo/react-hooks';
-import { getTagsListQuery } from 'utils/FetchData';
-import Header from '../components/Header';
+import Header from 'components/Header';
+import EditTags from 'components/admin/EditTags';
 
-const useStyles = makeStyles((theme) => ({}));
-
-function Home() {
-  const classes = useStyles();
-  const {
-    data: allTagsData,
-    loading: allTagsLoading,
-    error: allTagsError,
-  } = useQuery(getTagsListQuery());
-
+function AdminHome() {
   return (
     <>
       <Header title="OlyEats: Admin" />
+      <EditTags />
     </>
   );
 }
 
-export default Home;
+export default AdminHome;

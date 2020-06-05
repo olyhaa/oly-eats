@@ -11,6 +11,9 @@ import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
   root: {
     flexGrow: 1,
   },
@@ -28,7 +31,7 @@ function Header({ title }) {
   const classes = useStyles();
 
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" className={classes.appBar}>
       <Toolbar>
         <IconButton edge="start" color="inherit" component={Link} to="/home">
           <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
