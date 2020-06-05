@@ -333,3 +333,36 @@ export const getDeleteTagMutation = () => {
     }
   `;
 };
+
+export const getAddTagTypeMutation = () => {
+  return gql`
+    mutation AddTagType($label: String!) {
+      addTagType(label: $label) {
+        success
+        message
+      }
+    }
+  `;
+};
+
+export const getUpdateTagTypeMutation = () => {
+  return gql`
+    mutation UpdateTagType($id: ID!, $label: String!) {
+      updateTagType(id: $id, label: $label) {
+        success
+        message
+      }
+    }
+  `;
+};
+
+export const getDeleteTagTypeMutation = () => {
+  return gql`
+    mutation DeleteTag($id: ID!) {
+      deleteTagType(id: $id) {
+        success
+        message
+      }
+    }
+  `;
+};
