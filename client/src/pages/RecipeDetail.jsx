@@ -14,7 +14,7 @@ import {
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
 import ActionGroup from 'components/add/ActionGroup';
-import DeleteRecipeModal from 'components/add/DeleteRecipeModal';
+import DeleteModal from 'components/DeleteModal';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
@@ -171,10 +171,13 @@ function RecipeDetail({ deleteMutation }) {
         handleEdit={handleEditOption}
         handleDelete={handleDeleteOption}
       />
-      <DeleteRecipeModal
+      <DeleteModal
         open={modalOpenState}
-        handleDelete={handleDeleteConfirm}
+        handleConfirm={handleDeleteConfirm}
         handleCancel={handleDeleteCancel}
+        title="Delete Recipe?"
+        contentText=" Are you sure you want to delete this recipe?"
+        confirmLabel="Delete"
       />
     </>
   );

@@ -7,7 +7,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const DeleteRecipeModal = ({ open, handleDelete, handleCancel }) => {
+const DeleteModal = ({
+  open,
+  title,
+  contentText,
+  confirmLabel,
+  handleConfirm,
+  handleCancel,
+}) => {
   return (
     <Dialog
       open={open}
@@ -15,30 +22,30 @@ const DeleteRecipeModal = ({ open, handleDelete, handleCancel }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">Delete Recipe?</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete this recipe?
+          {contentText}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancel} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleDelete} color="primary" autoFocus>
-          Delete
+        <Button onClick={handleConfirm} color="primary" autoFocus>
+          {confirmLabel}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-DeleteRecipeModal.propTypes = {
+DeleteModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleCancel: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  handleConfirm: PropTypes.func.isRequired,
 };
 
-DeleteRecipeModal.defaultProps = {};
+DeleteModal.defaultProps = {};
 
-export default DeleteRecipeModal;
+export default DeleteModal;
