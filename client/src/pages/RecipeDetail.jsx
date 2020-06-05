@@ -176,7 +176,7 @@ function RecipeDetail({ deleteMutation }) {
         handleConfirm={handleDeleteConfirm}
         handleCancel={handleDeleteCancel}
         title="Delete Recipe?"
-        contentText=" Are you sure you want to delete this recipe?"
+        contentText={`Are you sure you want to delete ${recipeTitle}?`}
         confirmLabel="Delete"
       />
     </>
