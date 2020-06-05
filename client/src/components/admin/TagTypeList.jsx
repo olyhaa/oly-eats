@@ -18,8 +18,8 @@ import {
   getDeleteTagTypeMutation,
 } from 'utils/FetchData';
 import DeleteModal from 'components/DeleteModal';
-import { ListItemSecondaryAction } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +64,7 @@ function TagTypeList({
   };
 
   const handleUpdateConfirm = (label) => {
-    const id = types[editIndex].id;
+    const { id } = types[editIndex];
     updateMutation({
       variables: { id, label },
       refetchQueries: ['GetAllTags'],
@@ -76,7 +76,7 @@ function TagTypeList({
   };
 
   const handleDeleteConfirm = () => {
-    const id = types[deleteIndex].id;
+    const { id } = types[deleteIndex];
     deleteMutation({
       variables: { id },
       refetchQueries: ['GetAllTags'],
@@ -106,7 +106,7 @@ function TagTypeList({
           <ListItem
             button
             selected={selectedIndex === index}
-            onClick={(event) => {
+            onClick={() => {
               handleSelectTagTypeIndex(index);
             }}
             classes={{ container: classes.listItem }}
@@ -117,7 +117,7 @@ function TagTypeList({
                 className={classes.hoverButtons}
                 edge="end"
                 aria-label="edit"
-                onClick={(event) => {
+                onClick={() => {
                   setEditIndex(index);
                   setUpdateModalOpen(true);
                 }}
@@ -128,7 +128,7 @@ function TagTypeList({
                 className={classes.hoverButtons}
                 edge="end"
                 aria-label="delete"
-                onClick={(event) => {
+                onClick={() => {
                   setDeleteIndex(index);
                   setDeleteModalOpen(true);
                 }}
@@ -141,7 +141,7 @@ function TagTypeList({
         <Divider />
         <ListItem
           button
-          onClick={(event) => {
+          onClick={() => {
             setEditIndex(-1);
             setAddModalOpen(true);
           }}
@@ -190,7 +190,7 @@ TagTypeList.propTypes = {
       id: PropTypes.string.isRequired,
     })
   ).isRequired,
-  handleSelectTagType: PropTypes.func.isRequired,
+  handleSelectTagTypeIndex: PropTypes.number.isRequired,
   selectedIndex: PropTypes.number,
   deleteMutation: PropTypes.func.isRequired,
   addMutation: PropTypes.func.isRequired,

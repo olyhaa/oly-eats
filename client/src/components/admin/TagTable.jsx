@@ -58,7 +58,7 @@ function TagTable({ title, tags, handleAdd, handleUpdate, handleDelete }) {
         onRowAdd: (newData) => {
           return handleAdd(newData);
         },
-        onRowUpdate: (newData, oldData) => {
+        onRowUpdate: (newData) => {
           return handleUpdate(newData);
         },
         onRowDelete: (oldData) => {

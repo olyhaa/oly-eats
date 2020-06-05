@@ -44,8 +44,15 @@ DeleteModal.propTypes = {
   open: PropTypes.bool.isRequired,
   handleCancel: PropTypes.func.isRequired,
   handleConfirm: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  contentText: PropTypes.string,
+  confirmLabel: PropTypes.string,
 };
 
-DeleteModal.defaultProps = {};
+DeleteModal.defaultProps = {
+  title: 'Delete',
+  contentText: 'Are you sure',
+  confirmLabel: 'Delete',
+};
 
 export default DeleteModal;
