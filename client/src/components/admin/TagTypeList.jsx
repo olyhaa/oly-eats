@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
   hoverButtons: {
     display: 'none',
+    color: 'gray',
+    '&:hover': {
+      color: 'white',
+    },
   },
 }));
 
