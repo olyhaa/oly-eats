@@ -38,6 +38,13 @@ function App() {
           bottom: '60px',
         },
       },
+      MuiTableRow: {
+        root: {
+          '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          },
+        },
+      },
     },
   });
 
