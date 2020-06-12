@@ -36,10 +36,20 @@ function Header({ title }) {
         <IconButton edge="start" color="inherit" component={Link} to="/home">
           <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
         </IconButton>
-        <Typography className={classes.title} variant="h6" noWrap>
+        <Typography
+          className={classes.title}
+          variant="h6"
+          noWrap
+          data-test="app-title"
+        >
           {title}
         </Typography>
-        <Button color="inherit" component={Link} to="/admin">
+        <Button
+          color="inherit"
+          component={Link}
+          to="/admin"
+          data-test="admin-menu"
+        >
           Admin
         </Button>
       </Toolbar>

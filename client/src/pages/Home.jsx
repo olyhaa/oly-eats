@@ -64,7 +64,7 @@ function Home() {
       {!loading && (
         <>
           {featuredRecipeList && (
-            <div className={classes.featuredBlock}>
+            <div className={classes.featuredBlock} data-test="featured-list">
               <FeaturedRecipes featuredRecipeList={featuredRecipeList} />
             </div>
           )}
@@ -72,6 +72,7 @@ function Home() {
             <SearchGroup recipeList={RecipeData} />
           </div>
           <Fab
+            data-test="add-recipe"
             color="primary"
             className={classes.fab}
             component={Link}

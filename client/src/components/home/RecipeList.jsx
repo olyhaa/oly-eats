@@ -31,6 +31,7 @@ function RecipeList({ list }) {
     <List className={classes.root}>
       {list.map((recipe, index, array) => (
         <ListItem
+          data-test="recipe-list-item"
           key={recipe.id}
           alignItems="flex-start"
           divider={array.length - 1 !== index}

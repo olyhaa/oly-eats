@@ -42,13 +42,15 @@ function RecipeCard({ id, title, description, image, buttonText }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card data-test="recipe-card" className={classes.root}>
       <CardActionArea
+        data-test="recipe-card-primary-action"
         className={classes.actionArea}
         component={Link}
         to={`/recipe/${id}`}
       >
         <CardMedia
+          data-test="recipe-card-image"
           className={classes.media}
           component="img"
           image={image}
@@ -56,6 +58,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
         />
         <CardContent>
           <Typography
+            data-test="recipe-card-title"
             className={classes.title}
             gutterBottom
             variant="h5"
@@ -65,6 +68,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           </Typography>
           {description && (
             <Typography
+              data-test="recipe-card-description"
               className={classes.description}
               variant="body2"
               color="textSecondary"
@@ -81,6 +85,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           color="primary"
           component={Link}
           to={`/recipe/${id}`}
+          data-test="recipe-card-secondary-action"
         >
           {buttonText}
         </Button>

@@ -24,6 +24,7 @@ function RecipeListItem({ title, description, image }) {
         <Avatar alt={title} src={image} />
       </ListItemAvatar>
       <ListItemText
+        primaryTypographyProps={{ 'data-test': 'recipe-title' }}
         primary={title}
         secondary={description}
         classes={{

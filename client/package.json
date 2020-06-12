@@ -18,9 +18,10 @@
     "jumpstart": "webpack-dev-server --config config/webpack.config.js",
     "lint": "eslint -c .eslintrc.js .",
     "start": "npm run jumpstart",
-    "test": "SET NODE_ENV=development & jest --verbose",
+    "test": "SET NODE_ENV=development & jest --verbose & cypress run",
     "test:clean": "npm test --clearCache",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "cypress:open": "cypress open"
   },
   "jest": {
     "testEnvironment": "node"
@@ -37,6 +38,7 @@
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "apollo-link-http": "^1.5.17",
+    "cypress": "^4.8.0",
     "file-saver": "^2.0.2",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
