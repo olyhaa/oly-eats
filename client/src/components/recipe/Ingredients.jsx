@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 function Ingredients({ ingredientList }) {
   const classes = useStyles();
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} data-test="ingredient-box">
       {ingredientList.map((ingredientSection) => {
         return (
           <IngredientSection

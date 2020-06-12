@@ -22,17 +22,31 @@ const DeleteModal = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="alert-dialog-title" data-test="delete-modal-title">
+        {title}
+      </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText
+          id="alert-dialog-description"
+          data-test="delete-modal-text"
+        >
           {contentText}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel} color="primary">
+        <Button
+          onClick={handleCancel}
+          color="primary"
+          data-test="delete-modal-cancel"
+        >
           Cancel
         </Button>
-        <Button onClick={handleConfirm} color="primary" autoFocus>
+        <Button
+          onClick={handleConfirm}
+          color="primary"
+          autoFocus
+          data-test="delete-modal-confirm"
+        >
           {confirmLabel}
         </Button>
       </DialogActions>

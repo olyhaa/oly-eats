@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 function Directions({ directionsList }) {
   const classes = useStyles();
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} data-test="directions-box">
       {directionsList.map((directionSection) => {
         return (
           <DirectionSection

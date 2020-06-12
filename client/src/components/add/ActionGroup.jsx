@@ -56,17 +56,19 @@ const ActionGroup = ({ hidden, handleEdit, handleDelete }) => {
 
   return (
     <SpeedDial
+      FabProps={{ 'data-test': 'action-menu' }}
       hidden={hidden}
       ariaLabel="Recipe Actions"
       className={classes.speedDial}
       icon={<SpeedDialIcon />}
       onClose={handleClose}
-      onOpen={handleOpen}
+      onClick={handleOpen}
       open={open}
     >
       {actions.map((action) => (
         <SpeedDialAction
           key={action.name}
+          FabProps={{ 'data-test': `action-${action.name}` }}
           icon={action.icon}
           tooltipTitle={action.name}
           onClick={action.onClick}

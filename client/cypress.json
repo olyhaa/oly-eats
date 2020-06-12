@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:3000",
+  "backendUrl": "http://localhost:4000",
   "defaultCommandTimeout": 30000,
   "pageLoadTimeout": 30000,
   "screenshotsFolder": "cypress/results/screenshots",

@@ -41,7 +41,7 @@ function Overview({
     <Grid container spacing={2} alignItems="stretch">
       {description && (
         <Grid item xs={12}>
-          <Paper className={classes.root}>
+          <Paper className={classes.root} data-test="card-description">
             <Typography variant="subtitle1" component="p">
               {description}
             </Typography>

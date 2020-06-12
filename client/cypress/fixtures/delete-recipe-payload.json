@@ -1,0 +1,5 @@
+{
+  "operationName": "DeleteRecipe",
+  "variables": { "id": "" },
+  "query": "mutation DeleteRecipe($id: ID!) {\n  deleteRecipe(id: $id) {\n    success\n    message\n    __typename\n  }\n}\n"
+}

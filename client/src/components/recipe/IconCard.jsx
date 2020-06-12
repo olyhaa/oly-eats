@@ -52,7 +52,7 @@ function IconCard({ title, display, value, type }) {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} data-test={`card-${type}`}>
       <Box component="div" className={classes.group}>
         <Icon
           color="primary"

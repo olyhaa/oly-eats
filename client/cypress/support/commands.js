@@ -23,3 +23,33 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('addRecipe', (payload) => {
+  return cy
+    .request({
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      url: Cypress.config('backendUrl'),
+      body: payload,
+    })
+    .then((response) => {
+      const { recipe, success, message } = response.body.data.addRecipe;
+      if (!success) {
+        cy.log(`Error creating recipe: ${message}`);
+      }
+      return recipe?.id;
+    });
+});
+
+Cypress.Commands.add('deleteRecipe', (payload) => {
+  return cy.request({
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    url: Cypress.config('backendUrl'),
+    body: payload,
+  });
+});
