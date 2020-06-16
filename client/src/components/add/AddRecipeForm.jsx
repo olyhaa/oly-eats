@@ -84,10 +84,12 @@ function AddRecipeForm({
     if (isEdit) {
       return updateMutation({
         variables: { id: data[RECIPE.ID], recipe: saveRecipe(data) },
+        refetchQueries: ['GetAllRecipes', 'GetRecipe'],
       });
     }
     return addMutation({
       variables: { recipe: saveRecipe(data) },
+      refetchQueries: ['GetAllRecipes', 'GetRecipe'],
     });
   };
   if (submitting || allTagsLoading) {

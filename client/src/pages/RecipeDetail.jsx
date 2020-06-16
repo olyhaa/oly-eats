@@ -86,6 +86,7 @@ function RecipeDetail({ deleteMutation }) {
   const handleDeleteConfirm = () => {
     deleteMutation({
       variables: { id },
+      refetchQueries: ['GetAllRecipes', 'GetRecipe'],
     }).then((result) => {
       if (result?.data?.deleteRecipe?.success) {
         setModalOpen(false);
