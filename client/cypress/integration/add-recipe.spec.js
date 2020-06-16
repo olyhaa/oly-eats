@@ -169,9 +169,9 @@ describe('Add Recipe Page', () => {
     cy.get('input[name="photo"]').should('be.visible').type('bad-photo');
     cy.get('[data-test="submit-recipe"]').should('be.visible').click();
     cy.get('[data-test="add-recipe-photo"]')
-      .find('p')
+      .find('div')
       .should('be.visible')
-      .contains('URL must be a photo');
+      .should('have.class', 'Mui-error');
 
     cy.get('@recipeData').then((recipeData) => {
       cy.get('input[name="photo"]')
@@ -180,8 +180,135 @@ describe('Add Recipe Page', () => {
         .type(recipeData.recipePhotoUrl);
       cy.get('[data-test="submit-recipe"]').should('be.visible').click();
       cy.get('[data-test="add-recipe-photo"]')
-        .find('p')
-        .should('not.be.visible');
+        .find('div')
+        .should('be.visible')
+        .should('not.have.class', 'Mui-error');
+    });
+  });
+
+  it('should validate time inputs - missing prep time', () => {
+    cy.get('@recipeData').then((recipeData) => {
+      cy.get('input[name="timingPrepValueHours"]')
+        .should('be.visible')
+        .type(' ');
+      cy.get('input[name="timingPrepValueMins"]')
+        .should('be.visible')
+        .type(' ');
+
+      cy.get('input[name="timingTotalValueHours"]')
+        .should('be.visible')
+        .type(recipeData.totalTimeHr);
+      cy.get('input[name="timingTotalValueMins"]')
+        .should('be.visible')
+        .type(recipeData.totalTimeMins);
+
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-timingPrepValueHours"]')
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('have.class', 'Mui-error');
+
+      cy.get('input[name="timingPrepValueHours"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeHr);
+      cy.get('input[name="timingPrepValueMins"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeMins);
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-timingPrepValueHours"]')
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('not.have.class', 'Mui-error');
+    });
+  });
+
+  it('should validate time inputs - missing total time', () => {
+    cy.get('@recipeData').then((recipeData) => {
+      cy.get('input[name="timingTotalValueHours"]')
+        .should('be.visible')
+        .type(' ');
+      cy.get('input[name="timingTotalValueMins"]')
+        .should('be.visible')
+        .type(' ');
+
+      cy.get('input[name="timingPrepValueHours"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeHr);
+      cy.get('input[name="timingPrepValueMins"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeMins);
+
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-timingTotalValueHours"]')
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('have.class', 'Mui-error');
+
+      cy.get('input[name="timingTotalValueHours"]')
+        .should('be.visible')
+        .type(recipeData.totalTimeHr);
+      cy.get('input[name="timingTotalValueMins"]')
+        .should('be.visible')
+        .type(recipeData.totalTimeMins);
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-timingTotalValueHours"]')
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('not.have.class', 'Mui-error');
+    });
+  });
+
+  it('should validate time inputs - total < prep time', () => {
+    cy.get('@recipeData').then((recipeData) => {
+      cy.log('swap prep and total times');
+      cy.get('input[name="timingTotalValueHours"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeHr);
+      cy.get('input[name="timingTotalValueMins"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeMins);
+
+      cy.get('input[name="timingPrepValueHours"]')
+        .should('be.visible')
+        .type(recipeData.totalTimeHr);
+      cy.get('input[name="timingPrepValueMins"]')
+        .should('be.visible')
+        .type(recipeData.totalTimeMins);
+
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-timingTotalValueHours"]')
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('have.class', 'Mui-error');
+
+      cy.log('check valid values');
+      cy.get('input[name="timingTotalValueHours"]')
+        .should('be.visible')
+        .clear()
+        .type(recipeData.totalTimeHr);
+      cy.get('input[name="timingTotalValueMins"]')
+        .should('be.visible')
+        .clear()
+        .type(recipeData.totalTimeMins);
+
+      cy.get('input[name="timingPrepValueHours"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeHr);
+      cy.get('input[name="timingPrepValueMins"]')
+        .should('be.visible')
+        .type(recipeData.prepTimeMins);
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-timingTotalValueHours"]')
+        .parent()
+        .parent()
+        .parent()
+        .should('be.visible')
+        .should('not.have.class', 'Mui-error');
     });
   });
 });

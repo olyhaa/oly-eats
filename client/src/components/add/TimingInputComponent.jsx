@@ -40,6 +40,7 @@ const TimingInputComponent = ({ label, required, ...nameProps }) => {
       {fields.map((field, index) => {
         return (
           <Field
+            data-test={`add-recipe-${field}`}
             key={field}
             name={field}
             fillWidth={false}
