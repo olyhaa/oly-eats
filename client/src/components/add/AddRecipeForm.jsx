@@ -118,6 +118,7 @@ function AddRecipeForm({
           label="Description"
         />
         <Field
+          data-test={`add-recipe-${FIELDS.PHOTO_URL}`}
           className={classes.formItem}
           name={FIELDS.PHOTO_URL}
           component={renderTextField}

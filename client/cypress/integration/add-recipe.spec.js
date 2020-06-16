@@ -2,6 +2,7 @@ describe('Add Recipe Page', () => {
   beforeEach(() => {
     cy.visit('/addRecipe');
     cy.get('[data-test="app-title"]').contains('New Recipe');
+    cy.fixture('recipe-data.json').as('recipeData');
   });
 
   it('Should render all fields', () => {
@@ -161,5 +162,26 @@ describe('Add Recipe Page', () => {
     );
     cy.get('[data-test="remove-directions-1"]').should('be.visible');
     cy.get('[data-test="add-directions-section"]').should('be.visible');
+  });
+
+  it('should validate photo url', () => {
+    cy.get('[data-test="add-recipe-photo"]').find('p').should('not.be.visible');
+    cy.get('input[name="photo"]').should('be.visible').type('bad-photo');
+    cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+    cy.get('[data-test="add-recipe-photo"]')
+      .find('p')
+      .should('be.visible')
+      .contains('URL must be a photo');
+
+    cy.get('@recipeData').then((recipeData) => {
+      cy.get('input[name="photo"]')
+        .should('be.visible')
+        .clear()
+        .type(recipeData.recipePhotoUrl);
+      cy.get('[data-test="submit-recipe"]').should('be.visible').click();
+      cy.get('[data-test="add-recipe-photo"]')
+        .find('p')
+        .should('not.be.visible');
+    });
   });
 });
