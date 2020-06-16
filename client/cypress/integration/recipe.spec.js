@@ -1,14 +1,22 @@
 describe('Recipe Page', () => {
   beforeEach(() => {
-    // add test recipe to DB and navigate to its page
-    cy.fixture('add-recipe-payload.json').then((addRecipePayload) => {
-      cy.addRecipe(addRecipePayload).as('recipeId');
-      cy.fixture('recipe-data.json').as('recipeData');
-    });
-    cy.get('@recipeId').then((recipeId) => {
-      cy.visit(`/recipe/${recipeId}`);
-      cy.get('@recipeData').then((recipeData) => {
-        cy.get('[data-test="app-title"]').contains(recipeData.recipeTitle);
+    cy.fixture('recipe-data.json').as('recipeData');
+
+    cy.get('@recipeData').then((recipeData) => {
+      cy.visit('/home');
+      cy.get('[data-test="search-box"]')
+        .should('be.visible')
+        .type(recipeData.recipeTitle);
+      cy.get('[data-test="recipe-list-item"]').should('have.length', 0);
+
+      // add test recipe to DB and navigate to its page
+      cy.fixture('add-recipe-payload.json').then((addRecipePayload) => {
+        cy.addRecipe(addRecipePayload).as('recipeId');
+
+        cy.get('@recipeId').then((recipeId) => {
+          cy.visit(`/recipe/${recipeId}`);
+          cy.get('[data-test="app-title"]').contains(recipeData.recipeTitle);
+        });
       });
     });
   });
@@ -19,6 +27,13 @@ describe('Recipe Page', () => {
       cy.get('@recipeId').then((recipeId) => {
         deleteRecipePayload.variables.id = recipeId;
         cy.deleteRecipe(deleteRecipePayload);
+        cy.get('@recipeData').then((recipeData) => {
+          cy.visit('/home');
+          cy.get('[data-test="search-box"]')
+            .should('be.visible')
+            .type(recipeData.recipeTitle);
+          cy.get('[data-test="recipe-list-item"]').should('have.length', 0);
+        });
       });
     });
   });
@@ -38,7 +53,7 @@ describe('Recipe Page', () => {
     cy.get('[data-test="action-menu"]').should('be.visible');
   });
 
-  it('Delete', () => {
+  it('Delete - Cancel', () => {
     cy.get('[data-test="action-menu"]').should('be.visible').click();
     cy.get('[data-test="action-Delete"]').should('be.visible').click();
 
@@ -50,11 +65,30 @@ describe('Recipe Page', () => {
     cy.get('[data-test="delete-modal-cancel"]').click();
     cy.url().should('contain', '/recipe');
 
+    cy.get('@recipeData').then((recipeData) => {
+      cy.visit('/home');
+      cy.get('[data-test="search-box"]')
+        .should('be.visible')
+        .type(recipeData.recipeTitle);
+
+      cy.get('[data-test="recipe-list-item"]').should('have.length', 1);
+    });
+  });
+
+  it('Delete - Confirm', () => {
     cy.get('[data-test="action-menu"]').should('be.visible').click();
     cy.get('[data-test="action-Delete"]').should('be.visible').click();
 
     cy.get('[data-test="delete-modal-confirm"]').click();
     cy.url().should('contain', '/home');
+
+    cy.get('@recipeData').then((recipeData) => {
+      cy.get('[data-test="search-box"]')
+        .should('be.visible')
+        .type(recipeData.recipeTitle);
+
+      cy.get('[data-test="recipe-list-item"]').should('have.length', 0);
+    });
   });
 
   it('Edit Recipe Navigation', () => {
