@@ -181,6 +181,7 @@ function AddRecipeForm({
           })}
       </Paper>
       <Fab
+        data-test="submit-recipe"
         type="submit"
         disabled={!isEdit && (pristine || submitting)}
         variant="extended"

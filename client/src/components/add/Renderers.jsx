@@ -94,6 +94,7 @@ export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
           </Grid>
           <Grid item xs={1}>
             <Fab
+              data-test={`remove-ingredients-${index}`}
               type="button"
               size="small"
               color="secondary"
@@ -114,6 +115,7 @@ export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
     ))}
     <Grid container justify="center" direction="column">
       <Fab
+        data-test="add-ingredients-section"
         type="button"
         variant="extended"
         color="secondary"
@@ -143,6 +145,7 @@ export const renderDirections = ({ fields, meta: { dirty, error } }) => (
           </Grid>
           <Grid item xs={1}>
             <Fab
+              data-test={`remove-directions-${index}`}
               type="button"
               size="small"
               color="secondary"
@@ -163,6 +166,7 @@ export const renderDirections = ({ fields, meta: { dirty, error } }) => (
     ))}
     <Grid container justify="center" direction="column">
       <Fab
+        data-test="add-directions-section"
         type="button"
         variant="extended"
         color="secondary"
