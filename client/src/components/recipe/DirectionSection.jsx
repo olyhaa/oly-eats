@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
 function DirectionSection({ label, steps }) {
   const classes = useStyles();
   return (
-    <Box component="div" className={classes.root}>
+    <Box
+      component="div"
+      className={classes.root}
+      data-test="directions-section"
+    >
       {label && (
         <Box component="span" className={classes.title}>
           <Typography color="secondary" variant="h4" component="h2">

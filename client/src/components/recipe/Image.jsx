@@ -24,6 +24,7 @@ function Image({ title, imageSrc }) {
   return (
     <Card className={classes.photo}>
       <CardMedia
+        data-test="recipe-photo"
         className={classes.media}
         component="img"
         src={imageSrc}

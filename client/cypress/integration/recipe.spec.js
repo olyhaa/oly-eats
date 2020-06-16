@@ -23,7 +23,8 @@ describe('Recipe Page', () => {
     });
   });
 
-  it('Should render recipe page required fields', () => {
+  it('Should render recipe page fields', () => {
+    cy.get('[data-test="recipe-photo"]').should('be.visible');
     cy.get('[data-test="card-description"]').should('be.visible');
     cy.get('[data-test="card-prep"]').should('be.visible');
     cy.get('[data-test="card-total_time"]').should('be.visible');
@@ -31,7 +32,9 @@ describe('Recipe Page', () => {
     cy.get('[data-test="card-date_added"]').should('be.visible');
     cy.get('[data-test="card-source"]').should('be.visible');
     cy.get('[data-test="ingredient-box"]').should('be.visible');
+    cy.get('[data-test="ingredient-section"]').should('have.length', 2);
     cy.get('[data-test="directions-box"]').should('be.visible');
+    cy.get('[data-test="directions-section"]').should('have.length', 2);
     cy.get('[data-test="action-menu"]').should('be.visible');
   });
 

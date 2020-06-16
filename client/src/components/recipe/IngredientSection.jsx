@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
 function IngredientSection({ label, ingredients }) {
   const classes = useStyles();
   return (
-    <Box component="div" className={classes.root}>
+    <Box
+      component="div"
+      className={classes.root}
+      data-test="ingredient-section"
+    >
       {label && (
         <Box component="span" className={classes.title}>
           <Typography color="secondary" variant="h4" component="h2">
