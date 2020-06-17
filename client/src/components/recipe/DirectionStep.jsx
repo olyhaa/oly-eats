@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 function DirectionStep({ id, text }) {
   return (
-    <ListItem key={id} role={undefined} dense>
+    <ListItem key={id} role={undefined} dense data-test="direction-list-item">
       <ListItemText id={id} primary={text} />
     </ListItem>
   );

@@ -35,6 +35,7 @@ const MenuProps = {
       width: 250,
     },
   },
+  'data-test': 'select-menu-popup',
 };
 
 const MultipleSelectField = ({

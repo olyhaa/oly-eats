@@ -44,6 +44,7 @@ function IngredientItem({
 
   return (
     <ListItem
+      data-test="ingredient-list-item"
       key={index}
       role={undefined}
       dense

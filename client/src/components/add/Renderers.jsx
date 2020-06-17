@@ -125,7 +125,9 @@ export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
         <AddIcon />
         Add New Ingredient Section
       </Fab>
-      <FormHelperText error={dirty && error}>{error}</FormHelperText>
+      <FormHelperText error={dirty && error} data-test="ingredients-error">
+        {error}
+      </FormHelperText>
     </Grid>
   </>
 );
@@ -176,7 +178,9 @@ export const renderDirections = ({ fields, meta: { dirty, error } }) => (
         <AddIcon />
         Add New Direction Section
       </Fab>
-      <FormHelperText error={dirty && error}>{error}</FormHelperText>
+      <FormHelperText error={dirty && error} data-test="directions-error">
+        {error}
+      </FormHelperText>
     </Grid>
   </div>
 );
