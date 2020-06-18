@@ -105,9 +105,10 @@ function TagTypeList({
 
   return (
     <div className={classes.root}>
-      <List component="nav">
+      <List component="nav" data-test="tag-type-list">
         {types.map((typeItem, index) => (
           <ListItem
+            data-test="tag-type-item"
             button
             selected={selectedIndex === index}
             onClick={() => {
@@ -118,6 +119,7 @@ function TagTypeList({
             <ListItemText primary={typeItem.label} />
             <ListItemSecondaryAction>
               <IconButton
+                data-test="tag-type-item-edit"
                 className={classes.hoverButtons}
                 edge="end"
                 aria-label="edit"
@@ -129,6 +131,7 @@ function TagTypeList({
                 <EditIcon />
               </IconButton>
               <IconButton
+                data-test="tag-type-item-delete"
                 className={classes.hoverButtons}
                 edge="end"
                 aria-label="delete"
@@ -144,6 +147,7 @@ function TagTypeList({
         ))}
         <Divider />
         <ListItem
+          data-test="tag-type-add"
           button
           onClick={() => {
             setEditIndex(-1);
