@@ -58,7 +58,7 @@ describe('Admin Page - Tags', () => {
       .clear()
       .type(updated_tag);
     cy.get('[data-test="save-row"]').click();
-    cy.wait(500);
+    cy.wait(2000);
     cy.get('[data-test^="tag-table-row"]')
       .should('have.length', 1)
       .contains(updated_tag);
