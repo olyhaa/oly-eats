@@ -1,4 +1,4 @@
-describe('Admin Page', () => {
+describe('Admin Page - Tag Types', () => {
   beforeEach(() => {
     cy.visit('/admin');
     cy.get('[data-test="app-title"]').contains('OlyEats: Admin');

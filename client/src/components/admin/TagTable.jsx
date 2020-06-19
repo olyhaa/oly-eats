@@ -1,7 +1,10 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import MaterialTable from 'material-table';
-
+import MaterialTable, {
+  MTableToolbar,
+  MTableBodyRow,
+  MTableEditRow,
+} from 'material-table';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -16,22 +19,38 @@ import Search from '@material-ui/icons/Search';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => (
-    <AddCircleIcon {...props} ref={ref} color="primary" fontSize="large" />
+    <AddCircleIcon
+      data-test="add-new-row"
+      {...props}
+      ref={ref}
+      color="primary"
+      fontSize="large"
+    />
   )),
   Check: forwardRef((props, ref) => (
-    <Check {...props} ref={ref} color="primary" />
+    <Check data-test="save-row" {...props} ref={ref} color="primary" />
   )),
-  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Delete: forwardRef((props, ref) => <DeleteIcon {...props} ref={ref} />),
-  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => (
+    <Clear data-test="clear-row" {...props} ref={ref} />
+  )),
+  Delete: forwardRef((props, ref) => (
+    <DeleteIcon data-test="delete-row" {...props} ref={ref} />
+  )),
+  Edit: forwardRef((props, ref) => (
+    <Edit data-test="edit-row" {...props} ref={ref} />
+  )),
   FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
   LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
   NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
   PreviousPage: forwardRef((props, ref) => (
     <ChevronLeft {...props} ref={ref} />
   )),
-  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  ResetSearch: forwardRef((props, ref) => (
+    <Clear data-test="clear-search" {...props} ref={ref} />
+  )),
+  Search: forwardRef((props, ref) => (
+    <Search data-test="search-table" {...props} ref={ref} />
+  )),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
 };
 
@@ -58,6 +77,22 @@ function TagTable({ title, tags, handleAdd, handleUpdate, handleDelete }) {
         onRowDelete: (oldData) => {
           return handleDelete(oldData);
         },
+      }}
+      components={{
+        Toolbar: (props) => (
+          <div data-test="tag-table-toolbar">
+            <MTableToolbar {...props} />
+          </div>
+        ),
+        Row: (props) => (
+          <MTableBodyRow
+            data-test={`tag-table-row-${props.data.id}`}
+            {...props}
+          />
+        ),
+        EditRow: (props) => (
+          <MTableEditRow data-test="tag-table-edit-row" {...props} />
+        ),
       }}
     />
   );
