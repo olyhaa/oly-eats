@@ -59,6 +59,43 @@ describe('Edit Recipe Page', () => {
       cy.get('input[name="sourceURL"]')
         .should('be.visible')
         .should('have.value', recipeData.recipeSourceUrl);
+
+      cy.get('input[name="ingredients[0].ingredientsLabel"]')
+        .should('be.visible')
+        .should('have.value', recipeData.ingredientTitle1);
+      recipeData.ingredients1.split('\n').forEach((ingredient) => {
+        cy.get('textarea[name="ingredients[0].ingredientsList"]')
+          .should('be.visible')
+          .invoke('val')
+          .should('contain', ingredient);
+      });
+      cy.get('input[name="ingredients[1].ingredientsLabel"]')
+        .should('be.visible')
+        .should('have.value', recipeData.ingredientTitle2);
+      recipeData.ingredients2.split('\n').forEach((ingredient) => {
+        cy.get('textarea[name="ingredients[1].ingredientsList"]')
+          .should('be.visible')
+          .invoke('val')
+          .should('contain', ingredient);
+      });
+      cy.get('input[name="directions[0].directionsLabel"]')
+        .should('be.visible')
+        .should('have.value', recipeData.directionsTitle1);
+      recipeData.directions1.split('\n').forEach((direction) => {
+        cy.get('textarea[name="directions[0].directionsList"]')
+          .should('be.visible')
+          .invoke('val')
+          .should('contain', direction);
+      });
+      cy.get('input[name="directions[1].directionsLabel"]')
+        .should('be.visible')
+        .should('have.value', recipeData.directionsTitle2);
+      recipeData.directions2.split('\n').forEach((direction) => {
+        cy.get('textarea[name="directions[1].directionsList"]')
+          .should('be.visible')
+          .invoke('val')
+          .should('contain', direction);
+      });
       cy.get('input[name="servings"]')
         .should('be.visible')
         .should('have.value', recipeData.servings);
