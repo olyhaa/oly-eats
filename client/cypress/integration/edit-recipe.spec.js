@@ -30,14 +30,6 @@ describe('Edit Recipe Page', () => {
       cy.get('@recipeId').then((recipeId) => {
         deleteRecipePayload.variables.id = recipeId;
         cy.deleteRecipe(deleteRecipePayload);
-        cy.get('@recipeData').then((recipeData) => {
-          cy.visit('/home');
-          cy.wait(2000);
-          cy.get('[data-test="search-box"]')
-            .should('be.visible')
-            .type(recipeData.recipeTitle);
-          cy.get('[data-test="recipe-list-item"]').should('have.length', 0);
-        });
       });
     });
   });
