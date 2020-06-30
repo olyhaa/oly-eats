@@ -58,16 +58,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Backend
+        run: npm ci
+        working-directory: server
+
+      - name: Start Backend
+        run: npm run start
+        working-directory: server
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: npm start
+          start: npm run start
           working-directory: client
           wait-on: 'http://localhost:3000'
           command: npm run test:cypress
 
       - name: Upload cypress results
         uses: actions/upload-artifact@v1
+        if: ${{ always() }}
         with:
           name: testresults
           path: cypress/results
