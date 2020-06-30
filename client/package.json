@@ -19,6 +19,7 @@
     "lint": "eslint -c .eslintrc.js .",
     "start": "npm run jumpstart",
     "test": "SET NODE_ENV=development & jest --verbose & cypress run",
+    "test:ci": "SET NODE_ENV=development & jest --verbose & start-server-and-test start http-get://localhost:3000 cypress run",
     "test:clean": "npm test --clearCache",
     "test:coverage": "jest --coverage",
     "cypress:open": "cypress open"
