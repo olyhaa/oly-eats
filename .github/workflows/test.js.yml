@@ -65,3 +65,9 @@ jobs:
           working-directory: client
           wait-on: 'http://localhost:3000'
           command: npm run test:cypress
+
+      - name: Upload cypress results
+        uses: actions/upload-artifact@v1
+        with:
+          name: testresults
+          path: cypress/results
