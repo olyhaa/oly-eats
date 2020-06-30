@@ -79,4 +79,4 @@ jobs:
         if: ${{ always() }}
         with:
           name: testresults
-          path: cypress/results
+          path: 'cypress\results'
