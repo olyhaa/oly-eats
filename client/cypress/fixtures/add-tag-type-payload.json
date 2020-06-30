@@ -1,0 +1,7 @@
+{
+  "operationName": "AddTagType",
+  "variables": {
+    "label": "Test Type"
+  },
+  "query": "mutation AddTagType($label: String!) {\n  addTagType(label: $label) {\n    success\n    message\n     tagType {\n      id\n      label\n   __typename\n  } \n    __typename\n  }\n}\n"
+}

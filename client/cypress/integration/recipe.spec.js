@@ -27,13 +27,6 @@ describe('Recipe Page', () => {
       cy.get('@recipeId').then((recipeId) => {
         deleteRecipePayload.variables.id = recipeId;
         cy.deleteRecipe(deleteRecipePayload);
-        cy.get('@recipeData').then((recipeData) => {
-          cy.visit('/home');
-          cy.get('[data-test="search-box"]')
-            .should('be.visible')
-            .type(recipeData.recipeTitle);
-          cy.get('[data-test="recipe-list-item"]').should('have.length', 0);
-        });
       });
     });
   });
@@ -51,9 +44,14 @@ describe('Recipe Page', () => {
     cy.get('[data-test="directions-box"]').should('be.visible');
     cy.get('[data-test="directions-section"]').should('have.length', 2);
     cy.get('[data-test="action-menu"]').should('be.visible');
+
+    cy.get('[data-test="action-menu"]').should('be.visible').click();
+    cy.get('[data-test="action-Edit"]').should('be.visible').click();
+    cy.url().should('contain', '/editRecipe');
   });
 
-  it('Delete - Cancel', () => {
+  it('Delete', () => {
+    cy.log('Delete Cancel');
     cy.get('[data-test="action-menu"]').should('be.visible').click();
     cy.get('[data-test="action-Delete"]').should('be.visible').click();
 
@@ -71,11 +69,10 @@ describe('Recipe Page', () => {
         .should('be.visible')
         .type(recipeData.recipeTitle);
 
-      cy.get('[data-test="recipe-list-item"]').should('have.length', 1);
+      cy.get('[data-test="recipe-list-item"]').should('have.length', 1).click();
     });
-  });
 
-  it('Delete - Confirm', () => {
+    cy.log('Delete Confirm');
     cy.get('[data-test="action-menu"]').should('be.visible').click();
     cy.get('[data-test="action-Delete"]').should('be.visible').click();
 
@@ -89,11 +86,5 @@ describe('Recipe Page', () => {
 
       cy.get('[data-test="recipe-list-item"]').should('have.length', 0);
     });
-  });
-
-  it('Edit Recipe Navigation', () => {
-    cy.get('[data-test="action-menu"]').should('be.visible').click();
-    cy.get('[data-test="action-Edit"]').should('be.visible').click();
-    cy.url().should('contain', '/editRecipe');
   });
 });

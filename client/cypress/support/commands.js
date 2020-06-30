@@ -53,3 +53,33 @@ Cypress.Commands.add('deleteRecipe', (payload) => {
     body: payload,
   });
 });
+
+Cypress.Commands.add('addTagType', (payload) => {
+  return cy
+    .request({
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      url: Cypress.config('backendUrl'),
+      body: payload,
+    })
+    .then((response) => {
+      const { tagType, success, message } = response.body.data.addTagType;
+      if (!success) {
+        cy.log(`Error creating tag type: ${message}`);
+      }
+      return tagType;
+    });
+});
+
+Cypress.Commands.add('deleteTagType', (payload) => {
+  return cy.request({
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    url: Cypress.config('backendUrl'),
+    body: payload,
+  });
+});
