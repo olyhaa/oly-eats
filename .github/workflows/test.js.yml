@@ -1,0 +1,82 @@
+name: CI Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  server-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+
+    strategy:
+      matrix:
+        node-version: [12.16]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run test
+  client-unit-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+
+    strategy:
+      matrix:
+        node-version: [12.16]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run test:unit
+  client-integration-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.16]
+
+    steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Backend
+        run: npm ci
+        working-directory: server
+
+      - name: Start Backend
+        run: npm run start &
+        working-directory: server
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run start
+          working-directory: client
+          wait-on: 'http://localhost:3000'
+          command: npm run test:cypress
+
+      - name: Upload cypress results
+        uses: actions/upload-artifact@v1
+        if: ${{ failure() }}
+        with:
+          name: testresults
+          path: 'client/cypress/results'

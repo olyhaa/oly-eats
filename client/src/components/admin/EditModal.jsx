@@ -22,14 +22,18 @@ const EditModal = ({
 
   return (
     <Dialog
+      data-test="edit-modal-dialog"
       open={open}
       onClose={handleCancel}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="alert-dialog-title" data-test="edit-modal-title">
+        {title}
+      </DialogTitle>
       <DialogContent>
         <TextField
+          data-test="edit-modal-input"
           label="Tag Type Name"
           fullWidth
           required
@@ -39,10 +43,19 @@ const EditModal = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel} color="primary">
+        <Button
+          onClick={handleCancel}
+          color="primary"
+          data-test="edit-modal-cancel"
+        >
           Cancel
         </Button>
-        <Button onClick={() => handleConfirm(name)} color="primary" autoFocus>
+        <Button
+          onClick={() => handleConfirm(name)}
+          color="primary"
+          autoFocus
+          data-test="edit-modal-confirm"
+        >
           {confirmLabel}
         </Button>
       </DialogActions>

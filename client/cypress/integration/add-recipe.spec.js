@@ -523,7 +523,7 @@ describe('Add Recipe Page', () => {
     }
   };
 
-  it.only('should successfully add recipe', () => {
+  it('should successfully add recipe', () => {
     cy.get('@recipeData').then((recipeData) => {
       inputRecipeInfo(recipeData);
       cy.get('[data-test="submit-recipe"]').should('be.visible').click();

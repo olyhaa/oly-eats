@@ -28,7 +28,8 @@
     "graphql": "^14.2.1",
     "nodemon": "^1.18.4",
     "sequelize": "^4.39.0",
-    "sqlite3": "^4.0.3"
+    "sqlite3": "^4.0.3",
+    "wait-on": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

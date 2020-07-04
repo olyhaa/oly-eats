@@ -1,0 +1,5 @@
+{
+  "operationName": "DeleteTag",
+  "variables": { "id": "" },
+  "query": "mutation DeleteTag($id: ID!) {\n  deleteTagType(id: $id) {\n    success\n    message\n    __typename\n  }\n}\n"
+}
