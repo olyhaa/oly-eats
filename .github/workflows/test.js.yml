@@ -8,7 +8,7 @@ on:
 
 jobs:
   server-test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: server
