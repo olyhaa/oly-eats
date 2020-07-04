@@ -71,6 +71,7 @@ jobs:
         with:
           start: npm run start
           working-directory: client
+          record: true
           wait-on: 'http://localhost:3000'
           command: npm run test:cypress
 
