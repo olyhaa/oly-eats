@@ -18,9 +18,10 @@
     "jumpstart": "webpack-dev-server --config config/webpack.config.js",
     "lint": "eslint -c .eslintrc.js .",
     "start": "npm run jumpstart",
-    "test": "SET NODE_ENV=development & jest --verbose & npm run test:cypress",
-    "test:clean": "npm test --clearCache",
+    "test": "npm test:unit & npm test:cypress",
+    "test:unit": "SET NODE_ENV=development & jest --verbose",
     "test:cypress": "cypress run --browser chrome",
+    "test:clean": "npm test --clearCache",
     "test:cypress:open": "cypress open",
     "test:coverage": "jest --coverage"
   },
