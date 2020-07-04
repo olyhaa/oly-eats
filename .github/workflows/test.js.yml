@@ -63,7 +63,9 @@ jobs:
         working-directory: server
 
       - name: Start Backend
-        run: npm run start &
+        run: |
+          npm run start &
+          curl http://localhost:4000 -I &&
         working-directory: server
 
       - name: Cypress run
