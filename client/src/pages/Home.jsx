@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   featuredBlock: {
     margin: theme.spacing(5),
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   listBlock: {
     margin: theme.spacing(5),

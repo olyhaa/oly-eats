@@ -15,6 +15,15 @@ import ErrorBoundary from 'components/error/ErrorBoundary';
 
 function App() {
   const darkTheme = createMuiTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 500,
+        md: 820,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
     palette: {
       type: 'dark',
       primary: green,
