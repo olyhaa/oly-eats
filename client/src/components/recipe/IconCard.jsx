@@ -20,12 +20,18 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   group: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(2),
     textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(5),
+    },
   },
   icon: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(1),
     fontSize: '2rem',
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(2),
+    },
   },
 }));
 

@@ -47,7 +47,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2rem',
   },
   mainContent: {
-    margin: theme.spacing(5),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(5),
+    },
   },
   subtitle: {
     color: theme.palette.text.secondary,
@@ -125,7 +128,7 @@ function RecipeDetail({ deleteMutation }) {
             <div className={classes.root}>
               <Grid container spacing={2} alignItems="stretch">
                 {recipe[RECIPE.PHOTO] && (
-                  <Grid className={classes.photoGrid} item xs={6}>
+                  <Grid className={classes.photoGrid} item md={6} sm={12}>
                     <Image
                       title={recipe[RECIPE.TITLE]}
                       imageSrc={recipe[RECIPE.PHOTO]}
@@ -135,7 +138,8 @@ function RecipeDetail({ deleteMutation }) {
                 <Grid
                   className={classes.photoGrid}
                   item
-                  xs={recipe[RECIPE.PHOTO] ? 6 : 12}
+                  md={recipe[RECIPE.PHOTO] ? 6 : 12}
+                  sm={12}
                 >
                   <Overview
                     description={recipe[RECIPE.DESCRIPTION]}
@@ -152,12 +156,12 @@ function RecipeDetail({ deleteMutation }) {
 
             <div className={classes.root}>
               <Grid container spacing={2} alignItems="stretch">
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <Ingredients
                     ingredientList={recipe[RECIPE.INGREDIENT_SECTION]}
                   />
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12} md={8}>
                   <Directions
                     directionsList={recipe[RECIPE.DIRECTIONS_SECTION]}
                   />
