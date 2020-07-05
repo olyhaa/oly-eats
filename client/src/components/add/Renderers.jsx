@@ -85,14 +85,15 @@ export const renderIngredients = ({ fields, meta: { dirty, error } }) => (
     {fields.map((section, index) => (
       <div key={index}>
         <Grid container spacing={1} alignItems="center">
-          <Grid item xs={11}>
+          <Grid item xs={9} sm={10} md={11}>
             <Field
               name={`${section}.${FIELDS.INGREDIENTS_LABEL}`}
               component={renderTextField}
+              fullWidth
               label={`Ingredient Section #${index + 1}`}
             />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={3} sm={2} md={1}>
             <Fab
               data-test={`remove-ingredients-${index}`}
               type="button"
@@ -137,7 +138,7 @@ export const renderDirections = ({ fields, meta: { dirty, error } }) => (
     {fields.map((section, index) => (
       <div key={index}>
         <Grid container spacing={1} alignItems="center">
-          <Grid item xs={11}>
+          <Grid item xs={9} sm={10} md={11}>
             <Field
               name={`${section}.${FIELDS.DIRECTIONS_LABEL}`}
               component={renderTextField}
@@ -145,7 +146,7 @@ export const renderDirections = ({ fields, meta: { dirty, error } }) => (
               label={`Direction Section #${index + 1}`}
             />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={3} sm={2} md={1}>
             <Fab
               data-test={`remove-directions-${index}`}
               type="button"
