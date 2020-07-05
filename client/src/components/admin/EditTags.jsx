@@ -11,6 +11,7 @@ import {
 import TagTable from 'components/admin/TagTable';
 import TagTypeList from 'components/admin/TagTypeList';
 import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
 import Toolbar from '@material-ui/core/Toolbar';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import compose from 'lodash.flowright';
@@ -40,7 +41,10 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(3),
+    },
   },
 }));
 
@@ -48,6 +52,11 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
   const classes = useStyles();
   const { data: tagTypeData, loading, error } = useQuery(getTagsListQuery());
   const [selectedTagTypeIndex, setSelectedTagTypeIndex] = useState(0);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   const handleTagAdd = (newData) => {
     return addMutation({
@@ -73,6 +82,11 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
     });
   };
 
+  const handleClick = (data) => {
+    setSelectedTagTypeIndex(data);
+    handleDrawerToggle();
+  };
+
   return (
     <>
       {loading && (
@@ -83,22 +97,46 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
       {error && <span>Error!</span>}
       {!loading && (
         <div className={classes.root}>
-          <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <Toolbar />
-            <div className={classes.drawerContainer}>
-              <TagTypeList
-                types={tagTypeData.allTagTypes}
-                selectedIndex={selectedTagTypeIndex}
-                handleSelectTagTypeIndex={setSelectedTagTypeIndex}
-              />
-            </div>
-          </Drawer>
+          <Hidden smUp implementation="css">
+            <Drawer
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              <Toolbar />
+              <div className={classes.drawerContainer}>
+                <TagTypeList
+                  types={tagTypeData.allTagTypes}
+                  selectedIndex={selectedTagTypeIndex}
+                  handleSelectTagTypeIndex={handleClick}
+                />
+              </div>
+            </Drawer>
+          </Hidden>
+          <Hidden smDown implementation="css">
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              <Toolbar />
+              <div className={classes.drawerContainer}>
+                <TagTypeList
+                  types={tagTypeData.allTagTypes}
+                  selectedIndex={selectedTagTypeIndex}
+                  handleSelectTagTypeIndex={setSelectedTagTypeIndex}
+                />
+              </div>
+            </Drawer>
+          </Hidden>
           <main className={classes.content}>
             <TagTable
               title={tagTypeData.allTagTypes[selectedTagTypeIndex].label}
@@ -106,6 +144,7 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
               handleAdd={handleTagAdd}
               handleUpdate={handleTagUpdate}
               handleDelete={handleTagDelete}
+              handleDrawerToggle={handleDrawerToggle}
             />
           </main>
         </div>
