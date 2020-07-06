@@ -112,6 +112,7 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
               <Toolbar />
               <div className={classes.drawerContainer}>
                 <TagTypeList
+                  mobile
                   types={tagTypeData.allTagTypes}
                   selectedIndex={selectedTagTypeIndex}
                   handleSelectTagTypeIndex={handleClick}
