@@ -14,16 +14,9 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
-  root: {
-    flexGrow: 1,
-  },
   title: {
     flexGrow: 1,
     textTransform: 'capitalize',
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
   },
 }));
 

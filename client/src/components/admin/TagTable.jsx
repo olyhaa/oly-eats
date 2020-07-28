@@ -1,10 +1,12 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable, {
   MTableToolbar,
   MTableBodyRow,
   MTableEditRow,
 } from 'material-table';
+import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -14,6 +16,7 @@ import Clear from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import FirstPage from '@material-ui/icons/FirstPage';
+import MenuIcon from '@material-ui/icons/Menu';
 import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
 
@@ -54,7 +57,25 @@ const tableIcons = {
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
 };
 
-function TagTable({ title, tags, handleAdd, handleUpdate, handleDelete }) {
+const useStyles = makeStyles((theme) => ({
+  tableHeader: {},
+  menuButton: {
+    margin: theme.spacing(1),
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+}));
+
+function TagTable({
+  title,
+  tags,
+  handleAdd,
+  handleUpdate,
+  handleDelete,
+  handleDrawerToggle,
+}) {
+  const classes = useStyles();
   const columns = [{ title: 'Name', field: 'label' }];
 
   return (
@@ -80,7 +101,16 @@ function TagTable({ title, tags, handleAdd, handleUpdate, handleDelete }) {
       }}
       components={{
         Toolbar: (props) => (
-          <div data-test="tag-table-toolbar">
+          <div data-test="tag-table-toolbar" className={classes.tableHeader}>
+            <Button
+              variant="contained"
+              color="default"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+              startIcon={<MenuIcon />}
+            >
+              Tag Type Menu
+            </Button>
             <MTableToolbar {...props} />
           </div>
         ),
@@ -109,6 +139,7 @@ TagTable.propTypes = {
   handleAdd: PropTypes.func.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
+  handleDrawerToggle: PropTypes.func.isRequired,
 };
 
 export default TagTable;

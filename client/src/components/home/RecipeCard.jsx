@@ -12,13 +12,27 @@ import Typography from '@material-ui/core/Typography';
 // @ts-ignore
 import DefaultRecipeImg from 'images/defaultRecipeCardImage.png';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 125,
     height: '100%',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: 235,
+    },
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 345,
+    },
   },
   media: {
-    height: 200,
+    height: 130,
+    [theme.breakpoints.up('md')]: {
+      height: 200,
+    },
+  },
+  info: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   title: {
     textTransform: 'capitalize',
@@ -36,7 +50,7 @@ const useStyles = makeStyles({
   actionArea: {
     height: '100%',
   },
-});
+}));
 
 function RecipeCard({ id, title, description, image, buttonText }) {
   const classes = useStyles();
@@ -56,7 +70,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           image={image}
           title={title}
         />
-        <CardContent>
+        <CardContent className={classes.info}>
           <Typography
             data-test="recipe-card-title"
             className={classes.title}

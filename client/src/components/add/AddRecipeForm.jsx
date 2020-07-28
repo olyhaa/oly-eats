@@ -33,8 +33,11 @@ import TimingInputComponent from './TimingInputComponent';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(5),
+    margin: theme.spacing(2),
     maxWidth: theme.spacing(125),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(5),
+    },
   },
   loadingContainer: {
     display: 'flex',

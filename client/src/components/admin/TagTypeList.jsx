@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TagTypeList({
+  mobile,
   types,
   selectedIndex,
   handleSelectTagTypeIndex,
@@ -108,7 +109,7 @@ function TagTypeList({
       <List component="nav" data-test="tag-type-list">
         {types.map((typeItem, index) => (
           <ListItem
-            data-test="tag-type-item"
+            data-test={`tag-type-item${mobile ? '-mobile' : ''}`}
             button
             selected={selectedIndex === index}
             onClick={() => {
@@ -119,7 +120,7 @@ function TagTypeList({
             <ListItemText primary={typeItem.label} />
             <ListItemSecondaryAction>
               <IconButton
-                data-test="tag-type-item-edit"
+                data-test={`tag-type-item-edit${mobile ? '-mobile' : ''}`}
                 className={classes.hoverButtons}
                 edge="end"
                 aria-label="edit"
@@ -131,7 +132,7 @@ function TagTypeList({
                 <EditIcon />
               </IconButton>
               <IconButton
-                data-test="tag-type-item-delete"
+                data-test={`tag-type-item-delete${mobile ? '-mobile' : ''}`}
                 className={classes.hoverButtons}
                 edge="end"
                 aria-label="delete"
@@ -147,7 +148,7 @@ function TagTypeList({
         ))}
         <Divider />
         <ListItem
-          data-test="tag-type-add"
+          data-test={`tag-type-add${mobile ? '-mobile' : ''}`}
           button
           onClick={() => {
             setEditIndex(-1);
@@ -189,9 +190,11 @@ function TagTypeList({
 
 TagTypeList.defaultProps = {
   selectedIndex: 0,
+  mobile: false,
 };
 
 TagTypeList.propTypes = {
+  mobile: PropTypes.bool,
   types: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
