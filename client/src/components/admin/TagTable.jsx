@@ -6,7 +6,6 @@ import MaterialTable, {
   MTableBodyRow,
   MTableEditRow,
 } from 'material-table';
-import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -16,9 +15,9 @@ import Clear from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import FirstPage from '@material-ui/icons/FirstPage';
-import MenuIcon from '@material-ui/icons/Menu';
 import LastPage from '@material-ui/icons/LastPage';
 import Search from '@material-ui/icons/Search';
+import TagTypeList from 'components/admin/TagTypeList';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => (
@@ -69,11 +68,13 @@ const useStyles = makeStyles((theme) => ({
 
 function TagTable({
   title,
+  allTagTypes,
   tags,
   handleAdd,
   handleUpdate,
   handleDelete,
-  handleDrawerToggle,
+  selectedTagTypeIndex,
+  handleSelectTagTypeIndex,
 }) {
   const classes = useStyles();
   const columns = [{ title: 'Name', field: 'label' }];
@@ -102,15 +103,13 @@ function TagTable({
       components={{
         Toolbar: (props) => (
           <div data-test="tag-table-toolbar" className={classes.tableHeader}>
-            <Button
-              variant="contained"
-              color="default"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-              startIcon={<MenuIcon />}
-            >
-              Tag Type Menu
-            </Button>
+            {allTagTypes && (
+              <TagTypeList
+                allTagTypes={allTagTypes}
+                selectedTagTypeIndex={selectedTagTypeIndex}
+                handleSelectTagTypeIndex={handleSelectTagTypeIndex}
+              />
+            )}
             <MTableToolbar {...props} />
           </div>
         ),
@@ -128,6 +127,10 @@ function TagTable({
   );
 }
 
+TagTable.defaultProps = {
+  selectedTagTypeIndex: 0,
+};
+
 TagTable.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
@@ -135,11 +138,18 @@ TagTable.propTypes = {
       id: PropTypes.string.isRequired,
     })
   ).isRequired,
+  allTagTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  handleSelectTagTypeIndex: PropTypes.func.isRequired,
+  selectedTagTypeIndex: PropTypes.number,
   title: PropTypes.string.isRequired,
   handleAdd: PropTypes.func.isRequired,
   handleUpdate: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  handleDrawerToggle: PropTypes.func.isRequired,
 };
 
 export default TagTable;
