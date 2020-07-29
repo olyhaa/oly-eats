@@ -82,6 +82,7 @@ function TagTypeList({
     }).then((result) => {
       if (result?.data?.deleteTagType?.success) {
         setDeleteModalOpen(false);
+        handleSelectTagTypeIndex(0);
       }
     });
   };
@@ -99,10 +100,11 @@ function TagTypeList({
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-test="tag-table-list">
       <FormControl className={classes.formControl}>
         <InputLabel id="tag-type-list-label">Tag Type</InputLabel>
         <Select
+          id="tag-type-list-select"
           labelId="tag-type-list-label"
           data-test="tag-type-list"
           value={selectedTagTypeIndex}
