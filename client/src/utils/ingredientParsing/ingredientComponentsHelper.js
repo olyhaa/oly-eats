@@ -1,6 +1,6 @@
 import Pluralize from 'pluralize';
 import numericQuantity from 'numeric-quantity';
-import formatQuantity from 'format-quantity';
+import { formatFraction } from './fractionParser';
 import { RECIPE } from '../recipeConstants';
 import {
   unitsOfMeasure,
@@ -19,7 +19,7 @@ export const scaleNumber = (num, multiplier) => {
   } else if (isFraction(num)) {
     newNum = numericQuantity(num) * multiplier;
   }
-  return formatQuantity(newNum) || num;
+  return formatFraction(newNum) || num;
 };
 
 export const isNumeric = (num) => {
