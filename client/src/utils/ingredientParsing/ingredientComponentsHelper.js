@@ -13,13 +13,16 @@ import {
 } from './ingredientConstants';
 
 export const scaleNumber = (num, multiplier) => {
+  if (!isNumber(num)) {
+    return num;
+  }
   let newNum = num;
   if (isNumeric(num)) {
     newNum = num * multiplier;
   } else if (isFraction(num)) {
     newNum = numericQuantity(num) * multiplier;
   }
-  return formatFraction(newNum) || num;
+  return formatFraction(newNum);
 };
 
 export const isNumeric = (num) => {
