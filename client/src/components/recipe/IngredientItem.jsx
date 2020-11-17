@@ -9,6 +9,7 @@ import { buildIngredientString } from '../../utils/ingredientParsing/ingredientP
 
 function IngredientItem({
   index,
+  recipeScale,
   amount,
   rangedAmount,
   unit,
@@ -33,6 +34,7 @@ function IngredientItem({
   };
 
   const ingredientString = buildIngredientString({
+    recipeScale,
     amount,
     rangedAmount,
     unit,
@@ -67,6 +69,7 @@ function IngredientItem({
 
 IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,
+  recipeScale: PropTypes.number,
   amount: PropTypes.string,
   rangedAmount: PropTypes.shape(RangedAmountPropTypes),
   unit: PropTypes.string,
@@ -77,6 +80,7 @@ IngredientItem.propTypes = {
 };
 
 IngredientItem.defaultProps = {
+  recipeScale: 1,
   amount: undefined,
   rangedAmount: undefined,
   unit: undefined,

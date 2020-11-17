@@ -12,13 +12,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Ingredients({ ingredientList }) {
+function Ingredients({ ingredientList, recipeScale }) {
   const classes = useStyles();
   return (
     <Paper className={classes.root} data-test="ingredient-box">
       {ingredientList.map((ingredientSection) => {
         return (
           <IngredientSection
+            recipeScale={recipeScale}
             key={ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]}
             label={ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]}
             ingredients={
@@ -35,10 +36,12 @@ Ingredients.propTypes = {
   ingredientList: PropTypes.arrayOf(
     PropTypes.shape(IngredientListPropType).isRequired
   ),
+  recipeScale: PropTypes.number,
 };
 
 Ingredients.defaultProps = {
   ingredientList: [],
+  recipeScale: 1,
 };
 
 export default Ingredients;
