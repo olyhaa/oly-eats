@@ -20,7 +20,6 @@ import {
 } from './ingredientComponentsHelper';
 import { addStrWithSpace } from '../formatters';
 import { RECIPE } from '../recipeConstants';
-import formatQuantity from 'format-quantity';
 
 export const parseIngredient = (source) => {
   const ingredient = {};
