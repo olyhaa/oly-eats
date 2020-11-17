@@ -50,6 +50,29 @@ describe('Recipe Page', () => {
     cy.url().should('contain', '/editRecipe');
   });
 
+  it('Should update serving size', () => {
+    // check first ingredient value
+    cy.get('[data-test="ingredient-list-item-string-0"] span')
+      .should('be.visible')
+      .contains('8 ounce all-purpose flour');
+
+    // update the serving size
+    cy.get('[data-test="card-servings"]')
+      .should('be.visible')
+      .find('[data-test="card-edit"]')
+      .click({ force: true });
+
+    cy.get('[data-test="edit-modal-input"]').should('be.visible').type('16');
+    cy.get('[data-test="edit-modal-confirm"]')
+      .should('be.visible')
+      .click({ force: true });
+
+    // check the first ingredient value
+    cy.get('[data-test="ingredient-list-item-string-0"] span')
+      .should('be.visible')
+      .contains('16 ounce all-purpose flour');
+  });
+
   it('Delete', () => {
     cy.log('Delete Cancel');
     cy.get('[data-test="action-menu"]').should('be.visible').click();

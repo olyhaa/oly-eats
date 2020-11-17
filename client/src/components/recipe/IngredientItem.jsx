@@ -62,7 +62,11 @@ function IngredientItem({
           inputProps={{ 'aria-labelledby': `item-${index}` }}
         />
       </ListItemIcon>
-      <ListItemText id={`item-${index}`} primary={ingredientString} />
+      <ListItemText
+        data-test={`ingredient-list-item-string-${index}`}
+        id={`item-${index}`}
+        primary={ingredientString}
+      />
     </ListItem>
   );
 }
