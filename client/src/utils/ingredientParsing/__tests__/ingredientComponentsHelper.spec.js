@@ -18,8 +18,45 @@ import {
   removeBeginningEndNoise,
   removeNoise,
   trimWord,
+  scaleNumber,
 } from '../ingredientComponentsHelper';
 import { addStrWithSpace } from '../../formatters';
+
+describe('scaleNumber', () => {
+  it('non-numeric string', () => {
+    expect(scaleNumber('amanda', 1)).toBe('amanda');
+    expect(scaleNumber('amanda', 0.5)).toBe('amanda');
+    expect(scaleNumber('amanda', 2)).toBe('amanda');
+  });
+
+  it('numeric number', () => {
+    expect(scaleNumber(3, 1)).toBe('3');
+    expect(scaleNumber(3, 0.5)).toBe('1 1/2');
+    expect(scaleNumber(3, 2)).toBe('6');
+    expect(scaleNumber(4, 0.5)).toBe('2');
+  });
+
+  it('numeric string', () => {
+    expect(scaleNumber('3', 1)).toBe('3');
+    expect(scaleNumber('3', 0.5)).toBe('1 1/2');
+    expect(scaleNumber('3', 2)).toBe('6');
+    expect(scaleNumber('4', 0.5)).toBe('2');
+  });
+
+  it('decimal number', () => {
+    expect(scaleNumber('3.5', 1)).toBe('3 1/2');
+    expect(scaleNumber('0.25', 0.5)).toBe('1/8');
+    expect(scaleNumber('0.33', 2)).toBe('2/3');
+    expect(scaleNumber('0.5', 0.5)).toBe('1/4');
+  });
+
+  it('fractional number', () => {
+    expect(scaleNumber('3 1/2', 1)).toBe('3 1/2');
+    expect(scaleNumber('1/4', 0.5)).toBe('1/8');
+    expect(scaleNumber('1/3', 2)).toBe('2/3');
+    expect(scaleNumber('1/2', 0.5)).toBe('1/4');
+  });
+});
 
 describe('isNumeric', () => {
   it('numeric number', () => {
