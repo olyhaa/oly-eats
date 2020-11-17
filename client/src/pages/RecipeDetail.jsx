@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import compose from 'lodash.flowright';
@@ -68,7 +68,8 @@ function RecipeDetail({ deleteMutation }) {
   const { data, error, loading } = useQuery(getRecipeQuery(), {
     variables: { id },
   });
-  const [modalOpenState, setModalOpen] = React.useState(false);
+  const [modalOpenState, setModalOpen] = useState(false);
+  const [recipeServings, setRecipeServings] = useState(-1);
 
   // TODO
   if (error) {
@@ -96,6 +97,10 @@ function RecipeDetail({ deleteMutation }) {
         history.push(`/home`);
       }
     });
+  };
+
+  const updateServings = (newValue) => {
+    setRecipeServings(newValue);
   };
 
   const handleDeleteCancel = () => {
