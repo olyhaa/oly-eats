@@ -26,6 +26,7 @@ function Overview({
   prepTime,
   totalTime,
   servings,
+  updateServingSize,
   source,
   dateAdded,
   lastUpdated,
@@ -68,7 +69,12 @@ function Overview({
       )}
       {servings > 0 && (
         <Grid item xs>
-          <IconCard type={SERVING_CARD} title="Serves" value={servings} />
+          <IconCard
+            type={SERVING_CARD}
+            title="Serves"
+            value={servings}
+            updateValue={updateServingSize}
+          />
         </Grid>
       )}
       {dateAdded && (
@@ -117,6 +123,7 @@ Overview.propTypes = {
     })
   ).isRequired,
   servings: PropTypes.number.isRequired,
+  updateServingSize: PropTypes.func.isRequired,
   source: PropTypes.shape({
     display: PropTypes.string,
     url: PropTypes.string,

@@ -1,4 +1,6 @@
 import Pluralize from 'pluralize';
+import numericQuantity from 'numeric-quantity';
+import { formatFraction } from './fractionParser';
 import { RECIPE } from '../recipeConstants';
 import {
   unitsOfMeasure,
@@ -9,6 +11,19 @@ import {
   parenRegex,
   noiseWords,
 } from './ingredientConstants';
+
+export const scaleNumber = (num, multiplier) => {
+  if (!isNumber(num)) {
+    return num;
+  }
+  let newNum = num;
+  if (isNumeric(num)) {
+    newNum = num * multiplier;
+  } else if (isFraction(num)) {
+    newNum = numericQuantity(num) * multiplier;
+  }
+  return formatFraction(newNum);
+};
 
 export const isNumeric = (num) => {
   // eslint-disable-next-line no-restricted-globals

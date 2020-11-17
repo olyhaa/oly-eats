@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function IngredientSection({ label, ingredients }) {
+function IngredientSection({ label, ingredients, recipeScale }) {
   const classes = useStyles();
   return (
     <Box
@@ -45,6 +45,7 @@ function IngredientSection({ label, ingredients }) {
             <IngredientItem
               index={index}
               key={index}
+              recipeScale={recipeScale}
               amount={ingredientItem[RECIPE.INGREDIENTS_AMOUNT]}
               rangedAmount={ingredientItem[RECIPE.INGREDIENTS_RANGE]}
               unit={ingredientItem[RECIPE.INGREDIENTS_UNIT]}
@@ -63,10 +64,12 @@ function IngredientSection({ label, ingredients }) {
 IngredientSection.propTypes = {
   label: PropTypes.string,
   ingredients: PropTypes.arrayOf(IngredientItemPropType).isRequired,
+  recipeScale: PropTypes.number,
 };
 
 IngredientSection.defaultProps = {
   label: 'Ingredients',
+  recipeScale: 1,
 };
 
 export default IngredientSection;

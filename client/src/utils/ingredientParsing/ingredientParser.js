@@ -16,6 +16,7 @@ import {
   getOptional,
   getToTaste,
   removeNoise,
+  scaleNumber,
 } from './ingredientComponentsHelper';
 import { addStrWithSpace } from '../formatters';
 import { RECIPE } from '../recipeConstants';
@@ -86,6 +87,7 @@ export const parseIngredient = (source) => {
 };
 
 export const buildIngredientString = ({
+  recipeScale = 1,
   amount = undefined,
   rangedAmount = undefined,
   unit = undefined,
@@ -101,13 +103,20 @@ export const buildIngredientString = ({
   ) {
     ingredientStr = addStrWithSpace(
       ingredientStr,
-      `${rangedAmount[RECIPE.INGREDIENTS_AMOUNT_MIN]} - ${
-        rangedAmount[RECIPE.INGREDIENTS_AMOUNT_MAX]
-      }`
+      `${scaleNumber(
+        rangedAmount[RECIPE.INGREDIENTS_AMOUNT_MIN],
+        recipeScale
+      )} - ${scaleNumber(
+        rangedAmount[RECIPE.INGREDIENTS_AMOUNT_MAX],
+        recipeScale
+      )}`
     );
   }
   if (typeof amount === 'string') {
-    ingredientStr = addStrWithSpace(ingredientStr, amount);
+    ingredientStr = addStrWithSpace(
+      ingredientStr,
+      scaleNumber(amount, recipeScale)
+    );
   }
   ingredientStr = addStrWithSpace(ingredientStr, unit);
   ingredientStr = addStrWithSpace(ingredientStr, name);

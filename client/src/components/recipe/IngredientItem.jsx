@@ -9,6 +9,7 @@ import { buildIngredientString } from '../../utils/ingredientParsing/ingredientP
 
 function IngredientItem({
   index,
+  recipeScale,
   amount,
   rangedAmount,
   unit,
@@ -33,6 +34,7 @@ function IngredientItem({
   };
 
   const ingredientString = buildIngredientString({
+    recipeScale,
     amount,
     rangedAmount,
     unit,
@@ -60,13 +62,18 @@ function IngredientItem({
           inputProps={{ 'aria-labelledby': `item-${index}` }}
         />
       </ListItemIcon>
-      <ListItemText id={`item-${index}`} primary={ingredientString} />
+      <ListItemText
+        data-test={`ingredient-list-item-string-${index}`}
+        id={`item-${index}`}
+        primary={ingredientString}
+      />
     </ListItem>
   );
 }
 
 IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,
+  recipeScale: PropTypes.number,
   amount: PropTypes.string,
   rangedAmount: PropTypes.shape(RangedAmountPropTypes),
   unit: PropTypes.string,
@@ -77,6 +84,7 @@ IngredientItem.propTypes = {
 };
 
 IngredientItem.defaultProps = {
+  recipeScale: 1,
   amount: undefined,
   rangedAmount: undefined,
   unit: undefined,

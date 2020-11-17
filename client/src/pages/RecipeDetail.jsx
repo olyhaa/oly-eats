@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import compose from 'lodash.flowright';
@@ -63,12 +63,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RecipeDetail({ deleteMutation }) {
+  const UNMODIFIED = -1;
   const classes = useStyles();
   const { id } = useParams();
   const { data, error, loading } = useQuery(getRecipeQuery(), {
     variables: { id },
   });
-  const [modalOpenState, setModalOpen] = React.useState(false);
+  const [modalOpenState, setModalOpen] = useState(false);
+  const [recipeServings, setRecipeServings] = useState(UNMODIFIED);
 
   // TODO
   if (error) {
@@ -96,6 +98,10 @@ function RecipeDetail({ deleteMutation }) {
         history.push(`/home`);
       }
     });
+  };
+
+  const updateServings = (newValue) => {
+    setRecipeServings(newValue);
   };
 
   const handleDeleteCancel = () => {
@@ -145,7 +151,12 @@ function RecipeDetail({ deleteMutation }) {
                     description={recipe[RECIPE.DESCRIPTION]}
                     prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
                     totalTime={recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL]}
-                    servings={recipe[RECIPE.SERVINGS]}
+                    servings={
+                      recipeServings === UNMODIFIED
+                        ? recipe[RECIPE.SERVINGS]
+                        : recipeServings
+                    }
+                    updateServingSize={updateServings}
                     source={recipe[RECIPE.SOURCE]}
                     dateAdded={recipe[RECIPE.META][RECIPE.DATE_ADDED]}
                     lastUpdated={recipe[RECIPE.META][RECIPE.DATE_UPDATED]}
@@ -159,6 +170,11 @@ function RecipeDetail({ deleteMutation }) {
                 <Grid item xs={12} md={4}>
                   <Ingredients
                     ingredientList={recipe[RECIPE.INGREDIENT_SECTION]}
+                    recipeScale={
+                      recipeServings === UNMODIFIED
+                        ? undefined
+                        : recipeServings / recipe[RECIPE.SERVINGS]
+                    }
                   />
                 </Grid>
                 <Grid item xs={12} md={8}>

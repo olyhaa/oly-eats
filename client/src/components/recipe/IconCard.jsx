@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { Paper, IconButton } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Icon from '@material-ui/core/Icon';
+import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
+import EditNumberModal from './EditNumberModal';
 import Box from '@material-ui/core/Box';
 import {
   PREP_CARD,
@@ -18,6 +20,22 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%',
+  },
+  rootEdit: {
+    height: '100%',
+    '&:hover': {
+      background: theme.palette.action.disabledBackground,
+      cursor: 'pointer',
+    },
+    '&:hover $hoverIcons': {
+      display: 'inline',
+    },
+  },
+  hoverIcons: {
+    display: 'none',
+    '&:hover': {
+      color: theme.palette.text.primary,
+    },
   },
   group: {
     padding: theme.spacing(2),
@@ -33,10 +51,30 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
     },
   },
+  valueDisplay: {
+    position: 'relative',
+  },
+  valueEdit: {
+    position: 'absolute',
+    top: '-2px',
+    right: 0,
+  },
 }));
 
-function IconCard({ title, display, value, type }) {
+function IconCard({ title, display, value, type, updateValue }) {
   const classes = useStyles();
+  const [editModalOpenState, setEditModalOpen] = useState(false);
+
+  const handleEditConfirm = (newValue) => {
+    if (updateValue) {
+      updateValue(newValue);
+    }
+    setEditModalOpen(false);
+  };
+
+  const handleEditCancel = () => {
+    setEditModalOpen(false);
+  };
 
   const getIcon = (type) => {
     switch (type) {
@@ -57,23 +95,57 @@ function IconCard({ title, display, value, type }) {
     }
   };
 
+  const getEdit = (type) => {
+    if (type === SERVING_CARD) {
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <Paper className={classes.root} data-test={`card-${type}`}>
-      <Box component="div" className={classes.group}>
-        <Icon
-          color="primary"
-          className={`fa fa-${getIcon(type)} ${classes.icon}`}
-        />
+    <>
+      <Paper
+        className={getEdit(type) ? `${classes.rootEdit}` : `${classes.root}`}
+        data-test={`card-${type}`}
+      >
+        <Box component="div" className={classes.group}>
+          <Icon
+            color="primary"
+            className={`fa fa-${getIcon(type)} ${classes.icon}`}
+          />
 
-        <Typography variant="subtitle1">{title}</Typography>
+          <Typography variant="subtitle1">{title}</Typography>
 
-        <Typography variant="subtitle1">
-          {type === SOURCE_CARD &&
-            (value ? <Link href={value}>{display}</Link> : display)}
-          {type !== SOURCE_CARD && value}
-        </Typography>
-      </Box>
-    </Paper>
+          <Typography variant="subtitle1" className={classes.valueDisplay}>
+            {type === SOURCE_CARD &&
+              (value ? <Link href={value}>{display}</Link> : display)}
+            {type !== SOURCE_CARD && value}
+            {getEdit(type) && (
+              <IconButton
+                data-test="card-edit"
+                className={`${classes.hoverIcons} ${classes.valueEdit}`}
+                edge="end"
+                aria-label="edit"
+                size="small"
+                onClick={() => {
+                  setEditModalOpen(true);
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+            )}
+          </Typography>
+        </Box>
+      </Paper>
+      <EditNumberModal
+        open={editModalOpenState}
+        initialValue={value}
+        handleConfirm={handleEditConfirm}
+        handleCancel={handleEditCancel}
+        confirmLabel="Update"
+        title={`Edit ${title}`}
+      />
+    </>
   );
 }
 
@@ -89,11 +161,13 @@ IconCard.propTypes = {
     DATE_ADDED_CARD,
     DATE_UPDATED_CARD,
   ]),
+  updateValue: PropTypes.func,
 };
 
 IconCard.defaultProps = {
   display: 'Unknown Source',
   type: 'SOURCE_CARD',
+  updateValue: undefined,
 };
 
 export default IconCard;
