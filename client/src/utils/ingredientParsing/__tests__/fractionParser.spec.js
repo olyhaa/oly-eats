@@ -6,9 +6,12 @@ describe('closestFraction', () => {
     expect(closestFraction(0.125)).toEqual('1/8');
     expect(closestFraction(0.25)).toEqual('1/4');
     expect(closestFraction(0.333)).toEqual('1/3');
+    expect(closestFraction(0.375)).toEqual('3/8');
     expect(closestFraction(0.5)).toEqual('1/2');
+    expect(closestFraction(0.625)).toEqual('5/8');
     expect(closestFraction(0.666)).toEqual('2/3');
     expect(closestFraction(0.75)).toEqual('3/4');
+    expect(closestFraction(0.875)).toEqual('7/8');
     expect(closestFraction(1)).toEqual('1');
   });
 
@@ -21,14 +24,20 @@ describe('closestFraction', () => {
     expect(closestFraction(0.3)).toEqual('1/3');
     expect(closestFraction(0.33)).toEqual('1/3');
     expect(closestFraction(0.339)).toEqual('1/3');
+    expect(closestFraction(0.36)).toEqual('3/8');
+    expect(closestFraction(0.4)).toEqual('3/8');
     expect(closestFraction(0.45)).toEqual('1/2');
     expect(closestFraction(0.55)).toEqual('1/2');
-    expect(closestFraction(0.6)).toEqual('2/3');
+    expect(closestFraction(0.6)).toEqual('5/8');
+    expect(closestFraction(0.63)).toEqual('5/8');
+    expect(closestFraction(0.65)).toEqual('2/3');
     expect(closestFraction(0.66)).toEqual('2/3');
     expect(closestFraction(0.669)).toEqual('2/3');
     expect(closestFraction(0.73)).toEqual('3/4');
     expect(closestFraction(0.8)).toEqual('3/4');
-    expect(closestFraction(0.9)).toEqual('1');
+    expect(closestFraction(0.84)).toEqual('7/8');
+    expect(closestFraction(0.9)).toEqual('7/8');
+    expect(closestFraction(0.95)).toEqual('1');
   });
 });
 
