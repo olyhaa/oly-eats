@@ -29,10 +29,10 @@ export const formatFraction = (num) => {
   }
 
   const fractionNum = closestFraction(decimalNum);
-  if (fractionNum === '1') {
+  if (fractionNum === validValues[validValues.length - 1].str) {
     return `${wholeNum + 1}`;
   }
-  if (fractionNum === '') {
+  if (fractionNum === validValues[0].str) {
     return `${wholeNum}`;
   }
   if (wholeNum > 0) {
