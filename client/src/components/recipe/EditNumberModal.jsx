@@ -15,9 +15,18 @@ const EditNumberModal = ({
   title,
   confirmLabel,
 }) => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(initialValue);
+  const [errorText, setErrorText] = useState(undefined);
   const handleChange = (event) => {
-    setValue(event.target.value);
+    const newValue = event.target.value;
+    setValue(newValue);
+    if (newValue <= 0) {
+      setErrorText('Value must be greater than 0.');
+    } else if (newValue >= 100) {
+      setErrorText('Value must be less than 100.');
+    } else {
+      setErrorText(undefined);
+    }
   };
 
   return (
@@ -38,6 +47,9 @@ const EditNumberModal = ({
           fullWidth
           required
           margin="normal"
+          type="number"
+          error={!!errorText}
+          helperText={errorText}
           defaultValue={initialValue}
           onChange={handleChange}
         />
@@ -54,6 +66,7 @@ const EditNumberModal = ({
           onClick={() => handleConfirm(value)}
           color="primary"
           autoFocus
+          disabled={errorText}
           data-test="edit-modal-confirm"
         >
           {confirmLabel}
