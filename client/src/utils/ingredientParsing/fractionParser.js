@@ -1,5 +1,5 @@
 const validValues = [
-  { val: 0, str: '' },
+  { val: 0, str: '<1/8' },
   { val: 0.125, str: '1/8' },
   { val: 0.25, str: '1/4' },
   { val: 0.333, str: '1/3' },
