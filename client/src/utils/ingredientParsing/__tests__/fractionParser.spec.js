@@ -2,7 +2,7 @@ const { closestFraction, formatFraction } = require('../fractionParser');
 
 describe('closestFraction', () => {
   it('exact match', () => {
-    expect(closestFraction(0)).toEqual('');
+    expect(closestFraction(0)).toEqual('<1/8');
     expect(closestFraction(0.125)).toEqual('1/8');
     expect(closestFraction(0.25)).toEqual('1/4');
     expect(closestFraction(0.333)).toEqual('1/3');
@@ -16,7 +16,7 @@ describe('closestFraction', () => {
   });
 
   it('close match', () => {
-    expect(closestFraction(0.01)).toEqual('');
+    expect(closestFraction(0.01)).toEqual('<1/8');
     expect(closestFraction(0.1)).toEqual('1/8');
     expect(closestFraction(0.15)).toEqual('1/8');
     expect(closestFraction(0.2)).toEqual('1/4');

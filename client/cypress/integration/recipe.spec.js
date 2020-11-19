@@ -62,10 +62,11 @@ describe('Recipe Page', () => {
       .find('[data-test="card-edit"]')
       .click({ force: true });
 
-    cy.get('[data-test="edit-modal-input"]').should('be.visible').type('16');
-    cy.get('[data-test="edit-modal-confirm"]')
+    cy.get('[data-test="edit-modal-input"] input')
       .should('be.visible')
-      .click({ force: true });
+      .clear()
+      .type('16');
+    cy.get('[data-test="edit-modal-confirm"]').should('be.visible').click();
 
     // check the first ingredient value
     cy.get('[data-test="ingredient-list-item-string-0"] span')

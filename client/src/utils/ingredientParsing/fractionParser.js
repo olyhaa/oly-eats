@@ -1,5 +1,5 @@
 const validValues = [
-  { val: 0, str: '' },
+  { val: 0, str: '<1/8' },
   { val: 0.125, str: '1/8' },
   { val: 0.25, str: '1/4' },
   { val: 0.333, str: '1/3' },
@@ -29,10 +29,10 @@ export const formatFraction = (num) => {
   }
 
   const fractionNum = closestFraction(decimalNum);
-  if (fractionNum === '1') {
+  if (fractionNum === validValues[validValues.length - 1].str) {
     return `${wholeNum + 1}`;
   }
-  if (fractionNum === '') {
+  if (fractionNum === validValues[0].str) {
     return `${wholeNum}`;
   }
   if (wholeNum > 0) {
