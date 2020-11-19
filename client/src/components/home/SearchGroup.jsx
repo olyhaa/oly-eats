@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import RecipeList from './RecipeList';
-import SearchBox from './SearchBox';
+import SearchBox from './search/SearchBox';
 
 const useStyles = makeStyles((theme) => ({
   search: {
