@@ -58,7 +58,9 @@ function SearchBox({ setNewFilterValue }) {
           />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <span> todo</span>
+          <span>
+            Filter by name. To filter by ingredient, use "i:ingredient".
+          </span>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
