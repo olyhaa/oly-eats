@@ -19,6 +19,10 @@ describe('removeSurroundingQuotes', () => {
 });
 
 describe('parseFilterString', () => {
+  it('empty string', () => {
+    expect(parseFilterString('')).toStrictEqual({});
+  });
+
   it('should match names', () => {
     expect(parseFilterString('apple')).toStrictEqual({
       nameFilters: ['apple'],
@@ -244,6 +248,7 @@ describe('doSourceFilter', () => {
     {
       source: {
         display: "mom's kitchen",
+        url: 'www.mom-bakes.com',
       },
     },
     {
@@ -254,6 +259,7 @@ describe('doSourceFilter', () => {
     {
       source: {
         display: 'sandy bakes',
+        url: 'www.ss-baker.com',
       },
     },
   ];
@@ -267,11 +273,15 @@ describe('doSourceFilter', () => {
   });
 
   it('single filter - some matches', () => {
-    const expected = [];
-    expected.push(testList[0]);
-    expected.push(testList[1]);
+    const expected1 = [];
+    expected1.push(testList[0]);
+    expected1.push(testList[1]);
+    expect(doSourceFilter(testList, ['mom'])).toStrictEqual(expected1);
 
-    expect(doSourceFilter(testList, ['mom'])).toStrictEqual(expected);
+    const expected2 = [];
+    expected2.push(testList[1]);
+    expected2.push(testList[3]);
+    expect(doSourceFilter(testList, ['bakes'])).toStrictEqual(expected2);
   });
 
   it('single filter - no matches', () => {
@@ -285,6 +295,7 @@ describe('doSourceFilter', () => {
     expect(doSourceFilter(testList, ['mom', 'KITCHEN'])).toStrictEqual(
       expected
     );
+    expect(doSourceFilter(testList, ['mom', 'bakes'])).toStrictEqual(expected);
   });
 });
 
@@ -292,7 +303,7 @@ describe('doFilter', () => {
   const testList = [
     {
       title: 'Nathan pie',
-      source: { display: "King Nathan's Best Of" },
+      source: { display: "King Nathan's Best Of", url: 'www.theking.com' },
       ingredients: [
         {
           ingredients: [
@@ -350,7 +361,7 @@ describe('doFilter', () => {
     },
     {
       title: 'banana pudding',
-      source: { display: 'The Pudding King' },
+      source: { display: 'The Pudding King', url: 'www.theappleking.com' },
       ingredients: [
         {
           ingredients: [{ name: 'chopped BANANAS' }, { name: 'honey' }],
@@ -359,7 +370,7 @@ describe('doFilter', () => {
     },
     {
       title: 'banana pie',
-      source: { display: 'The Pudding King' },
+      source: { display: 'The Pudding K', url: 'www.thepuddingking.com' },
       ingredients: [
         {
           ingredients: [{ name: 'squished BANANAS' }, { name: 'honey' }],

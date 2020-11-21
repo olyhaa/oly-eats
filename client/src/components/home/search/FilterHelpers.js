@@ -8,6 +8,9 @@ export const removeSurroundingQuotes = (name) => {
 };
 
 export const parseFilterString = (filter) => {
+  if (isEmpty(filter)) {
+    return {};
+  }
   /*
   Splits a string by spaces, unless there are quoted strings.
   (?=\S)          # followed by a non-whitespace
@@ -85,8 +88,12 @@ export const doSourceFilter = (list, sourceFilters) => {
   }
 
   return list.filter((recipe) => {
-    return sourceFilters.every((sourceFilter) =>
-      recipe.source.display.toLowerCase().includes(sourceFilter.toLowerCase())
+    return sourceFilters.every(
+      (sourceFilter) =>
+        recipe.source.display
+          .toLowerCase()
+          .includes(sourceFilter.toLowerCase()) ||
+        recipe.source.url?.toLowerCase().includes(sourceFilter)
     );
   });
 };

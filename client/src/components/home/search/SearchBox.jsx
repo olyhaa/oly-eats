@@ -59,7 +59,8 @@ function SearchBox({ setNewFilterValue }) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <span>
-            Filter by name. To filter by ingredient, use "i:ingredient".
+            Filter by name. To filter by ingredient, use "i:ingredient". To
+            filter by source, use "s:source".
           </span>
         </ExpansionPanelDetails>
       </ExpansionPanel>
