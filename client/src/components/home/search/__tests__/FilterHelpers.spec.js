@@ -1,10 +1,12 @@
 import {
   removeSurroundingQuotes,
   INGREDIENT_FLAG,
+  SOURCE_FLAG,
   parseFilterString,
   doNameFilter,
   doIngredientFilter,
   doFilter,
+  doSourceFilter,
 } from '../FilterHelpers';
 
 describe('removeSurroundingQuotes', () => {
@@ -21,11 +23,13 @@ describe('parseFilterString', () => {
     expect(parseFilterString('apple')).toStrictEqual({
       nameFilters: ['apple'],
       ingredientFilters: [],
+      sourceFilters: [],
     });
 
     expect(parseFilterString('apple banana')).toStrictEqual({
       nameFilters: ['apple', 'banana'],
       ingredientFilters: [],
+      sourceFilters: [],
     });
   });
 
@@ -33,6 +37,7 @@ describe('parseFilterString', () => {
     expect(parseFilterString(`${INGREDIENT_FLAG}apple`)).toStrictEqual({
       nameFilters: [],
       ingredientFilters: ['apple'],
+      sourceFilters: [],
     });
 
     expect(
@@ -40,20 +45,41 @@ describe('parseFilterString', () => {
     ).toStrictEqual({
       nameFilters: [],
       ingredientFilters: ['apple', 'sugar'],
+      sourceFilters: [],
+    });
+  });
+
+  it('should match sources', () => {
+    expect(parseFilterString(`${SOURCE_FLAG}mom`)).toStrictEqual({
+      nameFilters: [],
+      ingredientFilters: [],
+      sourceFilters: ['mom'],
+    });
+
+    expect(
+      parseFilterString(`${SOURCE_FLAG}mom ${SOURCE_FLAG}kitchen`)
+    ).toStrictEqual({
+      nameFilters: [],
+      ingredientFilters: [],
+      sourceFilters: ['mom', 'kitchen'],
     });
   });
 
   it('should match multiple fields', () => {
     expect(
-      parseFilterString(`pie ${INGREDIENT_FLAG}apple ${INGREDIENT_FLAG}vanilla`)
+      parseFilterString(
+        `pie ${INGREDIENT_FLAG}apple ${INGREDIENT_FLAG}vanilla ${SOURCE_FLAG}mom`
+      )
     ).toStrictEqual({
       nameFilters: ['pie'],
       ingredientFilters: ['apple', 'vanilla'],
+      sourceFilters: ['mom'],
     });
 
     expect(parseFilterString(`pie ${INGREDIENT_FLAG}apple`)).toStrictEqual({
       nameFilters: ['pie'],
       ingredientFilters: ['apple'],
+      sourceFilters: [],
     });
 
     expect(
@@ -61,6 +87,7 @@ describe('parseFilterString', () => {
     ).toStrictEqual({
       nameFilters: ['apple', 'pie'],
       ingredientFilters: ['cranberry'],
+      sourceFilters: [],
     });
   });
 
@@ -72,6 +99,7 @@ describe('parseFilterString', () => {
     ).toStrictEqual({
       nameFilters: ['pie', 'with apples'],
       ingredientFilters: ['apple spice', 'vanilla'],
+      sourceFilters: [],
     });
   });
 });
@@ -206,10 +234,65 @@ describe('doIngredientFilter', () => {
   });
 });
 
+describe('doSourceFilter', () => {
+  const testList = [
+    {
+      source: {
+        display: 'mom',
+      },
+    },
+    {
+      source: {
+        display: "mom's kitchen",
+      },
+    },
+    {
+      source: {
+        display: 'kitchen sisters',
+      },
+    },
+    {
+      source: {
+        display: 'sandy bakes',
+      },
+    },
+  ];
+
+  it('empty list', () => {
+    expect(doSourceFilter([], ['mom'])).toStrictEqual([]);
+  });
+
+  it('empty filter', () => {
+    expect(doSourceFilter(testList, [])).toStrictEqual(testList);
+  });
+
+  it('single filter - some matches', () => {
+    const expected = [];
+    expected.push(testList[0]);
+    expected.push(testList[1]);
+
+    expect(doSourceFilter(testList, ['mom'])).toStrictEqual(expected);
+  });
+
+  it('single filter - no matches', () => {
+    expect(doSourceFilter(testList, ['mandy'])).toStrictEqual([]);
+  });
+
+  it('multiple filters', () => {
+    const expected = [];
+    expected.push(testList[1]);
+
+    expect(doSourceFilter(testList, ['mom', 'KITCHEN'])).toStrictEqual(
+      expected
+    );
+  });
+});
+
 describe('doFilter', () => {
   const testList = [
     {
       title: 'Nathan pie',
+      source: { display: "King Nathan's Best Of" },
       ingredients: [
         {
           ingredients: [
@@ -229,6 +312,7 @@ describe('doFilter', () => {
     },
     {
       title: 'interesting salad dressing',
+      source: { display: 'Sandy Whips up a Storm' },
       ingredients: [
         {
           ingredients: [
@@ -248,6 +332,7 @@ describe('doFilter', () => {
     },
     {
       title: 'herbs',
+      source: { display: "Sandy's Garden" },
       ingredients: [
         {
           ingredients: [{ name: 'basil' }],
@@ -256,6 +341,7 @@ describe('doFilter', () => {
     },
     {
       title: 'apple spice',
+      source: { display: 'Apple Pie Bakery' },
       ingredients: [
         {
           ingredients: [{ name: 'chopped apple powder' }, { name: 'vanilla' }],
@@ -264,6 +350,7 @@ describe('doFilter', () => {
     },
     {
       title: 'banana pudding',
+      source: { display: 'The Pudding King' },
       ingredients: [
         {
           ingredients: [{ name: 'chopped BANANAS' }, { name: 'honey' }],
@@ -272,6 +359,7 @@ describe('doFilter', () => {
     },
     {
       title: 'banana pie',
+      source: { display: 'The Pudding King' },
       ingredients: [
         {
           ingredients: [{ name: 'squished BANANAS' }, { name: 'honey' }],
@@ -281,31 +369,26 @@ describe('doFilter', () => {
   ];
 
   it('empty list', () => {
-    expect(
-      doFilter([], { nameFilters: ['pie'], ingredientFilters: [] })
-    ).toStrictEqual([]);
+    expect(doFilter([], { nameFilters: ['pie'] })).toStrictEqual([]);
   });
 
   it('empty filter', () => {
-    expect(
-      doFilter(testList, { nameFilters: [], ingredientFilters: [] })
-    ).toStrictEqual(testList);
+    expect(doFilter(testList, {})).toStrictEqual(testList);
   });
 
   it('only name(s)', () => {
     const expectedList1 = [];
     expectedList1.push(testList[0]);
     expectedList1.push(testList[5]);
-    expect(
-      doFilter(testList, { nameFilters: ['pie'], ingredientFilters: [] })
-    ).toStrictEqual(expectedList1);
+    expect(doFilter(testList, { nameFilters: ['pie'] })).toStrictEqual(
+      expectedList1
+    );
 
     const expectedList2 = [];
     expectedList2.push(testList[5]);
     expect(
       doFilter(testList, {
         nameFilters: ['pie', 'banana'],
-        ingredientFilters: [],
       })
     ).toStrictEqual(expectedList2);
   });
@@ -315,15 +398,14 @@ describe('doFilter', () => {
     expectedList1.push(testList[0]);
     expectedList1.push(testList[1]);
     expectedList1.push(testList[3]);
-    expect(
-      doFilter(testList, { nameFilters: [], ingredientFilters: ['apple'] })
-    ).toStrictEqual(expectedList1);
+    expect(doFilter(testList, { ingredientFilters: ['apple'] })).toStrictEqual(
+      expectedList1
+    );
 
     const expectedList2 = [];
     expectedList2.push(testList[1]);
     expect(
       doFilter(testList, {
-        nameFilters: [],
         ingredientFilters: ['vinegar', 'oil'],
       })
     ).toStrictEqual(expectedList2);
@@ -333,19 +415,37 @@ describe('doFilter', () => {
     expectedList3.push(testList[3]);
     expect(
       doFilter(testList, {
-        nameFilters: [],
         ingredientFilters: ['apple', 'vanilla'],
       })
     ).toStrictEqual(expectedList3);
   });
 
-  it('name(s) and ingredient(s)', () => {
+  it('only source(s)', () => {
+    const expectedList1 = [];
+    expectedList1.push(testList[0]);
+    expectedList1.push(testList[4]);
+    expectedList1.push(testList[5]);
+    expect(doFilter(testList, { sourceFilters: ['king'] })).toStrictEqual(
+      expectedList1
+    );
+
+    const expectedList2 = [];
+    expectedList2.push(testList[0]);
+    expect(
+      doFilter(testList, {
+        sourceFilters: ['king', 'nathan'],
+      })
+    ).toStrictEqual(expectedList2);
+  });
+
+  it('name(s) and ingredient(s) and sources(s)', () => {
     const expectedList1 = [];
     expectedList1.push(testList[5]);
     expect(
       doFilter(testList, {
         nameFilters: ['pie'],
         ingredientFilters: ['honey'],
+        sourceFilters: ['king'],
       })
     ).toStrictEqual(expectedList1);
   });

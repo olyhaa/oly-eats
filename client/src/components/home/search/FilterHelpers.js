@@ -1,6 +1,7 @@
 import { isEmpty, intersection } from 'ramda';
 
 export const INGREDIENT_FLAG = 'i:';
+export const SOURCE_FLAG = 's:';
 
 export const removeSurroundingQuotes = (name) => {
   return name.replace(/^"(.+(?="$))"$/, '$1');
@@ -31,14 +32,22 @@ export const parseFilterString = (filter) => {
     return word.indexOf(INGREDIENT_FLAG) === 0;
   });
 
+  // pull out items that are source filters
+  const sourceFilters = splitFilter.filter((word) => {
+    return word.indexOf(SOURCE_FLAG) === 0;
+  });
+
   const remainingFilters = splitFilter.filter(
-    (word) => !ingredientFilters.includes(word)
+    (word) => !ingredientFilters.includes(word) && !sourceFilters.includes(word)
   );
 
   return {
     nameFilters: remainingFilters.map(removeSurroundingQuotes),
     ingredientFilters: ingredientFilters
       .map((ingredient) => ingredient.slice(INGREDIENT_FLAG.length))
+      .map(removeSurroundingQuotes),
+    sourceFilters: sourceFilters
+      .map((ingredient) => ingredient.slice(SOURCE_FLAG.length))
       .map(removeSurroundingQuotes),
   };
 };
@@ -70,13 +79,32 @@ export const doIngredientFilter = (list, ingredientFilters) => {
   });
 };
 
-export const doFilter = (list, { nameFilters, ingredientFilters }) => {
+export const doSourceFilter = (list, sourceFilters) => {
+  if (isEmpty(sourceFilters)) {
+    return list;
+  }
+
+  return list.filter((recipe) => {
+    return sourceFilters.every((sourceFilter) =>
+      recipe.source.display.toLowerCase().includes(sourceFilter.toLowerCase())
+    );
+  });
+};
+
+export const doFilter = (
+  list,
+  { nameFilters = [], ingredientFilters = [], sourceFilters = [] }
+) => {
   // if list is empty, don't bother
   if (isEmpty(list)) {
     return list;
   }
   // if we have no filters, don't filter!
-  if (isEmpty(nameFilters) && isEmpty(ingredientFilters)) {
+  if (
+    isEmpty(nameFilters) &&
+    isEmpty(ingredientFilters) &&
+    isEmpty(sourceFilters)
+  ) {
     return list;
   }
 
@@ -86,7 +114,13 @@ export const doFilter = (list, { nameFilters, ingredientFilters }) => {
   // otherwise, if we have ingredient filters, get list of filtered recipes
   const filteredByIngredient = doIngredientFilter(list, ingredientFilters);
 
-  return intersection(filteredByName, filteredByIngredient);
+  // otherwise, if we have source filters, get list of filtered recipes
+  const filteredBySource = doSourceFilter(list, sourceFilters);
+
+  return intersection(
+    intersection(filteredByName, filteredByIngredient),
+    filteredBySource
+  );
 };
 
 export const filterAndSort = (list, filters) => {
