@@ -1,11 +1,20 @@
 import {
+  removeSurroundingQuotes,
   INGREDIENT_FLAG,
   parseFilterString,
   doNameFilter,
   doIngredientFilter,
   doFilter,
-  filterAndSort,
 } from '../FilterHelpers';
+
+describe('removeSurroundingQuotes', () => {
+  it('should remove quotes', () => {
+    expect(removeSurroundingQuotes('')).toEqual('');
+    expect(removeSurroundingQuotes('amanda')).toEqual('amanda');
+    expect(removeSurroundingQuotes('"amanda"')).toEqual('amanda');
+    expect(removeSurroundingQuotes(`"amanda's cool"`)).toEqual("amanda's cool");
+  });
+});
 
 describe('parseFilterString', () => {
   it('should match names', () => {
@@ -52,6 +61,17 @@ describe('parseFilterString', () => {
     ).toStrictEqual({
       nameFilters: ['apple', 'pie'],
       ingredientFilters: ['cranberry'],
+    });
+  });
+
+  it('should parse quoted strings', () => {
+    expect(
+      parseFilterString(
+        `pie ${INGREDIENT_FLAG}"apple spice" ${INGREDIENT_FLAG}vanilla "with apples"`
+      )
+    ).toStrictEqual({
+      nameFilters: ['pie', 'with apples'],
+      ingredientFilters: ['apple spice', 'vanilla'],
     });
   });
 });

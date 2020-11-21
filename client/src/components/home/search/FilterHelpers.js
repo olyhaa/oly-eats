@@ -2,21 +2,44 @@ import { isEmpty, intersection } from 'ramda';
 
 export const INGREDIENT_FLAG = 'i:';
 
+export const removeSurroundingQuotes = (name) => {
+  return name.replace(/^"(.+(?="$))"$/, '$1');
+};
+
 export const parseFilterString = (filter) => {
-  const splitFilter = filter.split(' ');
+  /*
+  Splits a string by spaces, unless there are quoted strings.
+  (?=\S)          # followed by a non-whitespace
+  [^"\s]*         #"# zero or more characters that aren't a quote or a whitespace
+  (?:             # when a quoted substring occurs:
+    "             #"# opening quote
+    [^\\"]*       #"# zero or more characters that aren't a quote or a backslash
+    (?:           # when a backslash is encountered:
+        \\ [\s\S] # an escaped character (including a quote or a backslash)
+        [^\\"]*   #"#
+    )*
+    "             #"# closing quote
+    [^"\s]*       #"#
+  )*
+  */
+  const splitFilter = filter.match(
+    /(?=\S)[^"\s]*(?:"[^\\"]*(?:\\[\s\S][^\\"]*)*"[^"\s]*)*/g
+  );
+
+  // pull out items that are ingredient filters
   const ingredientFilters = splitFilter.filter((word) => {
     return word.indexOf(INGREDIENT_FLAG) === 0;
   });
 
-  const excludingIngredients = splitFilter.filter(
+  const remainingFilters = splitFilter.filter(
     (word) => !ingredientFilters.includes(word)
   );
 
   return {
-    nameFilters: excludingIngredients,
-    ingredientFilters: ingredientFilters.map((ingredient) =>
-      ingredient.slice(INGREDIENT_FLAG.length)
-    ),
+    nameFilters: remainingFilters.map(removeSurroundingQuotes),
+    ingredientFilters: ingredientFilters
+      .map((ingredient) => ingredient.slice(INGREDIENT_FLAG.length))
+      .map(removeSurroundingQuotes),
   };
 };
 
