@@ -1,7 +1,6 @@
 import {
   removeSurroundingQuotes,
-  INGREDIENT_FLAG,
-  SOURCE_FLAG,
+  FILTER_FLAGS,
   parseFilterString,
   doNameFilter,
   doIngredientFilter,
@@ -38,14 +37,18 @@ describe('parseFilterString', () => {
   });
 
   it('should match ingredients', () => {
-    expect(parseFilterString(`${INGREDIENT_FLAG}apple`)).toStrictEqual({
+    expect(
+      parseFilterString(`${FILTER_FLAGS.INGREDIENT_FLAG}apple`)
+    ).toStrictEqual({
       nameFilters: [],
       ingredientFilters: ['apple'],
       sourceFilters: [],
     });
 
     expect(
-      parseFilterString(`${INGREDIENT_FLAG}apple ${INGREDIENT_FLAG}sugar`)
+      parseFilterString(
+        `${FILTER_FLAGS.INGREDIENT_FLAG}apple ${FILTER_FLAGS.INGREDIENT_FLAG}sugar`
+      )
     ).toStrictEqual({
       nameFilters: [],
       ingredientFilters: ['apple', 'sugar'],
@@ -54,14 +57,16 @@ describe('parseFilterString', () => {
   });
 
   it('should match sources', () => {
-    expect(parseFilterString(`${SOURCE_FLAG}mom`)).toStrictEqual({
+    expect(parseFilterString(`${FILTER_FLAGS.SOURCE_FLAG}mom`)).toStrictEqual({
       nameFilters: [],
       ingredientFilters: [],
       sourceFilters: ['mom'],
     });
 
     expect(
-      parseFilterString(`${SOURCE_FLAG}mom ${SOURCE_FLAG}kitchen`)
+      parseFilterString(
+        `${FILTER_FLAGS.SOURCE_FLAG}mom ${FILTER_FLAGS.SOURCE_FLAG}kitchen`
+      )
     ).toStrictEqual({
       nameFilters: [],
       ingredientFilters: [],
@@ -72,7 +77,7 @@ describe('parseFilterString', () => {
   it('should match multiple fields', () => {
     expect(
       parseFilterString(
-        `pie ${INGREDIENT_FLAG}apple ${INGREDIENT_FLAG}vanilla ${SOURCE_FLAG}mom`
+        `pie ${FILTER_FLAGS.INGREDIENT_FLAG}apple ${FILTER_FLAGS.INGREDIENT_FLAG}vanilla ${FILTER_FLAGS.SOURCE_FLAG}mom`
       )
     ).toStrictEqual({
       nameFilters: ['pie'],
@@ -80,14 +85,16 @@ describe('parseFilterString', () => {
       sourceFilters: ['mom'],
     });
 
-    expect(parseFilterString(`pie ${INGREDIENT_FLAG}apple`)).toStrictEqual({
+    expect(
+      parseFilterString(`pie ${FILTER_FLAGS.INGREDIENT_FLAG}apple`)
+    ).toStrictEqual({
       nameFilters: ['pie'],
       ingredientFilters: ['apple'],
       sourceFilters: [],
     });
 
     expect(
-      parseFilterString(`apple pie ${INGREDIENT_FLAG}cranberry`)
+      parseFilterString(`apple pie ${FILTER_FLAGS.INGREDIENT_FLAG}cranberry`)
     ).toStrictEqual({
       nameFilters: ['apple', 'pie'],
       ingredientFilters: ['cranberry'],
@@ -98,7 +105,7 @@ describe('parseFilterString', () => {
   it('should parse quoted strings', () => {
     expect(
       parseFilterString(
-        `pie ${INGREDIENT_FLAG}"apple spice" ${INGREDIENT_FLAG}vanilla "with apples"`
+        `pie ${FILTER_FLAGS.INGREDIENT_FLAG}"apple spice" ${FILTER_FLAGS.INGREDIENT_FLAG}vanilla "with apples"`
       )
     ).toStrictEqual({
       nameFilters: ['pie', 'with apples'],

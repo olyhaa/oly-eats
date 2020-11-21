@@ -1,7 +1,8 @@
 import { isEmpty, intersection } from 'ramda';
 
-export const INGREDIENT_FLAG = 'i:';
-export const SOURCE_FLAG = 's:';
+const INGREDIENT_FLAG = 'i:';
+const SOURCE_FLAG = 's:';
+export const FILTER_FLAGS = { INGREDIENT_FLAG, SOURCE_FLAG };
 
 export const removeSurroundingQuotes = (name) => {
   return name.replace(/^"(.+(?="$))"$/, '$1');
