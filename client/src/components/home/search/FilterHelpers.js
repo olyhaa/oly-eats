@@ -2,7 +2,8 @@ import { isEmpty, intersection } from 'ramda';
 
 const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
-export const FILTER_FLAGS = { INGREDIENT_FLAG, SOURCE_FLAG };
+const TAG_FLAG = 'tag:';
+export const FILTER_FLAGS = { INGREDIENT_FLAG, SOURCE_FLAG, TAG_FLAG };
 
 export const removeSurroundingQuotes = (name) => {
   return name.replace(/^"(.+(?="$))"$/, '$1');
@@ -41,8 +42,16 @@ export const parseFilterString = (filter) => {
     return word.indexOf(SOURCE_FLAG) === 0;
   });
 
+  // pull out items that are tag filters
+  const tagFilters = splitFilter.filter((word) => {
+    return word.indexOf(TAG_FLAG) === 0;
+  });
+
   const remainingFilters = splitFilter.filter(
-    (word) => !ingredientFilters.includes(word) && !sourceFilters.includes(word)
+    (word) =>
+      !ingredientFilters.includes(word) &&
+      !sourceFilters.includes(word) &&
+      !tagFilters.includes(word)
   );
 
   return {
@@ -52,6 +61,9 @@ export const parseFilterString = (filter) => {
       .map(removeSurroundingQuotes),
     sourceFilters: sourceFilters
       .map((ingredient) => ingredient.slice(SOURCE_FLAG.length))
+      .map(removeSurroundingQuotes),
+    tagFilters: tagFilters
+      .map((ingredient) => ingredient.slice(TAG_FLAG.length))
       .map(removeSurroundingQuotes),
   };
 };
@@ -99,9 +111,48 @@ export const doSourceFilter = (list, sourceFilters) => {
   });
 };
 
+export const doAnyTagFilter = (list, tagFilters) => {
+  if (isEmpty(tagFilters)) {
+    return list;
+  }
+
+  return list.filter((recipe) =>
+    tagFilters.every((tagFilter) =>
+      recipe.tags.some(({ label }) =>
+        label.toLowerCase().includes(tagFilter.toLowerCase())
+      )
+    )
+  );
+};
+
+export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
+  if (isEmpty(singleTagFilters)) {
+    return list;
+  }
+
+  return list.filter((recipe) =>
+    singleTagFilters.every((tagFilter) =>
+      recipe.tags.some(
+        ({ label, type }) =>
+          label.toLowerCase().includes(tagFilter.toLowerCase()) &&
+          type.id === tagId
+      )
+    )
+  );
+};
+
+export const doTagFilter = (list, tagFilters) => {
+  return list;
+};
+
 export const doFilter = (
   list,
-  { nameFilters = [], ingredientFilters = [], sourceFilters = [] }
+  {
+    nameFilters = [],
+    ingredientFilters = [],
+    sourceFilters = [],
+    tagFilters = [],
+  }
 ) => {
   // if list is empty, don't bother
   if (isEmpty(list)) {
@@ -111,7 +162,8 @@ export const doFilter = (
   if (
     isEmpty(nameFilters) &&
     isEmpty(ingredientFilters) &&
-    isEmpty(sourceFilters)
+    isEmpty(sourceFilters) &&
+    isEmpty(tagFilters)
   ) {
     return list;
   }
@@ -125,9 +177,15 @@ export const doFilter = (
   // otherwise, if we have source filters, get list of filtered recipes
   const filteredBySource = doSourceFilter(list, sourceFilters);
 
+  // otherwise, if we have source filters, get list of filtered recipes
+  const filteredByTag = doAnyTagFilter(list, tagFilters);
+
   return intersection(
-    intersection(filteredByName, filteredByIngredient),
-    filteredBySource
+    intersection(
+      intersection(filteredByName, filteredByIngredient),
+      filteredBySource
+    ),
+    filteredByTag
   );
 };
 

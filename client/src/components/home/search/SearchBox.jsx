@@ -60,7 +60,7 @@ function SearchBox({ setNewFilterValue }) {
         <ExpansionPanelDetails>
           <span>
             Filter by name. To filter by ingredient, use "i:ingredient". To
-            filter by source, use "s:source".
+            filter by source, use "s:source". To filter by tag, use "tag:tag".
           </span>
         </ExpansionPanelDetails>
       </ExpansionPanel>

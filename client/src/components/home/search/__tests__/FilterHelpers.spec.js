@@ -6,6 +6,8 @@ import {
   doIngredientFilter,
   doFilter,
   doSourceFilter,
+  doSingleTagFilter,
+  doAnyTagFilter,
 } from '../FilterHelpers';
 
 describe('removeSurroundingQuotes', () => {
@@ -27,12 +29,14 @@ describe('parseFilterString', () => {
       nameFilters: ['apple'],
       ingredientFilters: [],
       sourceFilters: [],
+      tagFilters: [],
     });
 
     expect(parseFilterString('apple banana')).toStrictEqual({
       nameFilters: ['apple', 'banana'],
       ingredientFilters: [],
       sourceFilters: [],
+      tagFilters: [],
     });
   });
 
@@ -43,6 +47,7 @@ describe('parseFilterString', () => {
       nameFilters: [],
       ingredientFilters: ['apple'],
       sourceFilters: [],
+      tagFilters: [],
     });
 
     expect(
@@ -53,6 +58,7 @@ describe('parseFilterString', () => {
       nameFilters: [],
       ingredientFilters: ['apple', 'sugar'],
       sourceFilters: [],
+      tagFilters: [],
     });
   });
 
@@ -61,6 +67,7 @@ describe('parseFilterString', () => {
       nameFilters: [],
       ingredientFilters: [],
       sourceFilters: ['mom'],
+      tagFilters: [],
     });
 
     expect(
@@ -71,18 +78,40 @@ describe('parseFilterString', () => {
       nameFilters: [],
       ingredientFilters: [],
       sourceFilters: ['mom', 'kitchen'],
+      tagFilters: [],
+    });
+  });
+
+  it('should match tags', () => {
+    expect(parseFilterString(`${FILTER_FLAGS.TAG_FLAG}dinner`)).toStrictEqual({
+      nameFilters: [],
+      ingredientFilters: [],
+      sourceFilters: [],
+      tagFilters: ['dinner'],
+    });
+
+    expect(
+      parseFilterString(
+        `${FILTER_FLAGS.TAG_FLAG}dinner ${FILTER_FLAGS.TAG_FLAG}lunch`
+      )
+    ).toStrictEqual({
+      nameFilters: [],
+      ingredientFilters: [],
+      sourceFilters: [],
+      tagFilters: ['dinner', 'lunch'],
     });
   });
 
   it('should match multiple fields', () => {
     expect(
       parseFilterString(
-        `pie ${FILTER_FLAGS.INGREDIENT_FLAG}apple ${FILTER_FLAGS.INGREDIENT_FLAG}vanilla ${FILTER_FLAGS.SOURCE_FLAG}mom`
+        `pie ${FILTER_FLAGS.INGREDIENT_FLAG}apple ${FILTER_FLAGS.TAG_FLAG}dinner ${FILTER_FLAGS.INGREDIENT_FLAG}vanilla ${FILTER_FLAGS.SOURCE_FLAG}mom`
       )
     ).toStrictEqual({
       nameFilters: ['pie'],
       ingredientFilters: ['apple', 'vanilla'],
       sourceFilters: ['mom'],
+      tagFilters: ['dinner'],
     });
 
     expect(
@@ -91,14 +120,18 @@ describe('parseFilterString', () => {
       nameFilters: ['pie'],
       ingredientFilters: ['apple'],
       sourceFilters: [],
+      tagFilters: [],
     });
 
     expect(
-      parseFilterString(`apple pie ${FILTER_FLAGS.INGREDIENT_FLAG}cranberry`)
+      parseFilterString(
+        `apple pie ${FILTER_FLAGS.INGREDIENT_FLAG}cranberry ${FILTER_FLAGS.TAG_FLAG}"gluten free"`
+      )
     ).toStrictEqual({
       nameFilters: ['apple', 'pie'],
       ingredientFilters: ['cranberry'],
       sourceFilters: [],
+      tagFilters: ['gluten free'],
     });
   });
 
@@ -111,6 +144,7 @@ describe('parseFilterString', () => {
       nameFilters: ['pie', 'with apples'],
       ingredientFilters: ['apple spice', 'vanilla'],
       sourceFilters: [],
+      tagFilters: [],
     });
   });
 });
@@ -306,6 +340,84 @@ describe('doSourceFilter', () => {
   });
 });
 
+describe('doTagFilter', () => {
+  const testList = [
+    {
+      tags: [
+        { label: 'dinner', type: { id: '1' } },
+        { label: 'breakfast', type: { id: '1' } },
+        { label: 'Greek', type: { id: '2' } },
+        { label: 'turkish', type: { id: '2' } },
+      ],
+    },
+    {
+      tags: [
+        { label: 'breakfast', type: { id: '1' } },
+        { label: 'Mexican', type: { id: '2' } },
+      ],
+    },
+    {
+      tags: [
+        { label: 'slow cooker', type: { id: '3' } },
+        { label: 'Mexican', type: { id: '2' } },
+        { label: 'turkish', type: { id: '2' } },
+        { label: 'breakfast', type: { id: '4' } },
+      ],
+    },
+    {
+      tags: [{ label: 'TexMex', type: { id: '2' } }],
+    },
+  ];
+
+  it('empty list', () => {
+    expect(doSingleTagFilter([], '1', ['lunch'])).toStrictEqual([]);
+    expect(doAnyTagFilter([], ['lunch'])).toStrictEqual([]);
+  });
+
+  it('empty filter', () => {
+    expect(doSingleTagFilter(testList, '1', [])).toStrictEqual(testList);
+    expect(doAnyTagFilter(testList, [])).toStrictEqual(testList);
+  });
+
+  it('single filter - some matches', () => {
+    const expected1 = [];
+    expected1.push(testList[0]);
+    expected1.push(testList[1]);
+    expect(doSingleTagFilter(testList, '1', ['breakfast'])).toStrictEqual(
+      expected1
+    );
+    const expected1a = [];
+    expected1a.push(testList[0]);
+    expected1a.push(testList[1]);
+    expected1a.push(testList[2]);
+    expect(doAnyTagFilter(testList, ['breakfast'])).toStrictEqual(expected1a);
+
+    const expected2 = [];
+    expected2.push(testList[1]);
+    expected2.push(testList[2]);
+    expected2.push(testList[3]);
+    expect(doSingleTagFilter(testList, '2', ['mex'])).toStrictEqual(expected2);
+    expect(doAnyTagFilter(testList, ['mex'])).toStrictEqual(expected2);
+  });
+
+  it('single filter - no matches', () => {
+    expect(doSingleTagFilter(testList, '2', ['mandy'])).toStrictEqual([]);
+    expect(doAnyTagFilter(testList, ['mandy'])).toStrictEqual([]);
+  });
+
+  it('multiple filters', () => {
+    const expected = [];
+    expected.push(testList[0]);
+
+    expect(
+      doSingleTagFilter(testList, '2', ['greek', 'turkish'])
+    ).toStrictEqual(expected);
+    expect(doAnyTagFilter(testList, ['greek', 'turkish'])).toStrictEqual(
+      expected
+    );
+  });
+});
+
 describe('doFilter', () => {
   const testList = [
     {
@@ -327,6 +439,10 @@ describe('doFilter', () => {
           ],
         },
       ],
+      tags: [
+        { label: 'dinner', type: { id: '1' } },
+        { label: 'breakfast', type: { id: '1' } },
+      ],
     },
     {
       title: 'interesting salad dressing',
@@ -347,6 +463,10 @@ describe('doFilter', () => {
           ],
         },
       ],
+      tags: [
+        { label: 'dinner', type: { id: '1' } },
+        { label: 'lunch', type: { id: '1' } },
+      ],
     },
     {
       title: 'herbs',
@@ -356,6 +476,7 @@ describe('doFilter', () => {
           ingredients: [{ name: 'basil' }],
         },
       ],
+      tags: [],
     },
     {
       title: 'apple spice',
@@ -365,6 +486,7 @@ describe('doFilter', () => {
           ingredients: [{ name: 'chopped apple powder' }, { name: 'vanilla' }],
         },
       ],
+      tags: [],
     },
     {
       title: 'banana pudding',
@@ -373,6 +495,10 @@ describe('doFilter', () => {
         {
           ingredients: [{ name: 'chopped BANANAS' }, { name: 'honey' }],
         },
+      ],
+      tags: [
+        { label: 'Mexican', type: { id: '2' } },
+        { label: 'side', type: { id: '1' } },
       ],
     },
     {
@@ -383,6 +509,17 @@ describe('doFilter', () => {
           ingredients: [{ name: 'squished BANANAS' }, { name: 'honey' }],
         },
       ],
+      tags: [{ label: 'American', type: { id: '2' } }],
+    },
+    {
+      title: 'improved apple pie',
+      source: { display: 'The Pudding K', url: 'www.thepuddingking.com' },
+      ingredients: [
+        {
+          ingredients: [{ name: 'squished ritz crackers' }, { name: 'honey' }],
+        },
+      ],
+      tags: [{ label: 'British', type: { id: '2' } }],
     },
   ];
 
@@ -398,6 +535,7 @@ describe('doFilter', () => {
     const expectedList1 = [];
     expectedList1.push(testList[0]);
     expectedList1.push(testList[5]);
+    expectedList1.push(testList[6]);
     expect(doFilter(testList, { nameFilters: ['pie'] })).toStrictEqual(
       expectedList1
     );
@@ -443,6 +581,7 @@ describe('doFilter', () => {
     expectedList1.push(testList[0]);
     expectedList1.push(testList[4]);
     expectedList1.push(testList[5]);
+    expectedList1.push(testList[6]);
     expect(doFilter(testList, { sourceFilters: ['king'] })).toStrictEqual(
       expectedList1
     );
@@ -456,14 +595,32 @@ describe('doFilter', () => {
     ).toStrictEqual(expectedList2);
   });
 
-  it('name(s) and ingredient(s) and sources(s)', () => {
+  it('only tag(s)', () => {
     const expectedList1 = [];
-    expectedList1.push(testList[5]);
+    expectedList1.push(testList[0]);
+    expectedList1.push(testList[1]);
+    expect(doFilter(testList, { tagFilters: ['dinner'] })).toStrictEqual(
+      expectedList1
+    );
+
+    const expectedList2 = [];
+    expectedList2.push(testList[4]);
+    expect(
+      doFilter(testList, {
+        tagFilters: ['mexican', 'side'],
+      })
+    ).toStrictEqual(expectedList2);
+  });
+
+  it('name(s) and ingredient(s) and sources(s) and tag(s)', () => {
+    const expectedList1 = [];
+    expectedList1.push(testList[6]);
     expect(
       doFilter(testList, {
         nameFilters: ['pie'],
         ingredientFilters: ['honey'],
         sourceFilters: ['king'],
+        tagFilters: ['british'],
       })
     ).toStrictEqual(expectedList1);
   });
