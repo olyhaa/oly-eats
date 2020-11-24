@@ -59,9 +59,10 @@ function SearchBox({ setNewFilterValue }) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <span>
-            Filter by name. To filter by ingredient, use "i:ingredient". To
-            filter by source, use "s:source". To filter by tag, use "tag:tag".
-            To filter by max time, use "time:mins".
+            Filter by name. To filter by ingredient, use{' '}
+            <code>i:ingredient</code>. To filter by source, use{' '}
+            <code>s:source</code>. To filter by tag, use <code>tag:tag</code>.
+            To filter by max time, use <code>time:mins</code>.
           </span>
         </ExpansionPanelDetails>
       </ExpansionPanel>
