@@ -1,3 +1,4 @@
+import { TIMING_UNITS } from '../../../../utils/recipeConstants';
 import {
   removeSurroundingQuotes,
   FILTER_FLAGS,
@@ -8,6 +9,8 @@ import {
   doSourceFilter,
   doSingleTagFilter,
   doAnyTagFilter,
+  getTotalMins,
+  doMaxTimeFilter,
 } from '../FilterHelpers';
 
 describe('removeSurroundingQuotes', () => {
@@ -30,6 +33,7 @@ describe('parseFilterString', () => {
       ingredientFilters: [],
       sourceFilters: [],
       tagFilters: [],
+      maxTimeFilters: [],
     });
 
     expect(parseFilterString('apple banana')).toStrictEqual({
@@ -37,6 +41,7 @@ describe('parseFilterString', () => {
       ingredientFilters: [],
       sourceFilters: [],
       tagFilters: [],
+      maxTimeFilters: [],
     });
   });
 
@@ -48,6 +53,7 @@ describe('parseFilterString', () => {
       ingredientFilters: ['apple'],
       sourceFilters: [],
       tagFilters: [],
+      maxTimeFilters: [],
     });
 
     expect(
@@ -59,6 +65,7 @@ describe('parseFilterString', () => {
       ingredientFilters: ['apple', 'sugar'],
       sourceFilters: [],
       tagFilters: [],
+      maxTimeFilters: [],
     });
   });
 
@@ -68,6 +75,7 @@ describe('parseFilterString', () => {
       ingredientFilters: [],
       sourceFilters: ['mom'],
       tagFilters: [],
+      maxTimeFilters: [],
     });
 
     expect(
@@ -79,6 +87,7 @@ describe('parseFilterString', () => {
       ingredientFilters: [],
       sourceFilters: ['mom', 'kitchen'],
       tagFilters: [],
+      maxTimeFilters: [],
     });
   });
 
@@ -88,6 +97,7 @@ describe('parseFilterString', () => {
       ingredientFilters: [],
       sourceFilters: [],
       tagFilters: ['dinner'],
+      maxTimeFilters: [],
     });
 
     expect(
@@ -99,6 +109,7 @@ describe('parseFilterString', () => {
       ingredientFilters: [],
       sourceFilters: [],
       tagFilters: ['dinner', 'lunch'],
+      maxTimeFilters: [],
     });
   });
 
@@ -112,6 +123,7 @@ describe('parseFilterString', () => {
       ingredientFilters: ['apple', 'vanilla'],
       sourceFilters: ['mom'],
       tagFilters: ['dinner'],
+      maxTimeFilters: [],
     });
 
     expect(
@@ -121,6 +133,7 @@ describe('parseFilterString', () => {
       ingredientFilters: ['apple'],
       sourceFilters: [],
       tagFilters: [],
+      maxTimeFilters: [],
     });
 
     expect(
@@ -132,6 +145,7 @@ describe('parseFilterString', () => {
       ingredientFilters: ['cranberry'],
       sourceFilters: [],
       tagFilters: ['gluten free'],
+      maxTimeFilters: [],
     });
   });
 
@@ -145,6 +159,7 @@ describe('parseFilterString', () => {
       ingredientFilters: ['apple spice', 'vanilla'],
       sourceFilters: [],
       tagFilters: [],
+      maxTimeFilters: [],
     });
   });
 });
@@ -418,6 +433,83 @@ describe('doTagFilter', () => {
   });
 });
 
+describe('getTotalMins', () => {
+  it('no items', () => {
+    expect(getTotalMins([])).toEqual(0);
+  });
+
+  it('only minutes', () => {
+    expect(getTotalMins([{ units: TIMING_UNITS.MINUTE, value: 30 }])).toEqual(
+      30
+    );
+  });
+
+  it('only hours', () => {
+    expect(getTotalMins([{ units: TIMING_UNITS.HOUR, value: 2 }])).toEqual(120);
+  });
+
+  it('minutes and hours', () => {
+    expect(
+      getTotalMins([
+        { units: TIMING_UNITS.MINUTE, value: 17 },
+        { units: TIMING_UNITS.HOUR, value: 2 },
+      ])
+    ).toEqual(137);
+  });
+});
+
+describe('doMaxTimeFilter', () => {
+  const testList = [
+    {
+      timing: {
+        total: [
+          { value: 14, units: TIMING_UNITS.MINUTE },
+          { value: 1, units: TIMING_UNITS.HOUR },
+        ],
+      },
+    },
+    {
+      timing: {
+        total: [{ value: 45, units: TIMING_UNITS.MINUTE }],
+      },
+    },
+    {
+      timing: {
+        total: [{ value: 2, units: TIMING_UNITS.HOUR }],
+      },
+    },
+  ];
+
+  it('empty list', () => {
+    expect(doMaxTimeFilter([], ['20'])).toStrictEqual([]);
+  });
+
+  it('empty filter', () => {
+    expect(doMaxTimeFilter(testList, [])).toStrictEqual(testList);
+  });
+
+  it('single filter - some matches', () => {
+    const expected1 = [];
+    expected1.push(testList[1]);
+    expect(doMaxTimeFilter(testList, ['50'])).toStrictEqual(expected1);
+    const expected2 = [];
+    expected2.push(testList[0]);
+    expected2.push(testList[1]);
+    expect(doMaxTimeFilter(testList, ['75'])).toStrictEqual(expected2);
+  });
+
+  it('single filter - no matches', () => {
+    expect(doMaxTimeFilter(testList, ['1'])).toStrictEqual([]);
+  });
+
+  it('multiple filters', () => {
+    const expected = [];
+    expected.push(testList[1]);
+
+    expect(doMaxTimeFilter(testList, ['60', '50'])).toStrictEqual(expected);
+  });
+});
+
 describe('doFilter', () => {
   const testList = [
     {
@@ -443,6 +535,12 @@ describe('doFilter', () => {
         { label: 'dinner', type: { id: '1' } },
         { label: 'breakfast', type: { id: '1' } },
       ],
+      timing: {
+        total: [
+          { value: 14, units: TIMING_UNITS.MINUTE },
+          { value: 1, units: TIMING_UNITS.HOUR },
+        ],
+      },
     },
     {
       title: 'interesting salad dressing',
@@ -467,6 +565,9 @@ describe('doFilter', () => {
         { label: 'dinner', type: { id: '1' } },
         { label: 'lunch', type: { id: '1' } },
       ],
+      timing: {
+        total: [{ value: 20, units: TIMING_UNITS.MINUTE }],
+      },
     },
     {
       title: 'herbs',
@@ -477,6 +578,9 @@ describe('doFilter', () => {
         },
       ],
       tags: [],
+      timing: {
+        total: [{ value: 1, units: TIMING_UNITS.HOUR }],
+      },
     },
     {
       title: 'apple spice',
@@ -487,6 +591,12 @@ describe('doFilter', () => {
         },
       ],
       tags: [],
+      timing: {
+        total: [
+          { value: 30, units: TIMING_UNITS.MINUTE },
+          { value: 1, units: TIMING_UNITS.HOUR },
+        ],
+      },
     },
     {
       title: 'banana pudding',
@@ -500,6 +610,9 @@ describe('doFilter', () => {
         { label: 'Mexican', type: { id: '2' } },
         { label: 'side', type: { id: '1' } },
       ],
+      timing: {
+        total: [{ value: 45, units: TIMING_UNITS.MINUTE }],
+      },
     },
     {
       title: 'banana pie',
@@ -510,6 +623,12 @@ describe('doFilter', () => {
         },
       ],
       tags: [{ label: 'American', type: { id: '2' } }],
+      timing: {
+        total: [
+          { value: 45, units: TIMING_UNITS.MINUTE },
+          { value: 1, units: TIMING_UNITS.HOUR },
+        ],
+      },
     },
     {
       title: 'improved apple pie',
@@ -520,6 +639,9 @@ describe('doFilter', () => {
         },
       ],
       tags: [{ label: 'British', type: { id: '2' } }],
+      timing: {
+        total: [{ value: 2, units: TIMING_UNITS.HOUR }],
+      },
     },
   ];
 
@@ -612,7 +734,24 @@ describe('doFilter', () => {
     ).toStrictEqual(expectedList2);
   });
 
-  it('name(s) and ingredient(s) and sources(s) and tag(s)', () => {
+  it('only time(s)', () => {
+    const expectedList1 = [];
+    expectedList1.push(testList[1]);
+    expect(doFilter(testList, { maxTimeFilters: ['30'] })).toStrictEqual(
+      expectedList1
+    );
+
+    const expectedList2 = [];
+    expectedList2.push(testList[1]);
+    expectedList2.push(testList[4]);
+    expect(
+      doFilter(testList, {
+        maxTimeFilters: ['50', '45'],
+      })
+    ).toStrictEqual(expectedList2);
+  });
+
+  it('name(s) and ingredient(s) and sources(s) and tag(s) and time(s)', () => {
     const expectedList1 = [];
     expectedList1.push(testList[6]);
     expect(
@@ -621,6 +760,7 @@ describe('doFilter', () => {
         ingredientFilters: ['honey'],
         sourceFilters: ['king'],
         tagFilters: ['british'],
+        maxTimeFilters: ['120'],
       })
     ).toStrictEqual(expectedList1);
   });

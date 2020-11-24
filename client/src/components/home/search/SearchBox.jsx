@@ -61,6 +61,7 @@ function SearchBox({ setNewFilterValue }) {
           <span>
             Filter by name. To filter by ingredient, use "i:ingredient". To
             filter by source, use "s:source". To filter by tag, use "tag:tag".
+            To filter by max time, use "time:mins".
           </span>
         </ExpansionPanelDetails>
       </ExpansionPanel>

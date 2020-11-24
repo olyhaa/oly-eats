@@ -1,9 +1,16 @@
 import { isEmpty, intersection } from 'ramda';
+import { TIMING_UNITS } from '../../../utils/recipeConstants';
 
 const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
 const TAG_FLAG = 'tag:';
-export const FILTER_FLAGS = { INGREDIENT_FLAG, SOURCE_FLAG, TAG_FLAG };
+const MAX_TIME_FLAG = 'time:';
+export const FILTER_FLAGS = {
+  INGREDIENT_FLAG,
+  SOURCE_FLAG,
+  TAG_FLAG,
+  MAX_TIME_FLAG,
+};
 
 export const removeSurroundingQuotes = (name) => {
   return name.replace(/^"(.+(?="$))"$/, '$1');
@@ -47,11 +54,17 @@ export const parseFilterString = (filter) => {
     return word.indexOf(TAG_FLAG) === 0;
   });
 
+  // pull out items that are time filters
+  const timeFilters = splitFilter.filter((word) => {
+    return word.indexOf(MAX_TIME_FLAG) === 0;
+  });
+
   const remainingFilters = splitFilter.filter(
     (word) =>
       !ingredientFilters.includes(word) &&
       !sourceFilters.includes(word) &&
-      !tagFilters.includes(word)
+      !tagFilters.includes(word) &&
+      !timeFilters.includes(word)
   );
 
   return {
@@ -64,6 +77,9 @@ export const parseFilterString = (filter) => {
       .map(removeSurroundingQuotes),
     tagFilters: tagFilters
       .map((ingredient) => ingredient.slice(TAG_FLAG.length))
+      .map(removeSurroundingQuotes),
+    maxTimeFilters: timeFilters
+      .map((ingredient) => ingredient.slice(MAX_TIME_FLAG.length))
       .map(removeSurroundingQuotes),
   };
 };
@@ -141,6 +157,32 @@ export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
   );
 };
 
+export const getTotalMins = (timingArray) => {
+  let totalMins = 0;
+  timingArray &&
+    timingArray.forEach((timeItem) => {
+      if (timeItem.units === TIMING_UNITS.MINUTE) {
+        totalMins += timeItem.value;
+      } else if (timeItem.units === TIMING_UNITS.HOUR) {
+        totalMins += timeItem.value * 60;
+      }
+    });
+  return totalMins;
+};
+
+export const doMaxTimeFilter = (list, maxTimeFilters) => {
+  if (isEmpty(maxTimeFilters)) {
+    return list;
+  }
+
+  return list.filter((recipe) => {
+    return maxTimeFilters.every(
+      (maxTimeFilter) =>
+        getTotalMins(recipe.timing.total) <= Number(maxTimeFilter)
+    );
+  });
+};
+
 export const doFilter = (
   list,
   {
@@ -148,6 +190,7 @@ export const doFilter = (
     ingredientFilters = [],
     sourceFilters = [],
     tagFilters = [],
+    maxTimeFilters = [],
   }
 ) => {
   // if list is empty, don't bother
@@ -159,7 +202,8 @@ export const doFilter = (
     isEmpty(nameFilters) &&
     isEmpty(ingredientFilters) &&
     isEmpty(sourceFilters) &&
-    isEmpty(tagFilters)
+    isEmpty(tagFilters) &&
+    isEmpty(maxTimeFilters)
   ) {
     return list;
   }
@@ -176,12 +220,18 @@ export const doFilter = (
   // otherwise, if we have source filters, get list of filtered recipes
   const filteredByTag = doAnyTagFilter(list, tagFilters);
 
+  // otherwise, if we have timing filters, get list of filtered recipes
+  const filteredByMaxTime = doMaxTimeFilter(list, maxTimeFilters);
+
   return intersection(
     intersection(
-      intersection(filteredByName, filteredByIngredient),
-      filteredBySource
+      intersection(
+        intersection(filteredByName, filteredByIngredient),
+        filteredBySource
+      ),
+      filteredByTag
     ),
-    filteredByTag
+    filteredByMaxTime
   );
 };
 
