@@ -141,10 +141,6 @@ export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
   );
 };
 
-export const doTagFilter = (list, tagFilters) => {
-  return list;
-};
-
 export const doFilter = (
   list,
   {
