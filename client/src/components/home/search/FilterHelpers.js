@@ -1,5 +1,5 @@
 import { isEmpty, intersection } from 'ramda';
-import { TIMING_UNITS } from '../../../utils/recipeConstants';
+import { RECIPE, TIMING_UNITS } from '../../../utils/recipeConstants';
 
 const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
@@ -241,4 +241,87 @@ export const filterAndSort = (list, filters) => {
   return filteredList.sort((item1, item2) => {
     return item1.title.localeCompare(item2.title);
   });
+};
+
+export const initializeFilterSearchObject = ({
+  nameFilters,
+  ingredientFilters,
+  sourceFilters,
+  tagFilters,
+  maxTimeFilters,
+}) => {
+  const nameMap = nameFilters
+    ? nameFilters.map((nameItem) => {
+        return {
+          value: nameItem,
+          category: RECIPE.TITLE,
+        };
+      })
+    : [];
+
+  const ingredientMap = ingredientFilters
+    ? ingredientFilters.map((ingredientItem) => {
+        return {
+          value: ingredientItem,
+          category: RECIPE.INGREDIENT_SECTION_INGREDIENTS,
+        };
+      })
+    : [];
+
+  const sourceMap = sourceFilters
+    ? sourceFilters.map((sourceItem) => {
+        return {
+          value: sourceItem,
+          category: RECIPE.SOURCE,
+        };
+      })
+    : [];
+
+  const tagMap = tagFilters
+    ? tagFilters.map((tagItem) => {
+        return {
+          value: tagItem,
+          category: RECIPE.TAGS,
+        };
+      })
+    : [];
+
+  const maxTimeMap = maxTimeFilters
+    ? maxTimeFilters.map((timeItem) => {
+        return {
+          value: timeItem,
+          category: RECIPE.TIMING_TOTAL,
+        };
+      })
+    : [];
+  return [].concat(nameMap, ingredientMap, sourceMap, tagMap, maxTimeMap);
+};
+
+export const convertToFilterString = (filterArray) => {
+  const filterStringArray = filterArray.map((item) => {
+    const { value, category } = item;
+    let prefix = '';
+    switch (category) {
+      case RECIPE.TITLE:
+        break;
+      case RECIPE.INGREDIENT_SECTION_INGREDIENTS:
+        prefix = INGREDIENT_FLAG;
+        break;
+      case RECIPE.SOURCE:
+        prefix = SOURCE_FLAG;
+        break;
+      case RECIPE.TAGS:
+        prefix = TAG_FLAG;
+        break;
+      case RECIPE.TIMING_TOTAL:
+        prefix = MAX_TIME_FLAG;
+        break;
+    }
+    return `${prefix}${value}`;
+  });
+  let newFilterString = '';
+  for (let i = 0; i < filterStringArray.length; i++) {
+    newFilterString += filterStringArray[i];
+  }
+  return newFilterString;
 };

@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
+import SearchDropdown from './SearchDropdown';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchBox({ setNewFilterValue }) {
+function SearchBox({ filterString, filterValue, setNewFilterValue }) {
   const classes = useStyles();
   return (
     <div className={classes.search}>
@@ -48,7 +49,10 @@ function SearchBox({ setNewFilterValue }) {
           </div>
           <InputBase
             placeholder="Filter..."
-            onChange={setNewFilterValue}
+            onChange={(event) => {
+              setNewFilterValue(event.target.value);
+            }}
+            value={filterString}
             fullWidth
             classes={{
               root: classes.inputRoot,
@@ -58,12 +62,10 @@ function SearchBox({ setNewFilterValue }) {
           />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <span>
-            Filter by name. To filter by ingredient, use{' '}
-            <code>i:ingredient</code>. To filter by source, use{' '}
-            <code>s:source</code>. To filter by tag, use <code>tag:tag</code>.
-            To filter by max time, use <code>time:mins</code>.
-          </span>
+          <SearchDropdown
+            filterValue={filterValue}
+            setFilterValue={setNewFilterValue}
+          />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
@@ -71,6 +73,7 @@ function SearchBox({ setNewFilterValue }) {
 }
 
 SearchBox.propTypes = {
+  filterString: PropTypes.string,
   setNewFilterValue: PropTypes.func,
 };
 

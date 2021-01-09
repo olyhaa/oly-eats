@@ -18,7 +18,11 @@ function SearchGroup({ recipeList }) {
   const [filterValue, setFilterValue] = useState({
     nameFilters: [],
     ingredientFilters: [],
+    sourceFilters: [],
+    tagFilters: [],
+    maxTimeFilters: [],
   });
+  const [filterString, setFilterString] = useState('');
   const [filteredList, setFilteredList] = useState(
     recipeList.sort((item1, item2) => {
       return item1.title.localeCompare(item2.title);
@@ -29,8 +33,9 @@ function SearchGroup({ recipeList }) {
     setFilteredList(filterAndSort(recipeList, filterValue));
   }, [recipeList]);
 
-  const handleNewFilterValue = (event) => {
-    const parsedFilterValue = parseFilterString(event.target.value);
+  const handleNewFilterValue = (filterString) => {
+    setFilterString(filterString);
+    const parsedFilterValue = parseFilterString(filterString);
 
     setFilterValue(parsedFilterValue);
     setFilteredList(filterAndSort(recipeList, parsedFilterValue));
@@ -39,7 +44,11 @@ function SearchGroup({ recipeList }) {
   return (
     <>
       <div className={classes.search}>
-        <SearchBox setNewFilterValue={handleNewFilterValue} />
+        <SearchBox
+          filterString={filterString}
+          filterValue={filterValue}
+          setNewFilterValue={handleNewFilterValue}
+        />
       </div>
       <RecipeList list={filteredList} />
     </>
