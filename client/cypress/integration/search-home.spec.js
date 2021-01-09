@@ -1,4 +1,4 @@
-describe('Recipe Page', () => {
+describe('Home Page - Search', () => {
   beforeEach(() => {
     cy.fixture('add-recipe-payload.json').as('recipeData');
     cy.get('@recipeData').then((addRecipePayload) => {
