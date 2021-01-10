@@ -12,6 +12,7 @@ import {
   getTotalMins,
   doMaxTimeFilter,
 } from '../FilterHelpers';
+import { SEARCH_CATEGORIES } from '../searchConstants';
 
 describe('removeSurroundingQuotes', () => {
   it('should remove quotes', () => {
@@ -28,89 +29,97 @@ describe('parseFilterString', () => {
   });
 
   it('should match names', () => {
-    expect(parseFilterString('apple')).toStrictEqual({
-      nameFilters: ['apple'],
-      ingredientFilters: [],
-      sourceFilters: [],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    expect(parseFilterString('apple')).toStrictEqual([
+      {
+        value: 'apple',
+        category: SEARCH_CATEGORIES.NAME,
+      },
+    ]);
 
-    expect(parseFilterString('apple banana')).toStrictEqual({
-      nameFilters: ['apple', 'banana'],
-      ingredientFilters: [],
-      sourceFilters: [],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    expect(parseFilterString('apple banana')).toStrictEqual([
+      {
+        value: 'apple',
+        category: SEARCH_CATEGORIES.NAME,
+      },
+      {
+        value: 'banana',
+        category: SEARCH_CATEGORIES.NAME,
+      },
+    ]);
   });
 
   it('should match ingredients', () => {
     expect(
       parseFilterString(`${FILTER_FLAGS.INGREDIENT_FLAG}apple`)
-    ).toStrictEqual({
-      nameFilters: [],
-      ingredientFilters: ['apple'],
-      sourceFilters: [],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      {
+        value: 'apple',
+        category: SEARCH_CATEGORIES.INGREDIENT,
+      },
+    ]);
 
     expect(
       parseFilterString(
         `${FILTER_FLAGS.INGREDIENT_FLAG}apple ${FILTER_FLAGS.INGREDIENT_FLAG}sugar`
       )
-    ).toStrictEqual({
-      nameFilters: [],
-      ingredientFilters: ['apple', 'sugar'],
-      sourceFilters: [],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      {
+        value: 'apple',
+        category: SEARCH_CATEGORIES.INGREDIENT,
+      },
+      {
+        value: 'sugar',
+        category: SEARCH_CATEGORIES.INGREDIENT,
+      },
+    ]);
   });
 
   it('should match sources', () => {
-    expect(parseFilterString(`${FILTER_FLAGS.SOURCE_FLAG}mom`)).toStrictEqual({
-      nameFilters: [],
-      ingredientFilters: [],
-      sourceFilters: ['mom'],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    expect(parseFilterString(`${FILTER_FLAGS.SOURCE_FLAG}mom`)).toStrictEqual([
+      {
+        value: 'mom',
+        category: SEARCH_CATEGORIES.SOURCE,
+      },
+    ]);
 
     expect(
       parseFilterString(
         `${FILTER_FLAGS.SOURCE_FLAG}mom ${FILTER_FLAGS.SOURCE_FLAG}kitchen`
       )
-    ).toStrictEqual({
-      nameFilters: [],
-      ingredientFilters: [],
-      sourceFilters: ['mom', 'kitchen'],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      {
+        value: 'mom',
+        category: SEARCH_CATEGORIES.SOURCE,
+      },
+      {
+        value: 'kitchen',
+        category: SEARCH_CATEGORIES.SOURCE,
+      },
+    ]);
   });
 
   it('should match tags', () => {
-    expect(parseFilterString(`${FILTER_FLAGS.TAG_FLAG}dinner`)).toStrictEqual({
-      nameFilters: [],
-      ingredientFilters: [],
-      sourceFilters: [],
-      tagFilters: ['dinner'],
-      maxTimeFilters: [],
-    });
+    expect(parseFilterString(`${FILTER_FLAGS.TAG_FLAG}dinner`)).toStrictEqual([
+      {
+        value: 'dinner',
+        category: SEARCH_CATEGORIES.TAGS,
+      },
+    ]);
 
     expect(
       parseFilterString(
         `${FILTER_FLAGS.TAG_FLAG}dinner ${FILTER_FLAGS.TAG_FLAG}lunch`
       )
-    ).toStrictEqual({
-      nameFilters: [],
-      ingredientFilters: [],
-      sourceFilters: [],
-      tagFilters: ['dinner', 'lunch'],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      {
+        value: 'dinner',
+        category: SEARCH_CATEGORIES.TAGS,
+      },
+      {
+        value: 'lunch',
+        category: SEARCH_CATEGORIES.TAGS,
+      },
+    ]);
   });
 
   it('should match multiple fields', () => {
@@ -118,35 +127,34 @@ describe('parseFilterString', () => {
       parseFilterString(
         `pie ${FILTER_FLAGS.INGREDIENT_FLAG}apple ${FILTER_FLAGS.TAG_FLAG}dinner ${FILTER_FLAGS.INGREDIENT_FLAG}vanilla ${FILTER_FLAGS.SOURCE_FLAG}mom`
       )
-    ).toStrictEqual({
-      nameFilters: ['pie'],
-      ingredientFilters: ['apple', 'vanilla'],
-      sourceFilters: ['mom'],
-      tagFilters: ['dinner'],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+      { value: 'vanilla', category: SEARCH_CATEGORIES.INGREDIENT },
+      {
+        value: 'mom',
+        category: SEARCH_CATEGORIES.SOURCE,
+      },
+      { value: 'dinner', category: SEARCH_CATEGORIES.TAGS },
+    ]);
 
     expect(
       parseFilterString(`pie ${FILTER_FLAGS.INGREDIENT_FLAG}apple`)
-    ).toStrictEqual({
-      nameFilters: ['pie'],
-      ingredientFilters: ['apple'],
-      sourceFilters: [],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+    ]);
 
     expect(
       parseFilterString(
         `apple pie ${FILTER_FLAGS.INGREDIENT_FLAG}cranberry ${FILTER_FLAGS.TAG_FLAG}"gluten free"`
       )
-    ).toStrictEqual({
-      nameFilters: ['apple', 'pie'],
-      ingredientFilters: ['cranberry'],
-      sourceFilters: [],
-      tagFilters: ['gluten free'],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      { value: 'apple', category: SEARCH_CATEGORIES.NAME },
+      { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      { value: 'cranberry', category: SEARCH_CATEGORIES.INGREDIENT },
+      { value: 'gluten free', category: SEARCH_CATEGORIES.TAGS },
+    ]);
   });
 
   it('should parse quoted strings', () => {
@@ -154,13 +162,12 @@ describe('parseFilterString', () => {
       parseFilterString(
         `pie ${FILTER_FLAGS.INGREDIENT_FLAG}"apple spice" ${FILTER_FLAGS.INGREDIENT_FLAG}vanilla "with apples"`
       )
-    ).toStrictEqual({
-      nameFilters: ['pie', 'with apples'],
-      ingredientFilters: ['apple spice', 'vanilla'],
-      sourceFilters: [],
-      tagFilters: [],
-      maxTimeFilters: [],
-    });
+    ).toStrictEqual([
+      { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      { value: 'with apples', category: SEARCH_CATEGORIES.NAME },
+      { value: 'apple spice', category: SEARCH_CATEGORIES.INGREDIENT },
+      { value: 'vanilla', category: SEARCH_CATEGORIES.INGREDIENT },
+    ]);
   });
 });
 
@@ -646,11 +653,13 @@ describe('doFilter', () => {
   ];
 
   it('empty list', () => {
-    expect(doFilter([], { nameFilters: ['pie'] })).toStrictEqual([]);
+    expect(
+      doFilter([], [{ category: SEARCH_CATEGORIES.NAME, value: 'pie' }])
+    ).toStrictEqual([]);
   });
 
   it('empty filter', () => {
-    expect(doFilter(testList, {})).toStrictEqual(testList);
+    expect(doFilter(testList, [])).toStrictEqual(testList);
   });
 
   it('only name(s)', () => {
@@ -658,16 +667,17 @@ describe('doFilter', () => {
     expectedList1.push(testList[0]);
     expectedList1.push(testList[5]);
     expectedList1.push(testList[6]);
-    expect(doFilter(testList, { nameFilters: ['pie'] })).toStrictEqual(
-      expectedList1
-    );
+    expect(
+      doFilter(testList, [{ category: SEARCH_CATEGORIES.NAME, value: 'pie' }])
+    ).toStrictEqual(expectedList1);
 
     const expectedList2 = [];
     expectedList2.push(testList[5]);
     expect(
-      doFilter(testList, {
-        nameFilters: ['pie', 'banana'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.NAME, value: 'pie' },
+        { category: SEARCH_CATEGORIES.NAME, value: 'banana' },
+      ])
     ).toStrictEqual(expectedList2);
   });
 
@@ -676,25 +686,29 @@ describe('doFilter', () => {
     expectedList1.push(testList[0]);
     expectedList1.push(testList[1]);
     expectedList1.push(testList[3]);
-    expect(doFilter(testList, { ingredientFilters: ['apple'] })).toStrictEqual(
-      expectedList1
-    );
+    expect(
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.INGREDIENT, value: 'apple' },
+      ])
+    ).toStrictEqual(expectedList1);
 
     const expectedList2 = [];
     expectedList2.push(testList[1]);
     expect(
-      doFilter(testList, {
-        ingredientFilters: ['vinegar', 'oil'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.INGREDIENT, value: 'vinegar' },
+        { category: SEARCH_CATEGORIES.INGREDIENT, value: 'oil' },
+      ])
     ).toStrictEqual(expectedList2);
 
     const expectedList3 = [];
     expectedList3.push(testList[0]);
     expectedList3.push(testList[3]);
     expect(
-      doFilter(testList, {
-        ingredientFilters: ['apple', 'vanilla'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.INGREDIENT, value: 'apple' },
+        { category: SEARCH_CATEGORIES.INGREDIENT, value: 'vanilla' },
+      ])
     ).toStrictEqual(expectedList3);
   });
 
@@ -704,16 +718,19 @@ describe('doFilter', () => {
     expectedList1.push(testList[4]);
     expectedList1.push(testList[5]);
     expectedList1.push(testList[6]);
-    expect(doFilter(testList, { sourceFilters: ['king'] })).toStrictEqual(
-      expectedList1
-    );
+    expect(
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.SOURCE, value: 'king' },
+      ])
+    ).toStrictEqual(expectedList1);
 
     const expectedList2 = [];
     expectedList2.push(testList[0]);
     expect(
-      doFilter(testList, {
-        sourceFilters: ['king', 'nathan'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.SOURCE, value: 'king' },
+        { category: SEARCH_CATEGORIES.SOURCE, value: 'nathan' },
+      ])
     ).toStrictEqual(expectedList2);
   });
 
@@ -721,33 +738,37 @@ describe('doFilter', () => {
     const expectedList1 = [];
     expectedList1.push(testList[0]);
     expectedList1.push(testList[1]);
-    expect(doFilter(testList, { tagFilters: ['dinner'] })).toStrictEqual(
-      expectedList1
-    );
+    expect(
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.TAGS, value: 'dinner' },
+      ])
+    ).toStrictEqual(expectedList1);
 
     const expectedList2 = [];
     expectedList2.push(testList[4]);
     expect(
-      doFilter(testList, {
-        tagFilters: ['mexican', 'side'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.TAGS, value: 'mexican' },
+        { category: SEARCH_CATEGORIES.TAGS, value: 'side' },
+      ])
     ).toStrictEqual(expectedList2);
   });
 
   it('only time(s)', () => {
     const expectedList1 = [];
     expectedList1.push(testList[1]);
-    expect(doFilter(testList, { maxTimeFilters: ['30'] })).toStrictEqual(
-      expectedList1
-    );
+    expect(
+      doFilter(testList, [{ category: SEARCH_CATEGORIES.TIME, value: '30' }])
+    ).toStrictEqual(expectedList1);
 
     const expectedList2 = [];
     expectedList2.push(testList[1]);
     expectedList2.push(testList[4]);
     expect(
-      doFilter(testList, {
-        maxTimeFilters: ['50', '45'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.TIME, value: '50' },
+        { category: SEARCH_CATEGORIES.TIME, value: '45' },
+      ])
     ).toStrictEqual(expectedList2);
   });
 
@@ -755,13 +776,13 @@ describe('doFilter', () => {
     const expectedList1 = [];
     expectedList1.push(testList[6]);
     expect(
-      doFilter(testList, {
-        nameFilters: ['pie'],
-        ingredientFilters: ['honey'],
-        sourceFilters: ['king'],
-        tagFilters: ['british'],
-        maxTimeFilters: ['120'],
-      })
+      doFilter(testList, [
+        { category: SEARCH_CATEGORIES.NAME, value: 'pie' },
+        { category: SEARCH_CATEGORIES.INGREDIENT, value: 'honey' },
+        { category: SEARCH_CATEGORIES.SOURCE, value: 'king' },
+        { category: SEARCH_CATEGORIES.TAGS, value: 'british' },
+        { category: SEARCH_CATEGORIES.TIME, value: '120' },
+      ])
     ).toStrictEqual(expectedList1);
   });
 });

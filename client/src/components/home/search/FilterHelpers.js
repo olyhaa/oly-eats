@@ -18,6 +18,10 @@ export const removeSurroundingQuotes = (name) => {
   return name.replace(/^"(.+(?="$))"$/, '$1');
 };
 
+export const getSearchValue = (filterItem) => {
+  return filterItem.value;
+};
+
 export const parseFilterString = (filter) => {
   if (isEmpty(filter)) {
     return {};
@@ -106,7 +110,7 @@ export const doNameFilter = (list, nameFilters) => {
   }
   return list.filter((recipe) => {
     return nameFilters.every((nameFilter) =>
-      recipe.title.toLowerCase().includes(nameFilter.value.toLowerCase())
+      recipe.title.toLowerCase().includes(nameFilter.toLowerCase())
     );
   });
 };
@@ -120,7 +124,7 @@ export const doIngredientFilter = (list, ingredientFilters) => {
     return recipe.ingredients.some(({ ingredients }) =>
       ingredientFilters.every((ingredientToFilter) =>
         ingredients.some(({ name }) =>
-          name.toLowerCase().includes(ingredientToFilter.value.toLowerCase())
+          name.toLowerCase().includes(ingredientToFilter.toLowerCase())
         )
       )
     );
@@ -137,8 +141,8 @@ export const doSourceFilter = (list, sourceFilters) => {
       (sourceFilter) =>
         recipe.source.display
           .toLowerCase()
-          .includes(sourceFilter.value.toLowerCase()) ||
-        recipe.source.url?.toLowerCase().includes(sourceFilter.value)
+          .includes(sourceFilter.toLowerCase()) ||
+        recipe.source.url?.toLowerCase().includes(sourceFilter)
     );
   });
 };
@@ -151,7 +155,7 @@ export const doAnyTagFilter = (list, tagFilters) => {
   return list.filter((recipe) =>
     tagFilters.every((tagFilter) =>
       recipe.tags.some(({ label }) =>
-        label.toLowerCase().includes(tagFilter.value.toLowerCase())
+        label.toLowerCase().includes(tagFilter.toLowerCase())
       )
     )
   );
@@ -166,7 +170,7 @@ export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
     singleTagFilters.every((tagFilter) =>
       recipe.tags.some(
         ({ label, type }) =>
-          label.toLowerCase().includes(tagFilter.value.toLowerCase()) &&
+          label.toLowerCase().includes(tagFilter.toLowerCase()) &&
           type.id === tagId
       )
     )
@@ -193,7 +197,7 @@ export const doMaxTimeFilter = (list, maxTimeFilters) => {
   return list.filter((recipe) => {
     return maxTimeFilters.every(
       (maxTimeFilter) =>
-        getTotalMins(recipe.timing.total) <= Number(maxTimeFilter.value)
+        getTotalMins(recipe.timing.total) <= Number(maxTimeFilter)
     );
   });
 };
@@ -211,41 +215,51 @@ export const doFilter = (list, filterList) => {
   // otherwise, if we have name filters, get list of filtered recipes
   const filteredByName = doNameFilter(
     list,
-    filterList.filter((filterItem) => {
-      return filterItem.category === SEARCH_CATEGORIES.NAME;
-    })
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.NAME;
+      })
+      .map(getSearchValue)
   );
 
   // otherwise, if we have ingredient filters, get list of filtered recipes
   const filteredByIngredient = doIngredientFilter(
     list,
-    filterList.filter((filterItem) => {
-      return filterItem.category === SEARCH_CATEGORIES.INGREDIENT;
-    })
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.INGREDIENT;
+      })
+      .map(getSearchValue)
   );
 
   // otherwise, if we have source filters, get list of filtered recipes
   const filteredBySource = doSourceFilter(
     list,
-    filterList.filter((filterItem) => {
-      return filterItem.category === SEARCH_CATEGORIES.SOURCE;
-    })
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.SOURCE;
+      })
+      .map(getSearchValue)
   );
 
   // otherwise, if we have source filters, get list of filtered recipes
   const filteredByTag = doAnyTagFilter(
     list,
-    filterList.filter((filterItem) => {
-      return filterItem.category === SEARCH_CATEGORIES.TAGS;
-    })
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.TAGS;
+      })
+      .map(getSearchValue)
   );
 
   // otherwise, if we have timing filters, get list of filtered recipes
   const filteredByMaxTime = doMaxTimeFilter(
     list,
-    filterList.filter((filterItem) => {
-      return filterItem.category === SEARCH_CATEGORIES.TIME;
-    })
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.TIME;
+      })
+      .map(getSearchValue)
   );
 
   return intersection(
