@@ -1,5 +1,12 @@
 import { isEmpty } from 'ramda';
-import { RECIPE } from 'utils/recipeConstants';
+
+export const SEARCH_CATEGORIES = {
+  NAME: 'NAME',
+  INGREDIENT: 'INGREDIENT',
+  SOURCE: 'SOURCE',
+  TIME: 'TIME',
+  TAGS: 'TAGS',
+};
 
 export const FILTER_TYPE = {
   TEXT: 'text',
@@ -8,27 +15,27 @@ export const FILTER_TYPE = {
 
 export const SEARCH_TERMS = [
   {
-    value: RECIPE.TITLE,
+    value: SEARCH_CATEGORIES.NAME,
     label: 'Name',
     type: FILTER_TYPE.TEXT,
   },
   {
-    value: RECIPE.INGREDIENT_SECTION_INGREDIENTS,
+    value: SEARCH_CATEGORIES.INGREDIENT,
     label: 'Ingredient',
     type: FILTER_TYPE.TEXT,
   },
   {
-    value: RECIPE.SOURCE,
+    value: SEARCH_CATEGORIES.SOURCE,
     label: 'Source',
     type: FILTER_TYPE.TEXT,
   },
   {
-    value: RECIPE.TIMING_TOTAL,
+    value: SEARCH_CATEGORIES.TIME,
     label: 'Time',
     type: FILTER_TYPE.NUM,
   },
   {
-    value: RECIPE.TAGS,
+    value: SEARCH_CATEGORIES.TAGS,
     label: 'Tag',
     type: FILTER_TYPE.TEXT,
   },

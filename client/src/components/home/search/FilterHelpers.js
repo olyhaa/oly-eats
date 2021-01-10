@@ -1,5 +1,6 @@
 import { isEmpty, intersection } from 'ramda';
 import { RECIPE, TIMING_UNITS } from '../../../utils/recipeConstants';
+import { SEARCH_CATEGORIES } from './searchConstants';
 
 const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
@@ -254,7 +255,7 @@ export const initializeFilterSearchObject = ({
     ? nameFilters.map((nameItem) => {
         return {
           value: nameItem,
-          category: RECIPE.TITLE,
+          category: SEARCH_CATEGORIES.NAME,
         };
       })
     : [];
@@ -263,7 +264,7 @@ export const initializeFilterSearchObject = ({
     ? ingredientFilters.map((ingredientItem) => {
         return {
           value: ingredientItem,
-          category: RECIPE.INGREDIENT_SECTION_INGREDIENTS,
+          category: SEARCH_CATEGORIES.INGREDIENT,
         };
       })
     : [];
@@ -272,7 +273,7 @@ export const initializeFilterSearchObject = ({
     ? sourceFilters.map((sourceItem) => {
         return {
           value: sourceItem,
-          category: RECIPE.SOURCE,
+          category: SEARCH_CATEGORIES.SOURCE,
         };
       })
     : [];
@@ -281,7 +282,7 @@ export const initializeFilterSearchObject = ({
     ? tagFilters.map((tagItem) => {
         return {
           value: tagItem,
-          category: RECIPE.TAGS,
+          category: SEARCH_CATEGORIES.TAGS,
         };
       })
     : [];
@@ -290,7 +291,7 @@ export const initializeFilterSearchObject = ({
     ? maxTimeFilters.map((timeItem) => {
         return {
           value: timeItem,
-          category: RECIPE.TIMING_TOTAL,
+          category: SEARCH_CATEGORIES.TIME,
         };
       })
     : [];
@@ -302,18 +303,18 @@ export const convertToFilterString = (filterArray) => {
     const { value, category } = item;
     let prefix = '';
     switch (category) {
-      case RECIPE.TITLE:
+      case SEARCH_CATEGORIES.NAME:
         break;
-      case RECIPE.INGREDIENT_SECTION_INGREDIENTS:
+      case SEARCH_CATEGORIES.INGREDIENT:
         prefix = INGREDIENT_FLAG;
         break;
-      case RECIPE.SOURCE:
+      case SEARCH_CATEGORIES.SOURCE:
         prefix = SOURCE_FLAG;
         break;
-      case RECIPE.TAGS:
+      case SEARCH_CATEGORIES.TAGS:
         prefix = TAG_FLAG;
         break;
-      case RECIPE.TIMING_TOTAL:
+      case SEARCH_CATEGORIES.TIME:
         prefix = MAX_TIME_FLAG;
         break;
     }
