@@ -304,11 +304,17 @@ export const convertToFilterString = (filterArray) => {
       default:
         break;
     }
+    if (value.indexOf(' ') >= 0) {
+      return `${prefix}"${value}"`;
+    }
     return `${prefix}${value}`;
   });
   let newFilterString = '';
   for (let i = 0; i < filterStringArray.length; i++) {
     newFilterString += filterStringArray[i];
+    if (i != filterStringArray.length - 1) {
+      newFilterString += ' ';
+    }
   }
   return newFilterString;
 };

@@ -11,6 +11,7 @@ import {
   doAnyTagFilter,
   getTotalMins,
   doMaxTimeFilter,
+  convertToFilterString,
 } from '../FilterHelpers';
 import { SEARCH_CATEGORIES } from '../searchConstants';
 
@@ -784,5 +785,41 @@ describe('doFilter', () => {
         { category: SEARCH_CATEGORIES.TIME, value: '120' },
       ])
     ).toStrictEqual(expectedList1);
+  });
+});
+
+describe('convertToFilterString', () => {
+  it('empty array', () => {
+    expect(convertToFilterString([])).toEqual('');
+  });
+
+  it('only names', () => {
+    expect(
+      convertToFilterString([
+        { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      ])
+    ).toEqual('pie');
+
+    expect(
+      convertToFilterString([
+        { value: 'apple pie', category: SEARCH_CATEGORIES.NAME },
+      ])
+    ).toEqual('"apple pie"');
+
+    expect(
+      convertToFilterString([
+        { value: 'apple', category: SEARCH_CATEGORIES.NAME },
+        { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      ])
+    ).toEqual('apple pie');
+  });
+
+  it('mix of categories', () => {
+    expect(
+      convertToFilterString([
+        { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+        { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+      ])
+    ).toEqual('pie i:apple');
   });
 });
