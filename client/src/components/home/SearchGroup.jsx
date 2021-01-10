@@ -15,13 +15,7 @@ const useStyles = makeStyles((theme) => ({
 function SearchGroup({ recipeList }) {
   const classes = useStyles();
 
-  const [filterValue, setFilterValue] = useState({
-    nameFilters: [],
-    ingredientFilters: [],
-    sourceFilters: [],
-    tagFilters: [],
-    maxTimeFilters: [],
-  });
+  const [filterValue, setFilterValue] = useState([]);
   const [filterString, setFilterString] = useState('');
   const [filteredList, setFilteredList] = useState(
     recipeList.sort((item1, item2) => {

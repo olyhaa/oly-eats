@@ -63,7 +63,7 @@ function SearchBox({ filterString, filterValue, setNewFilterValue }) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <SearchDropdown
-            filterValue={filterValue}
+            filters={filterValue}
             setFilterValue={setNewFilterValue}
           />
         </ExpansionPanelDetails>
@@ -74,6 +74,12 @@ function SearchBox({ filterString, filterValue, setNewFilterValue }) {
 
 SearchBox.propTypes = {
   filterString: PropTypes.string,
+  filterValue: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      category: PropTypes.string,
+    })
+  ).isRequired,
   setNewFilterValue: PropTypes.func,
 };
 

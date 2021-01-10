@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FilterItem from './FilterItem';
-import {
-  convertToFilterString,
-  initializeFilterSearchObject,
-} from './FilterHelpers';
+import { convertToFilterString } from './FilterHelpers';
 
-function SearchDropdown({ filterValue, setFilterValue }) {
-  const [filters, setFilters] = useState(
-    initializeFilterSearchObject(filterValue)
-  );
-
-  useEffect(() => {
-    setFilters(initializeFilterSearchObject(filterValue));
-  }, [filterValue]);
-
+function SearchDropdown({ filters, setFilterValue }) {
   const handleCategoryUpdate = (index, newCategory) => {
     var newArray = [...filters];
     newArray[index].category = newCategory;
@@ -43,37 +32,37 @@ function SearchDropdown({ filterValue, setFilterValue }) {
         To filter by source, use <code>s:source</code>. To filter by tag, use{' '}
         <code>tag:tag</code>. To filter by max time, use <code>time:mins</code>.
       </div>
-      {filters.map((filterItem, index) => {
-        return (
-          <FilterItem
-            filterCategory={filterItem.category}
-            setFilterCategory={(newCategory) => {
-              handleCategoryUpdate(index, newCategory);
-            }}
-            filterText={filterItem.value}
-            setFilterText={(newFilter) => {
-              handleFilterUpdate(index, newFilter);
-            }}
-            handleDelete={() => {
-              handleDelete(index);
-            }}
-          />
-        );
-      })}
+      {filters &&
+        filters.length > 0 &&
+        filters.map((filterItem, index) => {
+          return (
+            <FilterItem
+              key={index}
+              filterCategory={filterItem.category}
+              setFilterCategory={(newCategory) => {
+                handleCategoryUpdate(index, newCategory);
+              }}
+              filterText={filterItem.value}
+              setFilterText={(newFilter) => {
+                handleFilterUpdate(index, newFilter);
+              }}
+              handleDelete={() => {
+                handleDelete(index);
+              }}
+            />
+          );
+        })}
     </div>
   );
 }
 
-const filterShape = PropTypes.arrayOf(PropTypes.string);
-
 SearchDropdown.propTypes = {
-  filterValue: PropTypes.shape({
-    nameFilters: filterShape,
-    ingredientFilters: filterShape,
-    sourceFilters: filterShape,
-    tagFilters: filterShape,
-    maxTimeFilters: filterShape,
-  }).isRequired,
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      category: PropTypes.string,
+    })
+  ).isRequired,
   setFilterValue: PropTypes.func.isRequired,
 };
 

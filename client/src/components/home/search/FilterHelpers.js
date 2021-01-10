@@ -6,6 +6,7 @@ const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
 const TAG_FLAG = 'tag:';
 const MAX_TIME_FLAG = 'time:';
+
 export const FILTER_FLAGS = {
   INGREDIENT_FLAG,
   SOURCE_FLAG,
@@ -68,21 +69,35 @@ export const parseFilterString = (filter) => {
       !timeFilters.includes(word)
   );
 
-  return {
-    nameFilters: remainingFilters.map(removeSurroundingQuotes),
-    ingredientFilters: ingredientFilters
+  return [].concat(
+    remainingFilters.map(removeSurroundingQuotes).map((item) => {
+      return { value: item, category: SEARCH_CATEGORIES.NAME };
+    }),
+    ingredientFilters
       .map((ingredient) => ingredient.slice(INGREDIENT_FLAG.length))
-      .map(removeSurroundingQuotes),
-    sourceFilters: sourceFilters
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.INGREDIENT };
+      }),
+    sourceFilters
       .map((ingredient) => ingredient.slice(SOURCE_FLAG.length))
-      .map(removeSurroundingQuotes),
-    tagFilters: tagFilters
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.SOURCE };
+      }),
+    tagFilters
       .map((ingredient) => ingredient.slice(TAG_FLAG.length))
-      .map(removeSurroundingQuotes),
-    maxTimeFilters: timeFilters
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.TAGS };
+      }),
+    timeFilters
       .map((ingredient) => ingredient.slice(MAX_TIME_FLAG.length))
-      .map(removeSurroundingQuotes),
-  };
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.TIME };
+      })
+  );
 };
 
 export const doNameFilter = (list, nameFilters) => {
@@ -91,7 +106,7 @@ export const doNameFilter = (list, nameFilters) => {
   }
   return list.filter((recipe) => {
     return nameFilters.every((nameFilter) =>
-      recipe.title.toLowerCase().includes(nameFilter.toLowerCase())
+      recipe.title.toLowerCase().includes(nameFilter.value.toLowerCase())
     );
   });
 };
@@ -105,7 +120,7 @@ export const doIngredientFilter = (list, ingredientFilters) => {
     return recipe.ingredients.some(({ ingredients }) =>
       ingredientFilters.every((ingredientToFilter) =>
         ingredients.some(({ name }) =>
-          name.toLowerCase().includes(ingredientToFilter.toLowerCase())
+          name.toLowerCase().includes(ingredientToFilter.value.toLowerCase())
         )
       )
     );
@@ -122,8 +137,8 @@ export const doSourceFilter = (list, sourceFilters) => {
       (sourceFilter) =>
         recipe.source.display
           .toLowerCase()
-          .includes(sourceFilter.toLowerCase()) ||
-        recipe.source.url?.toLowerCase().includes(sourceFilter)
+          .includes(sourceFilter.value.toLowerCase()) ||
+        recipe.source.url?.toLowerCase().includes(sourceFilter.value)
     );
   });
 };
@@ -136,7 +151,7 @@ export const doAnyTagFilter = (list, tagFilters) => {
   return list.filter((recipe) =>
     tagFilters.every((tagFilter) =>
       recipe.tags.some(({ label }) =>
-        label.toLowerCase().includes(tagFilter.toLowerCase())
+        label.toLowerCase().includes(tagFilter.value.toLowerCase())
       )
     )
   );
@@ -151,7 +166,7 @@ export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
     singleTagFilters.every((tagFilter) =>
       recipe.tags.some(
         ({ label, type }) =>
-          label.toLowerCase().includes(tagFilter.toLowerCase()) &&
+          label.toLowerCase().includes(tagFilter.value.toLowerCase()) &&
           type.id === tagId
       )
     )
@@ -179,50 +194,60 @@ export const doMaxTimeFilter = (list, maxTimeFilters) => {
   return list.filter((recipe) => {
     return maxTimeFilters.every(
       (maxTimeFilter) =>
-        getTotalMins(recipe.timing.total) <= Number(maxTimeFilter)
+        getTotalMins(recipe.timing.total) <= Number(maxTimeFilter.value)
     );
   });
 };
 
-export const doFilter = (
-  list,
-  {
-    nameFilters = [],
-    ingredientFilters = [],
-    sourceFilters = [],
-    tagFilters = [],
-    maxTimeFilters = [],
-  }
-) => {
+export const doFilter = (list, filterList) => {
   // if list is empty, don't bother
   if (isEmpty(list)) {
     return list;
   }
   // if we have no filters, don't filter!
-  if (
-    isEmpty(nameFilters) &&
-    isEmpty(ingredientFilters) &&
-    isEmpty(sourceFilters) &&
-    isEmpty(tagFilters) &&
-    isEmpty(maxTimeFilters)
-  ) {
+  if (isEmpty(filterList)) {
     return list;
   }
 
   // otherwise, if we have name filters, get list of filtered recipes
-  const filteredByName = doNameFilter(list, nameFilters);
+  const filteredByName = doNameFilter(
+    list,
+    filterList.filter((filterItem) => {
+      return filterItem.category === SEARCH_CATEGORIES.NAME;
+    })
+  );
 
   // otherwise, if we have ingredient filters, get list of filtered recipes
-  const filteredByIngredient = doIngredientFilter(list, ingredientFilters);
+  const filteredByIngredient = doIngredientFilter(
+    list,
+    filterList.filter((filterItem) => {
+      return filterItem.category === SEARCH_CATEGORIES.INGREDIENT;
+    })
+  );
 
   // otherwise, if we have source filters, get list of filtered recipes
-  const filteredBySource = doSourceFilter(list, sourceFilters);
+  const filteredBySource = doSourceFilter(
+    list,
+    filterList.filter((filterItem) => {
+      return filterItem.category === SEARCH_CATEGORIES.SOURCE;
+    })
+  );
 
   // otherwise, if we have source filters, get list of filtered recipes
-  const filteredByTag = doAnyTagFilter(list, tagFilters);
+  const filteredByTag = doAnyTagFilter(
+    list,
+    filterList.filter((filterItem) => {
+      return filterItem.category === SEARCH_CATEGORIES.TAGS;
+    })
+  );
 
   // otherwise, if we have timing filters, get list of filtered recipes
-  const filteredByMaxTime = doMaxTimeFilter(list, maxTimeFilters);
+  const filteredByMaxTime = doMaxTimeFilter(
+    list,
+    filterList.filter((filterItem) => {
+      return filterItem.category === SEARCH_CATEGORIES.TIME;
+    })
+  );
 
   return intersection(
     intersection(
@@ -242,60 +267,6 @@ export const filterAndSort = (list, filters) => {
   return filteredList.sort((item1, item2) => {
     return item1.title.localeCompare(item2.title);
   });
-};
-
-export const initializeFilterSearchObject = ({
-  nameFilters,
-  ingredientFilters,
-  sourceFilters,
-  tagFilters,
-  maxTimeFilters,
-}) => {
-  const nameMap = nameFilters
-    ? nameFilters.map((nameItem) => {
-        return {
-          value: nameItem,
-          category: SEARCH_CATEGORIES.NAME,
-        };
-      })
-    : [];
-
-  const ingredientMap = ingredientFilters
-    ? ingredientFilters.map((ingredientItem) => {
-        return {
-          value: ingredientItem,
-          category: SEARCH_CATEGORIES.INGREDIENT,
-        };
-      })
-    : [];
-
-  const sourceMap = sourceFilters
-    ? sourceFilters.map((sourceItem) => {
-        return {
-          value: sourceItem,
-          category: SEARCH_CATEGORIES.SOURCE,
-        };
-      })
-    : [];
-
-  const tagMap = tagFilters
-    ? tagFilters.map((tagItem) => {
-        return {
-          value: tagItem,
-          category: SEARCH_CATEGORIES.TAGS,
-        };
-      })
-    : [];
-
-  const maxTimeMap = maxTimeFilters
-    ? maxTimeFilters.map((timeItem) => {
-        return {
-          value: timeItem,
-          category: SEARCH_CATEGORIES.TIME,
-        };
-      })
-    : [];
-  return [].concat(nameMap, ingredientMap, sourceMap, tagMap, maxTimeMap);
 };
 
 export const convertToFilterString = (filterArray) => {
