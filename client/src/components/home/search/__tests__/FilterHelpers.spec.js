@@ -819,7 +819,10 @@ describe('convertToFilterString', () => {
       convertToFilterString([
         { value: 'pie', category: SEARCH_CATEGORIES.NAME },
         { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+        { value: 'king', category: SEARCH_CATEGORIES.SOURCE },
+        { value: 'gluten free', category: SEARCH_CATEGORIES.TAGS },
+        { value: '20', category: SEARCH_CATEGORIES.TIME },
       ])
-    ).toEqual('pie i:apple');
+    ).toEqual('pie i:apple s:king tag:"gluten free" time:20');
   });
 });
