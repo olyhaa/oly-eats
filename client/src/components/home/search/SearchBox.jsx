@@ -73,7 +73,7 @@ function SearchBox({ filterString, filterValue, setNewFilterValue }) {
 }
 
 SearchBox.propTypes = {
-  filterString: PropTypes.string,
+  filterString: PropTypes.string.isRequired,
   filterValue: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,

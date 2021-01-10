@@ -1,5 +1,5 @@
 import { isEmpty, intersection } from 'ramda';
-import { RECIPE, TIMING_UNITS } from '../../../utils/recipeConstants';
+import { TIMING_UNITS } from '../../../utils/recipeConstants';
 import { SEARCH_CATEGORIES } from './searchConstants';
 
 const INGREDIENT_FLAG = 'i:';
@@ -175,14 +175,13 @@ export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
 
 export const getTotalMins = (timingArray) => {
   let totalMins = 0;
-  timingArray &&
-    timingArray.forEach((timeItem) => {
-      if (timeItem.units === TIMING_UNITS.MINUTE) {
-        totalMins += timeItem.value;
-      } else if (timeItem.units === TIMING_UNITS.HOUR) {
-        totalMins += timeItem.value * 60;
-      }
-    });
+  timingArray.forEach((timeItem) => {
+    if (timeItem.units === TIMING_UNITS.MINUTE) {
+      totalMins += timeItem.value;
+    } else if (timeItem.units === TIMING_UNITS.HOUR) {
+      totalMins += timeItem.value * 60;
+    }
+  });
   return totalMins;
 };
 
@@ -287,6 +286,8 @@ export const convertToFilterString = (filterArray) => {
         break;
       case SEARCH_CATEGORIES.TIME:
         prefix = MAX_TIME_FLAG;
+        break;
+      default:
         break;
     }
     return `${prefix}${value}`;

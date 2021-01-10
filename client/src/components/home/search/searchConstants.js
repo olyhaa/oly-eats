@@ -54,7 +54,7 @@ export const NUM_FILTERS = [
     value: 'LESS_THAN',
     label: 'less than',
   },
-  //{ value: 'GREATER_THAN', label: 'greater than' }
+  // { value: 'GREATER_THAN', label: 'greater than' }
 ];
 
 export const searchTermIsText = (value) => {

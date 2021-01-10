@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FilterItem from './FilterItem';
 import { convertToFilterString } from './FilterHelpers';
 
 function SearchDropdown({ filters, setFilterValue }) {
   const handleCategoryUpdate = (index, newCategory) => {
-    var newArray = [...filters];
+    const newArray = [...filters];
     newArray[index].category = newCategory;
     const filterString = convertToFilterString(newArray);
     setFilterValue(filterString);
   };
 
   const handleFilterUpdate = (index, newFilter) => {
-    var newArray = [...filters];
+    const newArray = [...filters];
     newArray[index].value = newFilter;
     const filterString = convertToFilterString(newArray);
     setFilterValue(filterString);
   };
 
   const handleDelete = (index) => {
-    var newArray = [...filters];
+    const newArray = [...filters];
     newArray.splice(index, 1);
     const filterString = convertToFilterString(newArray);
     setFilterValue(filterString);
