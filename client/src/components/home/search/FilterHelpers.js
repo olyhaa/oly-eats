@@ -24,7 +24,7 @@ export const getSearchValue = (filterItem) => {
 
 export const parseFilterString = (filter) => {
   if (isEmpty(filter)) {
-    return {};
+    return [];
   }
   /*
   Splits a string by spaces, unless there are quoted strings.
@@ -286,7 +286,11 @@ export const convertToFilterString = (filterArray) => {
   const filterStringArray = filterArray.map((item) => {
     const { value, category } = item;
     let prefix = '';
+    let skipValue = false;
     switch (category) {
+      case SEARCH_CATEGORIES.NOT_INITIALIZED:
+        skipValue = true;
+        break;
       case SEARCH_CATEGORIES.NAME:
         break;
       case SEARCH_CATEGORIES.INGREDIENT:
@@ -304,6 +308,9 @@ export const convertToFilterString = (filterArray) => {
       default:
         break;
     }
+    if (skipValue || value.length === 0) {
+      return '';
+    }
     if (value.indexOf(' ') >= 0) {
       return `${prefix}"${value}"`;
     }
@@ -311,9 +318,11 @@ export const convertToFilterString = (filterArray) => {
   });
   let newFilterString = '';
   for (let i = 0; i < filterStringArray.length; i++) {
-    newFilterString += filterStringArray[i];
-    if (i != filterStringArray.length - 1) {
-      newFilterString += ' ';
+    if (filterStringArray[i].length > 0) {
+      if (newFilterString.length > 0) {
+        newFilterString += ' ';
+      }
+      newFilterString += filterStringArray[i];
     }
   }
   return newFilterString;

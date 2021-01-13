@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import { SEARCH_TERMS } from './searchConstants';
+import { SEARCH_CATEGORIES, SEARCH_TERMS } from './searchConstants';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -46,21 +46,23 @@ function FilterItem({
   return (
     <div data-test={`filter-item-${id}`}>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="category-label">Search</InputLabel>
+        <InputLabel id="category-label">Category</InputLabel>
         <Select
           labelId="category-label"
           data-test="category-dropdown"
           inputProps={{ 'data-test': 'category-select' }}
           value={filterCategory}
           onChange={handleCategoryChange}
-          label="Search Category"
+          label="Category"
         >
           {SEARCH_TERMS.map((item) => {
             const { value, label } = item;
             return (
-              <MenuItem value={value} data-test="search-category-item">
-                {label}
-              </MenuItem>
+              value !== SEARCH_CATEGORIES.NOT_INITIALIZED && (
+                <MenuItem value={value} data-test="search-category-item">
+                  {label}
+                </MenuItem>
+              )
             );
           })}
         </Select>

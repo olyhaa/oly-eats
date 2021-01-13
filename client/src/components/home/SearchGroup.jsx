@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import RecipeList from './RecipeList';
 import SearchBox from './search/SearchBox';
-import { filterAndSort, parseFilterString } from './search/FilterHelpers';
+import {
+  convertToFilterString,
+  filterAndSort,
+  parseFilterString,
+} from './search/FilterHelpers';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -27,12 +31,18 @@ function SearchGroup({ recipeList }) {
     setFilteredList(filterAndSort(recipeList, filterValue));
   }, [recipeList]);
 
-  const handleNewFilterValue = (filterString) => {
+  const handleNewFilterString = (filterString) => {
+    const filterArray = parseFilterString(filterString);
     setFilterString(filterString);
-    const parsedFilterValue = parseFilterString(filterString);
+    setFilterValue(filterArray);
+    setFilteredList(filterAndSort(recipeList, filterArray));
+  };
 
-    setFilterValue(parsedFilterValue);
-    setFilteredList(filterAndSort(recipeList, parsedFilterValue));
+  const handleNewFilterValue = (filterArray) => {
+    const filterString = convertToFilterString(filterArray);
+    setFilterString(filterString);
+    setFilterValue(filterArray);
+    setFilteredList(filterAndSort(recipeList, filterArray));
   };
 
   return (
@@ -40,6 +50,7 @@ function SearchGroup({ recipeList }) {
       <div className={classes.search}>
         <SearchBox
           filterString={filterString}
+          setNewFilterString={handleNewFilterString}
           filterValue={filterValue}
           setNewFilterValue={handleNewFilterValue}
         />

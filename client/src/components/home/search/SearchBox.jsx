@@ -34,8 +34,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchBox({ filterString, filterValue, setNewFilterValue }) {
+function SearchBox({
+  filterString,
+  setNewFilterString,
+  filterValue,
+  setNewFilterValue,
+}) {
   const classes = useStyles();
+
   return (
     <div className={classes.search}>
       <ExpansionPanel>
@@ -50,7 +56,7 @@ function SearchBox({ filterString, filterValue, setNewFilterValue }) {
           <InputBase
             placeholder="Filter..."
             onChange={(event) => {
-              setNewFilterValue(event.target.value);
+              setNewFilterString(event.target.value);
             }}
             value={filterString}
             fullWidth
@@ -74,6 +80,7 @@ function SearchBox({ filterString, filterValue, setNewFilterValue }) {
 
 SearchBox.propTypes = {
   filterString: PropTypes.string.isRequired,
+  setNewFilterString: PropTypes.func,
   filterValue: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,

@@ -1,6 +1,7 @@
 import { isEmpty } from 'ramda';
 
 export const SEARCH_CATEGORIES = {
+  NOT_INITIALIZED: undefined,
   NAME: 'NAME',
   INGREDIENT: 'INGREDIENT',
   SOURCE: 'SOURCE',
@@ -11,9 +12,15 @@ export const SEARCH_CATEGORIES = {
 export const FILTER_TYPE = {
   TEXT: 'text',
   NUM: 'num',
+  NONE: 'none',
 };
 
 export const SEARCH_TERMS = [
+  {
+    value: SEARCH_CATEGORIES.NOT_INITIALIZED,
+    label: 'Search',
+    type: FILTER_TYPE.NONE,
+  },
   {
     value: SEARCH_CATEGORIES.NAME,
     label: 'Name',

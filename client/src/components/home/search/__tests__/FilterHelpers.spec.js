@@ -825,4 +825,41 @@ describe('convertToFilterString', () => {
       ])
     ).toEqual('pie i:apple s:king tag:"gluten free" time:20');
   });
+
+  it('has NOT_INITIALIZED category item(s)', () => {
+    expect(
+      convertToFilterString([
+        { value: '', category: SEARCH_CATEGORIES.NOT_INITIALIZED },
+      ])
+    ).toEqual('');
+
+    expect(
+      convertToFilterString([
+        { value: '', category: SEARCH_CATEGORIES.NOT_INITIALIZED },
+        { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+      ])
+    ).toEqual('i:apple');
+
+    expect(
+      convertToFilterString([
+        { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+        { value: '', category: SEARCH_CATEGORIES.NOT_INITIALIZED },
+      ])
+    ).toEqual('i:apple');
+
+    expect(
+      convertToFilterString([
+        { value: 'apple', category: SEARCH_CATEGORIES.INGREDIENT },
+        { value: '', category: SEARCH_CATEGORIES.NOT_INITIALIZED },
+        { value: 'pie', category: SEARCH_CATEGORIES.NAME },
+      ])
+    ).toEqual('i:apple pie');
+
+    expect(
+      convertToFilterString([
+        { value: '', category: SEARCH_CATEGORIES.NOT_INITIALIZED },
+        { value: '', category: SEARCH_CATEGORIES.NOT_INITIALIZED },
+      ])
+    ).toEqual('');
+  });
 });

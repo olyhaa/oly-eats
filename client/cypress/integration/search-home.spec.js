@@ -150,7 +150,7 @@ describe('Home Page - Search', () => {
     });
   });
 
-  it('Edit search term via UI', () => {
+  it('Edit search terms via UI', () => {
     cy.get('[data-test="recipe-list-item"]').then(($list) => {
       cy.get('@recipeData').then((recipeData) => {
         const initialCount = $list.length;
@@ -204,6 +204,20 @@ describe('Home Page - Search', () => {
         cy.get('[data-test="search-item-delete"]').click();
 
         cy.get('[data-test="search-box"]').should('have.value', '');
+
+        cy.log('add search term via UI');
+        const newAddText = 'my new search name';
+        cy.get('[data-test="add-search-button"]').should('be.visible').click();
+        cy.get('[data-test="category-dropdown"]').click();
+        cy.get('[data-test="search-category-item"]').first().click();
+        cy.get('[data-test="category-select"]').should('have.value', 'NAME');
+        cy.get('[data-test="search-item-value"]').clear().type(newAddText);
+
+        cy.get('[data-test="search-box"]').should(
+          'have.value',
+          `"${newAddText}"`
+        );
+        cy.get('[data-test="search-item-delete"]').click();
 
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
