@@ -38,6 +38,7 @@ function SearchDropdown({ filters, setFilterValue }) {
           return (
             <FilterItem
               key={index}
+              id={index}
               filterCategory={filterItem.category}
               setFilterCategory={(newCategory) => {
                 handleCategoryUpdate(index, newCategory);

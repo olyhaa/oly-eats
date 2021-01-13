@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FilterItem({
+  id,
   filterCategory,
   setFilterCategory,
   filterText,
@@ -43,19 +44,24 @@ function FilterItem({
   };
 
   return (
-    <div>
+    <div data-test={`filter-item-${id}`}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="category-label">Search</InputLabel>
         <Select
           labelId="category-label"
-          data-id="category-select"
+          data-test="category-dropdown"
+          inputProps={{ 'data-test': 'category-select' }}
           value={filterCategory}
           onChange={handleCategoryChange}
           label="Search Category"
         >
           {SEARCH_TERMS.map((item) => {
             const { value, label } = item;
-            return <MenuItem value={value}>{label}</MenuItem>;
+            return (
+              <MenuItem value={value} data-test="search-category-item">
+                {label}
+              </MenuItem>
+            );
           })}
         </Select>
       </FormControl>
@@ -64,7 +70,7 @@ function FilterItem({
         <>
           <FormControl variant="outlined" className={classes.formControl}>
             <TextField
-              id="outlined-basic"
+              inputProps={{ 'data-test': 'search-item-value' }}
               label="Value"
               variant="outlined"
               value={filterText}
@@ -72,7 +78,7 @@ function FilterItem({
             />
           </FormControl>
           <IconButton aria-label="delete" className={classes.deleteButton}>
-            <DeleteIcon onClick={handleDelete} />
+            <DeleteIcon onClick={handleDelete} data-test="search-item-delete" />
           </IconButton>
         </>
       )}
@@ -86,6 +92,7 @@ function FilterItem({
 }
 
 FilterItem.propTypes = {
+  id: PropTypes.string.isRequired,
   filterCategory: PropTypes.string.isRequired,
   setFilterCategory: PropTypes.func.isRequired,
   filterText: PropTypes.string.isRequired,

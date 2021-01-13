@@ -149,4 +149,66 @@ describe('Home Page - Search', () => {
       });
     });
   });
+
+  it('Edit search term via UI', () => {
+    cy.get('[data-test="recipe-list-item"]').then(($list) => {
+      cy.get('@recipeData').then((recipeData) => {
+        const initialCount = $list.length;
+        expect(initialCount > 0).to.be.true;
+
+        const searchIngredient =
+          recipeData.variables.recipe.ingredients[0].ingredients[0].name;
+        cy.get('[data-test="search-box"]')
+          .should('be.visible')
+          .clear()
+          .type(`i:"${searchIngredient}"`);
+
+        cy.get('[data-test="recipe-list-item"]')
+          .its('length')
+          .should('be.lt', initialCount)
+          .should('be.gt', 0);
+
+        cy.get('[data-test="recipe-title"]').should(
+          'contain',
+          recipeData.variables.recipe.title
+        );
+
+        cy.get('[data-test^="filter-item-"]').its('length').should('be', 1);
+
+        cy.get('[data-test="category-select"]').should(
+          'have.value',
+          'INGREDIENT'
+        );
+
+        cy.get('[data-test="search-item-value"]').should(
+          'have.value',
+          searchIngredient
+        );
+
+        const newText = 'updated ingredient';
+        cy.log('updating ingredient value');
+        cy.get('[data-test="search-item-value"]').clear().type(newText);
+
+        cy.get('[data-test="search-box"]').should(
+          'have.value',
+          `i:"${newText}"`
+        );
+
+        cy.log('updating search category value');
+        cy.get('[data-test="category-dropdown"]').click();
+        cy.get('[data-test="search-category-item"]').first().click();
+        cy.get('[data-test="category-select"]').should('have.value', 'NAME');
+        cy.get('[data-test="search-box"]').should('have.value', `"${newText}"`);
+
+        cy.log('deleting search item');
+        cy.get('[data-test="search-item-delete"]').click();
+
+        cy.get('[data-test="search-box"]').should('have.value', '');
+
+        cy.get('[data-test="recipe-list-item"]')
+          .its('length')
+          .should('be', initialCount);
+      });
+    });
+  });
 });
