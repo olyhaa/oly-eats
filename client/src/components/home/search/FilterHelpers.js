@@ -1,10 +1,12 @@
 import { isEmpty, intersection } from 'ramda';
 import { TIMING_UNITS } from '../../../utils/recipeConstants';
+import { SEARCH_CATEGORIES } from './searchConstants';
 
 const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
 const TAG_FLAG = 'tag:';
 const MAX_TIME_FLAG = 'time:';
+
 export const FILTER_FLAGS = {
   INGREDIENT_FLAG,
   SOURCE_FLAG,
@@ -16,9 +18,13 @@ export const removeSurroundingQuotes = (name) => {
   return name.replace(/^"(.+(?="$))"$/, '$1');
 };
 
+export const getSearchValue = (filterItem) => {
+  return filterItem.value;
+};
+
 export const parseFilterString = (filter) => {
   if (isEmpty(filter)) {
-    return {};
+    return [];
   }
   /*
   Splits a string by spaces, unless there are quoted strings.
@@ -67,21 +73,35 @@ export const parseFilterString = (filter) => {
       !timeFilters.includes(word)
   );
 
-  return {
-    nameFilters: remainingFilters.map(removeSurroundingQuotes),
-    ingredientFilters: ingredientFilters
+  return [].concat(
+    remainingFilters.map(removeSurroundingQuotes).map((item) => {
+      return { value: item, category: SEARCH_CATEGORIES.NAME };
+    }),
+    ingredientFilters
       .map((ingredient) => ingredient.slice(INGREDIENT_FLAG.length))
-      .map(removeSurroundingQuotes),
-    sourceFilters: sourceFilters
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.INGREDIENT };
+      }),
+    sourceFilters
       .map((ingredient) => ingredient.slice(SOURCE_FLAG.length))
-      .map(removeSurroundingQuotes),
-    tagFilters: tagFilters
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.SOURCE };
+      }),
+    tagFilters
       .map((ingredient) => ingredient.slice(TAG_FLAG.length))
-      .map(removeSurroundingQuotes),
-    maxTimeFilters: timeFilters
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.TAGS };
+      }),
+    timeFilters
       .map((ingredient) => ingredient.slice(MAX_TIME_FLAG.length))
-      .map(removeSurroundingQuotes),
-  };
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return { value: item, category: SEARCH_CATEGORIES.TIME };
+      })
+  );
 };
 
 export const doNameFilter = (list, nameFilters) => {
@@ -159,14 +179,13 @@ export const doSingleTagFilter = (list, tagId, singleTagFilters) => {
 
 export const getTotalMins = (timingArray) => {
   let totalMins = 0;
-  timingArray &&
-    timingArray.forEach((timeItem) => {
-      if (timeItem.units === TIMING_UNITS.MINUTE) {
-        totalMins += timeItem.value;
-      } else if (timeItem.units === TIMING_UNITS.HOUR) {
-        totalMins += timeItem.value * 60;
-      }
-    });
+  timingArray.forEach((timeItem) => {
+    if (timeItem.units === TIMING_UNITS.MINUTE) {
+      totalMins += timeItem.value;
+    } else if (timeItem.units === TIMING_UNITS.HOUR) {
+      totalMins += timeItem.value * 60;
+    }
+  });
   return totalMins;
 };
 
@@ -183,45 +202,70 @@ export const doMaxTimeFilter = (list, maxTimeFilters) => {
   });
 };
 
-export const doFilter = (
-  list,
-  {
-    nameFilters = [],
-    ingredientFilters = [],
-    sourceFilters = [],
-    tagFilters = [],
-    maxTimeFilters = [],
-  }
-) => {
+export const doFilter = (list, filters) => {
+  // remove any filters that are an empty string
+  const filterList = filters.filter((item) => {
+    return item.value !== '';
+  });
+
   // if list is empty, don't bother
   if (isEmpty(list)) {
     return list;
   }
   // if we have no filters, don't filter!
-  if (
-    isEmpty(nameFilters) &&
-    isEmpty(ingredientFilters) &&
-    isEmpty(sourceFilters) &&
-    isEmpty(tagFilters) &&
-    isEmpty(maxTimeFilters)
-  ) {
+  if (isEmpty(filterList)) {
     return list;
   }
 
   // otherwise, if we have name filters, get list of filtered recipes
-  const filteredByName = doNameFilter(list, nameFilters);
+  const filteredByName = doNameFilter(
+    list,
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.NAME;
+      })
+      .map(getSearchValue)
+  );
 
   // otherwise, if we have ingredient filters, get list of filtered recipes
-  const filteredByIngredient = doIngredientFilter(list, ingredientFilters);
+  const filteredByIngredient = doIngredientFilter(
+    list,
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.INGREDIENT;
+      })
+      .map(getSearchValue)
+  );
 
   // otherwise, if we have source filters, get list of filtered recipes
-  const filteredBySource = doSourceFilter(list, sourceFilters);
+  const filteredBySource = doSourceFilter(
+    list,
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.SOURCE;
+      })
+      .map(getSearchValue)
+  );
 
   // otherwise, if we have source filters, get list of filtered recipes
-  const filteredByTag = doAnyTagFilter(list, tagFilters);
+  const filteredByTag = doAnyTagFilter(
+    list,
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.TAGS;
+      })
+      .map(getSearchValue)
+  );
 
   // otherwise, if we have timing filters, get list of filtered recipes
-  const filteredByMaxTime = doMaxTimeFilter(list, maxTimeFilters);
+  const filteredByMaxTime = doMaxTimeFilter(
+    list,
+    filterList
+      .filter((filterItem) => {
+        return filterItem.category === SEARCH_CATEGORIES.TIME;
+      })
+      .map(getSearchValue)
+  );
 
   return intersection(
     intersection(
@@ -241,4 +285,50 @@ export const filterAndSort = (list, filters) => {
   return filteredList.sort((item1, item2) => {
     return item1.title.localeCompare(item2.title);
   });
+};
+
+export const convertToFilterString = (filterArray) => {
+  const filterStringArray = filterArray.map((item) => {
+    const { value, category } = item;
+    let prefix = '';
+    let skipValue = false;
+    switch (category) {
+      case SEARCH_CATEGORIES.NOT_INITIALIZED:
+        skipValue = true;
+        break;
+      case SEARCH_CATEGORIES.NAME:
+        break;
+      case SEARCH_CATEGORIES.INGREDIENT:
+        prefix = INGREDIENT_FLAG;
+        break;
+      case SEARCH_CATEGORIES.SOURCE:
+        prefix = SOURCE_FLAG;
+        break;
+      case SEARCH_CATEGORIES.TAGS:
+        prefix = TAG_FLAG;
+        break;
+      case SEARCH_CATEGORIES.TIME:
+        prefix = MAX_TIME_FLAG;
+        break;
+      default:
+        break;
+    }
+    if (skipValue || value.length === 0) {
+      return '';
+    }
+    if (value.indexOf(' ') >= 0) {
+      return `${prefix}"${value}"`;
+    }
+    return `${prefix}${value}`;
+  });
+  let newFilterString = '';
+  for (let i = 0; i < filterStringArray.length; i++) {
+    if (filterStringArray[i].length > 0) {
+      if (newFilterString.length > 0) {
+        newFilterString += ' ';
+      }
+      newFilterString += filterStringArray[i];
+    }
+  }
+  return newFilterString;
 };

@@ -1,4 +1,4 @@
-describe('Recipe Page', () => {
+describe('Home Page - Search', () => {
   beforeEach(() => {
     cy.fixture('add-recipe-payload.json').as('recipeData');
     cy.get('@recipeData').then((addRecipePayload) => {
@@ -143,6 +143,85 @@ describe('Recipe Page', () => {
         );
 
         cy.get('[data-test="search-box"]').clear();
+        cy.get('[data-test="recipe-list-item"]')
+          .its('length')
+          .should('be', initialCount);
+      });
+    });
+  });
+
+  it('Edit search terms via UI', () => {
+    cy.get('[data-test="recipe-list-item"]').then(($list) => {
+      cy.get('@recipeData').then((recipeData) => {
+        const initialCount = $list.length;
+        expect(initialCount > 0).to.be.true;
+
+        cy.log('expand search box');
+        cy.get('[data-test="expand-search-area"]').click();
+
+        const searchIngredient =
+          recipeData.variables.recipe.ingredients[0].ingredients[0].name;
+        cy.get('[data-test="search-box"]')
+          .should('be.visible')
+          .clear()
+          .type(`i:"${searchIngredient}"`);
+
+        cy.get('[data-test="recipe-list-item"]')
+          .its('length')
+          .should('be.lt', initialCount)
+          .should('be.gt', 0);
+
+        cy.get('[data-test="recipe-title"]').should(
+          'contain',
+          recipeData.variables.recipe.title
+        );
+
+        cy.get('[data-test^="filter-item-"]').its('length').should('be', 1);
+
+        cy.get('[data-test="category-select"]').should(
+          'have.value',
+          'INGREDIENT'
+        );
+
+        cy.get('[data-test="search-item-value"]').should(
+          'have.value',
+          searchIngredient
+        );
+
+        const newText = 'updated ingredient';
+        cy.log('updating ingredient value');
+        cy.get('[data-test="search-item-value"]').clear().type(newText);
+
+        cy.get('[data-test="search-box"]').should(
+          'have.value',
+          `i:"${newText}"`
+        );
+
+        cy.log('updating search category value');
+        cy.get('[data-test="category-dropdown"]').click();
+        cy.get('[data-test="search-category-item"]').first().click();
+        cy.get('[data-test="category-select"]').should('have.value', 'NAME');
+        cy.get('[data-test="search-box"]').should('have.value', `"${newText}"`);
+
+        cy.log('deleting search item');
+        cy.get('[data-test="search-item-delete"]').click();
+
+        cy.get('[data-test="search-box"]').should('have.value', '');
+
+        cy.log('add search term via UI');
+        const newAddText = 'my new search name';
+        cy.get('[data-test="add-search-button"]').should('be.visible').click();
+        cy.get('[data-test="category-dropdown"]').click();
+        cy.get('[data-test="search-category-item"]').first().click();
+        cy.get('[data-test="category-select"]').should('have.value', 'NAME');
+        cy.get('[data-test="search-item-value"]').clear().type(newAddText);
+
+        cy.get('[data-test="search-box"]').should(
+          'have.value',
+          `"${newAddText}"`
+        );
+        cy.get('[data-test="search-item-delete"]').click();
+
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
           .should('be', initialCount);

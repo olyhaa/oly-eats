@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
+import SearchDropdown from './SearchDropdown';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -33,22 +34,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchBox({ setNewFilterValue }) {
+function SearchBox({
+  filterString,
+  setNewFilterString,
+  filterValue,
+  setNewFilterValue,
+}) {
   const classes = useStyles();
+
   return (
     <div className={classes.search}>
       <ExpansionPanel>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-label="Expand"
-          data-test="expand-search-area"
+          IconButtonProps={{ 'data-test': 'expand-search-area' }}
         >
           <div className={classes.searchIcon}>
             <SearchIcon color="primary" fontSize="large" />
           </div>
           <InputBase
-            placeholder="Filter..."
-            onChange={setNewFilterValue}
+            placeholder="Filter by Name..."
+            onChange={(event) => {
+              setNewFilterString(event.target.value);
+            }}
+            onClick={(event) => event.stopPropagation()}
+            onFocus={(event) => event.stopPropagation()}
+            value={filterString}
             fullWidth
             classes={{
               root: classes.inputRoot,
@@ -58,12 +70,10 @@ function SearchBox({ setNewFilterValue }) {
           />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <span>
-            Filter by name. To filter by ingredient, use{' '}
-            <code>i:ingredient</code>. To filter by source, use{' '}
-            <code>s:source</code>. To filter by tag, use <code>tag:tag</code>.
-            To filter by max time, use <code>time:mins</code>.
-          </span>
+          <SearchDropdown
+            filters={filterValue}
+            setFilterValue={setNewFilterValue}
+          />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
@@ -71,6 +81,14 @@ function SearchBox({ setNewFilterValue }) {
 }
 
 SearchBox.propTypes = {
+  filterString: PropTypes.string.isRequired,
+  setNewFilterString: PropTypes.func,
+  filterValue: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      category: PropTypes.string,
+    })
+  ).isRequired,
   setNewFilterValue: PropTypes.func,
 };
 
