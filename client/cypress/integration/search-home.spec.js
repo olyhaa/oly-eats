@@ -156,6 +156,9 @@ describe('Home Page - Search', () => {
         const initialCount = $list.length;
         expect(initialCount > 0).to.be.true;
 
+        cy.log('expand search box');
+        cy.get('[data-test="expand-search-area"]').click();
+
         const searchIngredient =
           recipeData.variables.recipe.ingredients[0].ingredients[0].name;
         cy.get('[data-test="search-box"]')

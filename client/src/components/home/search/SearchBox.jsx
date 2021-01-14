@@ -48,7 +48,7 @@ function SearchBox({
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-label="Expand"
-          data-test="expand-search-area"
+          IconButtonProps={{ 'data-test': 'expand-search-area' }}
         >
           <div className={classes.searchIcon}>
             <SearchIcon color="primary" fontSize="large" />
