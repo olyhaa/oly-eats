@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/react-hooks';
 import { getRecipeQuery, removeNulls } from 'utils/FetchData';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { decodeRecipe } from 'components/add/utils/decodeRecipe';
 import store from '../components/add/store/store';
 import Header from '../components/Header';
@@ -28,9 +28,8 @@ function EditRecipe() {
     variables: { id },
   });
 
-  // TODO
   if (error) {
-    return <span>Error!</span>;
+    return <Redirect to={'/error'} />;
   }
 
   const { recipe } = removeNulls(data);

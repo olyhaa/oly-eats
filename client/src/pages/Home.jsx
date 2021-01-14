@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -59,9 +59,8 @@ function Home() {
   const classes = useStyles();
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
-  // TODO
   if (error) {
-    return <span>Error!</span>;
+    return <Redirect to={'/error'} />;
   }
 
   const { recipes: RecipeData } = removeNulls(data);

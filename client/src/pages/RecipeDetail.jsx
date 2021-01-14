@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
 import { makeStyles } from '@material-ui/core/styles';
@@ -72,9 +72,8 @@ function RecipeDetail({ deleteMutation }) {
   const [modalOpenState, setModalOpen] = useState(false);
   const [recipeServings, setRecipeServings] = useState(UNMODIFIED);
 
-  // TODO
   if (error) {
-    return <span>Error!</span>;
+    return <Redirect to={'/error'} />;
   }
 
   const { recipe } = removeNulls(data);
