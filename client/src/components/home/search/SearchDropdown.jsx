@@ -58,7 +58,7 @@ function SearchDropdown({ filters, setFilterValue }) {
         filters.map((filterItem, index) => {
           return (
             <FilterItem
-              key={index}
+              key={JSON.stringify(filterItem)}
               id={index}
               filterCategory={filterItem.category}
               setFilterCategory={(newCategory) => {
