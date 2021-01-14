@@ -34,7 +34,12 @@ function FilterItem({
   handleDelete,
 }) {
   const classes = useStyles();
-
+  const getValueLabel = () => {
+    const searchTerm = SEARCH_TERMS.filter((termObj) => {
+      return termObj.value === filterCategory;
+    })[0];
+    return searchTerm.valueLabel;
+  };
   const handleCategoryChange = (event) => {
     setFilterCategory(event.target.value);
   };
@@ -73,7 +78,7 @@ function FilterItem({
           <FormControl variant="outlined" className={classes.formControl}>
             <TextField
               inputProps={{ 'data-test': 'search-item-value' }}
-              label="Value"
+              label={getValueLabel()}
               variant="outlined"
               value={filterText}
               onChange={handleFilterTextChange}

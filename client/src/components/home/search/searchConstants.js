@@ -20,31 +20,37 @@ export const SEARCH_TERMS = [
     value: SEARCH_CATEGORIES.NOT_INITIALIZED,
     label: 'Search',
     type: FILTER_TYPE.NONE,
+    valueLabel: undefined,
   },
   {
     value: SEARCH_CATEGORIES.NAME,
     label: 'Name',
     type: FILTER_TYPE.TEXT,
+    valueLabel: 'Title',
   },
   {
     value: SEARCH_CATEGORIES.INGREDIENT,
     label: 'Ingredient',
     type: FILTER_TYPE.TEXT,
+    valueLabel: 'Name',
   },
   {
     value: SEARCH_CATEGORIES.SOURCE,
     label: 'Source',
     type: FILTER_TYPE.TEXT,
+    valueLabel: 'Name',
   },
   {
     value: SEARCH_CATEGORIES.TIME,
     label: 'Time',
     type: FILTER_TYPE.NUM,
+    valueLabel: 'Minutes',
   },
   {
     value: SEARCH_CATEGORIES.TAGS,
     label: 'Tag',
     type: FILTER_TYPE.TEXT,
+    valueLabel: 'Name',
   },
 ];
 
