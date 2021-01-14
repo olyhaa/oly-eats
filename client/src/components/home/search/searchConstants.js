@@ -42,7 +42,7 @@ export const SEARCH_TERMS = [
   },
   {
     value: SEARCH_CATEGORIES.TIME,
-    label: 'Time',
+    label: 'Max Time',
     type: FILTER_TYPE.NUM,
     valueLabel: 'Minutes',
   },

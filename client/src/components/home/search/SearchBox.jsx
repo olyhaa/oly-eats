@@ -54,7 +54,7 @@ function SearchBox({
             <SearchIcon color="primary" fontSize="large" />
           </div>
           <InputBase
-            placeholder="Filter by Title..."
+            placeholder="Filter by Name..."
             onChange={(event) => {
               setNewFilterString(event.target.value);
             }}
