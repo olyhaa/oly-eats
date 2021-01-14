@@ -26,7 +26,7 @@ describe('removeSurroundingQuotes', () => {
 
 describe('parseFilterString', () => {
   it('empty string', () => {
-    expect(parseFilterString('')).toStrictEqual({});
+    expect(parseFilterString('')).toStrictEqual([]);
   });
 
   it('should match names', () => {
@@ -771,6 +771,12 @@ describe('doFilter', () => {
         { category: SEARCH_CATEGORIES.TIME, value: '45' },
       ])
     ).toStrictEqual(expectedList2);
+  });
+
+  it('uninitialized time filter', () => {
+    expect(
+      doFilter(testList, [{ category: SEARCH_CATEGORIES.TIME, value: '' }])
+    ).toStrictEqual(testList);
   });
 
   it('name(s) and ingredient(s) and sources(s) and tag(s) and time(s)', () => {

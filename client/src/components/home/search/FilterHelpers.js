@@ -202,7 +202,12 @@ export const doMaxTimeFilter = (list, maxTimeFilters) => {
   });
 };
 
-export const doFilter = (list, filterList) => {
+export const doFilter = (list, filters) => {
+  // remove any filters that are an empty string
+  const filterList = filters.filter((item) => {
+    return item.value !== '';
+  });
+
   // if list is empty, don't bother
   if (isEmpty(list)) {
     return list;
