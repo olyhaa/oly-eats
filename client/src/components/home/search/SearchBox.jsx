@@ -58,6 +58,8 @@ function SearchBox({
             onChange={(event) => {
               setNewFilterString(event.target.value);
             }}
+            onClick={(event) => event.stopPropagation()}
+            onFocus={(event) => event.stopPropagation()}
             value={filterString}
             fullWidth
             classes={{
