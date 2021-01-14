@@ -26,7 +26,7 @@ export const SEARCH_TERMS = [
     value: SEARCH_CATEGORIES.NAME,
     label: 'Name',
     type: FILTER_TYPE.TEXT,
-    valueLabel: 'Title',
+    valueLabel: 'Name',
   },
   {
     value: SEARCH_CATEGORIES.INGREDIENT,
