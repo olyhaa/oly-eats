@@ -4,10 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import FilterItem from './FilterItem';
-import { convertToFilterString } from './FilterHelpers';
 import { SEARCH_CATEGORIES } from './searchConstants';
 
 const useStyles = makeStyles((theme) => ({
+  helpText: {
+    margin: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  },
   button: {
     margin: theme.spacing(1),
   },
@@ -45,6 +48,11 @@ function SearchDropdown({ filters, setFilterValue }) {
 
   return (
     <div>
+      <div className={classes.helpText}>
+        To filter by ingredient, use <code>i:ingredient</code>. To filter by
+        source, use <code>s:source</code>. To filter by tag, use{' '}
+        <code>tag:tag</code>. To filter by max time, use <code>time:mins</code>.
+      </div>
       {filters &&
         filters.length > 0 &&
         filters.map((filterItem, index) => {
