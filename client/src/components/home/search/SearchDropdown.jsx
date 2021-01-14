@@ -83,7 +83,7 @@ function SearchDropdown({ filters, setFilterValue }) {
         startIcon={<AddIcon />}
         onClick={handleAddNewFilter}
       >
-        Add another search term
+        {`Add ${filters.length > 0 ? 'another' : ''} search term`}
       </Button>
     </div>
   );
