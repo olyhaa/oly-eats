@@ -13,10 +13,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
-  loadingContainer: {
-    display: 'flex',
-    margin: theme.spacing(3),
-  },
   loading: {
     margin: 'auto',
   },
