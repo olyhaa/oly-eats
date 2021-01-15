@@ -22,15 +22,12 @@ import Header from '../components/Header';
 import history from '../store/history';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: theme.spacing(2),
-  },
-  loadingContainer: {
-    display: 'flex',
-    margin: theme.spacing(3),
   },
   loading: {
     margin: 'auto',
@@ -122,70 +119,98 @@ function RecipeDetail({ deleteMutation }) {
   return (
     <>
       <Header title={recipeTitle} />
-      {loading && (
-        <div className={classes.loadingContainer}>
-          <CircularProgress className={classes.loading} />
-        </div>
-      )}
-      {!loading && (
-        <>
-          <div className={classes.mainContent}>
-            <div className={classes.root}>
-              <Grid container spacing={2} alignItems="stretch">
-                {recipe[RECIPE.PHOTO] && (
-                  <Grid className={classes.photoGrid} item md={6} sm={12}>
-                    <Image
-                      title={recipe[RECIPE.TITLE]}
-                      imageSrc={recipe[RECIPE.PHOTO]}
-                    />
+      <div className={classes.mainContent}>
+        <div className={classes.root}>
+          <Grid container spacing={2} alignItems="stretch">
+            {loading ? (
+              <Grid className={classes.photoGrid} item md={6} sm={12}>
+                <Skeleton variant="rect" width="100%" height={500} />
+              </Grid>
+            ) : (
+              recipe[RECIPE.PHOTO] && (
+                <Grid className={classes.photoGrid} item md={6} sm={12}>
+                  <Image
+                    title={recipe[RECIPE.TITLE]}
+                    imageSrc={recipe[RECIPE.PHOTO]}
+                  />
+                </Grid>
+              )
+            )}
+            {loading ? (
+              <Grid className={classes.photoGrid} item md={6} sm={12}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Skeleton variant="rect" width="100%" height={150} />
                   </Grid>
-                )}
-                <Grid
-                  className={classes.photoGrid}
-                  item
-                  md={recipe[RECIPE.PHOTO] ? 6 : 12}
-                  sm={12}
-                >
-                  <Overview
-                    description={recipe[RECIPE.DESCRIPTION]}
-                    prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
-                    totalTime={recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL]}
-                    servings={
-                      recipeServings === UNMODIFIED
-                        ? recipe[RECIPE.SERVINGS]
-                        : recipeServings
-                    }
-                    updateServingSize={updateServings}
-                    source={recipe[RECIPE.SOURCE]}
-                    dateAdded={recipe[RECIPE.META][RECIPE.DATE_ADDED]}
-                    lastUpdated={recipe[RECIPE.META][RECIPE.DATE_UPDATED]}
-                  />
+                  <Grid item xs>
+                    <Skeleton variant="rect" width="100%" height={170} />
+                  </Grid>
+                  <Grid item xs>
+                    <Skeleton variant="rect" width="100%" height={170} />
+                  </Grid>
+                  <Grid item xs>
+                    <Skeleton variant="rect" width="100%" height={170} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Skeleton variant="rect" width="100%" height={150} />
+                  </Grid>
                 </Grid>
               </Grid>
-            </div>
+            ) : (
+              <Grid
+                className={classes.photoGrid}
+                item
+                md={recipe[RECIPE.PHOTO] ? 6 : 12}
+                sm={12}
+              >
+                <Overview
+                  description={recipe[RECIPE.DESCRIPTION]}
+                  prepTime={recipe[RECIPE.TIMING][RECIPE.TIMING_PREP]}
+                  totalTime={recipe[RECIPE.TIMING][RECIPE.TIMING_TOTAL]}
+                  servings={
+                    recipeServings === UNMODIFIED
+                      ? recipe[RECIPE.SERVINGS]
+                      : recipeServings
+                  }
+                  updateServingSize={updateServings}
+                  source={recipe[RECIPE.SOURCE]}
+                  dateAdded={recipe[RECIPE.META][RECIPE.DATE_ADDED]}
+                  lastUpdated={recipe[RECIPE.META][RECIPE.DATE_UPDATED]}
+                />
+              </Grid>
+            )}
+          </Grid>
+        </div>
 
-            <div className={classes.root}>
-              <Grid container spacing={2} alignItems="stretch">
-                <Grid item xs={12} md={4}>
-                  <Ingredients
-                    ingredientList={recipe[RECIPE.INGREDIENT_SECTION]}
-                    recipeScale={
-                      recipeServings === UNMODIFIED
-                        ? undefined
-                        : recipeServings / recipe[RECIPE.SERVINGS]
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} md={8}>
-                  <Directions
-                    directionsList={recipe[RECIPE.DIRECTIONS_SECTION]}
-                  />
-                </Grid>
-              </Grid>
-            </div>
-          </div>
-        </>
-      )}
+        <div className={classes.root}>
+          <Grid container spacing={2} alignItems="stretch">
+            <Grid item xs={12} md={4}>
+              {loading ? (
+                <Skeleton variant="rect" width="100%" height={500} />
+              ) : (
+                <Ingredients
+                  ingredientList={recipe[RECIPE.INGREDIENT_SECTION]}
+                  recipeScale={
+                    recipeServings === UNMODIFIED
+                      ? undefined
+                      : recipeServings / recipe[RECIPE.SERVINGS]
+                  }
+                />
+              )}
+            </Grid>
+            <Grid item xs={12} md={8}>
+              {loading ? (
+                <Skeleton variant="rect" width="100%" height={500} />
+              ) : (
+                <Directions
+                  directionsList={recipe[RECIPE.DIRECTIONS_SECTION]}
+                />
+              )}
+            </Grid>
+          </Grid>
+        </div>
+      </div>
+
       <ActionGroup
         hidden={loading}
         handleEdit={handleEditOption}
