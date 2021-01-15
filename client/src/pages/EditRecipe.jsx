@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/react-hooks';
@@ -10,14 +9,15 @@ import { decodeRecipe } from 'components/add/utils/decodeRecipe';
 import store from '../components/add/store/store';
 import Header from '../components/Header';
 import AddRecipeForm from '../components/add/AddRecipeForm';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
-  loadingContainer: {
-    display: 'flex',
-    margin: theme.spacing(3),
-  },
-  loading: {
-    margin: 'auto',
+  skeletonItem: {
+    margin: theme.spacing(1),
+    height: '80px',
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(2),
+    },
   },
 }));
 
@@ -38,18 +38,21 @@ function EditRecipe() {
   return (
     <>
       <Header title="Edit Recipe" />
-      {loading && (
-        <div className={classes.loadingContainer}>
-          <CircularProgress className={classes.loading} />
-        </div>
-      )}
-      {!loading && (
-        <Provider store={store}>
-          <Grid container justify="center" className={classes.root}>
+      <Provider store={store}>
+        <Grid container justify="center">
+          {loading ? (
+            <>
+              {Array.from(new Array(6)).map((item, index) => (
+                <Grid item xs={12} className={classes.skeletonItem}>
+                  <Skeleton variant="rect" height="100%" width="100%" />
+                </Grid>
+              ))}
+            </>
+          ) : (
             <AddRecipeForm initialValues={initialValues} isEdit />
-          </Grid>
-        </Provider>
-      )}
+          )}
+        </Grid>
+      </Provider>
     </>
   );
 }

@@ -30,6 +30,8 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
+import { Grid } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +47,13 @@ const useStyles = makeStyles((theme) => ({
   },
   loading: {
     margin: 'auto',
+  },
+  skeletonItem: {
+    margin: theme.spacing(1),
+    height: '80px',
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(2),
+    },
   },
   formItem: {},
   submitButton: {
@@ -95,11 +104,28 @@ function AddRecipeForm({
       refetchQueries: ['GetAllRecipes', 'GetRecipe'],
     });
   };
-  if (submitting || allTagsLoading) {
+  if (submitting) {
     return (
       <div className={classes.loadingContainer}>
         <CircularProgress className={classes.loading} />
       </div>
+    );
+  }
+
+  if (allTagsLoading) {
+    return (
+      <Grid container justify="center" className={classes.root}>
+        {Array.from(new Array(6)).map((item, index) => (
+          <Grid item xs={12} className={classes.skeletonItem}>
+            <Skeleton
+              variant="rect"
+              height={80}
+              width="100%"
+              className={classes.skeletonItem}
+            />
+          </Grid>
+        ))}
+      </Grid>
     );
   }
 
