@@ -6,8 +6,8 @@ import Link from '@material-ui/core/Link';
 import Icon from '@material-ui/core/Icon';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
-import EditNumberModal from './EditNumberModal';
 import Box from '@material-ui/core/Box';
+import EditNumberModal from './EditNumberModal';
 import {
   PREP_CARD,
   TOTAL_CARD,

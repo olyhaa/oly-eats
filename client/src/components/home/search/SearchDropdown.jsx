@@ -38,7 +38,7 @@ function SearchDropdown({ filters, setFilterValue }) {
   };
 
   const handleAddNewFilter = () => {
-    var newArray = [...filters];
+    const newArray = [...filters];
     newArray.push({
       value: '',
       category: SEARCH_CATEGORIES.NOT_INITIALIZED,

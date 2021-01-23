@@ -93,6 +93,7 @@ SearchBox.propTypes = {
 };
 
 SearchBox.defaultProps = {
+  setNewFilterString: () => {},
   setNewFilterValue: () => {},
 };
 

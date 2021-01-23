@@ -20,7 +20,7 @@ class ErrorBoundary extends Component {
     const { children } = this.props;
     const { hasError } = this.state;
     if (hasError) {
-      return <Redirect to={'/error'} />;
+      return <Redirect to="/error" />;
     }
 
     return children;
