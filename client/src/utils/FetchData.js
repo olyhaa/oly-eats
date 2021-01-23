@@ -79,6 +79,68 @@ export const getAllRecipesQuery = () => {
           dateAdded
           dateUpdated
         }
+        isFavorite
+      }
+    }
+  `;
+};
+
+export const getFavoriteRecipes = () => {
+  return gql`
+    query GetAllFavorites {
+      favorites {
+        id
+        title
+        description
+        source {
+          display
+          url
+        }
+        photo
+        servings
+        directions {
+          label
+          steps {
+            text
+          }
+        }
+        ingredients {
+          label
+          ingredients {
+            rangedAmount {
+              min
+              max
+            }
+            amount
+            unit
+            prep
+            name
+            toTaste
+            optional
+          }
+        }
+        timing {
+          prep {
+            value
+            units
+          }
+          total {
+            value
+            units
+          }
+        }
+        tags {
+          id
+          type {
+            id
+            label
+          }
+          label
+        }
+        meta {
+          dateAdded
+          dateUpdated
+        }
       }
     }
   `;
@@ -140,6 +202,7 @@ export const getRecipeQuery = () => {
           dateAdded
           dateUpdated
         }
+        isFavorite
       }
     }
   `;
@@ -204,6 +267,7 @@ export const getAddRecipeMutation = () => {
             dateAdded
             dateUpdated
           }
+          isFavorite
         }
       }
     }
@@ -269,6 +333,7 @@ export const getUpdateRecipeMutation = () => {
             dateAdded
             dateUpdated
           }
+          isFavorite
         }
       }
     }
@@ -279,6 +344,17 @@ export const getDeleteRecipeMutation = () => {
   return gql`
     mutation DeleteRecipe($id: ID!) {
       deleteRecipe(id: $id) {
+        success
+        message
+      }
+    }
+  `;
+};
+
+export const getUpdateFavoriteRecipeMutation = () => {
+  return gql`
+    mutation UpdateFavoriteRecipe($id: ID!, $isFavorite: Boolean!) {
+      updateFavoriteRecipe(id: $id, isFavorite: $isFavorite) {
         success
         message
       }

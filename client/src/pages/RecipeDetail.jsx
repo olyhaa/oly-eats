@@ -5,11 +5,12 @@ import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 import {
   getRecipeQuery,
   removeNulls,
   getDeleteRecipeMutation,
+  getUpdateFavoriteRecipeMutation,
 } from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
@@ -22,7 +23,6 @@ import Header from '../components/Header';
 import history from '../store/history';
 import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
-import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeDetail({ deleteMutation }) {
+function RecipeDetail({ deleteMutation, updateMutation }) {
   const UNMODIFIED = -1;
   const classes = useStyles();
   const { id } = useParams();
@@ -70,11 +70,12 @@ function RecipeDetail({ deleteMutation }) {
   const [recipeServings, setRecipeServings] = useState(UNMODIFIED);
 
   if (error) {
-    return <Redirect to={'/error'} />;
+    return <Redirect to="/error" />;
   }
 
   const { recipe } = removeNulls(data);
   const recipeTitle = recipe ? recipe[RECIPE.TITLE] : '';
+  const isFavorite = recipe ? recipe[RECIPE.IS_FAVORITE] : '';
 
   const handleEditOption = () => {
     history.push(`/editRecipe/${id}`);
@@ -104,6 +105,13 @@ function RecipeDetail({ deleteMutation }) {
     setModalOpen(false);
   };
 
+  const handleFavorite = (newValue) => {
+    updateMutation({
+      variables: { id, isFavorite: newValue },
+      refetchQueries: ['GetAllRecipes', 'GetRecipe'],
+    });
+  };
+
   if (!loading && !recipe) {
     return (
       <>
@@ -118,7 +126,7 @@ function RecipeDetail({ deleteMutation }) {
 
   return (
     <>
-      <Header title={recipeTitle} />
+      <Header title={recipeTitle} isFavorite={isFavorite} />
       <div className={classes.mainContent}>
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
@@ -215,6 +223,13 @@ function RecipeDetail({ deleteMutation }) {
         hidden={loading}
         handleEdit={handleEditOption}
         handleDelete={handleDeleteOption}
+        isFavorite={isFavorite}
+        handleUnfavorite={() => {
+          handleFavorite(false);
+        }}
+        handleFavorite={() => {
+          handleFavorite(true);
+        }}
       />
       <DeleteModal
         open={modalOpenState}
@@ -229,10 +244,14 @@ function RecipeDetail({ deleteMutation }) {
 }
 RecipeDetail.propTypes = {
   deleteMutation: PropTypes.func.isRequired,
+  updateMutation: PropTypes.func.isRequired,
 };
 
 export default compose(
   graphql(getDeleteRecipeMutation(), {
     name: 'deleteMutation',
+  }),
+  graphql(getUpdateFavoriteRecipeMutation(), {
+    name: 'updateMutation',
   })
 )(RecipeDetail);

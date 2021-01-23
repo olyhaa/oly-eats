@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import StarIcon from '@material-ui/icons/Star';
 import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
 
@@ -18,9 +19,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textTransform: 'capitalize',
   },
+  favoriteSpacer: {
+    paddingLeft: '1.5rem',
+  },
 }));
 
-function Header({ title }) {
+function Header({ title, isFavorite }) {
   const classes = useStyles();
 
   return (
@@ -29,8 +33,11 @@ function Header({ title }) {
         <IconButton edge="start" color="inherit" component={Link} to="/home">
           <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
         </IconButton>
+        {isFavorite && <StarIcon />}
         <Typography
-          className={classes.title}
+          className={`${classes.title} ${
+            !isFavorite && classes.favoriteSpacer
+          }`}
           variant="h6"
           noWrap
           data-test="app-title"
@@ -50,8 +57,13 @@ function Header({ title }) {
   );
 }
 
+Header.defaultProps = {
+  isFavorite: false,
+};
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool,
 };
 
 export default Header;
