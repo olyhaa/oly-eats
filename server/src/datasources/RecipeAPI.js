@@ -20,6 +20,22 @@ class RecipeAPI extends DataSource {
       : [];
   }
 
+  async getFavoriteRecipes() {
+    const response = await this.store.Recipe.findAll({
+      where: {
+        isFavorite: true,
+      },
+    });
+    return Array.isArray(response)
+      ? await Promise.all(
+          response.map(async (recipe) => {
+            const recipeObjs = await this.getRecipeData({ id: recipe.id });
+            return recipeReducer(recipeObjs);
+          })
+        )
+      : [];
+  }
+
   async getRecipe({ id }) {
     const recipeObjs = await this.getRecipeData({ id });
     return recipeReducer(recipeObjs);
@@ -170,6 +186,9 @@ class RecipeAPI extends DataSource {
     }
     if (newFields.servings) {
       recipeObj.servings = newFields.servings;
+    }
+    if (newFields.isFavorite) {
+      recipeObj.isFavorite = newFields.isFavorite;
     }
     return recipeObj;
   }

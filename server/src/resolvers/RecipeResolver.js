@@ -3,6 +3,8 @@ const RecipeResolver = {
     recipes: (_, __, { dataSources }) => dataSources.recipeAPI.getAllRecipes(),
     recipe: (_, { id }, { dataSources }) =>
       dataSources.recipeAPI.getRecipe({ id }),
+    favorites: (_, __, { dataSources }) =>
+      dataSources.recipeAPI.getFavoriteRecipes(),
   },
   Mutation: {
     addRecipe: (_, { recipe }, { dataSources }) =>

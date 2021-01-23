@@ -6,6 +6,7 @@ const typeDefs = gql`
     allTags(typeid: ID): [Tag]
 
     recipes: [Recipe]
+    favorites: [Recipe]
     recipe(id: ID!): Recipe
   }
 
@@ -65,6 +66,7 @@ const typeDefs = gql`
     timing: TimeGroup
     tags: [Tag]
     meta: RecipeMeta
+    isFavorite: Boolean!
   }
 
   scalar ISODate
@@ -133,6 +135,7 @@ const typeDefs = gql`
     ingredients: [IngredientSectionInput]!
     timing: TimingInput!
     tags: [RecipeTagInput]!
+    isFavorite: Boolean
   }
 
   input SourceInput {

@@ -165,6 +165,7 @@ export const recipeReducer = ({ recipe }) => {
       createdAt: recipe.createdAt,
       updatedAt: recipe.updatedAt,
     }),
+    isFavorite: recipe.isFavorite,
   };
 
   return recipeObj;
