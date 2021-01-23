@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
+import { Redirect } from 'react-router-dom';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +83,10 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
     setSelectedTagTypeIndex(data);
   };
 
+  if (error) {
+    return <Redirect to={'/error'} />;
+  }
+
   return (
     <>
       {loading && (
@@ -89,7 +94,6 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
           <CircularProgress className={classes.loading} />
         </div>
       )}
-      {error && <span>Error!</span>}
       {!loading && (
         <Paper className={classes.root}>
           <main className={classes.content}>

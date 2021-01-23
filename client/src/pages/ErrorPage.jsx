@@ -21,7 +21,7 @@ function ErrorPage() {
 
   return (
     <>
-      <Header title="Page Not Found" />
+      <Header title="You've Found an Error!" />
       <div className={classes.root}>
         <img src={CarrotIcon} className={classes.carrot} alt="" />
         <p className={classes.carrotText}>Nothing but carrots here!</p>
