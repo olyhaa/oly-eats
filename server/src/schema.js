@@ -22,6 +22,7 @@ const typeDefs = gql`
     addRecipe(recipe: RecipeInput!): RecipeMutation
     deleteRecipe(id: ID!): RecipeMutation
     updateRecipe(id: ID!, recipe: RecipeInput!): RecipeMutation
+    updateFavoriteRecipe(id: ID!, isFavorite: Boolean!): RecipeMutation
   }
 
   type TagTypeMutation {
