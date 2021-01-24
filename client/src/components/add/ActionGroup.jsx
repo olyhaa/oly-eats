@@ -6,8 +6,6 @@ import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import StarIcon from '@material-ui/icons/Star';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const useStyles = makeStyles((theme) => ({
   submitButton: {
@@ -31,14 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActionGroup = ({
-  hidden,
-  handleEdit,
-  handleDelete,
-  isFavorite,
-  handleUnfavorite,
-  handleFavorite,
-}) => {
+const ActionGroup = ({ hidden, handleEdit, handleDelete }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -47,25 +38,11 @@ const ActionGroup = ({
       icon: <EditIcon />,
       name: 'Edit',
       onClick: handleEdit,
-      visible: true,
     },
     {
       icon: <DeleteIcon />,
       name: 'Delete',
       onClick: handleDelete,
-      visible: true,
-    },
-    {
-      icon: <StarIcon />,
-      name: 'Unfavorite',
-      onClick: handleUnfavorite,
-      visible: isFavorite,
-    },
-    {
-      icon: <StarBorderIcon />,
-      name: 'Favorite',
-      onClick: handleFavorite,
-      visible: !isFavorite,
     },
   ];
 
@@ -88,18 +65,15 @@ const ActionGroup = ({
       onClick={handleOpen}
       open={open}
     >
-      {actions.map(
-        (action) =>
-          action.visible && (
-            <SpeedDialAction
-              key={action.name}
-              FabProps={{ 'data-test': `action-${action.name}` }}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              onClick={action.onClick}
-            />
-          )
-      )}
+      {actions.map((action) => (
+        <SpeedDialAction
+          key={action.name}
+          FabProps={{ 'data-test': `action-${action.name}` }}
+          icon={action.icon}
+          tooltipTitle={action.name}
+          onClick={action.onClick}
+        />
+      ))}
     </SpeedDial>
   );
 };
@@ -112,9 +86,6 @@ ActionGroup.propTypes = {
   hidden: PropTypes.bool,
   handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
-  handleUnfavorite: PropTypes.func.isRequired,
-  handleFavorite: PropTypes.func.isRequired,
 };
 
 ActionGroup.defaultProps = {};

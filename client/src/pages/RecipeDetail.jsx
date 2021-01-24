@@ -227,13 +227,6 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
         hidden={loading}
         handleEdit={handleEditOption}
         handleDelete={handleDeleteOption}
-        isFavorite={isFavorite}
-        handleUnfavorite={() => {
-          handleFavorite(false);
-        }}
-        handleFavorite={() => {
-          handleFavorite(true);
-        }}
       />
       <DeleteModal
         open={modalOpenState}
