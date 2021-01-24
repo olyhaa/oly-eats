@@ -6,7 +6,6 @@ const typeDefs = gql`
     allTags(typeid: ID): [Tag]
 
     recipes: [Recipe]
-    favorites: [Recipe]
     recipe(id: ID!): Recipe
   }
 
