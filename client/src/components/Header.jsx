@@ -32,7 +32,7 @@ function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
           <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
         </IconButton>
         <Typography
-          className={`${classes.title} ${!isFavorite}`}
+          className={classes.title}
           variant="h6"
           noWrap
           data-test="app-title"
