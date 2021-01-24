@@ -214,6 +214,7 @@ const fullRecipe = {
         },
       },
     ],
+    isFavorite: true,
   },
 };
 

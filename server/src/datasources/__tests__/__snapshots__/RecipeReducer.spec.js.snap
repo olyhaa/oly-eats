@@ -144,6 +144,7 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "isFavorite": true,
     "meta": Object {
       "dateAdded": "2020-05-10 00:00:45.511 +00:00",
       "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
@@ -241,6 +242,7 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "isFavorite": true,
     "meta": Object {
       "dateAdded": "2020-05-10 00:00:45.511 +00:00",
       "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
@@ -346,6 +348,7 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "isFavorite": true,
     "meta": Object {
       "dateAdded": "2020-05-10 00:00:45.511 +00:00",
       "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
@@ -441,6 +444,7 @@ Object {
       "label": "ingredient section 1",
     },
   ],
+  "isFavorite": true,
   "meta": Object {
     "dateAdded": "2020-05-10 00:00:45.511 +00:00",
     "dateUpdated": "2020-05-10 00:01:45.511 +00:00",

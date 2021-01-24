@@ -45,6 +45,7 @@ Object {
         "label": "ingredient section 1",
       },
     ],
+    "isFavorite": false,
     "meta": Object {
       "dateAdded": "2020-05-10 00:00:45.511 +00:00",
       "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
@@ -333,6 +334,7 @@ Array [
         "label": "ingredient section 1",
       },
     ],
+    "isFavorite": false,
     "meta": Object {
       "dateAdded": "2020-05-10 00:00:45.511 +00:00",
       "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
@@ -427,6 +429,7 @@ Object {
       "label": "ingredient section 1",
     },
   ],
+  "isFavorite": false,
   "meta": Object {
     "dateAdded": "2020-05-10 00:00:45.511 +00:00",
     "dateUpdated": "2020-05-10 00:01:45.511 +00:00",
@@ -550,6 +553,7 @@ Object {
         "updatedAt": "2020-05-10 00:08:45.511 +00:00",
       },
     ],
+    "isFavorite": false,
     "photo_url": "http://some.url.com/pic.jpg",
     "servings": 2,
     "source_display": "Mandy's Kitchen",

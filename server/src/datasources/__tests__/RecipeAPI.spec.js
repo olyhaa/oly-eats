@@ -155,6 +155,7 @@ const mockRecipes = [
         },
       },
     ],
+    isFavorite: false,
   },
 ];
 
