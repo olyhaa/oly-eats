@@ -12,8 +12,9 @@ import {
   getTotalMins,
   doMaxTimeFilter,
   convertToFilterString,
+  doFavoriteFilter,
 } from '../FilterHelpers';
-import { SEARCH_CATEGORIES } from '../searchConstants';
+import { SEARCH_ATTRIBUTES, SEARCH_CATEGORIES } from '../searchConstants';
 
 describe('removeSurroundingQuotes', () => {
   it('should remove quotes', () => {
@@ -170,6 +171,8 @@ describe('parseFilterString', () => {
       { value: 'vanilla', category: SEARCH_CATEGORIES.INGREDIENT },
     ]);
   });
+
+  it('should match favorites', () => {});
 });
 
 describe('doNameFilter', () => {
@@ -518,6 +521,56 @@ describe('doMaxTimeFilter', () => {
   });
 });
 
+describe('doFavoriteFilter', () => {
+  const testList1 = [
+    {
+      isFavorite: false,
+    },
+    {
+      isFavorite: true,
+    },
+    {
+      isFavorite: true,
+    },
+  ];
+  const testList2 = [
+    {
+      isFavorite: false,
+    },
+    {
+      isFavorite: false,
+    },
+    {
+      isFavorite: false,
+    },
+  ];
+
+  it('empty list', () => {
+    expect(doFavoriteFilter([], [SEARCH_ATTRIBUTES.FAVORITE])).toStrictEqual(
+      []
+    );
+  });
+
+  it('empty filter', () => {
+    expect(doFavoriteFilter(testList1, [])).toStrictEqual(testList1);
+  });
+
+  it('single filter - some matches', () => {
+    const expected1 = [];
+    expected1.push(testList1[1]);
+    expected1.push(testList1[2]);
+    expect(
+      doFavoriteFilter(testList1, [SEARCH_ATTRIBUTES.FAVORITE])
+    ).toStrictEqual(expected1);
+  });
+
+  it('single filter - no matches', () => {
+    expect(
+      doFavoriteFilter(testList2, [SEARCH_ATTRIBUTES.FAVORITE])
+    ).toStrictEqual([]);
+  });
+});
+
 describe('doFilter', () => {
   const testList = [
     {
@@ -576,6 +629,7 @@ describe('doFilter', () => {
       timing: {
         total: [{ value: 20, units: TIMING_UNITS.MINUTE }],
       },
+      isFavorite: true,
     },
     {
       title: 'herbs',
@@ -650,6 +704,7 @@ describe('doFilter', () => {
       timing: {
         total: [{ value: 2, units: TIMING_UNITS.HOUR }],
       },
+      isFavorite: true,
     },
   ];
 
@@ -773,13 +828,27 @@ describe('doFilter', () => {
     ).toStrictEqual(expectedList2);
   });
 
+  it('only favorite', () => {
+    const expectedList1 = [];
+    expectedList1.push(testList[1]);
+    expectedList1.push(testList[6]);
+    expect(
+      doFilter(testList, [
+        {
+          category: SEARCH_CATEGORIES.ATTRIBUTES,
+          value: SEARCH_ATTRIBUTES.FAVORITE,
+        },
+      ])
+    ).toStrictEqual(expectedList1);
+  });
+
   it('uninitialized time filter', () => {
     expect(
       doFilter(testList, [{ category: SEARCH_CATEGORIES.TIME, value: '' }])
     ).toStrictEqual(testList);
   });
 
-  it('name(s) and ingredient(s) and sources(s) and tag(s) and time(s)', () => {
+  it('name(s) and ingredient(s) and sources(s) and tag(s) and time(s) and favorite', () => {
     const expectedList1 = [];
     expectedList1.push(testList[6]);
     expect(
@@ -789,6 +858,10 @@ describe('doFilter', () => {
         { category: SEARCH_CATEGORIES.SOURCE, value: 'king' },
         { category: SEARCH_CATEGORIES.TAGS, value: 'british' },
         { category: SEARCH_CATEGORIES.TIME, value: '120' },
+        {
+          category: SEARCH_CATEGORIES.ATTRIBUTES,
+          value: SEARCH_ATTRIBUTES.FAVORITE,
+        },
       ])
     ).toStrictEqual(expectedList1);
   });
@@ -828,8 +901,12 @@ describe('convertToFilterString', () => {
         { value: 'king', category: SEARCH_CATEGORIES.SOURCE },
         { value: 'gluten free', category: SEARCH_CATEGORIES.TAGS },
         { value: '20', category: SEARCH_CATEGORIES.TIME },
+        {
+          value: SEARCH_ATTRIBUTES.FAVORITE,
+          category: SEARCH_CATEGORIES.ATTRIBUTES,
+        },
       ])
-    ).toEqual('pie i:apple s:king tag:"gluten free" time:20');
+    ).toEqual('pie i:apple s:king tag:"gluten free" time:20 is:favorite');
   });
 
   it('has NOT_INITIALIZED category item(s)', () => {
