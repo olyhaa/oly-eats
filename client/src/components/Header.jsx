@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ title, isFavorite, setIsFavorite }) {
+function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
   const classes = useStyles();
 
   return (
@@ -39,16 +39,18 @@ function Header({ title, isFavorite, setIsFavorite }) {
         >
           {title}
         </Typography>
-        <IconButton
-          aria-label="favorite"
-          color="secondary"
-          size="medium"
-          onClick={(event) => {
-            setIsFavorite(!isFavorite);
-          }}
-        >
-          {isFavorite ? <StarIcon /> : <StarBorderIcon />}
-        </IconButton>
+        {showFavorite && (
+          <IconButton
+            aria-label="favorite"
+            color="secondary"
+            size="medium"
+            onClick={(event) => {
+              setIsFavorite(!isFavorite);
+            }}
+          >
+            {isFavorite ? <StarIcon /> : <StarBorderIcon />}
+          </IconButton>
+        )}
         <Button
           color="inherit"
           component={Link}
@@ -64,12 +66,15 @@ function Header({ title, isFavorite, setIsFavorite }) {
 
 Header.defaultProps = {
   isFavorite: false,
+  setIsFavorite: () => {},
+  showFavorite: false,
 };
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  showFavorite: PropTypes.bool,
   isFavorite: PropTypes.bool,
-  setIsFavorite: PropTypes.func.isRequired,
+  setIsFavorite: PropTypes.func,
 };
 
 export default Header;
