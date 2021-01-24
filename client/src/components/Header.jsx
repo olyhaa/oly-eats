@@ -47,6 +47,7 @@ function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
             onClick={(event) => {
               setIsFavorite(!isFavorite);
             }}
+            data-test={`favorite-start-${isFavorite}`}
           >
             {isFavorite ? <StarIcon /> : <StarBorderIcon />}
           </IconButton>
