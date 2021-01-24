@@ -150,6 +150,35 @@ describe('Home Page - Search', () => {
     });
   });
 
+  it('Search Recipe by Favorite', () => {
+    cy.get('[data-test="recipe-list-item"]').then(($list) => {
+      cy.get('@recipeData').then((recipeData) => {
+        const initialCount = $list.length;
+        expect(initialCount > 0).to.be.true;
+
+        cy.get('[data-test="search-box"]')
+          .should('be.visible')
+          .clear()
+          .type(`is:favorite`);
+
+        cy.get('[data-test="recipe-list-item"]')
+          .its('length')
+          .should('be.lt', initialCount)
+          .should('be.gt', 0);
+
+        cy.get('[data-test="recipe-title"]').should(
+          'contain',
+          recipeData.variables.recipe.title
+        );
+
+        cy.get('[data-test="search-box"]').clear();
+        cy.get('[data-test="recipe-list-item"]')
+          .its('length')
+          .should('be', initialCount);
+      });
+    });
+  });
+
   it('Edit search terms via UI', () => {
     cy.get('[data-test="recipe-list-item"]').then(($list) => {
       cy.get('@recipeData').then((recipeData) => {

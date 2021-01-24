@@ -67,7 +67,7 @@ export const parseFilterString = (filter) => {
   const timeFilters = splitFilter.filter((word) => {
     return (
       word.indexOf(MAX_TIME_FLAG) === 0 &&
-      isNumeric(word.slice(MAX_TIME_FLAG.length))
+      isNumeric(removeSurroundingQuotes(word.slice(MAX_TIME_FLAG.length)))
     );
   });
 
