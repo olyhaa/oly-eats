@@ -1,17 +1,21 @@
+import { isValidTime } from 'components/add/utils/Validators';
 import { isEmpty, intersection } from 'ramda';
+import { isNumeric } from 'utils/ingredientParsing/ingredientComponentsHelper';
 import { TIMING_UNITS } from '../../../utils/recipeConstants';
-import { SEARCH_CATEGORIES } from './searchConstants';
+import { SEARCH_ATTRIBUTES, SEARCH_CATEGORIES } from './searchConstants';
 
 const INGREDIENT_FLAG = 'i:';
 const SOURCE_FLAG = 's:';
 const TAG_FLAG = 'tag:';
 const MAX_TIME_FLAG = 'time:';
+const ATTRIBUTE_FLAG = 'is:';
 
 export const FILTER_FLAGS = {
   INGREDIENT_FLAG,
   SOURCE_FLAG,
   TAG_FLAG,
   MAX_TIME_FLAG,
+  ATTRIBUTE_FLAG,
 };
 
 export const removeSurroundingQuotes = (name) => {
@@ -60,9 +64,21 @@ export const parseFilterString = (filter) => {
     return word.indexOf(TAG_FLAG) === 0;
   });
 
-  // pull out items that are time filters
+  // pull out items that are valid time filters
   const timeFilters = splitFilter.filter((word) => {
-    return word.indexOf(MAX_TIME_FLAG) === 0;
+    return (
+      word.indexOf(MAX_TIME_FLAG) === 0 &&
+      isNumeric(word.slice(MAX_TIME_FLAG.length))
+    );
+  });
+
+  // pull out items that are valid favorite filters
+  const favoriteFilters = splitFilter.filter((word) => {
+    return (
+      word.indexOf(ATTRIBUTE_FLAG) === 0 &&
+      word.slice(ATTRIBUTE_FLAG.length).toLowerCase() ===
+        SEARCH_ATTRIBUTES.FAVORITE.toLowerCase()
+    );
   });
 
   const remainingFilters = splitFilter.filter(
@@ -70,36 +86,61 @@ export const parseFilterString = (filter) => {
       !ingredientFilters.includes(word) &&
       !sourceFilters.includes(word) &&
       !tagFilters.includes(word) &&
-      !timeFilters.includes(word)
+      !timeFilters.includes(word) &&
+      !favoriteFilters.includes(word)
   );
 
   return [].concat(
     remainingFilters.map(removeSurroundingQuotes).map((item) => {
-      return { value: item, category: SEARCH_CATEGORIES.NAME };
+      return {
+        value: item,
+        category: SEARCH_CATEGORIES.NAME,
+      };
     }),
     ingredientFilters
       .map((ingredient) => ingredient.slice(INGREDIENT_FLAG.length))
       .map(removeSurroundingQuotes)
       .map((item) => {
-        return { value: item, category: SEARCH_CATEGORIES.INGREDIENT };
+        return {
+          value: item,
+          category: SEARCH_CATEGORIES.INGREDIENT,
+        };
       }),
     sourceFilters
       .map((ingredient) => ingredient.slice(SOURCE_FLAG.length))
       .map(removeSurroundingQuotes)
       .map((item) => {
-        return { value: item, category: SEARCH_CATEGORIES.SOURCE };
+        return {
+          value: item,
+          category: SEARCH_CATEGORIES.SOURCE,
+        };
       }),
     tagFilters
       .map((ingredient) => ingredient.slice(TAG_FLAG.length))
       .map(removeSurroundingQuotes)
       .map((item) => {
-        return { value: item, category: SEARCH_CATEGORIES.TAGS };
+        return {
+          value: item,
+          category: SEARCH_CATEGORIES.TAGS,
+        };
       }),
     timeFilters
       .map((ingredient) => ingredient.slice(MAX_TIME_FLAG.length))
       .map(removeSurroundingQuotes)
       .map((item) => {
-        return { value: item, category: SEARCH_CATEGORIES.TIME };
+        return {
+          value: item,
+          category: SEARCH_CATEGORIES.TIME,
+        };
+      }),
+    favoriteFilters
+      .map((favorite) => favorite.slice(ATTRIBUTE_FLAG.length))
+      .map(removeSurroundingQuotes)
+      .map((item) => {
+        return {
+          value: SEARCH_ATTRIBUTES.FAVORITE,
+          category: SEARCH_CATEGORIES.ATTRIBUTES,
+        };
       })
   );
 };
@@ -202,6 +243,15 @@ export const doMaxTimeFilter = (list, maxTimeFilters) => {
   });
 };
 
+export const doFavoriteFilter = (list, favoriteFilters) => {
+  if (isEmpty(favoriteFilters)) {
+    return list;
+  }
+  return list.filter((recipe) => {
+    return recipe.isFavorite;
+  });
+};
+
 export const doFilter = (list, filters) => {
   // remove any filters that are an empty string
   const filterList = filters.filter((item) => {
@@ -267,15 +317,31 @@ export const doFilter = (list, filters) => {
       .map(getSearchValue)
   );
 
+  // otherwise, if we have favorite filters, get list of filtered recipes
+  const filteredByFavorite = doFavoriteFilter(
+    list,
+    filterList
+      .filter((filterItem) => {
+        return (
+          filterItem.category === SEARCH_CATEGORIES.ATTRIBUTES &&
+          filterItem.value === SEARCH_ATTRIBUTES.FAVORITE
+        );
+      })
+      .map(getSearchValue)
+  );
+
   return intersection(
     intersection(
       intersection(
-        intersection(filteredByName, filteredByIngredient),
-        filteredBySource
+        intersection(
+          intersection(filteredByName, filteredByIngredient),
+          filteredBySource
+        ),
+        filteredByTag
       ),
-      filteredByTag
+      filteredByMaxTime
     ),
-    filteredByMaxTime
+    filteredByFavorite
   );
 };
 
@@ -310,6 +376,9 @@ export const convertToFilterString = (filterArray) => {
       case SEARCH_CATEGORIES.TIME:
         prefix = MAX_TIME_FLAG;
         break;
+      case SEARCH_CATEGORIES.ATTRIBUTES:
+        prefix = ATTRIBUTE_FLAG;
+        break;
       default:
         break;
     }
@@ -317,9 +386,9 @@ export const convertToFilterString = (filterArray) => {
       return '';
     }
     if (value.indexOf(' ') >= 0) {
-      return `${prefix}"${value}"`;
+      return `${prefix}"${value.toLowerCase()}"`;
     }
-    return `${prefix}${value}`;
+    return `${prefix}${value.toLowerCase()}`;
   });
   let newFilterString = '';
   for (let i = 0; i < filterStringArray.length; i++) {

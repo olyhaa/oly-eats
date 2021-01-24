@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputBase from '@material-ui/core/InputBase';
+import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchDropdown from './SearchDropdown';
+import { SEARCH_ATTRIBUTES, SEARCH_CATEGORIES } from './searchConstants';
+import { isEmpty } from 'ramda';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -21,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: theme.spacing(1, 0),
   },
   inputRoot: {
     color: 'inherit',
@@ -41,6 +47,31 @@ function SearchBox({
   setNewFilterValue,
 }) {
   const classes = useStyles();
+
+  const isFavorite = !isEmpty(
+    filterValue.filter(
+      (filter) =>
+        filter.category === SEARCH_CATEGORIES.ATTRIBUTES &&
+        filter.value === SEARCH_ATTRIBUTES.FAVORITE
+    )
+  );
+
+  const setIsFavorite = (newValue) => {
+    let newArray = Array.from(filterValue);
+    if (newValue) {
+      newArray.push({
+        value: SEARCH_ATTRIBUTES.FAVORITE,
+        category: SEARCH_CATEGORIES.ATTRIBUTES,
+      });
+    } else {
+      newArray = filterValue.filter(
+        (filter) =>
+          filter.category !== SEARCH_CATEGORIES.ATTRIBUTE &&
+          filter.value !== SEARCH_ATTRIBUTES.FAVORITE
+      );
+    }
+    setNewFilterValue(newArray);
+  };
 
   return (
     <div className={classes.search}>
@@ -68,6 +99,18 @@ function SearchBox({
             }}
             inputProps={{ 'aria-label': 'search', 'data-test': 'search-box' }}
           />
+
+          <IconButton
+            aria-label="show favorites"
+            color="primary"
+            size="medium"
+            onClick={(event) => {
+              event.stopPropagation();
+              setIsFavorite(!isFavorite);
+            }}
+          >
+            {isFavorite ? <StarIcon /> : <StarBorderIcon />}
+          </IconButton>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <SearchDropdown

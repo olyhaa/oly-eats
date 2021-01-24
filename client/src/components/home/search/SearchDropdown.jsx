@@ -56,6 +56,9 @@ function SearchDropdown({ filters, setFilterValue }) {
       {filters &&
         filters.length > 0 &&
         filters.map((filterItem, index) => {
+          if (filterItem.category === SEARCH_CATEGORIES.ATTRIBUTES) {
+            return;
+          }
           return (
             <FilterItem
               key={`${filterItem.category}-${index}`}
