@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
 
@@ -19,12 +20,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textTransform: 'capitalize',
   },
-  favoriteSpacer: {
-    paddingLeft: '1.5rem',
-  },
 }));
 
-function Header({ title, isFavorite }) {
+function Header({ title, isFavorite, setIsFavorite }) {
   const classes = useStyles();
 
   return (
@@ -33,17 +31,24 @@ function Header({ title, isFavorite }) {
         <IconButton edge="start" color="inherit" component={Link} to="/home">
           <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
         </IconButton>
-        {isFavorite && <StarIcon />}
         <Typography
-          className={`${classes.title} ${
-            !isFavorite && classes.favoriteSpacer
-          }`}
+          className={`${classes.title} ${!isFavorite}`}
           variant="h6"
           noWrap
           data-test="app-title"
         >
           {title}
         </Typography>
+        <IconButton
+          aria-label="favorite"
+          color="secondary"
+          size="medium"
+          onClick={(event) => {
+            setIsFavorite(!isFavorite);
+          }}
+        >
+          {isFavorite ? <StarIcon /> : <StarBorderIcon />}
+        </IconButton>
         <Button
           color="inherit"
           component={Link}
@@ -64,6 +69,7 @@ Header.defaultProps = {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   isFavorite: PropTypes.bool,
+  setIsFavorite: PropTypes.func.isRequired,
 };
 
 export default Header;

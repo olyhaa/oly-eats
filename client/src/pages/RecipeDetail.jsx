@@ -126,7 +126,11 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
 
   return (
     <>
-      <Header title={recipeTitle} isFavorite={isFavorite} />
+      <Header
+        title={recipeTitle}
+        isFavorite={isFavorite}
+        setIsFavorite={handleFavorite}
+      />
       <div className={classes.mainContent}>
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
