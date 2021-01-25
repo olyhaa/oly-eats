@@ -2,8 +2,10 @@
 
 React-based recipe app to store recipes and plan meals.
 
-![Home Page](screenshots/home-page-screenhost.PNG 'Sample Home Page')
-![Recipe Detail Page](screenshots/recipe-detail-screenhost.PNG 'Sample Recipe Page')
+## Screenshots
+
+|![Home Page](screenshots/home-page-screenhost.PNG 'Sample Home Page')|![Recipe Detail Page](screenshots/recipe-detail-screenhost.PNG 'Sample Recipe Page')|
+||Home Page||Recipe Detail Page||
 
 ## File Structure
 
