@@ -193,7 +193,7 @@ describe('Edit Recipe Page', () => {
     cy.url().should('contain', '/recipe');
     cy.get('[data-test="app-title"]').contains(new_title);
     cy.get('[data-test="card-description"]').contains(new_description);
-    cy.get('[data-test="recipe-photo"]').its('src').should('be', new_img);
+    cy.get('[data-test="recipe-photo"]').its('src').should('eq', new_img);
     cy.get('[data-test="card-source"]').contains(new_source);
     cy.get('[data-test="card-source"]')
       .find('a')
@@ -231,21 +231,15 @@ describe('Edit Recipe Page', () => {
   it('should remove single ingredient and direction sections', () => {
     cy.log('remove ingredients');
     cy.get('[data-test="remove-ingredients-1"]').should('be.visible').click();
-    cy.get('input[name="ingredients[1].ingredientsLabel"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="ingredients[1].ingredientsLabel"]').should('not.exist');
     cy.get('textarea[name="ingredients[1].ingredientsList"]').should(
-      'not.be.visible'
+      'not.exist'
     );
 
     cy.log('remove directions');
     cy.get('[data-test="remove-directions-1"]').should('be.visible').click();
-    cy.get('input[name="directions[1].directionsLabel"]').should(
-      'not.be.visible'
-    );
-    cy.get('textarea[name="directions[1].directionsList"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="directions[1].directionsLabel"]').should('not.exist');
+    cy.get('textarea[name="directions[1].directionsList"]').should('not.exist');
 
     cy.get('[data-test="submit-recipe"]').should('be.visible').click();
     cy.url().should('contain', '/recipe');

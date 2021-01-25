@@ -49,22 +49,18 @@ describe('Add Recipe Page', () => {
       'be.visible'
     );
 
-    cy.get('input[name="ingredients[1].ingredientsLabel"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="ingredients[1].ingredientsLabel"]').should('not.exist');
     cy.get('textarea[name="ingredients[1].ingredientsList"]').should(
-      'not.be.visible'
+      'not.exist'
     );
 
     cy.get('[data-test="add-ingredients-section"]').should('be.visible');
 
     cy.log('removing only ingredient section');
     cy.get('[data-test="remove-ingredients-0"]').should('be.visible').click();
-    cy.get('input[name="ingredients[0].ingredientsLabel"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="ingredients[0].ingredientsLabel"]').should('not.exist');
     cy.get('textarea[name="ingredients[0].ingredientsList"]').should(
-      'not.be.visible'
+      'not.exist'
     );
 
     cy.log('add only ingredient section');
@@ -78,11 +74,9 @@ describe('Add Recipe Page', () => {
       'be.visible'
     );
 
-    cy.get('input[name="ingredients[1].ingredientsLabel"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="ingredients[1].ingredientsLabel"]').should('not.exist');
     cy.get('textarea[name="ingredients[1].ingredientsList"]').should(
-      'not.be.visible'
+      'not.exist'
     );
 
     cy.log('add second ingredient section');
@@ -115,23 +109,15 @@ describe('Add Recipe Page', () => {
       'be.visible'
     );
 
-    cy.get('input[name="directions[1].directionsLabel"]').should(
-      'not.be.visible'
-    );
-    cy.get('textarea[name="directions[1].directionsList"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="directions[1].directionsLabel"]').should('not.exist');
+    cy.get('textarea[name="directions[1].directionsList"]').should('not.exist');
 
     cy.get('[data-test="add-directions-section"]').should('be.visible');
 
     cy.log('removing only direction section');
     cy.get('[data-test="remove-directions-0"]').should('be.visible').click();
-    cy.get('input[name="directions[0].directionsLabel"]').should(
-      'not.be.visible'
-    );
-    cy.get('textarea[name="directions[0].directionsList"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="directions[0].directionsLabel"]').should('not.exist');
+    cy.get('textarea[name="directions[0].directionsList"]').should('not.exist');
 
     cy.log('add only direction section');
     cy.get('[data-test="add-directions-section"]').should('be.visible').click();
@@ -141,12 +127,8 @@ describe('Add Recipe Page', () => {
     );
     cy.get('[data-test="remove-directions-0"]').should('be.visible');
 
-    cy.get('input[name="directions[1].directionsLabel"]').should(
-      'not.be.visible'
-    );
-    cy.get('textarea[name="directions[1].directionsList"]').should(
-      'not.be.visible'
-    );
+    cy.get('input[name="directions[1].directionsLabel"]').should('not.exist');
+    cy.get('textarea[name="directions[1].directionsList"]').should('not.exist');
 
     cy.log('add second ingredient section');
     cy.get('[data-test="add-directions-section"]').should('be.visible').click();
@@ -165,7 +147,7 @@ describe('Add Recipe Page', () => {
   });
 
   it('should validate photo url', () => {
-    cy.get('[data-test="add-recipe-photo"]').find('p').should('not.be.visible');
+    cy.get('[data-test="add-recipe-photo"]').find('p').should('not.exist');
     cy.get('input[name="photo"]').should('be.visible').type('bad-photo');
     cy.get('[data-test="submit-recipe"]').should('be.visible').click();
     cy.get('[data-test="add-recipe-photo"]')
@@ -533,8 +515,7 @@ describe('Add Recipe Page', () => {
       cy.get('[data-test="app-title"]').contains(recipeData.recipeTitle);
       cy.get('[data-test="recipe-photo"]')
         .should('be.visible')
-        .its('src')
-        .should('be', recipeData.recipePhotoUrl);
+        .should('have.attr', 'src', recipeData.recipePhotoUrl);
       cy.get('[data-test="card-description"]')
         .find('p')
         .should('be.visible')

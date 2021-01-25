@@ -21,7 +21,7 @@ describe('Admin Page - Tag Types', () => {
       .click({ force: true });
     cy.get('[data-test="edit-modal-dialog"]').should('be.visible');
     cy.get('[data-test="edit-modal-cancel"]').should('be.visible').click();
-    cy.get('[data-test="edit-modal-dialog"]').should('not.be.visible');
+    cy.get('[data-test="edit-modal-dialog"]').should('not.exist');
 
     cy.get('#tag-type-list-select').should('be.visible').click();
     cy.get('[data-test="tag-type-item"]').should('have.length', 4);
@@ -39,7 +39,7 @@ describe('Admin Page - Tag Types', () => {
     const new_tag = 'A Test Tag';
     cy.get('[data-test="edit-modal-input"]').should('be.visible').type(new_tag);
     cy.get('[data-test="edit-modal-confirm"]').should('be.visible').click();
-    cy.get('[data-test="edit-modal-dialog"]').should('not.be.visible');
+    cy.get('[data-test="edit-modal-dialog"]').should('not.exist');
 
     cy.get('#tag-type-list-select').should('be.visible').click();
     cy.get('[data-test="tag-type-item"]').should('have.length', 5);
@@ -53,7 +53,7 @@ describe('Admin Page - Tag Types', () => {
     cy.get('[data-test="tag-type-item-edit"]').click({ force: true });
     cy.get('[data-test="edit-modal-dialog"]').should('be.visible');
     cy.get('[data-test="edit-modal-cancel"]').should('be.visible').click();
-    cy.get('[data-test="edit-modal-dialog"]').should('not.be.visible');
+    cy.get('[data-test="edit-modal-dialog"]').should('not.exist');
 
     cy.get('#tag-type-list-select').should('be.visible').click();
     cy.get('[data-test="tag-type-item"]').should('have.length', 5);
@@ -71,7 +71,7 @@ describe('Admin Page - Tag Types', () => {
       .should('be.visible')
       .type(updated_tag);
     cy.get('[data-test="edit-modal-confirm"]').should('be.visible').click();
-    cy.get('[data-test="edit-modal-dialog"]').should('not.be.visible');
+    cy.get('[data-test="edit-modal-dialog"]').should('not.exist');
 
     cy.get('#tag-type-list-select').should('be.visible').click();
     cy.get('[data-test="tag-type-item"]').should('have.length', 5);
@@ -87,7 +87,7 @@ describe('Admin Page - Tag Types', () => {
     cy.get('[data-test="tag-type-item-delete"]').click({ force: true });
     cy.get('[data-test="delete-modal-title"]').should('be.visible');
     cy.get('[data-test="delete-modal-cancel"]').click();
-    cy.get('[data-test="delete-modal-title"]').should('not.be.visible');
+    cy.get('[data-test="delete-modal-title"]').should('not.exist');
 
     cy.get('#tag-type-list-select').should('be.visible').click();
     cy.get('[data-test="tag-type-item"]').should('have.length', 5);
@@ -102,7 +102,7 @@ describe('Admin Page - Tag Types', () => {
     cy.get('[data-test="tag-type-item-delete"]').click({ force: true });
     cy.get('[data-test="delete-modal-title"]').should('be.visible');
     cy.get('[data-test="delete-modal-confirm"]').click();
-    cy.get('[data-test="delete-modal-title"]').should('not.be.visible');
+    cy.get('[data-test="delete-modal-title"]').should('not.exist');
 
     // brief wait for list to update after delete
     cy.wait(200);
