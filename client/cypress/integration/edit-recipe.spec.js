@@ -193,12 +193,11 @@ describe('Edit Recipe Page', () => {
     cy.url().should('contain', '/recipe');
     cy.get('[data-test="app-title"]').contains(new_title);
     cy.get('[data-test="card-description"]').contains(new_description);
-    cy.get('[data-test="recipe-photo"]').its('src').should('eq', new_img);
+    cy.get('[data-test="recipe-photo"]').should('have.attr', 'src', new_img);
     cy.get('[data-test="card-source"]').contains(new_source);
     cy.get('[data-test="card-source"]')
       .find('a')
-      .should('have.attr', 'href')
-      .and('include', new_source_url);
+      .should('have.attr', 'href', new_source_url);
     cy.get('[data-test="ingredient-section"]')
       .should('have.length', 2)
       .first()
