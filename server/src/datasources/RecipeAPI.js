@@ -189,7 +189,7 @@ class RecipeAPI extends DataSource {
     if (newFields.servings) {
       recipeObj.servings = newFields.servings;
     }
-    if (newFields.isFavorite) {
+    if (newFields.isFavorite !== undefined) {
       recipeObj.isFavorite = newFields.isFavorite;
     }
     return recipeObj;

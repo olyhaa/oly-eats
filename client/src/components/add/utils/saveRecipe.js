@@ -79,6 +79,7 @@ export const saveRecipe = (values) => {
   recipe[RECIPE.SOURCE][RECIPE.SOURCE_URL] = values[FIELDS.SOURCE_URL];
   recipe[RECIPE.PHOTO] = values[FIELDS.PHOTO_URL];
   recipe[RECIPE.SERVINGS] = values[FIELDS.SERVINGS];
+  recipe[RECIPE.IS_FAVORITE] = false;
 
   recipe[RECIPE.INGREDIENT_SECTION] = [];
   for (let i = 0; i < values[FIELDS.INGREDIENTS].length; i++) {
