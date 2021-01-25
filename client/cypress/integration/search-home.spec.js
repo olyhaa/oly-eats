@@ -55,7 +55,7 @@ describe('Home Page - Search', () => {
         cy.get('[data-test="search-box"]').clear();
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
-          .should('be', initialCount);
+          .should('eq', initialCount);
       });
     });
   });
@@ -85,7 +85,7 @@ describe('Home Page - Search', () => {
         cy.get('[data-test="search-box"]').clear();
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
-          .should('be', initialCount);
+          .should('eq', initialCount);
       });
     });
   });
@@ -115,7 +115,7 @@ describe('Home Page - Search', () => {
         cy.get('[data-test="search-box"]').clear();
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
-          .should('be', initialCount);
+          .should('eq', initialCount);
       });
     });
   });
@@ -145,7 +145,7 @@ describe('Home Page - Search', () => {
         cy.get('[data-test="search-box"]').clear();
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
-          .should('be', initialCount);
+          .should('eq', initialCount);
       });
     });
   });
@@ -174,7 +174,7 @@ describe('Home Page - Search', () => {
         cy.get('[data-test="search-box"]').clear();
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
-          .should('be', initialCount);
+          .should('eq', initialCount);
       });
     });
   });
@@ -205,7 +205,7 @@ describe('Home Page - Search', () => {
           recipeData.variables.recipe.title
         );
 
-        cy.get('[data-test^="filter-item-"]').its('length').should('be', 1);
+        cy.get('[data-test^="filter-item-"]').its('length').should('eq', 1);
 
         cy.get('[data-test="category-select"]').should(
           'have.value',
@@ -253,7 +253,7 @@ describe('Home Page - Search', () => {
 
         cy.get('[data-test="recipe-list-item"]')
           .its('length')
-          .should('be', initialCount);
+          .should('eq', initialCount);
       });
     });
   });
