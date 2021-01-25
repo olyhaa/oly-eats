@@ -84,7 +84,7 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
   };
 
   if (error) {
-    return <Redirect to={'/error'} />;
+    return <Redirect to="/error" />;
   }
 
   return (

@@ -21,6 +21,7 @@ const typeDefs = gql`
     addRecipe(recipe: RecipeInput!): RecipeMutation
     deleteRecipe(id: ID!): RecipeMutation
     updateRecipe(id: ID!, recipe: RecipeInput!): RecipeMutation
+    updateFavoriteRecipe(id: ID!, isFavorite: Boolean!): RecipeMutation
   }
 
   type TagTypeMutation {
@@ -65,6 +66,7 @@ const typeDefs = gql`
     timing: TimeGroup
     tags: [Tag]
     meta: RecipeMeta
+    isFavorite: Boolean!
   }
 
   scalar ISODate
@@ -133,6 +135,7 @@ const typeDefs = gql`
     ingredients: [IngredientSectionInput]!
     timing: TimingInput!
     tags: [RecipeTagInput]!
+    isFavorite: Boolean
   }
 
   input SourceInput {

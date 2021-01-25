@@ -7,6 +7,11 @@ export const SEARCH_CATEGORIES = {
   SOURCE: 'SOURCE',
   TIME: 'TIME',
   TAGS: 'TAGS',
+  ATTRIBUTES: 'ATTRIBUTES',
+};
+
+export const SEARCH_ATTRIBUTES = {
+  FAVORITE: 'FAVORITE',
 };
 
 export const FILTER_TYPE = {

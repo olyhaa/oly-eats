@@ -11,6 +11,8 @@ const RecipeResolver = {
       dataSources.recipeAPI.deleteRecipe({ id }),
     updateRecipe: (_, { id, recipe }, { dataSources }) =>
       dataSources.recipeAPI.updateRecipe({ id, recipe }),
+    updateFavoriteRecipe: (_, { id, isFavorite }, { dataSources }) =>
+      dataSources.recipeAPI.updateFavoriteRecipe({ id, isFavorite }),
   },
 };
 

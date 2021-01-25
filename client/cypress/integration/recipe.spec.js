@@ -74,6 +74,17 @@ describe('Recipe Page', () => {
       .contains('16 ounce all-purpose flour');
   });
 
+  it('Should update favorite', () => {
+    // verify favorite is set
+    cy.get('[data-test="favorite-start-true"]').should('be.visible');
+
+    // unset favorite
+    cy.get('[data-test="favorite-start-true"]').click();
+
+    // verify favorite is updated
+    cy.get('[data-test="favorite-start-false"]').should('be.visible');
+  });
+
   it('Delete', () => {
     cy.log('Delete Cancel');
     cy.get('[data-test="action-menu"]').should('be.visible').click();

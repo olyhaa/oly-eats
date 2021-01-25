@@ -4,6 +4,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import orange from '@material-ui/core/colors/orange';
 import green from '@material-ui/core/colors/green';
+import ErrorBoundary from 'components/error/ErrorBoundary';
 import history from './store/history';
 import Home from './pages/Home';
 import AddRecipe from './pages/AddRecipe';
@@ -11,7 +12,6 @@ import RecipeDetail from './pages/RecipeDetail';
 import EditRecipe from './pages/EditRecipe';
 import AdminHome from './pages/AdminHome';
 import ErrorPage from './pages/ErrorPage';
-import ErrorBoundary from 'components/error/ErrorBoundary';
 
 function App() {
   const darkTheme = createMuiTheme({

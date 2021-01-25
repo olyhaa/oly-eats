@@ -82,7 +82,8 @@
           { "value": 1, "units": "HOUR" }
         ]
       },
-      "tags": [{ "id": "6" }, { "id": "11" }, { "id": "23" }]
+      "tags": [{ "id": "6" }, { "id": "11" }, { "id": "23" }],
+      "isFavorite": true
     }
   },
   "query": "mutation AddRecipe($recipe: RecipeInput!) {\n  addRecipe(recipe: $recipe) {\n    success\n    message\n    recipe {\n      id\n      title\n      description\n      source {\n        display\n        url\n        __typename\n      }\n      photo\n      servings\n      directions {\n        label\n        steps {\n          text\n          __typename\n        }\n        __typename\n      }\n      ingredients {\n        label\n        ingredients {\n          rangedAmount {\n            min\n            max\n            __typename\n          }\n          amount\n          unit\n          prep\n          name\n          toTaste\n          optional\n          __typename\n        }\n        __typename\n      }\n      timing {\n        prep {\n          value\n          units\n          __typename\n        }\n        total {\n          value\n          units\n          __typename\n        }\n        __typename\n      }\n      tags {\n        id\n        label\n        type {\n          id\n          label\n          __typename\n        }\n        __typename\n      }\n      meta {\n        dateAdded\n        dateUpdated\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"

@@ -151,6 +151,24 @@ class RecipeAPI extends DataSource {
     });
   }
 
+  async updateFavoriteRecipe({ id, isFavorite }) {
+    const recipe = await this.store.Recipe.findByPk(id);
+    if (!recipe) {
+      return recipeMutationReducer({
+        success: false,
+        message: 'ID not found',
+      });
+    }
+
+    const updatedRecipe = await recipe.update({ isFavorite: isFavorite });
+    const recipeObj = await this.getRecipeData({ id });
+
+    return recipeMutationReducer({
+      success: true,
+      recipe: recipeObj,
+    });
+  }
+
   constructBaseRecipeObj(newFields) {
     const recipeObj = {};
     if (newFields.title) {
@@ -170,6 +188,9 @@ class RecipeAPI extends DataSource {
     }
     if (newFields.servings) {
       recipeObj.servings = newFields.servings;
+    }
+    if (newFields.isFavorite !== undefined) {
+      recipeObj.isFavorite = newFields.isFavorite;
     }
     return recipeObj;
   }

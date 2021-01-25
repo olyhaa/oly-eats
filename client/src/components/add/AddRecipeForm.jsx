@@ -10,6 +10,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import { makeStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 import { RECIPE } from 'utils/recipeConstants';
 import {
   getTagsListQuery,
@@ -30,8 +32,6 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
-import { Grid } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -3,14 +3,13 @@ import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Grid from '@material-ui/core/Grid';
 import { useQuery } from '@apollo/react-hooks';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
 import Header from '../components/Header';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
-import Skeleton from '@material-ui/lab/Skeleton';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -56,7 +55,7 @@ function Home() {
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
   if (error) {
-    return <Redirect to={'/error'} />;
+    return <Redirect to="/error" />;
   }
 
   const { recipes: RecipeData } = removeNulls(data);

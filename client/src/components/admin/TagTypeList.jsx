@@ -117,7 +117,7 @@ function TagTypeList({
                 handleSelectTagTypeIndex(index);
               }}
             >
-              {typeItem.label}{' '}
+              {`${typeItem.label} `}
             </MenuItem>
           ))}
         </Select>
@@ -184,18 +184,16 @@ function TagTypeList({
 
 TagTypeList.defaultProps = {
   selectedTagTypeIndex: 0,
-  mobile: false,
   allTagTypes: [],
 };
 
 TagTypeList.propTypes = {
-  mobile: PropTypes.bool,
   allTagTypes: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
     })
-  ).isRequired,
+  ),
   handleSelectTagTypeIndex: PropTypes.func.isRequired,
   selectedTagTypeIndex: PropTypes.number,
   deleteMutation: PropTypes.func.isRequired,

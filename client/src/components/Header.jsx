@@ -7,6 +7,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
 
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ title }) {
+function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
   const classes = useStyles();
 
   return (
@@ -37,6 +39,19 @@ function Header({ title }) {
         >
           {title}
         </Typography>
+        {showFavorite && (
+          <IconButton
+            aria-label="favorite"
+            color="secondary"
+            size="medium"
+            onClick={(event) => {
+              setIsFavorite(!isFavorite);
+            }}
+            data-test={`favorite-start-${isFavorite}`}
+          >
+            {isFavorite ? <StarIcon /> : <StarBorderIcon />}
+          </IconButton>
+        )}
         <Button
           color="inherit"
           component={Link}
@@ -50,8 +65,17 @@ function Header({ title }) {
   );
 }
 
+Header.defaultProps = {
+  isFavorite: false,
+  setIsFavorite: () => {},
+  showFavorite: false,
+};
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  showFavorite: PropTypes.bool,
+  isFavorite: PropTypes.bool,
+  setIsFavorite: PropTypes.func,
 };
 
 export default Header;

@@ -21,6 +21,10 @@ const Recipe = (db, SQL) => {
       type: SQL.INTEGER,
       allowNull: false,
     },
+    isFavorite: {
+      type: SQL.BOOLEAN,
+      allowNull: false,
+    },
   });
 };
 

@@ -38,7 +38,7 @@ function SearchDropdown({ filters, setFilterValue }) {
   };
 
   const handleAddNewFilter = () => {
-    var newArray = [...filters];
+    const newArray = [...filters];
     newArray.push({
       value: '',
       category: SEARCH_CATEGORIES.NOT_INITIALIZED,
@@ -56,6 +56,9 @@ function SearchDropdown({ filters, setFilterValue }) {
       {filters &&
         filters.length > 0 &&
         filters.map((filterItem, index) => {
+          if (filterItem.category === SEARCH_CATEGORIES.ATTRIBUTES) {
+            return;
+          }
           return (
             <FilterItem
               key={`${filterItem.category}-${index}`}

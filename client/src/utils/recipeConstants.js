@@ -36,6 +36,7 @@ const TAGS = 'tags';
 const META = 'meta';
 const DATE_ADDED = 'dateAdded';
 const DATE_UPDATED = 'dateUpdated';
+const IS_FAVORITE = 'isFavorite';
 
 export const RECIPE = {
   ID,
@@ -71,4 +72,5 @@ export const RECIPE = {
   META,
   DATE_ADDED,
   DATE_UPDATED,
+  IS_FAVORITE,
 };
