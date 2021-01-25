@@ -188,7 +188,6 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
                   updateServingSize={updateServings}
                   source={recipe[RECIPE.SOURCE]}
                   dateAdded={recipe[RECIPE.META][RECIPE.DATE_ADDED]}
-                  lastUpdated={recipe[RECIPE.META][RECIPE.DATE_UPDATED]}
                 />
               </Grid>
             )}
