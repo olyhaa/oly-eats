@@ -135,7 +135,7 @@ export const parseFilterString = (filter) => {
     favoriteFilters
       .map((favorite) => favorite.slice(ATTRIBUTE_FLAG.length))
       .map(removeSurroundingQuotes)
-      .map((item) => {
+      .map(() => {
         return {
           value: SEARCH_ATTRIBUTES.FAVORITE,
           category: SEARCH_CATEGORIES.ATTRIBUTES,

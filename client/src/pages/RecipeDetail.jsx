@@ -128,7 +128,7 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
     <>
       <Header
         title={recipeTitle}
-        showFavorite={true}
+        showFavorite
         isFavorite={isFavorite}
         setIsFavorite={handleFavorite}
       />

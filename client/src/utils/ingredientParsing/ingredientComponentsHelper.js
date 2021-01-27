@@ -12,19 +12,6 @@ import {
   noiseWords,
 } from './ingredientConstants';
 
-export const scaleNumber = (num, multiplier) => {
-  if (!isNumber(num)) {
-    return num;
-  }
-  let newNum = num;
-  if (isNumeric(num)) {
-    newNum = num * multiplier;
-  } else if (isFraction(num)) {
-    newNum = numericQuantity(num) * multiplier;
-  }
-  return formatFraction(newNum);
-};
-
 export const isNumeric = (num) => {
   // eslint-disable-next-line no-restricted-globals
   return !isNaN(parseFloat(num)) && isFinite(num);
@@ -43,6 +30,19 @@ export const isFraction = (str) => {
 
 export const isNumber = (str) => {
   return isNumeric(str) || isFraction(str);
+};
+
+export const scaleNumber = (num, multiplier) => {
+  if (!isNumber(num)) {
+    return num;
+  }
+  let newNum = num;
+  if (isNumeric(num)) {
+    newNum = num * multiplier;
+  } else if (isFraction(num)) {
+    newNum = numericQuantity(num) * multiplier;
+  }
+  return formatFraction(newNum);
 };
 
 export const trimWord = (word) => {
