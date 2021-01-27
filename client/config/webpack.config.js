@@ -58,7 +58,7 @@ if (__LINT__) {
   webpackConfig.module.rules.push({
     test: /\.(js|jsx)$/,
     enforce: 'pre',
-    exclude: /src\/static/,
+    exclude: /src\/static|node_modules/,
     use: [
       {
         loader: 'eslint-loader',
