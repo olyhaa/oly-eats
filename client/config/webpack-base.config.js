@@ -1,4 +1,3 @@
-require('@babel/polyfill');
 const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
