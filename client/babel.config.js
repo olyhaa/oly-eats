@@ -7,12 +7,6 @@ module.exports = (api) => {
         {
           useBuiltIns: 'entry',
           targets: {
-            browsers: [
-              'last 2 versions',
-              'not dead',
-              'not <2%',
-              'last 4 Edge versions',
-            ],
             esmodules: false,
           },
         },
