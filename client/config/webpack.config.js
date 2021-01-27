@@ -9,12 +9,17 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpackBaseConfig = require('./webpack-base.config');
 const project = require('./project.config');
+var os = require('os');
+var networkInterfaces = os.networkInterfaces();
+var arr = networkInterfaces['Ethernet'];
+var host_ip = arr[1].address;
 
 const { compiler_linter: __LINT__, globals, argv } = project;
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
+    host: host_ip,
     port: 3000,
     hot: true,
     open: true,
