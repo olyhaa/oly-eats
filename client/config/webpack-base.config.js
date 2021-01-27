@@ -8,7 +8,6 @@ const project = require('./project.config');
 
 const { globals } = project;
 const { __DEV__ } = globals;
-const entry = ['@babel/polyfill', project.paths.client('index.jsx')];
 const output = {
   filename: 'static/js/[name].[hash].js',
   chunkFilename: 'static/js/[name].[chunkhash].js',
@@ -136,7 +135,6 @@ const plugins = [
 ];
 
 module.exports = {
-  entry,
   output,
   ...optimization,
   plugins,
