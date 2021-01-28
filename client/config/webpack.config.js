@@ -9,13 +9,15 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpackBaseConfig = require('./webpack-base.config');
 const project = require('./project.config');
-const os = require('os');
-const host_ip = os.networkInterfaces()['Ethernet'][1].address;
-var devServerHost = host_ip;
 
 const { compiler_linter: __LINT__, globals, argv } = project;
+
+var devServerHost;
 if (typeof argv.host == 'string') {
   devServerHost = argv.host;
+} else {
+  const os = require('os');
+  devServerHost = os.networkInterfaces()['Ethernet'][1].address;
 }
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
