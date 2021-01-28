@@ -61,7 +61,7 @@ function FilterItem({
   };
 
   return (
-    <div data-test={`filter-item-${id}`}>
+    <div key={id} data-test={`filter-item-${id}`}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="category-label">Category</InputLabel>
         <Select
@@ -97,8 +97,12 @@ function FilterItem({
               onChange={handleFilterTextChange}
             />
           </FormControl>
-          <IconButton aria-label="delete" className={classes.deleteButton}>
-            <DeleteIcon onClick={handleDelete} data-test="search-item-delete" />
+          <IconButton
+            aria-label="delete"
+            className={classes.deleteButton}
+            onClick={handleDelete}
+          >
+            <DeleteIcon data-test="search-item-delete" />
           </IconButton>
         </>
       )}
@@ -111,11 +115,16 @@ function FilterItem({
   );
 }
 
+FilterItem.defaultProps = {
+  filterCategory: '',
+  filterText: undefined,
+};
+
 FilterItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  filterCategory: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  filterCategory: PropTypes.string,
   setFilterCategory: PropTypes.func.isRequired,
-  filterText: PropTypes.string.isRequired,
+  filterText: PropTypes.string,
   setFilterText: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };
