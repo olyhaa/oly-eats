@@ -137,14 +137,16 @@ function IconCard({ title, display, value, type, updateValue }) {
           </Typography>
         </Box>
       </Paper>
-      <EditNumberModal
-        open={editModalOpenState}
-        initialValue={value}
-        handleConfirm={handleEditConfirm}
-        handleCancel={handleEditCancel}
-        confirmLabel="Update"
-        title={`Edit ${title}`}
-      />
+      {type === SERVING_CARD && (
+        <EditNumberModal
+          open={editModalOpenState}
+          initialValue={value}
+          handleConfirm={handleEditConfirm}
+          handleCancel={handleEditCancel}
+          confirmLabel="Update"
+          title={`Edit ${title}`}
+        />
+      )}
     </>
   );
 }
