@@ -34,14 +34,25 @@ In the `client` directory, you can run:
 
 ```
 npm install
-npm run start
+npm run start:localhost
 ```
 
-This will run the app in the development mode.
+This will run the app in the development mode running on `localhost`.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits. You will also see any lint errors in the console.
+
+### Running the Client so it's accessible on local network
+
+```
+npm install
+npm run start
+```
+
+This will run the app in the development mode running on the local machine, accessible from other machines in the local network.
+
+Open `http://<local_ip>:3000` to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
 
 ## Testing
 

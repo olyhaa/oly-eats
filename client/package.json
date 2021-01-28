@@ -18,6 +18,7 @@
     "jumpstart": "webpack-dev-server --config config/webpack.config.js",
     "lint": "eslint -c .eslintrc.js .",
     "start": "npm run jumpstart",
+    "start:localhost": "npm run jumpstart -- --host localhost",
     "test": "npm test:unit & npm test:cypress",
     "test:unit": "SET NODE_ENV=development & jest --verbose",
     "test:cypress": "cypress run --browser chrome",
