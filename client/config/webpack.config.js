@@ -50,7 +50,7 @@ const webpackConfig = merge(webpackBaseConfig, {
       files: '**/*.css',
       emitErrors: false,
     }),
-    new CopyPlugin([{ from: 'public/*', to: '[name].[ext]', flatten: true }]),
+    new CopyPlugin({ patterns: [{ from: 'public/*', to: '[name].[ext]' }] }),
   ],
 });
 
