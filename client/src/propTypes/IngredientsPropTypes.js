@@ -7,7 +7,9 @@ RangedAmountPropTypes[RECIPE.INGREDIENTS_AMOUNT_MAX] = PropTypes.string;
 
 const ingredientItemPropType = {};
 ingredientItemPropType[RECIPE.INGREDIENTS_AMOUNT] = PropTypes.string;
-ingredientItemPropType[RECIPE.INGREDIENTS_RANGE] = RangedAmountPropTypes;
+ingredientItemPropType[RECIPE.INGREDIENTS_RANGE] = PropTypes.shape(
+  RangedAmountPropTypes
+);
 ingredientItemPropType[RECIPE.INGREDIENTS_UNIT] = PropTypes.string;
 ingredientItemPropType[RECIPE.INGREDIENTS_NAME] = PropTypes.string.isRequired;
 ingredientItemPropType[RECIPE.INGREDIENTS_PREP] = PropTypes.string;

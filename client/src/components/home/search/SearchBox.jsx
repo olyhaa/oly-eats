@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'ramda';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -12,7 +13,6 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchDropdown from './SearchDropdown';
 import { SEARCH_ATTRIBUTES, SEARCH_CATEGORIES } from './searchConstants';
-import { isEmpty } from 'ramda';
 
 const useStyles = makeStyles((theme) => ({
   search: {

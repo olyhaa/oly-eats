@@ -16,11 +16,13 @@ function Ingredients({ ingredientList, recipeScale }) {
   const classes = useStyles();
   return (
     <Paper className={classes.root} data-test="ingredient-box">
-      {ingredientList.map((ingredientSection) => {
+      {ingredientList.map((ingredientSection, index) => {
         return (
           <IngredientSection
             recipeScale={recipeScale}
-            key={ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]}
+            key={`${
+              ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]
+            }-${index}`}
             label={ingredientSection[RECIPE.INGREDIENT_SECTION_LABEL]}
             ingredients={
               ingredientSection[RECIPE.INGREDIENT_SECTION_INGREDIENTS]

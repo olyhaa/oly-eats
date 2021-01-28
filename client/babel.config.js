@@ -6,21 +6,13 @@ module.exports = (api) => {
         '@babel/preset-env',
         {
           useBuiltIns: 'entry',
-          targets: {
-            browsers: [
-              'last 2 versions',
-              'not dead',
-              'not <2%',
-              'last 4 Edge versions',
-            ],
-            esmodules: false,
-          },
+          corejs: 3,
         },
       ],
       '@babel/preset-react',
     ],
     plugins: [
-      ['@babel/plugin-transform-runtime', { regenerator: true }],
+      ['@babel/plugin-transform-runtime', { regenerator: true, corejs: 3 }],
       'add-module-exports',
       '@babel/plugin-proposal-export-default-from',
       '@babel/plugin-proposal-class-properties',

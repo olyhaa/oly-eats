@@ -86,11 +86,9 @@ function AddRecipeForm({
   updateMutation,
 }) {
   const classes = useStyles();
-  const {
-    data: allTagsData,
-    loading: allTagsLoading,
-    error: allTagsError,
-  } = useQuery(getTagsListQuery());
+  const { data: allTagsData, loading: allTagsLoading } = useQuery(
+    getTagsListQuery()
+  );
 
   const handleSubmitForm = (data) => {
     if (isEdit) {
@@ -115,7 +113,7 @@ function AddRecipeForm({
   if (allTagsLoading) {
     return (
       <Grid container justify="center" className={classes.root}>
-        {Array.from(new Array(6)).map((item, index) => (
+        {Array.from(new Array(6)).map(() => (
           <Grid item xs={12} className={classes.skeletonItem}>
             <Skeleton
               variant="rect"

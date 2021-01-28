@@ -1,13 +1,12 @@
-require('@babel/polyfill');
 const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
+const ObsoleteWebpackPlugin = require('obsolete-webpack-plugin');
 const project = require('./project.config');
 
 const { globals } = project;
 const { __DEV__ } = globals;
-const entry = ['@babel/polyfill', project.paths.client('index.jsx')];
 const output = {
   filename: 'static/js/[name].[hash].js',
   chunkFilename: 'static/js/[name].[chunkhash].js',
@@ -125,10 +124,19 @@ const loaders = [
     options: { limit: 8192, name: 'static/images/[name].[hash].[ext]' },
   },
 ];
+const plugins = [
+  new ObsoleteWebpackPlugin({
+    nme: 'obsolete',
+    promptnNonTargetBrowser: true,
+    template:
+      '<style>#content { text-align: center; background-color: #f7f7f7; color: #cc0000;} #obsoleteClose {font-size: x-large; color: #cc0000;} #download-link {text-decoration: underline;} </style></style><div id="content">Your web browser is unsupported. Please upgrade to the latest <a id="download-link" target="_blank" rel="noopener noreferrer" href="https://www.whatismybrowser.com">version.</a> <button id="obsoleteClose" aria-label="close">&times;</button></div>',
+  }),
+];
+
 module.exports = {
-  entry,
   output,
   ...optimization,
+  plugins,
   module: { rules: loaders },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],

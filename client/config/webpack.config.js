@@ -11,10 +11,19 @@ const webpackBaseConfig = require('./webpack-base.config');
 const project = require('./project.config');
 
 const { compiler_linter: __LINT__, globals, argv } = project;
+
+var devServerHost;
+if (typeof argv.host == 'string') {
+  devServerHost = argv.host;
+} else {
+  const os = require('os');
+  devServerHost = os.networkInterfaces()['Ethernet'][1].address;
+}
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
+    host: devServerHost,
     port: 3000,
     hot: true,
     open: true,
@@ -45,7 +54,7 @@ const webpackConfig = merge(webpackBaseConfig, {
       files: '**/*.css',
       emitErrors: false,
     }),
-    new CopyPlugin([{ from: 'public/*', to: '[name].[ext]', flatten: true }]),
+    new CopyPlugin({ patterns: [{ from: 'public/*', to: '[name].[ext]' }] }),
   ],
 });
 
@@ -53,7 +62,7 @@ if (__LINT__) {
   webpackConfig.module.rules.push({
     test: /\.(js|jsx)$/,
     enforce: 'pre',
-    exclude: /src\/static/,
+    exclude: /src\/static|node_modules/,
     use: [
       {
         loader: 'eslint-loader',

@@ -77,7 +77,7 @@ const EditNumberModal = ({
 };
 
 EditNumberModal.propTypes = {
-  initialValue: PropTypes.string,
+  initialValue: PropTypes.number,
   open: PropTypes.bool.isRequired,
   handleCancel: PropTypes.func.isRequired,
   handleConfirm: PropTypes.func.isRequired,

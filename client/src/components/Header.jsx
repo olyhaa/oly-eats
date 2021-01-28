@@ -44,7 +44,7 @@ function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
             aria-label="favorite"
             color="secondary"
             size="medium"
-            onClick={(event) => {
+            onClick={() => {
               setIsFavorite(!isFavorite);
             }}
             data-test={`favorite-start-${isFavorite}`}

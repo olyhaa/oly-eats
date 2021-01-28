@@ -16,10 +16,12 @@ function Directions({ directionsList }) {
   const classes = useStyles();
   return (
     <Paper className={classes.root} data-test="directions-box">
-      {directionsList.map((directionSection) => {
+      {directionsList.map((directionSection, index) => {
         return (
           <DirectionSection
-            key={directionSection[RECIPE.DIRECTIONS_SECTION_LABEL]}
+            key={`${
+              directionSection[RECIPE.DIRECTIONS_SECTION_LABEL]
+            }-${index}`}
             label={directionSection[RECIPE.DIRECTIONS_SECTION_LABEL]}
             steps={directionSection[RECIPE.DIRECTIONS_SECTION_STEPS]}
           />

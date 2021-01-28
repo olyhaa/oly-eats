@@ -49,15 +49,17 @@ function SearchDropdown({ filters, setFilterValue }) {
   return (
     <div>
       <div className={classes.helpText}>
+        {/* eslint-disable */}
         To filter by ingredient, use <code>i:ingredient</code>. To filter by
         source, use <code>s:source</code>. To filter by tag, use{' '}
         <code>tag:tag</code>. To filter by max time, use <code>time:mins</code>.
+        {/* eslint-enable */}
       </div>
       {filters &&
         filters.length > 0 &&
         filters.map((filterItem, index) => {
           if (filterItem.category === SEARCH_CATEGORIES.ATTRIBUTES) {
-            return;
+            return <></>;
           }
           return (
             <FilterItem

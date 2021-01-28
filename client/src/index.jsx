@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import { render } from 'react-dom';
 import { ApolloClient } from 'apollo-client';
@@ -9,7 +11,7 @@ import App from './App';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/',
+  uri: `http://${window.location.hostname}:4000/`,
 });
 
 const client = new ApolloClient({

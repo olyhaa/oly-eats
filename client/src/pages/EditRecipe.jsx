@@ -42,7 +42,7 @@ function EditRecipe() {
         <Grid container justify="center">
           {loading ? (
             <>
-              {Array.from(new Array(6)).map((item, index) => (
+              {Array.from(new Array(6)).map(() => (
                 <Grid item xs={12} className={classes.skeletonItem}>
                   <Skeleton variant="rect" height="100%" width="100%" />
                 </Grid>

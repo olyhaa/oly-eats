@@ -9,7 +9,11 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import { SEARCH_CATEGORIES, SEARCH_TERMS } from './searchConstants';
+import {
+  FILTER_TYPE,
+  SEARCH_CATEGORIES,
+  SEARCH_TERMS,
+} from './searchConstants';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -40,6 +44,14 @@ function FilterItem({
     })[0];
     return searchTerm.valueLabel;
   };
+
+  const getValueType = () => {
+    const searchTerm = SEARCH_TERMS.filter((termObj) => {
+      return termObj.value === filterCategory;
+    })[0];
+    return searchTerm.type;
+  };
+
   const handleCategoryChange = (event) => {
     setFilterCategory(event.target.value);
   };
@@ -49,7 +61,7 @@ function FilterItem({
   };
 
   return (
-    <div data-test={`filter-item-${id}`}>
+    <div key={id} data-test={`filter-item-${id}`}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="category-label">Category</InputLabel>
         <Select
@@ -81,11 +93,16 @@ function FilterItem({
               label={getValueLabel()}
               variant="outlined"
               value={filterText}
+              type={getValueType() === FILTER_TYPE.NUM ? 'number' : 'text'}
               onChange={handleFilterTextChange}
             />
           </FormControl>
-          <IconButton aria-label="delete" className={classes.deleteButton}>
-            <DeleteIcon onClick={handleDelete} data-test="search-item-delete" />
+          <IconButton
+            aria-label="delete"
+            className={classes.deleteButton}
+            onClick={handleDelete}
+          >
+            <DeleteIcon data-test="search-item-delete" />
           </IconButton>
         </>
       )}
@@ -98,11 +115,16 @@ function FilterItem({
   );
 }
 
+FilterItem.defaultProps = {
+  filterCategory: '',
+  filterText: undefined,
+};
+
 FilterItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  filterCategory: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  filterCategory: PropTypes.string,
   setFilterCategory: PropTypes.func.isRequired,
-  filterText: PropTypes.string.isRequired,
+  filterText: PropTypes.string,
   setFilterText: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

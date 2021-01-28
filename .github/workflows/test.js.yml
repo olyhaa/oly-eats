@@ -69,7 +69,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          start: npm run start
+          start: npm run start:localhost
           working-directory: client
           wait-on: 'http://localhost:3000'
           command: npm run test:cypress

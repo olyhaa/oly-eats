@@ -113,8 +113,10 @@ function TagTable({
             <MTableToolbar {...props} />
           </div>
         ),
+        /* eslint-disable react/prop-types */
         Row: (props) => (
           <MTableBodyRow
+            /* eslint-disable-next-line react/destructuring-assignment */
             data-test={`tag-table-row-${props.data.id}`}
             {...props}
           />
@@ -122,6 +124,7 @@ function TagTable({
         EditRow: (props) => (
           <MTableEditRow data-test="tag-table-edit-row" {...props} />
         ),
+        /* eslint-enable */
       }}
     />
   );
