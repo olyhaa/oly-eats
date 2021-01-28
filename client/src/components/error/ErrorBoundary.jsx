@@ -1,6 +1,7 @@
 /* eslint react/prop-types: 0 */
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { PAGE_ROUTES } from 'utils/pageConstants';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class ErrorBoundary extends Component {
     const { children } = this.props;
     const { hasError } = this.state;
     if (hasError) {
-      return <Redirect to="/error" />;
+      return <Redirect to={`/${PAGE_ROUTES.ERROR_PAGE}`} />;
     }
 
     return children;

@@ -10,18 +10,16 @@ import {
   getRecipeQuery,
   removeNulls,
   getDeleteRecipeMutation,
-  getUpdateFavoriteRecipeMutation,
 } from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
 import ActionGroup from 'components/add/ActionGroup';
 import DeleteModal from 'components/DeleteModal';
+import { PAGE_ROUTES } from 'utils/pageConstants';
 import Ingredients from '../components/recipe/Ingredients';
 import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
-import Header from '../components/Header';
 import history from '../store/history';
-import CarrotIcon from '../images/carrot.svg';
 import Image from '../components/recipe/Image';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeDetail({ deleteMutation, updateMutation }) {
+function RecipeDetail({ deleteMutation }) {
   const UNMODIFIED = -1;
   const classes = useStyles();
   const { id } = useParams();
@@ -70,12 +68,11 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
   const [recipeServings, setRecipeServings] = useState(UNMODIFIED);
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={`/${PAGE_ROUTES.ERROR_PAGE}`} />;
   }
 
   const { recipe } = removeNulls(data);
   const recipeTitle = recipe ? recipe[RECIPE.TITLE] : '';
-  const isFavorite = recipe ? recipe[RECIPE.IS_FAVORITE] : '';
 
   const handleEditOption = () => {
     history.push(`/editRecipe/${id}`);
@@ -105,33 +102,12 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
     setModalOpen(false);
   };
 
-  const handleFavorite = (newValue) => {
-    updateMutation({
-      variables: { id, isFavorite: newValue },
-      refetchQueries: ['GetAllRecipes', 'GetRecipe'],
-    });
-  };
-
   if (!loading && !recipe) {
-    return (
-      <>
-        <Header title="OlyEats: No Recipe Found" />
-        <div className={classes.missingRecipe}>
-          <img src={CarrotIcon} className={classes.carrot} alt="" />
-          <p className={classes.carrotText}>Nothing but carrots here!</p>
-        </div>
-      </>
-    );
+    return <Redirect to={`/${PAGE_ROUTES.ERROR_PAGE}`} />;
   }
 
   return (
     <>
-      <Header
-        title={recipeTitle}
-        showFavorite
-        isFavorite={!!isFavorite}
-        setIsFavorite={handleFavorite}
-      />
       <div className={classes.mainContent}>
         <div className={classes.root}>
           <Grid container spacing={2} alignItems="stretch">
@@ -241,14 +217,10 @@ function RecipeDetail({ deleteMutation, updateMutation }) {
 }
 RecipeDetail.propTypes = {
   deleteMutation: PropTypes.func.isRequired,
-  updateMutation: PropTypes.func.isRequired,
 };
 
 export default compose(
   graphql(getDeleteRecipeMutation(), {
     name: 'deleteMutation',
-  }),
-  graphql(getUpdateFavoriteRecipeMutation(), {
-    name: 'updateMutation',
   })
 )(RecipeDetail);

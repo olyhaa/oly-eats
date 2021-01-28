@@ -7,8 +7,8 @@ import { useQuery } from '@apollo/react-hooks';
 import { getRecipeQuery, removeNulls } from 'utils/FetchData';
 import { Redirect, useParams } from 'react-router-dom';
 import { decodeRecipe } from 'components/add/utils/decodeRecipe';
+import { PAGE_ROUTES } from 'utils/pageConstants';
 import store from '../components/add/store/store';
-import Header from '../components/Header';
 import AddRecipeForm from '../components/add/AddRecipeForm';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,31 +29,28 @@ function EditRecipe() {
   });
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={`/${PAGE_ROUTES.ERROR_PAGE}`} />;
   }
 
   const { recipe } = removeNulls(data);
   const initialValues = recipe ? decodeRecipe(recipe) : {};
 
   return (
-    <>
-      <Header title="Edit Recipe" />
-      <Provider store={store}>
-        <Grid container justify="center">
-          {loading ? (
-            <>
-              {Array.from(new Array(6)).map(() => (
-                <Grid item xs={12} className={classes.skeletonItem}>
-                  <Skeleton variant="rect" height="100%" width="100%" />
-                </Grid>
-              ))}
-            </>
-          ) : (
-            <AddRecipeForm initialValues={initialValues} isEdit />
-          )}
-        </Grid>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <Grid container justify="center">
+        {loading ? (
+          <>
+            {Array.from(new Array(6)).map(() => (
+              <Grid item xs={12} className={classes.skeletonItem}>
+                <Skeleton variant="rect" height="100%" width="100%" />
+              </Grid>
+            ))}
+          </>
+        ) : (
+          <AddRecipeForm initialValues={initialValues} isEdit />
+        )}
+      </Grid>
+    </Provider>
   );
 }
 

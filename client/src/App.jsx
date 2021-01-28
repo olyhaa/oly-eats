@@ -5,6 +5,8 @@ import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import orange from '@material-ui/core/colors/orange';
 import green from '@material-ui/core/colors/green';
 import ErrorBoundary from 'components/error/ErrorBoundary';
+import Header from 'components/Header';
+import { PAGE_ROUTES } from 'utils/pageConstants';
 import history from './store/history';
 import Home from './pages/Home';
 import AddRecipe from './pages/AddRecipe';
@@ -61,23 +63,24 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider theme={darkTheme}>
         <Router history={history}>
+          <Header />
           <Switch>
             <Route exact path="/">
-              <Redirect to="/home" />
+              <Redirect to={`/${PAGE_ROUTES.HOME_PAGE}`} />
             </Route>
-            <Route path="/admin">
+            <Route path={`/${PAGE_ROUTES.ADMIN_PAGE}`}>
               <AdminHome />
             </Route>
-            <Route path="/recipe/:id">
+            <Route path={`/${PAGE_ROUTES.RECIPE_PAGE}/:id`}>
               <RecipeDetail />
             </Route>
-            <Route path="/addRecipe">
+            <Route path={`/${PAGE_ROUTES.ADD_RECIPE_PAGE}`}>
               <AddRecipe />
             </Route>
-            <Route path="/editRecipe/:id">
+            <Route path={`/${PAGE_ROUTES.EDIT_RECIPE_PAGE}/:id`}>
               <EditRecipe />
             </Route>
-            <Route path="/home">
+            <Route path={`/${PAGE_ROUTES.HOME_PAGE}`}>
               <Home />
             </Route>
             <Route path="*">
