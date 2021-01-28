@@ -9,7 +9,11 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
-import { SEARCH_CATEGORIES, SEARCH_TERMS } from './searchConstants';
+import {
+  FILTER_TYPE,
+  SEARCH_CATEGORIES,
+  SEARCH_TERMS,
+} from './searchConstants';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -40,6 +44,14 @@ function FilterItem({
     })[0];
     return searchTerm.valueLabel;
   };
+
+  const getValueType = () => {
+    const searchTerm = SEARCH_TERMS.filter((termObj) => {
+      return termObj.value === filterCategory;
+    })[0];
+    return searchTerm.type;
+  };
+
   const handleCategoryChange = (event) => {
     setFilterCategory(event.target.value);
   };
@@ -81,6 +93,7 @@ function FilterItem({
               label={getValueLabel()}
               variant="outlined"
               value={filterText}
+              type={getValueType() === FILTER_TYPE.NUM ? 'number' : 'text'}
               onChange={handleFilterTextChange}
             />
           </FormControl>
