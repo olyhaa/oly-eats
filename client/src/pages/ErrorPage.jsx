@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from '../components/Header';
 import CarrotIcon from '../images/carrot.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,13 +19,10 @@ function ErrorPage() {
   const classes = useStyles();
 
   return (
-    <>
-      <Header title="You've Found an Error!" />
-      <div className={classes.root}>
-        <img src={CarrotIcon} className={classes.carrot} alt="" />
-        <p className={classes.carrotText}>Nothing but carrots here!</p>
-      </div>
-    </>
+    <div className={classes.root}>
+      <img src={CarrotIcon} className={classes.carrot} alt="" />
+      <p className={classes.carrotText}>Nothing but carrots here!</p>
+    </div>
   );
 }
 

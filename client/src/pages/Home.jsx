@@ -7,7 +7,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import { useQuery } from '@apollo/react-hooks';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
-import Header from '../components/Header';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
 
@@ -77,7 +76,6 @@ function Home() {
 
   return (
     <>
-      <Header title="OlyEats" />
       <div className={classes.featuredBlock} data-test="featured-list">
         {!loading && featuredRecipeList ? (
           <FeaturedRecipes featuredRecipeList={featuredRecipeList} />
