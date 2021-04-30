@@ -32,6 +32,7 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
+import { RECIPE_DETAIL_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,10 +70,10 @@ const useStyles = makeStyles((theme) => ({
 const handleSuccess = (result) => {
   if (result?.data?.addRecipe?.success) {
     const { id } = result.data.addRecipe.recipe;
-    history.push(`/recipe/${id}`);
+    history.push(`${RECIPE_DETAIL_PAGE}/${id}`);
   } else if (result?.data?.updateRecipe?.success) {
     const { id } = result.data.updateRecipe.recipe;
-    history.push(`/recipe/${id}`);
+    history.push(`${RECIPE_DETAIL_PAGE}/${id}`);
   }
 };
 

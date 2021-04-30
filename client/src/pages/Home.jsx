@@ -9,6 +9,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
+import { ADD_RECIPE_PAGE, ERROR_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   loading: {
@@ -61,7 +62,7 @@ function Home() {
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={ERROR_PAGE} />;
   }
 
   const { recipes: RecipeData } = removeNulls(data);
@@ -117,7 +118,7 @@ function Home() {
           color="primary"
           className={classes.fab}
           component={Link}
-          to="/addRecipe"
+          to={ADD_RECIPE_PAGE}
         >
           <AddIcon />
         </Fab>

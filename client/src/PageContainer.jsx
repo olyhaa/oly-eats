@@ -7,27 +7,34 @@ import EditRecipe from './pages/EditRecipe';
 import AdminHome from './pages/AdminHome';
 import ErrorPage from './pages/ErrorPage';
 import PageLayout from './components/PageLayout';
+import {
+  ADD_RECIPE_PAGE,
+  ADMIN_PAGE,
+  HOME_PAGE,
+  RECIPE_DETAIL_PAGE,
+  EDIT_RECIPE_PAGE,
+} from 'utils/PageConstants';
 
 const PageContainer = () => {
   return (
     <PageLayout>
       <Switch>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to={HOME_PAGE} />
         </Route>
-        <Route path="/admin">
+        <Route path={ADMIN_PAGE}>
           <AdminHome />
         </Route>
-        <Route path="/recipe/:id">
+        <Route path={`${RECIPE_DETAIL_PAGE}/:id`}>
           <RecipeDetail />
         </Route>
-        <Route path="/addRecipe">
+        <Route path={ADD_RECIPE_PAGE}>
           <AddRecipe />
         </Route>
-        <Route path="/editRecipe/:id">
+        <Route path={`${EDIT_RECIPE_PAGE}/:id`}>
           <EditRecipe />
         </Route>
-        <Route path="/home">
+        <Route path={HOME_PAGE}>
           <Home />
         </Route>
         <Route path="*">

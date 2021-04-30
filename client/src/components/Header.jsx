@@ -11,6 +11,7 @@ import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
+import { HOME_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -28,7 +29,12 @@ function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
   return (
     <AppBar position="sticky" className={classes.appBar}>
       <Toolbar>
-        <IconButton edge="start" color="inherit" component={Link} to="/home">
+        <IconButton
+          edge="start"
+          color="inherit"
+          component={Link}
+          to={HOME_PAGE}
+        >
           <img src={CarrotIcon} className="app-logo" alt="OlyEats" />
         </IconButton>
         <Typography
@@ -55,7 +61,7 @@ function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
         <Button
           color="inherit"
           component={Link}
-          to="/admin"
+          to={ADMIN_PAGE}
           data-test="admin-menu"
         >
           Admin

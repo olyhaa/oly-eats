@@ -9,6 +9,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { decodeRecipe } from 'components/add/utils/decodeRecipe';
 import store from '../components/add/store/store';
 import AddRecipeForm from '../components/add/AddRecipeForm';
+import { ERROR_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   skeletonItem: {
@@ -28,7 +29,7 @@ function EditRecipe() {
   });
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={ERROR_PAGE} />;
   }
 
   const { recipe } = removeNulls(data);

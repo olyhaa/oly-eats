@@ -20,6 +20,7 @@ import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import history from '../store/history';
 import Image from '../components/recipe/Image';
+import { EDIT_RECIPE_PAGE, ERROR_PAGE, HOME_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,14 +74,14 @@ function RecipeDetail({ deleteMutation }) {
   const [recipeServings, setRecipeServings] = useState(UNMODIFIED);
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={ERROR_PAGE} />;
   }
 
   const { recipe } = removeNulls(data);
   const recipeTitle = recipe ? recipe[RECIPE.TITLE] : '';
 
   const handleEditOption = () => {
-    history.push(`/editRecipe/${id}`);
+    history.push(`${EDIT_RECIPE_PAGE}/${id}`);
   };
 
   const handleDeleteOption = () => {
@@ -94,7 +95,7 @@ function RecipeDetail({ deleteMutation }) {
     }).then((result) => {
       if (result?.data?.deleteRecipe?.success) {
         setModalOpen(false);
-        history.push(`/home`);
+        history.push(HOME_PAGE);
       }
     });
   };
@@ -108,7 +109,7 @@ function RecipeDetail({ deleteMutation }) {
   };
 
   if (!loading && !recipe) {
-    return <Redirect to="/error" />;
+    return <Redirect to={ERROR_PAGE} />;
   }
 
   return (

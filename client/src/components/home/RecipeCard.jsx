@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 // @ts-ignore
 import DefaultRecipeImg from 'images/defaultRecipeCardImage.png';
+import { RECIPE_DETAIL_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +65,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
         data-test="recipe-card-primary-action"
         className={classes.actionArea}
         component={Link}
-        to={`/recipe/${id}`}
+        to={`${RECIPE_DETAIL_PAGE}/${id}`}
       >
         <CardMedia
           data-test="recipe-card-image"
@@ -101,7 +102,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           size="small"
           color="primary"
           component={Link}
-          to={`/recipe/${id}`}
+          to={`${RECIPE_DETAIL_PAGE}/${id}`}
           data-test="recipe-card-secondary-action"
         >
           {isSmallScreen ? title : buttonText}

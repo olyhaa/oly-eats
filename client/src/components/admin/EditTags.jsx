@@ -14,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
 import { Redirect } from 'react-router-dom';
+import { ERROR_PAGE } from 'utils/PageConstants';
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -84,7 +85,7 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
   };
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={ERROR_PAGE} />;
   }
 
   return (

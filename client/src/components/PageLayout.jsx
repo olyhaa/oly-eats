@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { map, find } from 'ramda';
+import compose from 'lodash.flowright';
 import { useRouteMatch } from 'react-router-dom';
 import { useQuery } from 'react-apollo';
 import { graphql } from '@apollo/react-hoc';
@@ -7,19 +9,25 @@ import {
   getRecipeQuery,
   getUpdateFavoriteRecipeMutation,
 } from 'utils/FetchData';
-import { map, find } from 'ramda';
-import compose from 'lodash.flowright';
 import { RECIPE } from 'utils/recipeConstants';
 import Header from './Header';
+import {
+  ADD_RECIPE_PAGE,
+  ADMIN_PAGE,
+  EDIT_RECIPE_PAGE,
+  ERROR_PAGE,
+  HOME_PAGE,
+  RECIPE_DETAIL_PAGE,
+} from 'utils/PageConstants';
 
 const PageLayout = ({ children, updateMutation }) => {
   const routeMatches = map(useRouteMatch, [
-    '/home',
-    '/admin',
-    '/recipe/:id',
-    '/addRecipe',
-    '/editRecipe/:id',
-    '/error',
+    HOME_PAGE,
+    ADMIN_PAGE,
+    `${RECIPE_DETAIL_PAGE}/:id`,
+    ADD_RECIPE_PAGE,
+    `${EDIT_RECIPE_PAGE}/:id`,
+    ERROR_PAGE,
   ]);
   const match = find((route) => route?.isExact, routeMatches);
   const recipeId = match?.params?.id;
@@ -41,15 +49,15 @@ const PageLayout = ({ children, updateMutation }) => {
   const props = {};
 
   if (match) {
-    if (match.url === '/admin') {
+    if (match.url === ADMIN_PAGE) {
       title = 'OlyEats: Admin';
-    } else if (match.url === '/addRecipe') {
+    } else if (match.url === ADD_RECIPE_PAGE) {
       title = 'New Recipe';
-    } else if (match.url === '/error') {
+    } else if (match.url === ERROR_PAGE) {
       title = "You've Found an Error!";
-    } else if (match.url.includes('/editRecipe')) {
+    } else if (match.url.includes(EDIT_RECIPE_PAGE)) {
       title = 'Edit Recipe';
-    } else if (match.url.includes('/recipe') && recipeId) {
+    } else if (match.url.includes(RECIPE_DETAIL_PAGE) && recipeId) {
       if (recipeDataLoading) {
         title = 'Loading Recipe';
       } else {
