@@ -567,7 +567,7 @@ describe('Add Recipe Page', () => {
       cy.get('[data-test="action-menu"]').should('be.visible').click();
       cy.get('[data-test="action-Delete"]').should('be.visible').click();
       cy.get('[data-test="delete-modal-confirm"]').click();
-      cy.url().should('contain', HOME_PAGE);
+      cy.url().should('contain', '/home');
     });
   });
 });
