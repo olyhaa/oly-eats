@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { RECIPE } from 'utils/recipeConstants';
+import { RECIPE_DETAIL_PAGE } from 'utils/PageConstants';
 import {
   getTagsListQuery,
   getAddRecipeMutation,
@@ -69,10 +70,10 @@ const useStyles = makeStyles((theme) => ({
 const handleSuccess = (result) => {
   if (result?.data?.addRecipe?.success) {
     const { id } = result.data.addRecipe.recipe;
-    history.push(`/recipe/${id}`);
+    history.push(`${RECIPE_DETAIL_PAGE}/${id}`);
   } else if (result?.data?.updateRecipe?.success) {
     const { id } = result.data.updateRecipe.recipe;
-    history.push(`/recipe/${id}`);
+    history.push(`${RECIPE_DETAIL_PAGE}/${id}`);
   }
 };
 

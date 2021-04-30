@@ -7,7 +7,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import { useQuery } from '@apollo/react-hooks';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
-import Header from '../components/Header';
+import { ADD_RECIPE_PAGE, ERROR_PAGE } from 'utils/PageConstants';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
 
@@ -62,7 +62,7 @@ function Home() {
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
   if (error) {
-    return <Redirect to="/error" />;
+    return <Redirect to={ERROR_PAGE} />;
   }
 
   const { recipes: RecipeData } = removeNulls(data);
@@ -77,7 +77,6 @@ function Home() {
 
   return (
     <>
-      <Header title="OlyEats" />
       <div className={classes.featuredBlock} data-test="featured-list">
         {!loading && featuredRecipeList ? (
           <FeaturedRecipes featuredRecipeList={featuredRecipeList} />
@@ -119,7 +118,7 @@ function Home() {
           color="primary"
           className={classes.fab}
           component={Link}
-          to="/addRecipe"
+          to={ADD_RECIPE_PAGE}
         >
           <AddIcon />
         </Fab>

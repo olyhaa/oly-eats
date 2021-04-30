@@ -1,17 +1,12 @@
 import React from 'react';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import orange from '@material-ui/core/colors/orange';
 import green from '@material-ui/core/colors/green';
 import ErrorBoundary from 'components/error/ErrorBoundary';
 import history from './store/history';
-import Home from './pages/Home';
-import AddRecipe from './pages/AddRecipe';
-import RecipeDetail from './pages/RecipeDetail';
-import EditRecipe from './pages/EditRecipe';
-import AdminHome from './pages/AdminHome';
-import ErrorPage from './pages/ErrorPage';
+import PageContainer from './PageContainer';
 
 function App() {
   const darkTheme = createMuiTheme({
@@ -61,29 +56,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider theme={darkTheme}>
         <Router history={history}>
-          <Switch>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-            <Route path="/admin">
-              <AdminHome />
-            </Route>
-            <Route path="/recipe/:id">
-              <RecipeDetail />
-            </Route>
-            <Route path="/addRecipe">
-              <AddRecipe />
-            </Route>
-            <Route path="/editRecipe/:id">
-              <EditRecipe />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Route path="*">
-              <ErrorPage />
-            </Route>
-          </Switch>
+          <PageContainer />
         </Router>
       </ThemeProvider>
     </ErrorBoundary>
