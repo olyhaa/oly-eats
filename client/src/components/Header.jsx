@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { HOME_PAGE } from 'utils/PageConstants';
 import CarrotIcon from '../images/carrot.svg';
 import './Header.css';
-import { HOME_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {

@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { RECIPE } from 'utils/recipeConstants';
+import { RECIPE_DETAIL_PAGE } from 'utils/PageConstants';
 import {
   getTagsListQuery,
   getAddRecipeMutation,
@@ -32,7 +33,6 @@ import { validateAll, asyncValidateAll } from './utils/Validators';
 import { saveRecipe } from './utils/saveRecipe';
 import MultipleSelectField from './MultipleSelectField';
 import TimingInputComponent from './TimingInputComponent';
-import { RECIPE_DETAIL_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {

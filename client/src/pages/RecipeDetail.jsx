@@ -13,6 +13,7 @@ import {
 } from 'utils/FetchData';
 import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
+import { EDIT_RECIPE_PAGE, ERROR_PAGE, HOME_PAGE } from 'utils/PageConstants';
 import ActionGroup from 'components/add/ActionGroup';
 import DeleteModal from 'components/DeleteModal';
 import Ingredients from '../components/recipe/Ingredients';
@@ -20,7 +21,6 @@ import Directions from '../components/recipe/Directions';
 import Overview from '../components/recipe/Overview';
 import history from '../store/history';
 import Image from '../components/recipe/Image';
-import { EDIT_RECIPE_PAGE, ERROR_PAGE, HOME_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   root: {

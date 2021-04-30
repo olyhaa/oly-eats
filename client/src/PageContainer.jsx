@@ -1,12 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Home from './pages/Home';
-import AddRecipe from './pages/AddRecipe';
-import RecipeDetail from './pages/RecipeDetail';
-import EditRecipe from './pages/EditRecipe';
-import AdminHome from './pages/AdminHome';
-import ErrorPage from './pages/ErrorPage';
-import PageLayout from './components/PageLayout';
 import {
   ADD_RECIPE_PAGE,
   ADMIN_PAGE,
@@ -14,6 +7,13 @@ import {
   RECIPE_DETAIL_PAGE,
   EDIT_RECIPE_PAGE,
 } from 'utils/PageConstants';
+import Home from './pages/Home';
+import AddRecipe from './pages/AddRecipe';
+import RecipeDetail from './pages/RecipeDetail';
+import EditRecipe from './pages/EditRecipe';
+import AdminHome from './pages/AdminHome';
+import ErrorPage from './pages/ErrorPage';
+import PageLayout from './components/PageLayout';
 
 const PageContainer = () => {
   return (

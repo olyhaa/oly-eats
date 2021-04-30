@@ -10,7 +10,6 @@ import {
   getUpdateFavoriteRecipeMutation,
 } from 'utils/FetchData';
 import { RECIPE } from 'utils/recipeConstants';
-import Header from './Header';
 import {
   ADD_RECIPE_PAGE,
   ADMIN_PAGE,
@@ -19,6 +18,7 @@ import {
   HOME_PAGE,
   RECIPE_DETAIL_PAGE,
 } from 'utils/PageConstants';
+import Header from './Header';
 
 const PageLayout = ({ children, updateMutation }) => {
   const routeMatches = map(useRouteMatch, [

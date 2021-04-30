@@ -7,9 +7,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
 import { useQuery } from '@apollo/react-hooks';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
+import { ADD_RECIPE_PAGE, ERROR_PAGE } from 'utils/PageConstants';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';
 import SearchGroup from '../components/home/SearchGroup';
-import { ADD_RECIPE_PAGE, ERROR_PAGE } from 'utils/PageConstants';
 
 const useStyles = makeStyles((theme) => ({
   loading: {
