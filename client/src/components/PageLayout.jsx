@@ -49,7 +49,7 @@ const PageLayout = ({ children, updateMutation }) => {
 
   const handleFavorite = (newValue) => {
     updateMutation({
-      variables: { recipeId, isFavorite: newValue },
+      variables: { id: recipeId, isFavorite: newValue },
       refetchQueries: ['GetAllRecipes', 'GetRecipe'],
     });
   };
