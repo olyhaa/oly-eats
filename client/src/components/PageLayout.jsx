@@ -5,6 +5,7 @@ import compose from 'lodash.flowright';
 import { useRouteMatch } from 'react-router-dom';
 import { useQuery } from 'react-apollo';
 import { graphql } from '@apollo/react-hoc';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   getRecipeQuery,
   getUpdateFavoriteRecipeMutation,
@@ -20,7 +21,15 @@ import {
 } from 'utils/PageConstants';
 import Header from './Header';
 
+const useStyles = makeStyles(() => ({
+  mainContent: {
+    maxWidth: '1500px',
+    margin: '0 auto',
+  },
+}));
+
 const PageLayout = ({ children, updateMutation }) => {
+  const classes = useStyles();
   const routeMatches = map(useRouteMatch, [
     HOME_PAGE,
     ADMIN_PAGE,
@@ -71,7 +80,7 @@ const PageLayout = ({ children, updateMutation }) => {
   return (
     <>
       <Header title={title} {...props} />
-      {children}
+      <main className={classes.mainContent}>{children}</main>
     </>
   );
 };
