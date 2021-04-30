@@ -22,3 +22,7 @@ code {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.MuiListItemIcon-root {
+  min-width: 30px !important;
+}

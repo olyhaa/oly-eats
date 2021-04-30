@@ -13,6 +13,9 @@ import IngredientItem from './IngredientItem';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1),
+    },
   },
   title: {
     color: theme.palette.secondary,

@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(5),
     },
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(2),
+    },
   },
   icon: {
     margin: theme.spacing(1),

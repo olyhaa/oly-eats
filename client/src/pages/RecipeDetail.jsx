@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     margin: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      margin: theme.spacing(1),
+    },
   },
   loading: {
     margin: 'auto',
@@ -47,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(5),
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1),
     },
   },
   subtitle: {

@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
   search: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
   },
 }));
 

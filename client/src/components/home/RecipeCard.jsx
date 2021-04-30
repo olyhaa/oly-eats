@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -14,7 +15,7 @@ import DefaultRecipeImg from 'images/defaultRecipeCardImage.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 125,
+    maxWidth: 150,
     height: '100%',
     [theme.breakpoints.up('md')]: {
       maxWidth: 235,
@@ -54,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 function RecipeCard({ id, title, description, image, buttonText }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Card data-test="recipe-card" className={classes.root}>
@@ -101,7 +104,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
           to={`/recipe/${id}`}
           data-test="recipe-card-secondary-action"
         >
-          {buttonText}
+          {isSmallScreen ? title : buttonText}
         </Button>
       </CardActions>
     </Card>

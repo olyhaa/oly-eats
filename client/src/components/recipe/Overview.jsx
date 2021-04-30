@@ -18,6 +18,9 @@ import IconCard from './IconCard';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(1),
+    },
   },
 }));
 

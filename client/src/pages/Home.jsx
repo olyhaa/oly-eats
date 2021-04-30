@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   skeletonSearch: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
   },
   skeletonCard: {
     width: 125,
@@ -39,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   },
   listBlock: {
     margin: theme.spacing(5),
+    [theme.breakpoints.down('xs')]: {
+      margin: theme.spacing(1),
+    },
   },
   fab: {
     margin: 0,
