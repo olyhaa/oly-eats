@@ -4,8 +4,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles } from '@material-ui/core/styles';
 import { RangedAmountPropTypes } from 'propTypes/IngredientsPropTypes';
 import { buildIngredientString } from '../../utils/ingredientParsing/ingredientParser';
+
+const useStyles = makeStyles(() => ({
+  checkboxLabel: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+}));
 
 function IngredientItem({
   index,
@@ -18,6 +26,7 @@ function IngredientItem({
   optional,
   toTaste,
 }) {
+  const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
 
   const handleToggle = (value) => () => {
@@ -66,6 +75,7 @@ function IngredientItem({
         data-test={`ingredient-list-item-string-${index}`}
         id={`item-${index}`}
         primary={ingredientString}
+        classes={{ primary: classes.checkboxLabel }}
       />
     </ListItem>
   );
