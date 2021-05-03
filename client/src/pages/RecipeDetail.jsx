@@ -141,7 +141,7 @@ function RecipeDetail({ deleteMutation }) {
             )}
             {loading ? (
               <Grid className={classes.outerGrid} item md={12} sm={12}>
-                <Grid container spacing={2}>
+                <Grid container spacing={isSmallerScreen ? 1 : 2}>
                   <Grid item xs={12}>
                     <Skeleton variant="rect" width="100%" height={150} />
                   </Grid>

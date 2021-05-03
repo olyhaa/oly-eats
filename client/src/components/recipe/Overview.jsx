@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Paper } from '@material-ui/core';
+import { Paper, useMediaQuery, useTheme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { getDisplayTime, getDisplayDate } from 'utils/formatters';
 import {
@@ -35,6 +35,8 @@ function Overview({
   lastUpdated,
 }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const isSmallerScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const prepTimeDisplay = getDisplayTime(prepTime);
   const totalTimeDisplay = getDisplayTime(totalTime);
@@ -42,7 +44,7 @@ function Overview({
   const lastUpdatedDisplay = getDisplayDate(lastUpdated);
 
   return (
-    <Grid container spacing={2} alignItems="stretch">
+    <Grid container spacing={isSmallerScreen ? 1 : 2} alignItems="stretch">
       {description && (
         <Grid item xs={12}>
           <Paper className={classes.root} data-test="card-description">
