@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Redirect, useParams } from 'react-router-dom';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {
@@ -56,9 +57,9 @@ const useStyles = makeStyles((theme) => ({
   subtitle: {
     color: theme.palette.text.secondary,
   },
-  photoGrid: {
+  outerGrid: {
     width: '100%',
-    height: 'auto',
+    height: '100%',
     alignSelf: 'flex-end',
   },
 }));
@@ -67,6 +68,8 @@ function RecipeDetail({ deleteMutation }) {
   const UNMODIFIED = -1;
   const classes = useStyles();
   const { id } = useParams();
+  const theme = useTheme();
+  const isSmallerScreen = useMediaQuery(theme.breakpoints.down('md'));
   const { data, error, loading } = useQuery(getRecipeQuery(), {
     variables: { id },
   });
@@ -116,14 +119,19 @@ function RecipeDetail({ deleteMutation }) {
     <>
       <div className={classes.mainContent}>
         <div className={classes.root}>
-          <Grid container spacing={2} alignItems="stretch">
+          <Grid
+            container
+            spacing={2}
+            alignItems="stretch"
+            direction={isSmallerScreen ? 'column' : 'row'}
+          >
             {loading ? (
-              <Grid className={classes.photoGrid} item md={6} sm={12}>
+              <Grid className={classes.outerGrid} item lg={6} md={12} sm={12}>
                 <Skeleton variant="rect" width="100%" height={500} />
               </Grid>
             ) : (
               recipe[RECIPE.PHOTO] && (
-                <Grid className={classes.photoGrid} item md={6} sm={12}>
+                <Grid className={classes.outerGrid} item lg={6} md={12} sm={12}>
                   <Image
                     title={recipe[RECIPE.TITLE]}
                     imageSrc={recipe[RECIPE.PHOTO]}
@@ -132,7 +140,7 @@ function RecipeDetail({ deleteMutation }) {
               )
             )}
             {loading ? (
-              <Grid className={classes.photoGrid} item md={6} sm={12}>
+              <Grid className={classes.outerGrid} item md={12} sm={12}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <Skeleton variant="rect" width="100%" height={150} />
@@ -153,9 +161,10 @@ function RecipeDetail({ deleteMutation }) {
               </Grid>
             ) : (
               <Grid
-                className={classes.photoGrid}
+                className={classes.outerGrid}
                 item
-                md={recipe[RECIPE.PHOTO] ? 6 : 12}
+                lg={recipe[RECIPE.PHOTO] ? 6 : 12}
+                md={12}
                 sm={12}
               >
                 <Overview
