@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import compose from 'lodash.flowright';
 import { graphql } from '@apollo/react-hoc';
 import { useQuery } from 'react-apollo';
@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import { TextField } from '@material-ui/core';
 import {
   getRecipeQuery,
   removeNulls,
@@ -30,17 +31,23 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textTransform: 'capitalize',
   },
+  inputInput: {
+    marginRight: theme.spacing(2),
+  },
 }));
 
-function Header({ updateMutation }) {
+function Header({ updateFilterString, updateMutation }) {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const [filterString, setFilterString] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
-  const pageData = PAGE_DATA.filter((pageItem) => {
-    return pageItem.route === pathname.split('/')[1];
-  })[0];
+  const pageData =
+    PAGE_DATA.filter((pageItem) => {
+      return pageItem.route === pathname.split('/')[1];
+    })[0] || PAGE_DATA[0];
 
-  const { title, showFavorite } = pageData;
+  const { title, showFavorite } = pageData || {};
   const isRecipePage = pageData.route === PAGE_ROUTES.RECIPE_PAGE;
   let pageTitle = title;
   let isFavorite = false;
@@ -64,6 +71,22 @@ function Header({ updateMutation }) {
     });
   };
 
+  const handleFilterString = (event) => {
+    setFilterString(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    // submit new string on Enter
+    if (event.keyCode === 13) {
+      updateFilterString(filterString);
+      setRedirect(true);
+    }
+  };
+
+  if (redirect) {
+    return <Redirect to={`/${PAGE_ROUTES.HOME_PAGE}`} />;
+  }
+
   return (
     <AppBar position="sticky" className={classes.appBar}>
       <Toolbar>
@@ -78,6 +101,14 @@ function Header({ updateMutation }) {
         >
           {pageTitle}
         </Typography>
+        <TextField
+          placeholder="Search..."
+          variant="filled"
+          onChange={handleFilterString}
+          onKeyDown={handleKeyPress}
+          className={classes.inputInput}
+          inputProps={{ 'aria-label': 'search', 'data-test': 'search-box' }}
+        />
         {showFavorite && (
           <IconButton
             aria-label="favorite"
@@ -104,7 +135,12 @@ function Header({ updateMutation }) {
   );
 }
 
+Header.defaultProps = {
+  updateFilterString: () => {},
+};
+
 Header.propTypes = {
+  updateFilterString: PropTypes.func,
   updateMutation: PropTypes.func.isRequired,
 };
 

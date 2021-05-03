@@ -16,11 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchGroup({ recipeList }) {
+function SearchGroup({ recipeList, filterString, setFilterString }) {
   const classes = useStyles();
 
   const [filterValue, setFilterValue] = useState([]);
-  const [filterString, setFilterString] = useState('');
   const [filteredList, setFilteredList] = useState(
     recipeList.sort((item1, item2) => {
       return item1.title.localeCompare(item2.title);
@@ -30,6 +29,10 @@ function SearchGroup({ recipeList }) {
   useEffect(() => {
     setFilteredList(filterAndSort(recipeList, filterValue));
   }, [recipeList]);
+
+  useEffect(() => {
+    handleNewFilterString(filterString);
+  }, [filterString]);
 
   const handleNewFilterString = (filterString) => {
     const filterArray = parseFilterString(filterString);
@@ -60,6 +63,10 @@ function SearchGroup({ recipeList }) {
   );
 }
 
+SearchGroup.defaultProps = {
+  filterString: '',
+};
+
 SearchGroup.propTypes = {
   recipeList: PropTypes.arrayOf(
     PropTypes.shape({
@@ -71,6 +78,9 @@ SearchGroup.propTypes = {
       buttonText: PropTypes.string,
     })
   ).isRequired,
+
+  setFilterString: PropTypes.func.isRequired,
+  filterString: PropTypes.string,
 };
 
 export default SearchGroup;

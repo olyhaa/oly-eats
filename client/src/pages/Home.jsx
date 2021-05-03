@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home() {
+function Home({ filterString, setFilterString }) {
   const classes = useStyles();
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
@@ -89,7 +90,11 @@ function Home() {
       </div>
       <div className={classes.listBlock}>
         {!loading ? (
-          <SearchGroup recipeList={RecipeData} />
+          <SearchGroup
+            recipeList={RecipeData}
+            filterString={filterString}
+            setFilterString={setFilterString}
+          />
         ) : (
           <>
             <Skeleton
@@ -119,5 +124,14 @@ function Home() {
     </>
   );
 }
+
+Home.defaultProps = {
+  filterString: '',
+};
+
+Home.propTypes = {
+  setFilterString: PropTypes.func.isRequired,
+  filterString: PropTypes.string,
+};
 
 export default Home;

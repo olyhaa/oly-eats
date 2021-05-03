@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -59,11 +59,13 @@ function App() {
     },
   });
 
+  const [filterString, setFilterString] = useState();
+
   return (
     <ErrorBoundary>
       <ThemeProvider theme={darkTheme}>
         <Router history={history}>
-          <Header />
+          <Header updateFilterString={setFilterString} />
           <Switch>
             <Route exact path="/">
               <Redirect to={`/${PAGE_ROUTES.HOME_PAGE}`} />
@@ -81,7 +83,10 @@ function App() {
               <EditRecipe />
             </Route>
             <Route path={`/${PAGE_ROUTES.HOME_PAGE}`}>
-              <Home />
+              <Home
+                filterString={filterString}
+                setFilterString={setFilterString}
+              />
             </Route>
             <Route path="*">
               <ErrorPage />
