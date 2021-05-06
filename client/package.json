@@ -36,7 +36,6 @@
   ],
   "dependencies": {
     "@apollo/client": "^3.3.16",
-    "@apollo/react-hoc": "^4.0.0",
     "@apollo/react-hooks": "^3.1.5",
     "@babel/runtime": "^7.14.0",
     "@hot-loader/react-dom": "^16.14.0",
