@@ -51,7 +51,7 @@ export const createStore = () => {
     dialect: 'sqlite',
     storage: './src/db/store.sqlite',
     operatorsAliases,
-    logging: true,
+    logging: false,
   });
 
   // define Models
