@@ -31,6 +31,7 @@ const styleLoaders = () => {
     },
   ].filter(Boolean);
 };
+
 const optimization = {
   optimization: {
     noEmitOnErrors: true,
@@ -51,6 +52,7 @@ const optimization = {
   },
   performance: { hints: false },
 };
+
 const loaders = [
   {
     test: /\.(js|jsx)$/,
@@ -69,12 +71,6 @@ const loaders = [
         },
       },
     ],
-  },
-  {
-    // Raw text loader
-    test: /\.(txt|cer)$/,
-    use: 'raw-loader',
-    // is this correct or should it be in bracckers
   },
   // File loaders
   {
@@ -121,6 +117,7 @@ const loaders = [
     options: { limit: 8192, name: 'static/images/[name].[hash].[ext]' },
   },
 ];
+
 const plugins = [
   new ObsoleteWebpackPlugin({
     nme: 'obsolete',
@@ -137,7 +134,7 @@ module.exports = {
   module: { rules: loaders },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
-    modules: [project.paths.client(), project.paths.static(), 'node_modules'],
+    modules: [project.paths.client(), 'node_modules'],
     alias: { 'react-dom': '@hot-loader/react-dom' },
   },
 };

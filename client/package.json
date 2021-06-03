@@ -62,8 +62,7 @@
     "react-redux-form": "^1.16.14",
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0",
-    "redux-form": "^8.3.7",
-    "stylelint": "^13.13.1"
+    "redux-form": "^8.3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
@@ -119,15 +118,14 @@
     "postcss-url": "^8.0.0",
     "prettier": "^2.2.1",
     "pretty-quick": "^2.0.2",
-    "raw-loader": "^4.0.2",
     "react-hot-loader": "^4.13.0",
+    "stylelint": "^13.13.1",
     "stylelint-webpack-plugin": "^1.2.3",
     "svg-url-loader": "^5.0.1",
     "url-loader": "^4.1.1",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
-    "webpack-md5-hash": "0.0.6",
     "webpack-merge": "^4.2.2",
     "yargs": "^15.4.1"
   }
