@@ -7,7 +7,7 @@ export const fieldInputPropType = PropTypes.shape({
   onDragStart: PropTypes.func,
   onDrop: PropTypes.func,
   onFocus: PropTypes.func,
-  value: PropTypes.any,
+  value: PropTypes.string,
 });
 
 export const fieldMetaPropType = PropTypes.shape({
