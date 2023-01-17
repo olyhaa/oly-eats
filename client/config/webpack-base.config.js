@@ -1,6 +1,5 @@
 const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const ObsoleteWebpackPlugin = require('obsolete-webpack-plugin');
 const project = require('./project.config');
 
 const { globals } = project;
@@ -118,14 +117,7 @@ const loaders = [
   },
 ];
 
-const plugins = [
-  new ObsoleteWebpackPlugin({
-    nme: 'obsolete',
-    promptnNonTargetBrowser: true,
-    template:
-      '<style>#content { text-align: center; background-color: #f7f7f7; color: #cc0000;} #obsoleteClose {font-size: x-large; color: #cc0000;} #download-link {text-decoration: underline;} </style></style><div id="content">Your web browser is unsupported. Please upgrade to the latest <a id="download-link" target="_blank" rel="noopener noreferrer" href="https://www.whatismybrowser.com">version.</a> <button id="obsoleteClose" aria-label="close">&times;</button></div>',
-  }),
-];
+const plugins = [];
 
 module.exports = {
   output,
