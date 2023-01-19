@@ -23,9 +23,9 @@
     ]
   },
   "dependencies": {
+    "@apollo/server": "^4.3.0",
     "apollo-datasource": "^0.7.3",
-    "apollo-server": "2.25.4",
-    "graphql": "^15.5.0",
+    "graphql": "^16.6.0",
     "nodemon": "^2.0.20",
     "sequelize": "^6.6.2",
     "sqlite3": "^5.0.3"
