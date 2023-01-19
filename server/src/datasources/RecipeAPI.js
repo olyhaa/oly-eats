@@ -1,10 +1,8 @@
-import { DataSource } from 'apollo-datasource';
 import { TIMINGS } from '../constants';
 import { recipeReducer, recipeMutationReducer } from './RecipeReducer';
 
-class RecipeAPI extends DataSource {
+class RecipeAPI {
   constructor({ store }) {
-    super();
     this.store = store;
   }
 

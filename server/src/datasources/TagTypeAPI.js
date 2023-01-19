@@ -1,9 +1,7 @@
-import { DataSource } from 'apollo-datasource';
 import { tagTypeReducer, tagTypeMutationReducer } from './TagTypeReducer';
 
-class TagTypeAPI extends DataSource {
+class TagTypeAPI {
   constructor({ store }) {
-    super();
     this.store = store;
   }
 
