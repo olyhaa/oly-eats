@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditModal from 'components/admin/EditModal';
 import compose from 'lodash.flowright';
-import { graphql } from '@apollo/react-hoc';
+import { gql as graphql } from '@apollo/client';
 import {
   getAddTagTypeMutation,
   getUpdateTagTypeMutation,

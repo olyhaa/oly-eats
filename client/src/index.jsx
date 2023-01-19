@@ -2,10 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import React from 'react';
 import { render } from 'react-dom';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloClient, InMemoryCache, ApolloProvider,HttpLink } from '@apollo/client';
 import './index.css';
 import App from './App';
 

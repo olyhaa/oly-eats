@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, useParams } from 'react-router-dom';
 import compose from 'lodash.flowright';
-import { graphql } from '@apollo/react-hoc';
+import { useQuery, gql as graphql } from '@apollo/client';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,6 @@ import {
   removeNulls,
   getDeleteRecipeMutation,
 } from 'utils/FetchData';
-import { useQuery } from 'react-apollo';
 import { RECIPE } from 'utils/recipeConstants';
 import { EDIT_RECIPE_PAGE, ERROR_PAGE, HOME_PAGE } from 'utils/PageConstants';
 import ActionGroup from 'components/add/ActionGroup';

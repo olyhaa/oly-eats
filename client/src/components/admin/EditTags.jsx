@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, gql as graphql } from '@apollo/client';
 import {
   getTagsListQuery,
   getAddTagMutation,
@@ -12,7 +12,6 @@ import TagTable from 'components/admin/TagTable';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import compose from 'lodash.flowright';
-import { graphql } from '@apollo/react-hoc';
 import { Redirect } from 'react-router-dom';
 import { ERROR_PAGE } from 'utils/PageConstants';
 
