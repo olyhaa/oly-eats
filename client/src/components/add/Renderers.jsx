@@ -10,7 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import { FIELDS } from './constants/formConstants';
 
 export const onlyNums = (value, previousValue) => {
-  const pattern = new RegExp(/^[0-9]*$/);
+  const pattern = /^[0-9]*$/;
   return pattern.test(value) ? Math.min(Number(value), 100) : previousValue;
 };
 

@@ -59,7 +59,7 @@ const SearchDropdown = ({ filters, setFilterValue }) => {
         filters.length > 0 &&
         filters.map((filterItem, index) => {
           if (filterItem.category === SEARCH_CATEGORIES.ATTRIBUTES) {
-            return <></>;
+            return null;
           }
           return (
             <FilterItem
