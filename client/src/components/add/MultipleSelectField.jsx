@@ -43,13 +43,14 @@ const MultipleSelectField = ({
   label,
   value,
   required,
-  childrenList,
+  childrenList: childList,
   children,
   ...custom
 }) => {
   const classes = useStyles();
   const [selectedValues, setSelectedValues] = useState(input.value || []);
   const id = label.split(' ').join('_').trim();
+  const childrenList = [...childList];
 
   if (!childrenList) {
     console.log(`Error loading ${label} Multiple Select Field`);
