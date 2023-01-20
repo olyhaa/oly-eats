@@ -5,7 +5,7 @@ const project = require('./project.config');
 const { globals } = project;
 const { __DEV__ } = globals;
 const output = {
-  filename: 'static/js/[name].[hash].js',
+  filename: 'static/js/[name].[contenthash].js',
   chunkFilename: 'static/js/[name].[chunkhash].js',
   publicPath: '/',
   path: project.paths.dist(),
@@ -15,7 +15,6 @@ const styleLoaders = () => {
   return [
     {
       loader: MiniCSSExtractPlugin.loader,
-      options: { hmr: __DEV__, reloadAll: true },
     },
     {
       loader: 'css-loader',
@@ -33,21 +32,7 @@ const styleLoaders = () => {
 
 const optimization = {
   optimization: {
-    noEmitOnErrors: true,
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-      maxInitialRequests: Infinity,
-      minSize: 0,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          enforce: true,
-          chunks: 'all',
-        },
-      },
-    },
+    emitOnErrors: false,
   },
   performance: { hints: false },
 };
@@ -79,7 +64,7 @@ const loaders = [
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: './font/[hash].[ext]',
+          name: './font/[contenthash].[ext]',
           mimetype: 'application/font-woff',
         },
       },
@@ -87,33 +72,81 @@ const loaders = [
   },
   {
     test: /\.woff2(\?.*)?$/,
-    loader:
-      'url-loader?prefix=fonts/&name=static/[path][name].[ext]&limit=10000&mimetype=application/font-woff2',
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          prefix: 'fonts/',
+          name: 'static/[path][name].[ext]',
+          limit: 10000,
+          mimetype: 'application/font-woff2',
+        },
+      },
+    ],
   },
   {
     test: /\.otf(\?.*)?$/,
-    loader:
-      'file-loader?prefix=fonts/&name=static/[path][name].[ext]&limit=10000&mimetype=font/opentype',
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          prefix: 'fonts/',
+          name: 'static/[path][name].[ext]',
+          limit: 10000,
+          mimetype: 'font/opentype',
+        },
+      },
+    ],
   },
   {
     test: /\.ttf(\?.*)?$/,
-    loader:
-      'url-loader?prefix=fonts/&name=static/[path][name].[ext]&limit=10000&mimetype=application/octet-stream',
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          prefix: 'fonts/',
+          name: 'static/[path][name].[ext]',
+          limit: 10000,
+          mimetype: 'application/octet-stream',
+        },
+      },
+    ],
   },
   {
     test: /\.eot(\?.*)?$/,
-    loader: 'file-loader?prefix=fonts/&name=static/[path][name].[ext]',
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          prefix: 'fonts/',
+          name: 'static/[path][name].[ext]',
+        },
+      },
+    ],
   },
   {
     test: /\.gif(\?.*)?$/,
-    loader: 'file-loader',
-    options: { name: '[path][name].[ext]' },
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+        },
+      },
+    ],
   },
   {
     test: /\.(png|jpg|ico)$/,
     include: /src(\/|\\)images/,
-    loader: 'url-loader',
-    options: { limit: 8192, name: 'static/images/[name].[hash].[ext]' },
+    use: [
+      {
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          name: 'static/images/[name].[contenthash].[ext]',
+        },
+      },
+    ],
   },
 ];
 

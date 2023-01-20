@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 const path = require('path');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
@@ -25,11 +25,15 @@ const webpackConfig = merge(webpackBaseConfig, {
   devServer: {
     host: devServerHost,
     port: 3000,
-    hot: true,
+    hot: 'only',
     open: true,
     historyApiFallback: true,
-    writeToDisk: true,
-    contentBase: project.paths.dist(),
+    devMiddleware: {
+      writeToDisk: true,
+    },
+    static: {
+      directory: project.paths.dist(),
+    },
   },
   plugins: [
     // delete all files in dist dir before build
