@@ -4,7 +4,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { getRecipeQuery, removeNulls } from 'utils/FetchData';
 import { ERROR_PAGE } from 'utils/PageConstants';
 import { decodeRecipe } from 'components/add/utils/decodeRecipe';
