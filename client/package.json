@@ -47,7 +47,6 @@
     "apollo-client": "^2.6.10",
     "date-fns": "^2.29.3",
     "graphql": "^15.5.0",
-    "graphql-tag": "^2.12.4",
     "lodash.flowright": "^3.5.0",
     "material-table": "^1.69.3",
     "numeric-quantity": "^0.5.2",
