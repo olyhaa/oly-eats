@@ -84,10 +84,9 @@ function TagTable({
       title={title}
       icons={tableIcons}
       columns={columns}
-      data={tags.map((
-        ({ id, label }) => {
-        return {id, label}
-      }))}
+      data={tags.map(({ id, label }) => {
+        return { id, label };
+      })}
       options={{
         pageSize: 10,
         actionsColumnIndex: -1,
