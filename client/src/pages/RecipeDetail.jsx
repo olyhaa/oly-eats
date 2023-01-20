@@ -12,7 +12,7 @@ import {
   removeNulls,
   getDeleteRecipeMutation,
 } from 'utils/FetchData';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import { RECIPE } from 'utils/recipeConstants';
 import { EDIT_RECIPE_PAGE, ERROR_PAGE, HOME_PAGE } from 'utils/PageConstants';
 import ActionGroup from 'components/add/ActionGroup';
