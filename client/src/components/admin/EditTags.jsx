@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditTags({ addMutation, updateMutation, deleteMutation }) {
+const EditTags = ({ addMutation, updateMutation, deleteMutation }) => {
   const classes = useStyles();
   const { data: tagTypeData, loading, error } = useQuery(getTagsListQuery());
   const [selectedTagTypeIndex, setSelectedTagTypeIndex] = useState(0);
@@ -113,7 +113,7 @@ function EditTags({ addMutation, updateMutation, deleteMutation }) {
       )}
     </>
   );
-}
+};
 
 EditTags.propTypes = {
   deleteMutation: PropTypes.func.isRequired,

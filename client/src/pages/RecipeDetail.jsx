@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeDetail({ deleteMutation }) {
+const RecipeDetail = ({ deleteMutation }) => {
   const UNMODIFIED = -1;
   const classes = useStyles();
   const { id } = useParams();
@@ -229,7 +229,8 @@ function RecipeDetail({ deleteMutation }) {
       />
     </>
   );
-}
+};
+
 RecipeDetail.propTypes = {
   deleteMutation: PropTypes.func.isRequired,
 };

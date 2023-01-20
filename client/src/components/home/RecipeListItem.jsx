@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-function RecipeListItem({ title, description, image }) {
+
+const RecipeListItem = ({ title, description, image }) => {
   const classes = useStyles();
   return (
     <>
@@ -34,7 +35,7 @@ function RecipeListItem({ title, description, image }) {
       />
     </>
   );
-}
+};
 
 RecipeListItem.propTypes = {
   title: PropTypes.string.isRequired,

@@ -8,7 +8,7 @@ import ErrorBoundary from 'components/error/ErrorBoundary';
 import history from './store/history';
 import PageContainer from './PageContainer';
 
-function App() {
+const App = () => {
   const darkTheme = createMuiTheme({
     breakpoints: {
       values: {
@@ -61,6 +61,6 @@ function App() {
       </ThemeProvider>
     </ErrorBoundary>
   );
-}
+};
 
 export default App;

@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TagTable({
+const TagTable = ({
   title,
   allTagTypes,
   tags,
@@ -75,7 +75,7 @@ function TagTable({
   handleDelete,
   selectedTagTypeIndex,
   handleSelectTagTypeIndex,
-}) {
+}) => {
   const classes = useStyles();
   const columns = [{ title: 'Name', field: 'label' }];
 
@@ -103,6 +103,7 @@ function TagTable({
         },
       }}
       components={{
+        /* eslint-disable */
         Toolbar: (props) => (
           <div data-test="tag-table-toolbar" className={classes.tableHeader}>
             {allTagTypes && (
@@ -115,7 +116,6 @@ function TagTable({
             <MTableToolbar {...props} />
           </div>
         ),
-        /* eslint-disable react/prop-types */
         Row: (props) => (
           <MTableBodyRow
             /* eslint-disable-next-line react/destructuring-assignment */
@@ -130,7 +130,7 @@ function TagTable({
       }}
     />
   );
-}
+};
 
 TagTable.defaultProps = {
   selectedTagTypeIndex: 0,

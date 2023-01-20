@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeList({ list }) {
+const RecipeList = ({ list }) => {
   const classes = useStyles();
 
   return list.length > 0 ? (
@@ -54,7 +54,7 @@ function RecipeList({ list }) {
       <p className={classes.carrotText}>Nothing but carrots here!</p>
     </div>
   );
-}
+};
 
 RecipeList.propTypes = {
   list: PropTypes.arrayOf(

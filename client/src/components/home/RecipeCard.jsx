@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function RecipeCard({ id, title, description, image, buttonText }) {
+const RecipeCard = ({ id, title, description, image, buttonText }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -110,7 +110,7 @@ function RecipeCard({ id, title, description, image, buttonText }) {
       </CardActions>
     </Card>
   );
-}
+};
 
 RecipeCard.propTypes = {
   id: PropTypes.string.isRequired,

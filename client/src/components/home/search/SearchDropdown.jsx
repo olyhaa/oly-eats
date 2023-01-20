@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchDropdown({ filters, setFilterValue }) {
+const SearchDropdown = ({ filters, setFilterValue }) => {
   const classes = useStyles();
 
   const handleCategoryUpdate = (index, newCategory) => {
@@ -92,7 +92,7 @@ function SearchDropdown({ filters, setFilterValue }) {
       </Button>
     </div>
   );
-}
+};
 
 SearchDropdown.propTypes = {
   filters: PropTypes.arrayOf(

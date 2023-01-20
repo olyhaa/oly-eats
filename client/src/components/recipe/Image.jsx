@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Image({ title, imageSrc }) {
+const Image = ({ title, imageSrc }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.photoBox}>
@@ -40,7 +40,7 @@ function Image({ title, imageSrc }) {
       />
     </Paper>
   );
-}
+};
 
 Image.propTypes = {
   title: PropTypes.string.isRequired,

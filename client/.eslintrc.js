@@ -31,5 +31,9 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'no-plusplus': 'off',
     'no-console': 'off',
+    'react/function-component-definition': [
+      2,
+      { namedComponents: 'arrow-function' },
+    ],
   },
 };

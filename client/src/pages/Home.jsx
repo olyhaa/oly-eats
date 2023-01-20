@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home() {
+const Home = () => {
   const classes = useStyles();
   const { data, error, loading } = useQuery(getAllRecipesQuery());
 
@@ -125,6 +125,6 @@ function Home() {
       )}
     </>
   );
-}
+};
 
 export default Home;

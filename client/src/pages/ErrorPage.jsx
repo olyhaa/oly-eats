@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2rem',
   },
 }));
-function ErrorPage() {
+
+const ErrorPage = () => {
   const classes = useStyles();
 
   return (
@@ -24,6 +25,6 @@ function ErrorPage() {
       <p className={classes.carrotText}>Nothing but carrots here!</p>
     </div>
   );
-}
+};
 
 export default ErrorPage;

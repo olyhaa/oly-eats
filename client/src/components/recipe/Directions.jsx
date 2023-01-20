@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Directions({ directionsList }) {
+const Directions = ({ directionsList }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root} data-test="directions-box">
@@ -29,7 +29,7 @@ function Directions({ directionsList }) {
       })}
     </Paper>
   );
-}
+};
 
 Directions.propTypes = {
   directionsList: PropTypes.arrayOf(
