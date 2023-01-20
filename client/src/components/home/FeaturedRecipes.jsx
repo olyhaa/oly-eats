@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import RecipeCard from './RecipeCard';
 
-function FeaturedRecipes({ featuredRecipeList }) {
+const FeaturedRecipes = ({ featuredRecipeList }) => {
   return (
     <Grid container justify="center" spacing={2}>
       {featuredRecipeList.map((recipe) => (
@@ -19,7 +19,7 @@ function FeaturedRecipes({ featuredRecipeList }) {
       ))}
     </Grid>
   );
-}
+};
 
 FeaturedRecipes.propTypes = {
   featuredRecipeList: PropTypes.arrayOf(

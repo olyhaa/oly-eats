@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import store from '../components/add/store/store';
 import AddRecipeForm from '../components/add/AddRecipeForm';
 
-function AddRecipe() {
+const AddRecipe = () => {
   const initialValues = {};
   initialValues[FIELDS.INGREDIENTS] = [{}];
   initialValues[FIELDS.DIRECTIONS] = [{}];
@@ -16,6 +16,6 @@ function AddRecipe() {
       </Grid>
     </Provider>
   );
-}
+};
 
 export default AddRecipe;

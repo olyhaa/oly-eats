@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function IngredientSection({ label, ingredients, recipeScale }) {
+const IngredientSection = ({ label, ingredients, recipeScale }) => {
   const classes = useStyles();
   return (
     <Box
@@ -62,7 +62,7 @@ function IngredientSection({ label, ingredients, recipeScale }) {
       </List>
     </Box>
   );
-}
+};
 
 IngredientSection.propTypes = {
   label: PropTypes.string,

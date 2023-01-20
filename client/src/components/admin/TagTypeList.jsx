@@ -38,14 +38,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TagTypeList({
+const TagTypeList = ({
   allTagTypes,
   selectedTagTypeIndex,
   handleSelectTagTypeIndex,
   addMutation,
   updateMutation,
   deleteMutation,
-}) {
+}) => {
   const classes = useStyles();
   const [addModalOpenState, setAddModalOpen] = useState(false);
   const [updateModalOpenState, setUpdateModalOpen] = useState(false);
@@ -180,7 +180,7 @@ function TagTypeList({
       />
     </div>
   );
-}
+};
 
 TagTypeList.defaultProps = {
   selectedTagTypeIndex: 0,

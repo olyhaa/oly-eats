@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchDropdown({ filters, setFilterValue }) {
+const SearchDropdown = ({ filters, setFilterValue }) => {
   const classes = useStyles();
 
   const handleCategoryUpdate = (index, newCategory) => {
@@ -59,7 +59,7 @@ function SearchDropdown({ filters, setFilterValue }) {
         filters.length > 0 &&
         filters.map((filterItem, index) => {
           if (filterItem.category === SEARCH_CATEGORIES.ATTRIBUTES) {
-            return <></>;
+            return null;
           }
           return (
             <FilterItem
@@ -92,7 +92,7 @@ function SearchDropdown({ filters, setFilterValue }) {
       </Button>
     </div>
   );
-}
+};
 
 SearchDropdown.propTypes = {
   filters: PropTypes.arrayOf(

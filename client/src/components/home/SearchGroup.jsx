@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchGroup({ recipeList }) {
+const SearchGroup = ({ recipeList }) => {
   const classes = useStyles();
 
   const [filterValue, setFilterValue] = useState([]);
@@ -62,7 +62,7 @@ function SearchGroup({ recipeList }) {
       <RecipeList list={filteredList} />
     </>
   );
-}
+};
 
 SearchGroup.propTypes = {
   recipeList: PropTypes.arrayOf(

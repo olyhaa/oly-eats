@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   title: {},
 }));
 
-function DirectionSection({ label, steps }) {
+const DirectionSection = ({ label, steps }) => {
   const classes = useStyles();
   return (
     <Box
@@ -52,7 +52,7 @@ function DirectionSection({ label, steps }) {
       </List>
     </Box>
   );
-}
+};
 
 DirectionSection.propTypes = {
   label: PropTypes.string,

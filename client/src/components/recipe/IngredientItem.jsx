@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function IngredientItem({
+const IngredientItem = ({
   index,
   recipeScale,
   amount,
@@ -25,7 +25,7 @@ function IngredientItem({
   prep,
   optional,
   toTaste,
-}) {
+}) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
 
@@ -79,7 +79,7 @@ function IngredientItem({
       />
     </ListItem>
   );
-}
+};
 
 IngredientItem.propTypes = {
   index: PropTypes.number.isRequired,

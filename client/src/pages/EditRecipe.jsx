@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditRecipe() {
+const EditRecipe = () => {
   const classes = useStyles();
   const { id } = useParams();
   const { data, error, loading } = useQuery(getRecipeQuery(), {
@@ -52,6 +52,6 @@ function EditRecipe() {
       </Grid>
     </Provider>
   );
-}
+};
 
 export default EditRecipe;

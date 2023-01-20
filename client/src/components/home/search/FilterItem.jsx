@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function FilterItem({
+const FilterItem = ({
   id,
   filterCategory,
   setFilterCategory,
   filterText,
   setFilterText,
   handleDelete,
-}) {
+}) => {
   const classes = useStyles();
   const getValueLabel = () => {
     const searchTerm = SEARCH_TERMS.filter((termObj) => {
@@ -113,7 +113,7 @@ function FilterItem({
       )}
     </div>
   );
-}
+};
 
 FilterItem.defaultProps = {
   filterCategory: '',

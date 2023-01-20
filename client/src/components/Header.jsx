@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
+const Header = ({ title, showFavorite, isFavorite, setIsFavorite }) => {
   const classes = useStyles();
 
   return (
@@ -69,7 +69,7 @@ function Header({ title, showFavorite, isFavorite, setIsFavorite }) {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 Header.defaultProps = {
   isFavorite: false,

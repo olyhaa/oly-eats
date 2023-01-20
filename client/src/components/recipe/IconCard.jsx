@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function IconCard({ title, display, value, type, updateValue }) {
+const IconCard = ({ title, display, value, type, updateValue }) => {
   const classes = useStyles();
   const [editModalOpenState, setEditModalOpen] = useState(false);
 
@@ -152,7 +152,7 @@ function IconCard({ title, display, value, type, updateValue }) {
       )}
     </>
   );
-}
+};
 
 IconCard.propTypes = {
   title: PropTypes.string.isRequired,

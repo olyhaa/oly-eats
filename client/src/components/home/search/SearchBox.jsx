@@ -40,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchBox({
+const SearchBox = ({
   filterString,
   setNewFilterString,
   filterValue,
   setNewFilterValue,
-}) {
+}) => {
   const classes = useStyles();
 
   const isFavorite = !isEmpty(
@@ -121,7 +121,7 @@ function SearchBox({
       </ExpansionPanel>
     </div>
   );
-}
+};
 
 SearchBox.propTypes = {
   filterString: PropTypes.string.isRequired,

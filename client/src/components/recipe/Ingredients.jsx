@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Ingredients({ ingredientList, recipeScale }) {
+const Ingredients = ({ ingredientList, recipeScale }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root} data-test="ingredient-box">
@@ -32,7 +32,7 @@ function Ingredients({ ingredientList, recipeScale }) {
       })}
     </Paper>
   );
-}
+};
 
 Ingredients.propTypes = {
   ingredientList: PropTypes.arrayOf(

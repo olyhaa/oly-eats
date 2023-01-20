@@ -77,7 +77,7 @@ const handleSuccess = (result) => {
   }
 };
 
-function AddRecipeForm({
+const AddRecipeForm = ({
   pristine,
   handleSubmit,
   submitting,
@@ -85,7 +85,7 @@ function AddRecipeForm({
   isEdit,
   addMutation,
   updateMutation,
-}) {
+}) => {
   const classes = useStyles();
   const { data: allTagsData, loading: allTagsLoading } = useQuery(
     getTagsListQuery()
@@ -234,7 +234,7 @@ function AddRecipeForm({
       {submitSucceeded && <p>Sent!!!</p>}
     </form>
   );
-}
+};
 
 AddRecipeForm.propTypes = {
   pristine: PropTypes.bool.isRequired,

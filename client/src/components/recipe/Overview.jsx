@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Overview({
+const Overview = ({
   description,
   prepTime,
   totalTime,
@@ -33,7 +33,7 @@ function Overview({
   source,
   dateAdded,
   lastUpdated,
-}) {
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallerScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -112,7 +112,7 @@ function Overview({
       )}
     </Grid>
   );
-}
+};
 
 Overview.propTypes = {
   prepTime: PropTypes.arrayOf(
