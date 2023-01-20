@@ -45,7 +45,6 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@reduxjs/toolkit": "^1.8.5",
     "apollo-client": "^2.6.10",
-    "apollo-link-http": "^1.5.17",
     "date-fns": "^2.29.3",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.12.4",
