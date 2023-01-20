@@ -5,7 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Grid from '@material-ui/core/Grid';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { getAllRecipesQuery, removeNulls } from 'utils/FetchData';
 import { ADD_RECIPE_PAGE, ERROR_PAGE } from 'utils/PageConstants';
 import FeaturedRecipes from '../components/home/FeaturedRecipes';

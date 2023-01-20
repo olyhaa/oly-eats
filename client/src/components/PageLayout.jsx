@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { map, find } from 'ramda';
 import compose from 'lodash.flowright';
 import { useRouteMatch } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
-import { graphql } from '@apollo/react-hoc';
+import { useQuery } from '@apollo/client';
+import { graphql } from '@apollo/client/react/hoc';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   getRecipeQuery,
