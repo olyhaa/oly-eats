@@ -24,7 +24,6 @@ const styleLoaders = () => {
       loader: 'postcss-loader',
       options: {
         sourceMap: true,
-        config: { path: path.join(__dirname, '/postcss.config.js') },
       },
     },
   ].filter(Boolean);
