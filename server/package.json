@@ -23,7 +23,7 @@
     ]
   },
   "dependencies": {
-    "@apollo/server": "^4.3.0",
+    "@apollo/server": "^4.7.4",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "nodemon": "^2.0.20",
