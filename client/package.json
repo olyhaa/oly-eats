@@ -81,7 +81,7 @@
     "core-js": "^3.11.2",
     "css-loader": "^6.7.3",
     "cssnano": "^5.1.14",
-    "cypress": "^6.9.1",
+    "cypress": "^13.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
